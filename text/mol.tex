@@ -1,0 +1,188 @@
+\hypertarget{technische-umsetzung-server}{%
+\section{Technische Umsetzung:
+Server}\label{technische-umsetzung-server}}
+
+Die Inventur- sowie Gegenstandsdaten der HTL Rennweg sollen an einem
+zentralen Ort verwaltet und geführt werden. Für den dafür eingesetzten
+Server ergeben sich also bestimmte Anforderungen:
+
+\begin{itemize}
+\tightlist
+\item
+  eine einfache Datenbankverwaltung und -verbindung
+\item
+  das Führen einer Historie aller Zustände der Inventar-Gegenständen
+\item
+  eine Grundlage für eine Web-Administrationsoberfläche
+\item
+  die Möglichkeit für Daten Import- und Export, etwa als
+  \emph{.xlsx}\index{.xlsx: Format einer Excel Datei} Datei
+\item
+  eine Grundlage für die Kommunikation mit der Client-Applikation
+\item
+  hohe Stabilität und Verfügbarkeit
+\end{itemize}
+
+Angesichts der Programmiersprachen, in die das Projektteam spezialisiert
+ist, stehen als Backend-Lösung 4
+\emph{Frameworks}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt.}
+zur öffentlichen Verfügung, zwischen denen entschieden wurde:
+
+\begin{itemize}
+\tightlist
+\item
+  Django \cite{django}
+\item
+  Pyramid \cite{pyramid}
+\item
+  Web2Py \cite{web2py}
+\item
+  Flask \cite{flask}
+\end{itemize}
+
+Alle genannten Alternativen sind
+\emph{Frameworks}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt.}
+der Programmiersprache Python. Gewählt wurde die Alternative ``Django''
+aufgrund einer bestehenden und frei verfügbaren
+Inventarverwaltungsplattform ``Ralph'' \cite{ralph}, welche auf Django
+aufbaut und durch die vorliegende Diplomarbeit hinreichend erweitert
+wird.
+
+\hypertarget{django-und-ralph}{%
+\subsection{Django und Ralph}\label{django-und-ralph}}
+
+Django ist ein in der Programmiersprache Python geschriebenes
+Webserver-\emph{Framework}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt.}.
+Ralph ist eine auf dem
+Django-\emph{Framework}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt.}
+basierende
+\emph{DCIM}\index{DCIM: Data Center Infrastructure Management} und
+\emph{CMDB}\index{CMDB: Configuration Management Database}
+Softwarelösung. Haupteinsatzgebiet der Software sind vor allem
+Rechenzentren mit hoher Komplexität, die externe Verwaltungsplattformen
+benötigen. Zusätzlich können aber auch herkömmliche Inventardaten von
+IT-spezifischen Gegenständen in die Ralph-Plattform aufgenommen werden.
+
+Ralph wurde von der polnischen Softwarefirma ``Allegro'' entwickelt und
+ist unter der Apache 2.0 Lizenz öffentlich verfügbar. Dies ermöglicht
+auch Veränderungen und Erweiterungen.
+
+Die vorliegende Diplomarbeit bietet eine Erweiterung des Ralph-Systems.
+
+\hypertarget{begruxfcndung-der-wahl-von-django-und-ralph}{%
+\subsubsection{Begründung der Wahl von Django und
+Ralph}\label{begruxfcndung-der-wahl-von-django-und-ralph}}
+
+Django bietet eine weit verbreitete Open-Source Lösung für die
+Entwicklung von Web-Diensten. Bekannte Webseiten, die auf Django
+basieren sind u.a. Instagram, Mozilla, Pinterest und Open Stack.
+\cite{django-overview} Django zeichnet sich besonders durch die sog.
+\emph{"Batteries included"}\index{Batteries included: Das standardmäßige Vorhandensein von erwünschten bzw. gängigen Features, zu Deutsch: "Batterien einbezogen"}
+Mentalität aus. Das heißt, dass Django bereits die gängigsten Features
+eines Webserver-Backends standardmäßig innehat. Diese sind (im Vergleich
+zu beispielsweise der Alternative ``Flask'') u.a.
+
+\begin{itemize}
+\tightlist
+\item
+  Authentifikation und Autorisierung, sowie eine damit verbundene
+  Benutzerverwaltung
+\item
+  Schutz vor gängigen Attacken (wie
+  \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem}
+  oder
+  \emph{CSRF}\index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken.\cite{csrf}}\cite{csrf}
+  , siehe \todo{[Verweis auf Kapitel Django-Forms und Templates]})
+\end{itemize}
+
+Zusätzlich bietet Ralph bereits einige Features, die die grundgegende
+Führung und Verwaltung eines herkömmlichen Inventars unterstützen
+(beispielsweise eine Suchfunktion mit automatischer
+Textvervollständigung).
+
+\hypertarget{kurzfassung-der-funktionsweise-von-django-und-rlaph}{%
+\subsection{Kurzfassung der Funktionsweise von Django und
+Rlaph}\label{kurzfassung-der-funktionsweise-von-django-und-rlaph}}
+
+Im folgenden Kapitel wird die Funktionsweise des
+Django-\emph{Frameworks}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt.},
+sowie Ralph beschrieben. Ziel dieses Kapitels ist es, eine Wissensbasis
+für die darauffolgenden Kapitel zu schaffen.
+
+\hypertarget{datenbank-verbindung-pakete-und-tabellen-definition}{%
+\subsubsection{Datenbank-Verbindung, Pakete und
+Tabellen-Definition}\label{datenbank-verbindung-pakete-und-tabellen-definition}}
+
+Folgende Datenbank-Arten werden von Django unterstützt:
+
+\begin{itemize}
+\tightlist
+\item
+  PostgreSQL
+\item
+  MariaDB
+\item
+  MySQL
+\item
+  Oracle
+\item
+  SQLite
+\end{itemize}
+
+Die Konfiguration der Datenbank-Verbindung geschieht unter
+Standard-Django in der Datei \texttt{settings.py} , unter Ralph in der
+jeweiligen Datei im Verzeichnis \texttt{settings} Eine detaillierte
+Anleitung zur Verbindung mit einer Datenbank ist in der offiziellen
+Django-Dokumentation\cite{django-doku-db} zu finden.
+
+Die verschiedenen Funktionsbereiche des Servers sind in Paketen bzw.
+Module gegliedert. Jedes Paket ist ein Ordner, der verschiedene Dateien
+und Unterordner beinhalten kann. Die Dateinamen-Nomenklatur eines
+Packets ist normalisiert\cite{django-file-nomenklatur}. Der Name eines
+Pakets wird fortläufig App-Label genannt. Standardmäßig ist dieser Name
+erster Bestandteil einer URL zu einer beliebigen grafischen
+Administrationsoberfläche des Pakets. Pakete werden durch einen Eintrag
+in die Variable \texttt{INSTALLED\_APPS} innerhalb der o.a.
+Einstellungsdatei registriert. Beispiele sind die beiden durch die
+vorliegende Diplomarbeit registrierten Pakete \texttt{"ralph.capentory"}
+und \texttt{"ralph.stocktaking"}
+
+Ist ein Python-Paket erfolgreich registriert, konnen in der Datei
+\texttt{models.py} Datenbank-Tabellen als python Klassen (abgeleitet von
+der Superklasse \texttt{Model}\cite{django-doku-models} definiert
+werden. Diese Klassen werden daher fortlaufend als ``Modell''
+bezeichnet. Tabellenattribute werden als Attribute dieser Klassen
+definiert und sind jeweils Instanzen der Superklasse
+\texttt{Field}\cite{django-doku-models}. Datenbankeinträge können
+demnach als python Objekte betrachtet und behandelt werden.
+
+Jedes Modell benötigt eine innere Klasse \texttt{Meta}. Sie beschreibt
+die
+\emph{Metadaten}\index{Metadaten: Daten, die einen gegebenen Datensatz beschreiben, beispielsweise der Autor eines Buches}.
+Dazu gehört vor allem der von Benuzern lesbare Name des Modells
+\texttt{verbose\_name}. \cite{django-doku-models-options}
+
+\hypertarget{api-und-drf}{%
+\subsubsection{API und DRF}\label{api-und-drf}}
+
+Um Daten außerhalb der grafischen Administrationsoberfläche zu
+bearbeiten, wird eine
+\emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht}
+benötigt. Eine besondere und weit verbreitete Form einer API ist eine
+\emph{REST-API}
+\index{REST-API: Representational State Transfer \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} - eine zustandslose Schnittstelle für den Datenaustausch zwischen Clients und Servern \cite{rest-api}}
+\cite{rest-api}, die unter Django durch das integrierte \emph{DRF}
+\textbackslash index\{DRF: Django REST Framework - Implementierung einer
+\emph{REST-API}\index{REST-API: Representational State Transfer \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} unter Django}
+implementiert wird.\cite{django-rest-framework} API Definitionen werden
+unter Django in einem Paket in der Datei \texttt{api.py} getätigt.
+
+\todo{Ignore below content for now}
+
+\ldots{} irgendwo im Intro: bezüglich folgender 2 Aspekte: * Eine
+Inventurfunktion für die Validierung von Gegenständen und die Verwaltung
+von Änderungen die durch eine Inventur entstehen, sowie die benötigte
+Kommunikation mit der Client-Applikation, die für die Durchführung von
+Inventuren benutzt wird. * Eine zentralisierte Verwaltungsplatform der
+in der HTL Rennweg geführten Inventarlisten, besonders der
+SAP-Datenbank.
