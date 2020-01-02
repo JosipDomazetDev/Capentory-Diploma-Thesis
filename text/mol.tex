@@ -100,7 +100,7 @@ zu Alternativen wie etwa ``Flask'') u.a.:
 
 Zusätzlich bietet Ralph bereits einige
 \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems},
-die die grundgegende Führung und Verwaltung eines herkömmlichen
+die die grundlegende Führung und Verwaltung eines herkömmlichen
 Inventars unterstützen (beispielsweise eine Suchfunktion mit
 automatischer Textvervollständigung).
 
@@ -151,7 +151,7 @@ Einstellungsdatei registriert. Beispiele sind die beiden durch die
 vorliegende Diplomarbeit registrierten Pakete \texttt{"ralph.capentory"}
 und \texttt{"ralph.stocktaking"}
 
-Ist ein Python-Paket erfolgreich registriert, konnen in der Datei
+Ist ein Python-Paket erfolgreich registriert, können in der Datei
 \texttt{models.py} Datenbank-Tabellen als python Klassen\footnote{erbend
   von der Superklasse \texttt{Model}\cite{django-doku-models}} definiert
 werden. Diese Klassen werden fortlaufend als ``Modell'' bezeichnet.
@@ -170,7 +170,7 @@ offiziellen Django-Dokumentation genauer behandelt.
 Jedes Modell benötigt eine innere Klasse \texttt{Meta}. Sie beschreibt
 die
 \emph{Metadaten}\index{Metadaten: Daten, die einen gegebenen Datensatz beschreiben, beispielsweise der Autor eines Buches}
-der Modellklasse. Dazu gehört vor allem der von Benuzern lesbare Name
+der Modellklasse. Dazu gehört vor allem der von Benutzern lesbare Name
 des Modells \texttt{verbose\_name}. \cite{django-doku-models-options}
 
 \hypertarget{administration-uxfcber-das-webinterface}{%
@@ -204,7 +204,7 @@ Klassen werden in der Datei \texttt{forms.py} definiert und besitzen,
 Um die \texttt{ModelAdmin}
 \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
 über eine URL erreichbar zu machen, müssen diese registriert werden.
-Dies geschiet durch den \texttt{register}
+Dies geschieht durch den \texttt{register}
 \emph{Dekorator}\index{Dekorator: Fügt unter Python einer Klasse oder Methode eine bestimmte Funktionsweise hinzu \cite{python-decorators}}.
 Dieser Dekorator akzeptiert die zu registrierende Modellklasse, die zu
 dem \texttt{ModelAdmin} gehört, als Parameter. Die Listenansicht einer
@@ -225,8 +225,8 @@ erreichbar, die Detailansicht einer Modellinstanz unter der URL
 unter der sie definiert wurde.
 
 Die Dokumentation der Administrationsfeatures von Django ist auf der
-offizielen Dokumentationswebseite von Django \cite{django-doku-admin} zu
-finden.
+offiziellen Dokumentationswebseite von Django \cite{django-doku-admin}
+zu finden.
 
 \hypertarget{api-und-drf}{%
 \subsubsection{API und DRF}\label{api-und-drf}}
@@ -255,13 +255,13 @@ aus der Datenbank repräsentiert und in das gewünschte Format
 konvertiert. Durch \texttt{APIView} Klassen werden Berechtigungen und
 sonstige Attribute definiert, die sich auf das wahrgenommene
 Erscheinungsbild des Servers auf einen Client auswirken. Beispiel dafür
-ist die Art der
-\emph{Paginierung}\cite{django-rest-framework}\index{Paginierung: engl. pagination - Die Aufteilung von Datensätzen in diskrete Seiten \cite{django-rest-framework-pagination}}.
+ist die Art der \emph{Paginierung}
+\cite{django-rest-framework}\index{Paginierung: engl. pagination - Die Aufteilung von Datensätzen in diskrete Seiten \cite{django-rest-framework-pagination}}.
 Die erstellten \texttt{APIView} Klassen können dann mithilfe einer
 \texttt{Router}\footnote{Unter Ralph steht hierfür die globale
-  \texttt{RalphRouter} Instanz \texttt{router}zur Verfügung.
+  \texttt{RalphRouter} Instanz \texttt{router} zur Verfügung.
   \cite{ralph-api-doku}} Instanz registriert werden. Anleitungen zur
-Erstellung dieser API-Klassen sind auf der offizielen Webseite des DRF
+Erstellung dieser API-Klassen sind auf der offiziellen Webseite des DRF
 \cite{django-rest-framework} und der offiziellen
 Ralph-Dokumentationsseite \cite{ralph-api-doku} zu finden.
 
@@ -292,13 +292,13 @@ beispielsweise \texttt{if} Statements direkt in der Definition des
 Templates zur Verfügung. Die Benutzung von Templates schützt
 standardmäßig gegen gängige Attacken, wie
 \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem}
-oder
-\emph{CSRF}\index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}\cite{csrf}
+oder \emph{CSRF}
+\index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}\cite{csrf}
 und gilt daher als besonders sicher.
 
 Da reguläre Views nicht automatisch registriert werden, müssen sie
-manuell bekanntegegeben werden. Dies geschieht durch einen Eintrag in
-die Variable \texttt{urlpatterns} in der Datei \texttt{urls.py}.
+manuell bekanntgegeben werden. Dies geschieht durch einen Eintrag in die
+Variable \texttt{urlpatterns} in der Datei \texttt{urls.py}.
 \cite{django-doku-urls}
 
 \hypertarget{designgrundlagen}{%
