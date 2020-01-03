@@ -143,8 +143,8 @@ Die verschiedenen Funktionsbereiche des Servers sind in Pakete bzw.
 Module gegliedert. Jedes Paket ist ein Ordner, der verschiedene Dateien
 und Unterordner beinhalten kann. Die Dateinamen-Nomenklatur eines
 Packets ist normiert.\cite{django-file-nomenklatur} Der Name eines
-Pakets wird fortlaufend ``App-Label'' genannt. Standardmäßig ist dieser
-Name erster Bestandteil einer URL zu einer beliebigen grafischen
+Pakets wird fortan ``App-Label'' genannt. Standardmäßig ist dieser Name
+erster Bestandteil einer URL zu einer beliebigen grafischen
 Administrationsoberfläche des Pakets. Pakete werden durch einen Eintrag
 in die Variable \texttt{INSTALLED\_APPS} innerhalb der o.a.
 Einstellungsdatei registriert. Beispiele sind die beiden durch die
@@ -154,7 +154,7 @@ und \texttt{"ralph.stocktaking"}
 Ist ein Python-Paket erfolgreich registriert, können in der Datei
 \texttt{models.py} Datenbank-Tabellen als python Klassen\footnote{erbend
   von der Superklasse \texttt{Model}\cite{django-doku-models}} definiert
-werden. Diese Klassen werden fortlaufend als ``Modell'' bezeichnet.
+werden. Diese Klassen werden fortan als ``Modell'' bezeichnet.
 Tabellenattribute werden als Attribute dieser Klassen definiert und sind
 jeweils Instanzen der Klasse
 \texttt{Field}\cite{django-doku-models}\footnote{oder davon erbende
@@ -277,8 +277,8 @@ der Klasse \texttt{View}\footnote{die ebenfalls Superklasse der Klasse
   \texttt{ApiView} ist} \cite{django-doku-class-based-views} oder
 vereinzelte Methoden mit einem \texttt{request}\footnote{zu Deutch:
   Anfrage; entspricht dem empfangenen Packet, meist als HTML.}
-Parameter. \cite{django-doku-views} Diese Schnittstellen werden
-fortlaufend Views genannt.
+Parameter. \cite{django-doku-views} Diese Schnittstellen werden fortan
+Views genannt.
 
 Soll ein View als Antwort auf eine Anfrage HTML-Daten liefern, so sollte
 dazu ein \emph{Template}\index{Template: zu Deutch: Vorlage, Schablone}
@@ -300,6 +300,45 @@ Da reguläre Views nicht automatisch registriert werden, müssen sie
 manuell bekanntgegeben werden. Dies geschieht durch einen Eintrag in die
 Variable \texttt{urlpatterns} in der Datei \texttt{urls.py}.
 \cite{django-doku-urls}
+
+\hypertarget{datenbankabfragen}{%
+\subsubsection{Datenbankabfragen}\label{datenbankabfragen}}
+
+Datenbankabfragen werden in Django durch \texttt{Queryset}-Objekte
+getätigt. Das Definieren eines \texttt{Queryset}-Objekts löst nicht
+sofort eine Datenbankabfrage aus. Erst, wenn Werte aus einem
+\texttt{Queryset}-Objekt gelesen werden, wird eine Datenbankabfrage
+ausgelöst. So kann ein \texttt{Queryset}-Objekt beliebig oft verändert
+werden, bevor davon ausgelesen wird. Ein Beispiel hierfür ist das
+Anwenden der \texttt{filter()} Methode.
+
+In dem folgenden Code-Auszug\footnote{entnommen aus der offiziellen
+  Django Dokumentation \cite{django-doku-queries}} werden aus dem Modell
+\texttt{Entry} bestimmte Einträge gefiltert:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Erstelle ein Queryset aller Entry{-}Objekte, }
+\CommentTok{\# dessen Attribut "headline" mit "What" beginnt.}
+\NormalTok{q }\OperatorTok{=}\NormalTok{ Entry.objects.}\BuiltInTok{filter}\NormalTok{(headline\_\_startswith}\OperatorTok{=}\StringTok{"What"}\NormalTok{)}
+
+\CommentTok{\# Filtere aus dem erstellten Queryset alle Entry{-}Objekte, }
+\CommentTok{\# dessen Attribut "pub\_date" kleiner oder gleich }
+\CommentTok{\# dem aktuellen Datum ist.}
+\NormalTok{q }\OperatorTok{=}\NormalTok{ q.}\BuiltInTok{filter}\NormalTok{(pub\_date\_\_lte}\OperatorTok{=}\NormalTok{datetime.date.today())}
+
+\CommentTok{\# Schließe aus dem erstellten Queryset alle Entry{-}Objekte, }
+\CommentTok{\# dessen Attribut "body\_text" den Text "food" beinhaltet, aus.}
+\NormalTok{q }\OperatorTok{=}\NormalTok{ q.exclude(body\_text\_\_icontains}\OperatorTok{=}\StringTok{"food"}\NormalTok{)}
+
+\CommentTok{\# Ausgabe des erstellten Querysets.}
+\CommentTok{\# Erst hier kommt es zu der ersten Datenbankabfrage!}
+\BuiltInTok{print}\NormalTok{(q)}
+\end{Highlighting}
+\end{Shaded}
+
+Weitere Beispiele und Methoden sind der offiziellen Django-Dokumentation
+zu entnehmen. \cite{django-doku-queries}
 
 \hypertarget{designgrundlagen}{%
 \subsubsection{Designgrundlagen}\label{designgrundlagen}}

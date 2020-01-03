@@ -54,13 +54,13 @@ Die Konfiguration der Datenbank-Verbindung geschieht unter Standard-Django in de
 Eine detaillierte Anleitung zur Verbindung mit einer Datenbank ist in der offiziellen Django-Dokumentation \cite{django-doku-db} zu finden.
 
 
-Die verschiedenen Funktionsbereiche des Servers sind in Pakete bzw. Module gegliedert. Jedes Paket ist ein Ordner, der verschiedene Dateien und Unterordner beinhalten kann. Die Dateinamen-Nomenklatur eines Packets ist normiert.\cite{django-file-nomenklatur} Der Name eines Pakets wird fortlaufend "App-Label" genannt. Standardmäßig ist dieser Name erster Bestandteil einer URL zu einer beliebigen grafischen Administrationsoberfläche des Pakets.
+Die verschiedenen Funktionsbereiche des Servers sind in Pakete bzw. Module gegliedert. Jedes Paket ist ein Ordner, der verschiedene Dateien und Unterordner beinhalten kann. Die Dateinamen-Nomenklatur eines Packets ist normiert.\cite{django-file-nomenklatur} Der Name eines Pakets wird fortan "App-Label" genannt. Standardmäßig ist dieser Name erster Bestandteil einer URL zu einer beliebigen grafischen Administrationsoberfläche des Pakets.
 Pakete werden durch einen Eintrag in die Variable `INSTALLED_APPS`
 innerhalb der o.a. Einstellungsdatei registriert. Beispiele sind die beiden durch die vorliegende Diplomarbeit registrierten Pakete `"ralph.capentory"` und  `"ralph.stocktaking"`
 
 
 Ist ein Python-Paket erfolgreich registriert, können in der Datei `models.py`
-Datenbank-Tabellen als python Klassen[^model-class-inheritance] definiert werden. Diese Klassen werden fortlaufend als "Modell" bezeichnet. 
+Datenbank-Tabellen als python Klassen[^model-class-inheritance] definiert werden. Diese Klassen werden fortan als "Modell" bezeichnet. 
 Tabellenattribute werden als Attribute dieser Klassen definiert und sind jeweils Instanzen der Klasse `Field`\cite{django-doku-models}[^field-class-inheritance]. Datenbankeinträge können demnach als Instanzen der Modellklassen betrachtet und behandelt werden. Standardmäßig besitzt jedes Modell ein Attribut `id`, welches als \emph{primärer Schlüssel}\index{primärer Schlüssel: engl. "primary key", abgek. "pk" - ein Attribut, das einen Datensatz eindeutig identifiziert} dient. Der Wert des `id` Attributs ist unter allen Instanzen eines Modells einzigartig. Die Anpassung dieses Attributs wird in der offiziellen Django-Dokumentation genauer behandelt. \cite{django-doku-models}
 
 Jedes Modell benötigt eine innere Klasse `Meta`. Sie beschreibt  die \emph{Metadaten}\index{Metadaten: Daten, die einen gegebenen Datensatz beschreiben, beispielsweise der Autor eines Buches} der Modellklasse. Dazu gehört vor allem der von Benutzern lesbare Name des Modells `verbose_name`. \cite{django-doku-models-options}
@@ -106,7 +106,7 @@ Um den API-Zugriff auf ein Modell zu ermöglichen werden üblicherweise eine `AP
 ### Views
 
 Schnittstellen, die keiner der beiden o.a. Kategorien zugeordnet werden können, werden in der Datei `views.py` definiert. Bei diesen \emph{generischen}\index{generisch: in einem allgemeingültigen Sinn} Schnittstellen handelt es sich entweder um \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} der Klasse `View`[^view-apiview-inheritance] \cite{django-doku-class-based-views} oder vereinzelte Methoden mit einem `request`[^request-german] Parameter. \cite{django-doku-views}
-Diese Schnittstellen werden fortlaufend Views genannt.
+Diese Schnittstellen werden fortan Views genannt.
 
 Soll ein View als Antwort auf eine Anfrage HTML-Daten liefern, so sollte dazu ein \emph{Template}\index{Template: zu Deutch: Vorlage, Schablone} verwendet werden. Mithilfe von Templates können Daten, die etwa durch Datenbankabfrage entstehen, zu einer HTML Antwort aufbereitet werden. Besonders ist hierbei die zusätzlich zu HTML verfügbare Django-Template-\emph{Syntax}\index{Syntax: Regelwerk, sprachliche Einheiten miteinander zu verknüpfen \cite{syntax}} \cite{django-doku-template}. Damit können HTML Elemente auf den Input-Daten basierend dynamisch generiert werden. So stehen beispielsweise `if` Statements direkt in der Definition des Templates zur Verfügung.
 Die Benutzung von Templates schützt standardmäßig gegen gängige Attacken, wie \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem} oder \emph{CSRF} \index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}\cite{csrf} und gilt daher als besonders sicher.
@@ -116,6 +116,32 @@ Da reguläre Views nicht automatisch registriert werden, müssen sie manuell bek
 [^view-apiview-inheritance]: die ebenfalls Superklasse der Klasse `ApiView` ist
 [^request-german]: zu Deutch: Anfrage; entspricht dem empfangenen Packet, meist als HTML. 
 
+### Datenbankabfragen
+
+Datenbankabfragen werden in Django durch `Queryset`-Objekte getätigt. Das Definieren eines `Queryset`-Objekts löst nicht sofort eine Datenbankabfrage aus. Erst, wenn Werte aus einem `Queryset`-Objekt gelesen werden, wird eine Datenbankabfrage ausgelöst. So kann ein `Queryset`-Objekt beliebig oft verändert werden, bevor davon ausgelesen wird. Ein Beispiel hierfür ist das Anwenden der `filter()` Methode.
+
+In dem folgenden Code-Auszug[^django-query-example] werden aus dem Modell `Entry` bestimmte Einträge gefiltert: 
+```python
+# Erstelle ein Queryset aller Entry-Objekte, 
+# dessen Attribut "headline" mit "What" beginnt.
+q = Entry.objects.filter(headline__startswith="What")
+
+# Filtere aus dem erstellten Queryset alle Entry-Objekte, 
+# dessen Attribut "pub_date" kleiner oder gleich 
+# dem aktuellen Datum ist.
+q = q.filter(pub_date__lte=datetime.date.today())
+
+# Schließe aus dem erstellten Queryset alle Entry-Objekte, 
+# dessen Attribut "body_text" den Text "food" beinhaltet, aus.
+q = q.exclude(body_text__icontains="food")
+
+# Ausgabe des erstellten Querysets.
+# Erst hier kommt es zu der ersten Datenbankabfrage!
+print(q)
+```
+Weitere Beispiele und Methoden sind der offiziellen Django-Dokumentation zu entnehmen. \cite{django-doku-queries}
+
+[^django-query-example]: entnommen aus der offiziellen Django Dokumentation \cite{django-doku-queries}
 
 ### Designgrundlagen
 
