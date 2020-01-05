@@ -1,3 +1,158 @@
 \hypertarget{technische-umsetzung-infrastruktur}{%
 \section{Technische Umsetzung:
 Infrastruktur}\label{technische-umsetzung-infrastruktur}}
+
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\date{}
+
+\begin{document}
+
+\hypertarget{technische-umsetzung-infrastruktur}{%
+\section{Technische Umsetzung:
+Infrastruktur}\label{technische-umsetzung-infrastruktur}}
+
+Um allen Kunden einen problemlosen Produktivbetrieb zu gewährleisten
+muss ein physischer Server aufgesetzt werden. Auf diesem können dann
+alle Komponenten unseres Git-Repositories geklont und betriebsbereit
+installiert werden. Dafür gab es folgende Punkte zu erfüllen:
+
+\begin{itemize}
+\tightlist
+\item
+  das Organisieren eines Servers
+\item
+  das Aufsetzen eines Betriebssystemes
+\item
+  die Konfiguration der notwendigen Applikationen
+\item
+  die Konfiguration der Netzwerkschnittstellen
+\item
+  das Testen der Konnektivität im Netzwerk
+\item
+  die Containervirtualisierung der einzelnen Komponenten (z.B.
+  Datenbank, Webserver, \ldots)
+\item
+  das Verfassen einer Serverdokumentation
+\item
+  die Absicherung der Maschine
+\item
+  die Überwachung des Netzwerks
+\end{itemize}
+
+In den folgenden Kapitel wird deutlich gemacht, wie die oben angeführten
+Punkte, im Rahmen der Diplomarbeit ``Capentory'' abgearbeitet wurden.
+
+\hypertarget{anschaffung-des-servers}{%
+\subsection{Anschaffung des Servers}\label{anschaffung-des-servers}}
+
+Den 5. Klassen wird, dank gesponserter Infrastruktur, im Rahmen ihrer
+Diplomarbeit ein Diplomarbeitscluster zur Verfügung gestellt. Damit
+können sich alle Diplomarbeitsteams problemlos Zugang zu ihrer eigenen
+virtualisierten Maschine verschaffen. Die Virtualisierung dieses großen
+Servercluster funktioniert mittels einer ProxMox-Umgebung.
+
+\hypertarget{proxmox}{%
+\subsubsection{ProxMox}\label{proxmox}}
+
+Proxmox Virtual Environment (kurz PVE) ist eine auf Debian und KVM
+basierende Virtualisierungs-Plattform zum Betrieb von
+Gast-Betriebssystemen. Vorteile: * läuft auf fast jeder x86-Hardware *
+frei verfügbar * ab 3 Servern Hochverfügbarkeit
+
+Jedoch liegen alle Maschinen der Diplomarbeitsteams in einem eigens
+gebaut und gesicherten Virtual Private Networks (VPN), sodass nur
+mittels eines eingerichteten Tools auf den virtualisierten Server
+zugegriffen werden kann.
+
+\hypertarget{forticlient}{%
+\subsubsection{FortiClient}\label{forticlient}}
+
+FortiClient ermöglicht es, eines VPN-Konnektivität anhand von IPsec oder
+SSL zu erstellen. Die Datenübertragung wird verschlüsselt und damit der
+enstandene Datenstrom vollständig gesichert über einen sogenannten
+``Tunnel'' übertragen.
+
+Da die Diplomarbeit ``Capentory'' jedoch Erreichbarkeit im Schulnetz
+verlangt, muss die Maschine in einem Ausmaß abgesichert werden, damit
+sie ohne Bedenken in das Schulnetz gehängt werden kann. Dafür müssen
+folgende Punkte gewährleistet sein: * Konfiguration beider Firewalls
+(siehe Punkt \textbf{Serversicherung}) * Wohlüberlegte Passwörter und
+Zugriffsrechte
+
+\hypertarget{das-aufsetzen-eines-betriebssystemes}{%
+\subsection{Das Aufsetzen eines
+Betriebssystemes}\label{das-aufsetzen-eines-betriebssystemes}}
+
+\hypertarget{konfiguration-der-netzwerkschnittstellen}{%
+\subsection{Konfiguration der
+Netzwerkschnittstellen}\label{konfiguration-der-netzwerkschnittstellen}}
+
+\hypertarget{konfiguration-der-notwendigen-applikationen}{%
+\subsection{Konfiguration der notwendigen
+Applikationen}\label{konfiguration-der-notwendigen-applikationen}}
+
+\hypertarget{testen-der-konnektivituxe4t-im-netzwerk}{%
+\subsection{Testen der Konnektivität im
+Netzwerk}\label{testen-der-konnektivituxe4t-im-netzwerk}}
+
+\hypertarget{containervirtualisierung-der-einzelnen-komponenten}{%
+\subsection{Containervirtualisierung der einzelnen
+Komponenten}\label{containervirtualisierung-der-einzelnen-komponenten}}
+
+\hypertarget{verfassen-einer-serverdokumentation}{%
+\subsection{Verfassen einer
+Serverdokumentation}\label{verfassen-einer-serverdokumentation}}
+
+\hypertarget{serversicherung}{%
+\subsection{Serversicherung}\label{serversicherung}}
+
+\hypertarget{uxfcberwachung-des-netzwerks}{%
+\subsection{Überwachung des
+Netzwerks}\label{uxfcberwachung-des-netzwerks}}
+
+\end{document}
