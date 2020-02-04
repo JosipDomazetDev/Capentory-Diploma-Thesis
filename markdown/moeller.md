@@ -1,6 +1,5 @@
+\chapter{Einführung in die Server-Architektur}
 
-Technische Umsetzung: Server
-=============================
 Die Inventur- sowie Gegenstandsdaten der HTL Rennweg sollen an einem zentralen Ort verwaltet und geführt werden. Der für diesen Zweck entwickelte Server muss also folgende Anforderungen erfüllen:
 
 * eine einfache Datenbankverwaltung und -verbindung
@@ -20,7 +19,7 @@ Angesichts der Programmiersprachen, in die das Projektteam spezialisiert ist, st
 Alle genannten Alternativen sind \emph{Frameworks}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt} der Programmiersprache Python. Gewählt wurde "Django" aufgrund einer bestehenden und frei verfügbaren Inventarverwaltungsplattform "Ralph" \cite{ralph}, welche auf Django aufbaut und durch die vorliegende Diplomarbeit hinreichend erweitert wird. 
 
 
-## Django und Ralph
+# Django und Ralph
 
 Django ist ein in der Programmiersprache Python geschriebenes Webserver-\emph{Framework}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt}. Ralph ist eine auf dem Django-\emph{Framework}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt} basierende \emph{DCIM}\index{DCIM: Data Center Infrastructure Management - Software, die zur Verwaltung von Rechenzentren entwickelt wird } und \emph{CMDB}\index{CMDB: Configuration Management Database - Eine Datenbank, die für die Konfiguration von IT-Geräten entwickelt ist \cite{cmdb}} Softwarelösung. Haupteinsatzgebiet dieser Software sind vor allem Rechenzentren mit hoher Komplexität, die externe Verwaltungsplattformen benötigen. Zusätzlich können aber auch herkömmliche Inventardaten von IT-spezifischen Gegenständen in die Ralph-Plattform aufgenommen werden. 
 
@@ -28,7 +27,7 @@ Ralph wurde von der polnischen Softwarefirma "Allegro" entwickelt und ist unter 
 
 Die vorliegende Diplomarbeit bietet eine Erweiterung des Ralph-Systems.
 
-### Begründung der Wahl von Django und Ralph
+## Begründung der Wahl von Django und Ralph
 Django bietet eine weit verbreitete Open-Source Lösung für die Entwicklung von Web-Diensten. Bekannte Webseiten, die auf Django basieren sind u.a. Instagram, Mozilla, Pinterest und Open Stack. \cite{django-overview}
 Django zeichnet sich besonders durch die sog. \emph{"Batteries included"}\index{Batteries included: Das standardmäßige Vorhandensein von erwünschten bzw. gängigen \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems}, zu Deutsch: Batterien einbezogen} Mentalität aus. Das heißt, dass Django bereits die gängigsten \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems} eines Webserver-Backends standardmäßig innehat. Diese sind (im Vergleich zu Alternativen wie etwa "Flask") u.a.:
 
@@ -37,10 +36,10 @@ Django zeichnet sich besonders durch die sog. \emph{"Batteries included"}\index{
 
 Zusätzlich bietet Ralph bereits einige \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems}, die die grundlegende Führung und Verwaltung eines herkömmlichen Inventars unterstützen (beispielsweise eine Suchfunktion mit automatischer Textvervollständigung). 
 
-## Kurzfassung der Funktionsweise von Django und Rlaph
+# Kurzfassung der Funktionsweise von Django und Rlaph
 Im folgenden Kapitel wird die Funktionsweise des Django-\emph{Frameworks}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt}, sowie Ralph beschrieben. Ziel dieses Kapitels ist es, eine Wissensbasis für die darauffolgenden Kapitel zu schaffen.
 
-### Datenbank-Verbindung, Pakete und Tabellen-Definition
+## Datenbank-Verbindung, Pakete und Tabellen-Definition
 Folgende Datenbank-Typen werden von Django unterstützt:
 
 * PostgreSQL
@@ -68,7 +67,7 @@ Jedes Modell benötigt eine innere Klasse `Meta`. Sie beschreibt  die \emph{Meta
 [^model-class-inheritance]: erbend von der Superklasse `Model`\cite{django-doku-models}
 [^field-class-inheritance]: oder davon erbende Klassen
 
-### Administration über das Webinterface
+## Administration über das Webinterface
 
 Um die Administration von Modelldaten über das Webinterface des Servers zu ermöglichen, werden grundsätzlich zwei Ansichten der Daten benötigt: Eine Listenansicht aller Datensätze und eine Detailansicht einzelner Datensätze. 
 
@@ -92,7 +91,7 @@ Die Dokumentation der Administrationsfeatures von Django ist auf der offiziellen
 [^ralph-admin]: Unter Ralph steht hierfür die Klasse `RalphAdmin` zur Verfügung.\cite{ralph-admin-doku}
 [^ralph-adminform]: Unter Ralph steht hierfür die Klasse `RalphAdminForm` zur Verfügung.
 
-### API und DRF
+## API und DRF
 
 Um Daten außerhalb der grafischen Administrationsoberfläche zu bearbeiten, wird eine \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} benötigt. Eine besondere und weit verbreitete Form einer API ist eine \emph{REST-API} \index{REST-API: Representational State Transfer \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} - eine zustandslose Schnittstelle für den Datenaustausch zwischen Clients und Servern \cite{rest-api}} \cite{rest-api}, die unter Django durch das integrierte \emph{DRF}\index{DRF: Django REST Framework - Implementierung einer \emph{REST-API}\index{REST-API: Representational State Transfer \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} - eine zustandslose Schnittstelle für den Datenaustausch zwischen Clients und Servern \cite{rest-api}} unter Django \cite{django-rest-framework}} implementiert wird.\cite{django-rest-framework}
 API Definitionen werden unter Django in einem Paket in der Datei `api.py` getätigt. 
@@ -103,7 +102,7 @@ Um den API-Zugriff auf ein Modell zu ermöglichen werden üblicherweise eine `AP
 [^ralph-viewset]: Unter Ralph steht hierfür die Klasse `RalphAPISerializer` zur Verfügung. \cite{ralph-api-doku}
 [^ralph-router]: Unter Ralph steht hierfür die globale `RalphRouter` Instanz `router` zur Verfügung. \cite{ralph-api-doku}
 
-### Views
+## Views
 
 Schnittstellen, die keiner der beiden o.a. Kategorien zugeordnet werden können, werden in der Datei `views.py` definiert. Bei diesen \emph{generischen}\index{generisch: in einem allgemeingültigen Sinn} Schnittstellen handelt es sich entweder um \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} der Klasse `View`[^view-apiview-inheritance] \cite{django-doku-class-based-views} oder vereinzelte Methoden mit einem `request`[^request-german] Parameter. \cite{django-doku-views}
 Diese Schnittstellen werden fortan Views genannt.
@@ -116,7 +115,7 @@ Da reguläre Views nicht automatisch registriert werden, müssen sie manuell bek
 [^view-apiview-inheritance]: die ebenfalls Superklasse der Klasse `ApiView` ist
 [^request-german]: zu Deutch: Anfrage; entspricht dem empfangenen Packet, meist als HTML. 
 
-### Datenbankabfragen
+## Datenbankabfragen
 
 Datenbankabfragen werden in Django durch `Queryset`-Objekte getätigt. Das Definieren eines `Queryset`-Objekts löst nicht sofort eine Datenbankabfrage aus. Erst, wenn Werte aus einem `Queryset`-Objekt gelesen werden, wird eine Datenbankabfrage ausgelöst. So kann ein `Queryset`-Objekt beliebig oft verändert werden, bevor davon ausgelesen wird. Ein Beispiel hierfür ist das Anwenden der `filter()` Methode.
 
@@ -143,16 +142,46 @@ Weitere Beispiele und Methoden sind der offiziellen Django-Dokumentation zu entn
 
 [^django-query-example]: entnommen aus der offiziellen Django Dokumentation \cite{django-doku-queries}
 
-### Designgrundlagen
+# Designgrundlagen
 
 Designgrundlagen für Django-Entwickler sind auf der offiziellen Dokumentationsseite von Django abrufbar. \cite{django-doku-coding-style}
 Die Erweiterung von Django durch die vorliegende Diplomarbeit wurde anhand dieser Grundlagen entwickelt. 
 
 Das Konzept des `Mixin`s wird von der Ralph-Plattform besonders häufig genutzt. `Mixin`s sind Klassen, die anderen von ihnen erbende Klassen, bestimmte Attribute und Methoden hinzufügen. Manche `Mixin`s setzen implizit voraus, dass die davon erbenden Klassen ebenfalls von bestimmten anderen Klassen erben. Beispiel ist die Klasse `AdminAbsoluteUrlMixin`, welche eine Methode `get_absolute_url` zur Verfügung stellt. Diese Methode liefert die URL, die zu der Detailansicht der Modellinstanz führt, die die Methode aufruft. Voraussetzung für das Erben einer Klasse von `AdminAbsoluteUrlMixin` ist daher, dass sie ebenfalls von der Klasse `Model` erbt.
 
+\chapter{Die 2 Erweiterungsmodule}
 
-\todo{Ignore below content for now}
-... irgendwo im Intro:
-bezüglich folgender zwei Aspekte:
-* Eine Inventurfunktion für die Validierung von Gegenständen und die Verwaltung von Änderungen die durch eine Inventur entstehen, sowie die benötigte Kommunikation mit der Client-Applikation, die für die Durchführung von Inventuren benutzt wird.
-* Eine zentralisierte Verwaltungsplatform der in der HTL Rennweg geführten Inventarlisten, besonders der SAP-Datenbank.
+Die vorliegende Diplomarbeit erweitert das ["Ralph"](#django-und-ralph) System um 2 Module. Dabei handelt es sich um die beiden Pakete "Capentory" und "Stocktaking". Das Paket "Capentory" behandelt die Führung der Inventurdaten und wurde speziell an die Inventardaten der HTL Rennweg angepasst.. Das Paket "Stocktaking" ermöglicht die Verwaltung der durch die mobile Applikation durchgeführten Inventuren. Dazu zählen Aufgaben wie das Erstellen der Inventuren, das Einsehen von Inventurberichten oder das Anwenden der aufgetretenen Änderungen.
+
+Dieses Kapitel beschreibt die Funktionsweise der beiden Module. Die Bedienung der \emph{Weboberfläche} \index{Weboberfläche: graphische Oberfläche für administrative Tätigkeiten, die über einen Webbrowser erreichbar ist} ist dem \todo{Add reference} Handbuch zum Server zu entnehmen.
+
+# Das "Capentory" Modul
+
+Das "Capentory" Modul beherbergt 3 wichtige Modelle: 
+
+1. HTLItem
+2. HTLRoom
+3. HTLItemType
+
+Die wichtigsten Eigenschaften der Modelle und damit verbundenen Funktionsweisen werden in diesem Unterkapitel beschrieben
+
+## HTLItem
+
+Das `HTLItem`-Modell repräsentiert die Gegenstandsdaten des Inventars der HTL Rennweg. Es sind typische Merkmale aus dem \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System sind vertreten. Die Attribute `anlage`, `asset_subnumber` und `company_code` werden direkt aus dem  \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System übernommen. 
+
+### Die wichtigsten Attribute
+
+Zu den wichtigsten Attributen des `HTLItem` Modells zählen u.a.:
+
+* `anlage` und `asset_subnummer`: Diese Attribute bilden den Barcode eines Gegenstandes
+* `barcode_prio`: Wenn dieses Attribut gesetzt ist, überschreibt es den durch die Attribute `anlage` und `asset_subnummer` entstandenen Barcode.
+* `anlagenbeschreibung`: Dieses Attribut repräsentiert die aus dem \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System entnommene Gegenstandsbeschreibung und kann nur durch den Import von Daten direkt aus dem  \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System geändert werden.
+* `anlagenbeschreibung_prio`: Dieses Attribut dient als interne Gegenstandsbeschreibung, die auch ohne einen Import aus dem \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System geändert werden kann.
+* `room`: Dieses Attribut referenziert auf das `HTLRoom` Objekt, in dem sich ein `HTLItem` Objekt befindet.
+* `is_in_sap`: Der Wert dieses \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}-Attribut ist `Wahr`, wenn der `HTLItem`-Datensatz aus dem  \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System importiert wurde. Umgekehrt ist der Wert dieses Attributes `Falsch`, wenn der `HTLItem`-Datensatz aus einer anderen Quelle entstanden ist. Ein manuell hinzugefügter `HTLItem`-Datensatz hat für dieses Attribut den Wert `Falsch`.
+* `item_type`: Dieses Attribut referenziert auf das `HTLItemType` Objekt, welches einem `HTLItem` Objektes zugeordnet ist. Es repräsentiert die Gegenstandskategorie eines `HTLItem` Objektes. 
+
+
+### Einzigartigkeit von HTLItem Objekten
+
+Bezüglich der Einzigartigkeit von `HTLItem` Objekten gelten folgende Bestimmungen

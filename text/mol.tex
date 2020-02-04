@@ -1,3 +1,5 @@
+\chapter{Einführung in die Server-Architektur}
+
 Die Inventur- sowie Gegenstandsdaten der HTL Rennweg sollen an einem
 zentralen Ort verwaltet und geführt werden. Der für diesen Zweck
 entwickelte Server muss also folgende Anforderungen erfüllen:
@@ -68,7 +70,7 @@ Ralph an.
 Die vorliegende Diplomarbeit bietet eine Erweiterung des Ralph-Systems.
 
 \hypertarget{begruxfcndung-der-wahl-von-django-und-ralph}{%
-\section{Begründung der Wahl von Django und
+\subsection{Begründung der Wahl von Django und
 Ralph}\label{begruxfcndung-der-wahl-von-django-und-ralph}}
 
 Django bietet eine weit verbreitete Open-Source Lösung für die
@@ -110,7 +112,7 @@ sowie Ralph beschrieben. Ziel dieses Kapitels ist es, eine Wissensbasis
 für die darauffolgenden Kapitel zu schaffen.
 
 \hypertarget{datenbank-verbindung-pakete-und-tabellen-definition}{%
-\section{Datenbank-Verbindung, Pakete und
+\subsection{Datenbank-Verbindung, Pakete und
 Tabellen-Definition}\label{datenbank-verbindung-pakete-und-tabellen-definition}}
 
 Folgende Datenbank-Typen werden von Django unterstützt:
@@ -170,7 +172,7 @@ der Modellklasse. Dazu gehört vor allem der von Benutzern lesbare Name
 des Modells \texttt{verbose\_name}. \cite{django-doku-models-options}
 
 \hypertarget{administration-uxfcber-das-webinterface}{%
-\section{Administration über das
+\subsection{Administration über das
 Webinterface}\label{administration-uxfcber-das-webinterface}}
 
 Um die Administration von Modelldaten über das Webinterface des Servers
@@ -225,7 +227,7 @@ offiziellen Dokumentationswebseite von Django \cite{django-doku-admin}
 zu finden.
 
 \hypertarget{api-und-drf}{%
-\section{API und DRF}\label{api-und-drf}}
+\subsection{API und DRF}\label{api-und-drf}}
 
 Um Daten außerhalb der grafischen Administrationsoberfläche zu
 bearbeiten, wird eine
@@ -262,7 +264,7 @@ Erstellung dieser API-Klassen sind auf der offiziellen Webseite des DRF
 Ralph-Dokumentationsseite \cite{ralph-api-doku} zu finden.
 
 \hypertarget{views}{%
-\section{Views}\label{views}}
+\subsection{Views}\label{views}}
 
 Schnittstellen, die keiner der beiden o.a. Kategorien zugeordnet werden
 können, werden in der Datei \texttt{views.py} definiert. Bei diesen
@@ -298,7 +300,7 @@ Variable \texttt{urlpatterns} in der Datei \texttt{urls.py}.
 \cite{django-doku-urls}
 
 \hypertarget{datenbankabfragen}{%
-\section{Datenbankabfragen}\label{datenbankabfragen}}
+\subsection{Datenbankabfragen}\label{datenbankabfragen}}
 
 Datenbankabfragen werden in Django durch \texttt{Queryset}-Objekte
 getätigt. Das Definieren eines \texttt{Queryset}-Objekts löst nicht
@@ -314,21 +316,21 @@ In dem folgenden Code-Auszug\footnote{entnommen aus der offiziellen
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Erstelle ein Queryset aller Entry-Objekte, }
-\CommentTok{# dessen Attribut "headline" mit "What" beginnt.}
-\NormalTok{q }\OperatorTok{=}\NormalTok{ Entry.objects.}\BuiltInTok{filter}\NormalTok{(headline__startswith}\OperatorTok{=}\StringTok{"What"}\NormalTok{)}
+\CommentTok{\# Erstelle ein Queryset aller Entry{-}Objekte, }
+\CommentTok{\# dessen Attribut "headline" mit "What" beginnt.}
+\NormalTok{q }\OperatorTok{=}\NormalTok{ Entry.objects.}\BuiltInTok{filter}\NormalTok{(headline\_\_startswith}\OperatorTok{=}\StringTok{"What"}\NormalTok{)}
 
-\CommentTok{# Filtere aus dem erstellten Queryset alle Entry-Objekte, }
-\CommentTok{# dessen Attribut "pub_date" kleiner oder gleich }
-\CommentTok{# dem aktuellen Datum ist.}
-\NormalTok{q }\OperatorTok{=}\NormalTok{ q.}\BuiltInTok{filter}\NormalTok{(pub_date__lte}\OperatorTok{=}\NormalTok{datetime.date.today())}
+\CommentTok{\# Filtere aus dem erstellten Queryset alle Entry{-}Objekte, }
+\CommentTok{\# dessen Attribut "pub\_date" kleiner oder gleich }
+\CommentTok{\# dem aktuellen Datum ist.}
+\NormalTok{q }\OperatorTok{=}\NormalTok{ q.}\BuiltInTok{filter}\NormalTok{(pub\_date\_\_lte}\OperatorTok{=}\NormalTok{datetime.date.today())}
 
-\CommentTok{# Schließe aus dem erstellten Queryset alle Entry-Objekte, }
-\CommentTok{# dessen Attribut "body_text" den Text "food" beinhaltet, aus.}
-\NormalTok{q }\OperatorTok{=}\NormalTok{ q.exclude(body_text__icontains}\OperatorTok{=}\StringTok{"food"}\NormalTok{)}
+\CommentTok{\# Schließe aus dem erstellten Queryset alle Entry{-}Objekte, }
+\CommentTok{\# dessen Attribut "body\_text" den Text "food" beinhaltet, aus.}
+\NormalTok{q }\OperatorTok{=}\NormalTok{ q.exclude(body\_text\_\_icontains}\OperatorTok{=}\StringTok{"food"}\NormalTok{)}
 
-\CommentTok{# Ausgabe des erstellten Querysets.}
-\CommentTok{# Erst hier kommt es zu der ersten Datenbankabfrage!}
+\CommentTok{\# Ausgabe des erstellten Querysets.}
+\CommentTok{\# Erst hier kommt es zu der ersten Datenbankabfrage!}
 \BuiltInTok{print}\NormalTok{(q)}
 \end{Highlighting}
 \end{Shaded}
@@ -355,3 +357,109 @@ die URL, die zu der Detailansicht der Modellinstanz führt, die die
 Methode aufruft. Voraussetzung für das Erben einer Klasse von
 \texttt{AdminAbsoluteUrlMixin} ist daher, dass sie ebenfalls von der
 Klasse \texttt{Model} erbt.
+
+\chapter{Die 2 Erweiterungsmodule}
+
+Die vorliegende Diplomarbeit erweitert das
+\protect\hyperlink{django-und-ralph}{``Ralph''} System um 2 Module.
+Dabei handelt es sich um die beiden Pakete ``Capentory'' und
+``Stocktaking''. Das Paket ``Capentory'' behandelt die Führung der
+Inventurdaten und wurde speziell an die Inventardaten der HTL Rennweg
+angepasst.. Das Paket ``Stocktaking'' ermöglicht die Verwaltung der
+durch die mobile Applikation durchgeführten Inventuren. Dazu zählen
+Aufgaben wie das Erstellen der Inventuren, das Einsehen von
+Inventurberichten oder das Anwenden der aufgetretenen Änderungen.
+
+Dieses Kapitel beschreibt die Funktionsweise der beiden Module. Die
+Bedienung der \emph{Weboberfläche}
+\index{Weboberfläche: graphische Oberfläche für administrative Tätigkeiten, die über einen Webbrowser erreichbar ist}
+ist dem \todo{Add reference} Handbuch zum Server zu entnehmen.
+
+\hypertarget{das-capentory-modul}{%
+\section{Das ``Capentory'' Modul}\label{das-capentory-modul}}
+
+Das ``Capentory'' Modul beherbergt 3 wichtige Modelle:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  HTLItem
+\item
+  HTLRoom
+\item
+  HTLItemType
+\end{enumerate}
+
+Die wichtigsten Eigenschaften der Modelle und damit verbundenen
+Funktionsweisen werden in diesem Unterkapitel beschrieben
+
+\hypertarget{htlitem}{%
+\subsection{HTLItem}\label{htlitem}}
+
+Das \texttt{HTLItem}-Modell repräsentiert die Gegenstandsdaten des
+Inventars der HTL Rennweg. Es sind typische Merkmale aus dem
+\emph{SAP ERP}
+\index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+System sind vertreten. Die Attribute \texttt{anlage},
+\texttt{asset\_subnumber} und \texttt{company\_code} werden direkt aus
+dem \emph{SAP ERP}
+\index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+System übernommen.
+
+\hypertarget{die-wichtigsten-attribute}{%
+\subsubsection{Die wichtigsten
+Attribute}\label{die-wichtigsten-attribute}}
+
+Zu den wichtigsten Attributen des \texttt{HTLItem} Modells zählen u.a.:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{anlage} und \texttt{asset\_subnummer}: Diese Attribute bilden
+  den Barcode eines Gegenstandes
+\item
+  \texttt{barcode\_prio}: Wenn dieses Attribut gesetzt ist, überschreibt
+  es den durch die Attribute \texttt{anlage} und
+  \texttt{asset\_subnummer} entstandenen Barcode.
+\item
+  \texttt{anlagenbeschreibung}: Dieses Attribut repräsentiert die aus
+  dem \emph{SAP ERP}
+  \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+  System entnommene Gegenstandsbeschreibung und kann nur durch den
+  Import von Daten direkt aus dem \emph{SAP ERP}
+  \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+  System geändert werden.
+\item
+  \texttt{anlagenbeschreibung\_prio}: Dieses Attribut dient als interne
+  Gegenstandsbeschreibung, die auch ohne einen Import aus dem
+  \emph{SAP ERP}
+  \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+  System geändert werden kann.
+\item
+  \texttt{room}: Dieses Attribut referenziert auf das \texttt{HTLRoom}
+  Objekt, in dem sich ein \texttt{HTLItem} Objekt befindet.
+\item
+  \texttt{is\_in\_sap}: Der Wert dieses
+  \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}-Attribut
+  ist \texttt{Wahr}, wenn der \texttt{HTLItem}-Datensatz aus dem
+  \emph{SAP ERP}
+  \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+  System importiert wurde. Umgekehrt ist der Wert dieses Attributes
+  \texttt{Falsch}, wenn der \texttt{HTLItem}-Datensatz aus einer anderen
+  Quelle entstanden ist. Ein manuell hinzugefügter
+  \texttt{HTLItem}-Datensatz hat für dieses Attribut den Wert
+  \texttt{Falsch}.
+\item
+  \texttt{item\_type}: Dieses Attribut referenziert auf das
+  \texttt{HTLItemType} Objekt, welches einem \texttt{HTLItem} Objektes
+  zugeordnet ist. Es repräsentiert die Gegenstandskategorie eines
+  \texttt{HTLItem} Objektes.
+\end{itemize}
+
+\hypertarget{einzigartigkeit-von-htlitem-objekten}{%
+\subsubsection{Einzigartigkeit von HTLItem
+Objekten}\label{einzigartigkeit-von-htlitem-objekten}}
+
+Bezüglich der Einzigartigkeit von \texttt{HTLItem} Objekten gelten
+folgende Bestimmungen
