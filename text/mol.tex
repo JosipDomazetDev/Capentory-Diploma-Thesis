@@ -1,7 +1,3 @@
-\hypertarget{technische-umsetzung-server}{%
-\section{Technische Umsetzung:
-Server}\label{technische-umsetzung-server}}
-
 Die Inventur- sowie Gegenstandsdaten der HTL Rennweg sollen an einem
 zentralen Ort verwaltet und geführt werden. Der für diesen Zweck
 entwickelte Server muss also folgende Anforderungen erfüllen:
@@ -48,7 +44,7 @@ bestehenden und frei verfügbaren Inventarverwaltungsplattform ``Ralph''
 Diplomarbeit hinreichend erweitert wird.
 
 \hypertarget{django-und-ralph}{%
-\subsection{Django und Ralph}\label{django-und-ralph}}
+\section{Django und Ralph}\label{django-und-ralph}}
 
 Django ist ein in der Programmiersprache Python geschriebenes
 Webserver-\emph{Framework}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt}.
@@ -72,7 +68,7 @@ Ralph an.
 Die vorliegende Diplomarbeit bietet eine Erweiterung des Ralph-Systems.
 
 \hypertarget{begruxfcndung-der-wahl-von-django-und-ralph}{%
-\subsubsection{Begründung der Wahl von Django und
+\section{Begründung der Wahl von Django und
 Ralph}\label{begruxfcndung-der-wahl-von-django-und-ralph}}
 
 Django bietet eine weit verbreitete Open-Source Lösung für die
@@ -105,7 +101,7 @@ Inventars unterstützen (beispielsweise eine Suchfunktion mit
 automatischer Textvervollständigung).
 
 \hypertarget{kurzfassung-der-funktionsweise-von-django-und-rlaph}{%
-\subsection{Kurzfassung der Funktionsweise von Django und
+\section{Kurzfassung der Funktionsweise von Django und
 Rlaph}\label{kurzfassung-der-funktionsweise-von-django-und-rlaph}}
 
 Im folgenden Kapitel wird die Funktionsweise des
@@ -114,7 +110,7 @@ sowie Ralph beschrieben. Ziel dieses Kapitels ist es, eine Wissensbasis
 für die darauffolgenden Kapitel zu schaffen.
 
 \hypertarget{datenbank-verbindung-pakete-und-tabellen-definition}{%
-\subsubsection{Datenbank-Verbindung, Pakete und
+\section{Datenbank-Verbindung, Pakete und
 Tabellen-Definition}\label{datenbank-verbindung-pakete-und-tabellen-definition}}
 
 Folgende Datenbank-Typen werden von Django unterstützt:
@@ -174,7 +170,7 @@ der Modellklasse. Dazu gehört vor allem der von Benutzern lesbare Name
 des Modells \texttt{verbose\_name}. \cite{django-doku-models-options}
 
 \hypertarget{administration-uxfcber-das-webinterface}{%
-\subsubsection{Administration über das
+\section{Administration über das
 Webinterface}\label{administration-uxfcber-das-webinterface}}
 
 Um die Administration von Modelldaten über das Webinterface des Servers
@@ -229,7 +225,7 @@ offiziellen Dokumentationswebseite von Django \cite{django-doku-admin}
 zu finden.
 
 \hypertarget{api-und-drf}{%
-\subsubsection{API und DRF}\label{api-und-drf}}
+\section{API und DRF}\label{api-und-drf}}
 
 Um Daten außerhalb der grafischen Administrationsoberfläche zu
 bearbeiten, wird eine
@@ -266,7 +262,7 @@ Erstellung dieser API-Klassen sind auf der offiziellen Webseite des DRF
 Ralph-Dokumentationsseite \cite{ralph-api-doku} zu finden.
 
 \hypertarget{views}{%
-\subsubsection{Views}\label{views}}
+\section{Views}\label{views}}
 
 Schnittstellen, die keiner der beiden o.a. Kategorien zugeordnet werden
 können, werden in der Datei \texttt{views.py} definiert. Bei diesen
@@ -302,7 +298,7 @@ Variable \texttt{urlpatterns} in der Datei \texttt{urls.py}.
 \cite{django-doku-urls}
 
 \hypertarget{datenbankabfragen}{%
-\subsubsection{Datenbankabfragen}\label{datenbankabfragen}}
+\section{Datenbankabfragen}\label{datenbankabfragen}}
 
 Datenbankabfragen werden in Django durch \texttt{Queryset}-Objekte
 getätigt. Das Definieren eines \texttt{Queryset}-Objekts löst nicht
@@ -318,21 +314,21 @@ In dem folgenden Code-Auszug\footnote{entnommen aus der offiziellen
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Erstelle ein Queryset aller Entry{-}Objekte, }
-\CommentTok{\# dessen Attribut "headline" mit "What" beginnt.}
-\NormalTok{q }\OperatorTok{=}\NormalTok{ Entry.objects.}\BuiltInTok{filter}\NormalTok{(headline\_\_startswith}\OperatorTok{=}\StringTok{"What"}\NormalTok{)}
+\CommentTok{# Erstelle ein Queryset aller Entry-Objekte, }
+\CommentTok{# dessen Attribut "headline" mit "What" beginnt.}
+\NormalTok{q }\OperatorTok{=}\NormalTok{ Entry.objects.}\BuiltInTok{filter}\NormalTok{(headline__startswith}\OperatorTok{=}\StringTok{"What"}\NormalTok{)}
 
-\CommentTok{\# Filtere aus dem erstellten Queryset alle Entry{-}Objekte, }
-\CommentTok{\# dessen Attribut "pub\_date" kleiner oder gleich }
-\CommentTok{\# dem aktuellen Datum ist.}
-\NormalTok{q }\OperatorTok{=}\NormalTok{ q.}\BuiltInTok{filter}\NormalTok{(pub\_date\_\_lte}\OperatorTok{=}\NormalTok{datetime.date.today())}
+\CommentTok{# Filtere aus dem erstellten Queryset alle Entry-Objekte, }
+\CommentTok{# dessen Attribut "pub_date" kleiner oder gleich }
+\CommentTok{# dem aktuellen Datum ist.}
+\NormalTok{q }\OperatorTok{=}\NormalTok{ q.}\BuiltInTok{filter}\NormalTok{(pub_date__lte}\OperatorTok{=}\NormalTok{datetime.date.today())}
 
-\CommentTok{\# Schließe aus dem erstellten Queryset alle Entry{-}Objekte, }
-\CommentTok{\# dessen Attribut "body\_text" den Text "food" beinhaltet, aus.}
-\NormalTok{q }\OperatorTok{=}\NormalTok{ q.exclude(body\_text\_\_icontains}\OperatorTok{=}\StringTok{"food"}\NormalTok{)}
+\CommentTok{# Schließe aus dem erstellten Queryset alle Entry-Objekte, }
+\CommentTok{# dessen Attribut "body_text" den Text "food" beinhaltet, aus.}
+\NormalTok{q }\OperatorTok{=}\NormalTok{ q.exclude(body_text__icontains}\OperatorTok{=}\StringTok{"food"}\NormalTok{)}
 
-\CommentTok{\# Ausgabe des erstellten Querysets.}
-\CommentTok{\# Erst hier kommt es zu der ersten Datenbankabfrage!}
+\CommentTok{# Ausgabe des erstellten Querysets.}
+\CommentTok{# Erst hier kommt es zu der ersten Datenbankabfrage!}
 \BuiltInTok{print}\NormalTok{(q)}
 \end{Highlighting}
 \end{Shaded}
@@ -341,7 +337,7 @@ Weitere Beispiele und Methoden sind der offiziellen Django-Dokumentation
 zu entnehmen. \cite{django-doku-queries}
 
 \hypertarget{designgrundlagen}{%
-\subsubsection{Designgrundlagen}\label{designgrundlagen}}
+\section{Designgrundlagen}\label{designgrundlagen}}
 
 Designgrundlagen für Django-Entwickler sind auf der offiziellen
 Dokumentationsseite von Django abrufbar. \cite{django-doku-coding-style}
@@ -359,13 +355,3 @@ die URL, die zu der Detailansicht der Modellinstanz führt, die die
 Methode aufruft. Voraussetzung für das Erben einer Klasse von
 \texttt{AdminAbsoluteUrlMixin} ist daher, dass sie ebenfalls von der
 Klasse \texttt{Model} erbt.
-
-\todo{Ignore below content for now}
-
-\ldots{} irgendwo im Intro: bezüglich folgender zwei Aspekte: * Eine
-Inventurfunktion für die Validierung von Gegenständen und die Verwaltung
-von Änderungen die durch eine Inventur entstehen, sowie die benötigte
-Kommunikation mit der Client-Applikation, die für die Durchführung von
-Inventuren benutzt wird. * Eine zentralisierte Verwaltungsplatform der
-in der HTL Rennweg geführten Inventarlisten, besonders der
-SAP-Datenbank.
