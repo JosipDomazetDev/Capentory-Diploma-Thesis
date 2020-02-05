@@ -1,53 +1,3 @@
-% Options for packages loaded elsewhere
-\PassOptionsToPackage{unicode}{hyperref}
-\PassOptionsToPackage{hyphens}{url}
-%
-\documentclass[
-]{article}
-\usepackage{lmodern}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
-  \usepackage{unicode-math}
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\fi
-% Use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-\makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
-\makeatother
-\usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-
-\date{}
-
-\begin{document}
-
 \hypertarget{technische-umsetzung-infrastruktur}{%
 \section{Technische Umsetzung:
 Infrastruktur}\label{technische-umsetzung-infrastruktur}}
@@ -96,15 +46,16 @@ Servercluster funktioniert mittels einer ProxMox-Umgebung.
 
 Proxmox Virtual Environment (kurz PVE) ist eine auf Debian und KVM
 basierende Virtualisierungs-Plattform zum Betrieb von
-Gast-Betriebssystemen. Vorteile: 
+Gast-Betriebssystemen. Vorteile:
+
 \begin{itemize}
 \tightlist
 \item
-  Läuft auf fast jeder x86-Hardware
+  läuft auf fast jeder x86-Hardware
 \item
-  Frei verfügbar
+  frei verfügbar
 \item
-  Ab 3 Servern Hochverfügbarkeit
+  ab 3 Servern Hochverfügbarkeit
 \end{itemize}
 
 Jedoch liegen alle Maschinen der Diplomarbeitsteams in einem eigens
@@ -123,15 +74,15 @@ enstandene Datenstrom vollständig gesichert über einen sogenannten
 Da die Diplomarbeit ``Capentory'' jedoch Erreichbarkeit im Schulnetz
 verlangt, muss die Maschine in einem Ausmaß abgesichert werden, damit
 sie ohne Bedenken in das Schulnetz gehängt werden kann. Dafür müssen
-folgende Punkte gewährleistet sein: 
+folgende Punkte gewährleistet sein:
+
 \begin{itemize}
 \tightlist
 \item
-  Konfiguration beider Firewalls (siehe Punkt \textbf{Absicherung der virtuellen Maschine})
+  Konfiguration beider Firewalls (siehe Punkt \textbf{Absicherung der
+  virtuellen Maschine})
 \item
   Wohlüberlegte Passwörter und Zugriffsrechte
-\item
-  Weniger Dokumentation vorhanden
 \end{itemize}
 
 \hypertarget{wahl-des-betriebssystems}{%
@@ -145,29 +96,42 @@ Weltweit basieren die meisten Server und andere Geräte auf Linux. Jedoch
 gibt es selbst innerhalb des OpenSource-Hersteller zwei gängige
 Distributionen, die das Diplomarbeitsteam während deren Schulzeit an der
 Htl Rennweg kennenlernen und Übungen darauf durchführen durfte:
+
 \begin{itemize}
 \tightlist
 \item
   Linux CentOS
 \item
   Linux Ubuntu
-\end{itemize} 
-\#\#\# Linux CentOS CentOS ist eine frei
-verfügbare Linux Distribution, die auf
+\end{itemize}
+
+\hypertarget{linux-centos}{%
+\subsubsection{Linux CentOS}\label{linux-centos}}
+
+CentOS ist eine frei verfügbare Linux Distribution, die auf
 \href{https://de.wikipedia.org/wiki/Red_Hat_Enterprise_Linux}{Red Hat
 Enterprise Linux} aufbaut. Hinter Ubuntu und Debian ist CentOS die am
 dritthäufigsten verwendete Software und wird von einer offenen Gruppe
 von freiwilligen Entwicklern betreut, gepflegt und weiterentwickelt.
-\#\#\# Linux Ubuntu Ubuntu ist die am meist verwendete
-Linux-Betriebssystemsoftware für Webserver. Auf Debian basierend ist das
-Ziel der Entwickler, ein ein einfach zu installierendes und leicht zu
-bedienendes Betriebssystem mit aufeinander abgestimmter Software zu
-schaffen. Hauptsponsor des Ubuntu-Projektes ist der Software-Hersteller
+
+\hypertarget{linux-ubuntu}{%
+\subsubsection{Linux Ubuntu}\label{linux-ubuntu}}
+
+Ubuntu ist die am meist verwendete Linux-Betriebssystemsoftware für
+Webserver. Auf Debian basierend ist das Ziel der Entwickler, ein ein
+einfach zu installierendes und leicht zu bedienendes Betriebssystem mit
+aufeinander abgestimmter Software zu schaffen. Hauptsponsor des
+Ubuntu-Projektes ist der Software-Hersteller
 \href{https://de.wikipedia.org/wiki/Canonical}{Canonical}, der vom
 südafrikanischen Unternehmer
 \href{https://de.wikipedia.org/wiki/Mark_Shuttleworth}{Mark
-Shuttlerworth} gegründet wurde. \#\#\# Vergleich und Wahl
-\textbf{CentOS} 
+Shuttlerworth} gegründet wurde.
+
+\hypertarget{vergleich-und-wahl}{%
+\subsubsection{Vergleich und Wahl}\label{vergleich-und-wahl}}
+
+\textbf{CentOS}
+
 \begin{itemize}
 \tightlist
 \item
@@ -176,8 +140,7 @@ Shuttlerworth} gegründet wurde. \#\#\# Vergleich und Wahl
   Keine regelmäßigen Softwareupdates
 \item
   Weniger Dokumentation vorhanden
-\end{itemize} 
-
+\end{itemize}
 
 \textbf{Ubuntu}
 
@@ -197,19 +160,29 @@ Aus den angeführten Punkten entschied sich ``Capentory'' klarerweise das
 Betriebsystem Ubuntu zu verwenden, vorallem auch weil der Hersteller
 deren Serversoftware die Verwendung von diesem Betriebsystem empfiehlt.
 Anschließend wird die Installation des Betriebsystemes genauer erläutert
-und erklärt. \#\# Installation des Betriebsystemes Wie bereits unter
-Punkt Anschaffung des Servers erwähnt, wird uns von der Schule
-ein eigener Servercluster mit virtuellen Maschinen zur Verfügung
-gestellt. Durch die ProxMox-Umgebung und diversen Tools, ging die
-Installation der Ubuntu-Distribution rasch von der Hand. In der
+und erklärt.
+
+\hypertarget{installation-des-betriebsystemes}{%
+\subsection{Installation des
+Betriebsystemes}\label{installation-des-betriebsystemes}}
+
+Wie bereits unter Punkt ""``Anschaffung des Servers''"" erwähnt, wird
+uns von der Schule ein eigener Servercluster mit virtuellen Maschinen
+zur Verfügung gestellt. Durch die ProxMox-Umgebung und diversen Tools,
+ging die Installation der Ubuntu-Distribution rasch von der Hand. In der
 Virtualisierungsumgebung der Schule musste nur ein vorhandenes
 Linux-Ubuntu 18.04 ISO-File gemountet und anschließend eine gewöhnliche
 Betriebsysteminstallation für Ubuntu durchgeführt werden. Jedoch kam es
 beim ersten Versuch zu Problemen mit der ""``Konfiguration der
-Netzwerkschnittstellen''"``, die im nächsten Punkt genauer erläutert
-werden. \#\# Konfiguration der Netzwerkschnittstellen Um eine
-funktiorierende Internetverbindung zu erstellen, durfte die
-Konfiguration der Schnittstellen nicht erst''später durchgeführt"
+Netzwerkschnittstellen''"", die im nächsten Punkt genauer erläutert
+werden.
+
+\hypertarget{konfiguration-der-netzwerkschnittstellen}{%
+\subsection{Konfiguration der
+Netzwerkschnittstellen}\label{konfiguration-der-netzwerkschnittstellen}}
+
+Um eine funktiorierende Internetverbindung zu erstellen, durfte die
+Konfiguration der Schnittstellen nicht erst ``später durchgeführt''
 werden, da mit dem Aufschub der Schnittstellen-Konfiguration das Paket
 ``NetworkManager'' nicht installiert wurde. Der ``NetworkManager'' ist
 verantwortlich für den Zugang zum Internet und der Netzwerksteuerung auf
@@ -218,14 +191,18 @@ dem Linuxsystem. Und da im Nachhinein dieses Paket nicht installiert war
 konnte), half auch die fehlerfreie Interface-Konfiguration nicht, um
 eine Konnektivität herzustellen. Dadurch musste ein zweiter
 Installationsdurchgang durchgeführt werden, worauf dann alles fehlerfrei
-und problemlos lief. \#\#\# Topologie des Netzwerkes Unter Abb.1 wird
-der Netzwerkplan veranschaulicht.
-\begin{figure}
-	\includegraphics{topo1.png}
-	\caption{Abb.1}
-\end{figure}
-\#\# Konfiguration der notwendigen
-Applikationen
+und problemlos lief.
+
+\hypertarget{topologie-des-netzwerkes}{%
+\subsubsection{Topologie des
+Netzwerkes}\label{topologie-des-netzwerkes}}
+
+Unter Abbildung 5.1 wird der Netzwerkplan veranschaulicht.
+\includegraphics{topo1.png}
+
+\hypertarget{konfiguration-der-notwendigen-applikationen}{%
+\subsection{Konfiguration der notwendigen
+Applikationen}\label{konfiguration-der-notwendigen-applikationen}}
 
 \hypertarget{testen-der-konnektivituxe4t-im-netzwerk}{%
 \subsection{Testen der Konnektivität im
@@ -246,5 +223,3 @@ Maschine}\label{absicherung-der-virtuellen-maschine}}
 \hypertarget{uxfcberwachung-des-netzwerks}{%
 \subsection{Überwachung des
 Netzwerks}\label{uxfcberwachung-des-netzwerks}}
-
-\end{document}
