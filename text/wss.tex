@@ -1,8 +1,61 @@
-Um allen Betroffenen einen problemlosen Produktivbetrieb zu
-gewährleisten, muss ein physischer Server aufgesetzt werden. Auf diesem
-können dann alle Komponenten unseres Git-Repositories geklont und
-betriebsbereit installiert werden. Dafür gab es folgende Punkte zu
-erfüllen:
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\date{}
+
+\begin{document}
+
+\hypertarget{technische-umsetzung-infrastruktur}{%
+\section{Technische Umsetzung:
+Infrastruktur}\label{technische-umsetzung-infrastruktur}}
+
+Um allen Kunden einen problemlosen Produktivbetrieb zu gewährleisten
+muss ein physischer Server aufgesetzt werden. Auf diesem können dann
+alle Komponenten unseres Git-Repositories geklont und betriebsbereit
+installiert werden. Dafür gab es folgende Punkte zu erfüllen:
 
 \begin{itemize}
 \tightlist
@@ -17,8 +70,7 @@ erfüllen:
 \item
   das Testen der Konnektivität im Netzwerk
 \item
-  die Containervirtualisierung der einzelnen Komponenten (z.B.
-  Datenbank, Webserver, \ldots)
+  die Einrichtung des Produktivbetriebes der Applikation
 \item
   das Verfassen einer Serverdokumentation
 \item
@@ -27,12 +79,11 @@ erfüllen:
   die Überwachung des Netzwerks
 \end{itemize}
 
-In den folgenden Kapiteln wird deutlich gemacht, wie die oben
-angeführten Punkte, im Rahmen der vorliegenden Diplomarbeit abgearbeitet
-wurden.
+In den folgenden Kapitel wird deutlich gemacht, wie die oben angeführten
+Punkte, im Rahmen der Diplomarbeit ``Capentory'' abgearbeitet wurden.
 
 \hypertarget{anschaffung-des-servers}{%
-\section{Anschaffung des Servers}\label{anschaffung-des-servers}}
+\subsection{Anschaffung des Servers}\label{anschaffung-des-servers}}
 
 Den 5. Klassen wird, dank gesponserter Infrastruktur, im Rahmen ihrer
 Diplomarbeit ein Diplomarbeitscluster zur Verfügung gestellt. Damit
@@ -41,29 +92,159 @@ virtualisierten Maschine verschaffen. Die Virtualisierung dieses großen
 Servercluster funktioniert mittels einer ProxMox-Umgebung.
 
 \hypertarget{proxmox}{%
-\subsection{ProxMox}\label{proxmox}}
+\subsubsection{ProxMox}\label{proxmox}}
 
 Proxmox Virtual Environment (kurz PVE) ist eine auf Debian und KVM
 basierende Virtualisierungs-Plattform zum Betrieb von
-Gast-Betriebssystemen. Vorteile: * läuft auf fast jeder x86-Hardware *
-frei verfügbar * ab 3 Servern Hochverfügbarkeit
+Gast-Betriebssystemen. Vorteile: 
+\begin{itemize}
+\tightlist
+\item
+  Läuft auf fast jeder x86-Hardware
+\item
+  Frei verfügbar
+\item
+  Ab 3 Servern Hochverfügbarkeit
+\end{itemize}
 
-Jedoch liegen alle Maschinen der Diplomarbeitsteams aus
-Sicherheitsgründen in einem gesicherten Virtual Private Network (VPN),
-sodass nur mittels eines eingerichteten Tools auf den virtualisierten
-Server zugegriffen werden kann.
+Jedoch liegen alle Maschinen der Diplomarbeitsteams in einem eigens
+gebaut und gesicherten Virtual Private Network (VPN), sodass nur mittels
+eines eingerichteten Tools auf den virtualisierten Server zugegriffen
+werden kann.
 
 \hypertarget{forticlient}{%
-\subsection{FortiClient}\label{forticlient}}
+\subsubsection{FortiClient}\label{forticlient}}
 
-FortiClient ermöglicht es, eine VPN-Konnektivität unter Einsatz von
-IPsec oder SSL zu gewährleisten. Da die Datenübertragung verschlüsselt
-wird, wird der enstandene Datenstrom vollständig gesichert über einen
-sogenannten ``Tunnel'' übertragen.
+FortiClient ermöglicht es, eines VPN-Konnektivität anhand von IPsec oder
+SSL zu erstellen. Die Datenübertragung wird verschlüsselt und damit der
+enstandene Datenstrom vollständig gesichert über einen sogenannten
+``Tunnel'' übertragen.
 
 Da die Diplomarbeit ``Capentory'' jedoch Erreichbarkeit im Schulnetz
 verlangt, muss die Maschine in einem Ausmaß abgesichert werden, damit
 sie ohne Bedenken in das Schulnetz gehängt werden kann. Dafür müssen
-folgende Punkte gewährleistet sein: * Konfiguration beider Firewalls
-(siehe Punkt \textbf{Serversicherung}) * Wohlüberlegte Passwörter und
-Zugriffsrechte
+folgende Punkte gewährleistet sein: 
+\begin{itemize}
+\tightlist
+\item
+  Konfiguration beider Firewalls (siehe Punkt \textbf{Absicherung der virtuellen Maschine})
+\item
+  Wohlüberlegte Passwörter und Zugriffsrechte
+\item
+  Weniger Dokumentation vorhanden
+\end{itemize}
+
+\hypertarget{wahl-des-betriebssystems}{%
+\subsection{Wahl des Betriebssystems}\label{wahl-des-betriebssystems}}
+
+Neben den physischen Hardwarekomponenten wird für einen funktionierenden
+und leicht bedienbaren Server logischerweise auch ein Betriebsystem
+benötigt. Die erste Entscheidung, welche Art von Betriebssystem für die
+Diplomarbeit ``Capentory'' in Frage kam wurde rasch beantwortet: Linux.
+Weltweit basieren die meisten Server und andere Geräte auf Linux. Jedoch
+gibt es selbst innerhalb des OpenSource-Hersteller zwei gängige
+Distributionen, die das Diplomarbeitsteam während deren Schulzeit an der
+Htl Rennweg kennenlernen und Übungen darauf durchführen durfte:
+\begin{itemize}
+\tightlist
+\item
+  Linux CentOS
+\item
+  Linux Ubuntu
+\end{itemize} 
+\#\#\# Linux CentOS CentOS ist eine frei
+verfügbare Linux Distribution, die auf
+\href{https://de.wikipedia.org/wiki/Red_Hat_Enterprise_Linux}{Red Hat
+Enterprise Linux} aufbaut. Hinter Ubuntu und Debian ist CentOS die am
+dritthäufigsten verwendete Software und wird von einer offenen Gruppe
+von freiwilligen Entwicklern betreut, gepflegt und weiterentwickelt.
+\#\#\# Linux Ubuntu Ubuntu ist die am meist verwendete
+Linux-Betriebssystemsoftware für Webserver. Auf Debian basierend ist das
+Ziel der Entwickler, ein ein einfach zu installierendes und leicht zu
+bedienendes Betriebssystem mit aufeinander abgestimmter Software zu
+schaffen. Hauptsponsor des Ubuntu-Projektes ist der Software-Hersteller
+\href{https://de.wikipedia.org/wiki/Canonical}{Canonical}, der vom
+südafrikanischen Unternehmer
+\href{https://de.wikipedia.org/wiki/Mark_Shuttleworth}{Mark
+Shuttlerworth} gegründet wurde. \#\#\# Vergleich und Wahl
+\textbf{CentOS} 
+\begin{itemize}
+\tightlist
+\item
+  Kompliziertere Bedienung
+\item
+  Keine regelmäßigen Softwareupdates
+\item
+  Weniger Dokumentation vorhanden
+\end{itemize} 
+
+
+\textbf{Ubuntu}
+
+\begin{itemize}
+\tightlist
+\item
+  Leichte Bedienung
+\item
+  Wird ständig weiterentwickelt und aktualisiert
+\item
+  Zahlreich brauchbare Dokumentation im Internet vorhanden
+\item
+  Wird speziell von Ralph empfohlen
+\end{itemize}
+
+Aus den angeführten Punkten entschied sich ``Capentory'' klarerweise das
+Betriebsystem Ubuntu zu verwenden, vorallem auch weil der Hersteller
+deren Serversoftware die Verwendung von diesem Betriebsystem empfiehlt.
+Anschließend wird die Installation des Betriebsystemes genauer erläutert
+und erklärt. \#\# Installation des Betriebsystemes Wie bereits unter
+Punkt Anschaffung des Servers erwähnt, wird uns von der Schule
+ein eigener Servercluster mit virtuellen Maschinen zur Verfügung
+gestellt. Durch die ProxMox-Umgebung und diversen Tools, ging die
+Installation der Ubuntu-Distribution rasch von der Hand. In der
+Virtualisierungsumgebung der Schule musste nur ein vorhandenes
+Linux-Ubuntu 18.04 ISO-File gemountet und anschließend eine gewöhnliche
+Betriebsysteminstallation für Ubuntu durchgeführt werden. Jedoch kam es
+beim ersten Versuch zu Problemen mit der ""``Konfiguration der
+Netzwerkschnittstellen''"``, die im nächsten Punkt genauer erläutert
+werden. \#\# Konfiguration der Netzwerkschnittstellen Um eine
+funktiorierende Internetverbindung zu erstellen, durfte die
+Konfiguration der Schnittstellen nicht erst''später durchgeführt"
+werden, da mit dem Aufschub der Schnittstellen-Konfiguration das Paket
+``NetworkManager'' nicht installiert wurde. Der ``NetworkManager'' ist
+verantwortlich für den Zugang zum Internet und der Netzwerksteuerung auf
+dem Linuxsystem. Und da im Nachhinein dieses Paket nicht installiert war
+(und aufgrund fehlender Internetverbindung nicht installiert werden
+konnte), half auch die fehlerfreie Interface-Konfiguration nicht, um
+eine Konnektivität herzustellen. Dadurch musste ein zweiter
+Installationsdurchgang durchgeführt werden, worauf dann alles fehlerfrei
+und problemlos lief. \#\#\# Topologie des Netzwerkes Unter Abb.1 wird
+der Netzwerkplan veranschaulicht.
+\begin{figure}
+	\includegraphics{topo1.png}
+	\caption{Abb.1}
+\end{figure}
+\#\# Konfiguration der notwendigen
+Applikationen
+
+\hypertarget{testen-der-konnektivituxe4t-im-netzwerk}{%
+\subsection{Testen der Konnektivität im
+Netzwerk}\label{testen-der-konnektivituxe4t-im-netzwerk}}
+
+\hypertarget{produktivbetrieb-der-applikation}{%
+\subsection{Produktivbetrieb der
+Applikation}\label{produktivbetrieb-der-applikation}}
+
+\hypertarget{verfassen-einer-serverdokumentation}{%
+\subsection{Verfassen einer
+Serverdokumentation}\label{verfassen-einer-serverdokumentation}}
+
+\hypertarget{absicherung-der-virtuellen-maschine}{%
+\subsection{Absicherung der virtuellen
+Maschine}\label{absicherung-der-virtuellen-maschine}}
+
+\hypertarget{uxfcberwachung-des-netzwerks}{%
+\subsection{Überwachung des
+Netzwerks}\label{uxfcberwachung-des-netzwerks}}
+
+\end{document}
