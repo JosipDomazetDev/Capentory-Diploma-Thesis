@@ -42,7 +42,7 @@ Alle genannten Alternativen sind
 \emph{Frameworks}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt}
 der Programmiersprache Python. Gewählt wurde ``Django'' aufgrund einer
 bestehenden und frei verfügbaren Inventarverwaltungsplattform ``Ralph''
-\cite{ralph}, welche auf Django aufbaut und durch die vorliegende
+\cite{ralph}, die auf Django aufbaut und durch die vorliegende
 Diplomarbeit hinreichend erweitert wird.
 
 \hypertarget{django-und-ralph}{%
@@ -142,7 +142,7 @@ Module gegliedert. Jedes Paket ist ein Ordner, der verschiedene Dateien
 und Unterordner beinhalten kann. Die Dateinamen-Nomenklatur eines
 Packets ist normiert.\cite{django-file-nomenklatur} Der Name eines
 Pakets wird fortan ``App-Label'' genannt. Standardmäßig ist dieser Name
-erster Bestandteil einer URL zu einer beliebigen grafischen
+erster Bestandteil einer URL zu einer beliebigen graphischen
 Administrationsoberfläche des Pakets. Pakete werden durch einen Eintrag
 in die Variable \texttt{INSTALLED\_APPS} innerhalb der o.a.
 Einstellungsdatei registriert. Beispiele sind die beiden durch die
@@ -229,7 +229,7 @@ zu finden.
 \hypertarget{api-und-drf}{%
 \subsection{API und DRF}\label{api-und-drf}}
 
-Um Daten außerhalb der grafischen Administrationsoberfläche zu
+Um Daten außerhalb der graphischen Administrationsoberfläche zu
 bearbeiten, wird eine
 \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht}
 benötigt. Eine besondere und weit verbreitete Form einer API ist eine
@@ -351,7 +351,7 @@ häufig genutzt. \texttt{Mixin}s sind Klassen, die anderen von ihnen
 erbende Klassen, bestimmte Attribute und Methoden hinzufügen. Manche
 \texttt{Mixin}s setzen implizit voraus, dass die davon erbenden Klassen
 ebenfalls von bestimmten anderen Klassen erben. Beispiel ist die Klasse
-\texttt{AdminAbsoluteUrlMixin}, welche eine Methode
+\texttt{AdminAbsoluteUrlMixin}, die eine Methode
 \texttt{get\_absolute\_url} zur Verfügung stellt. Diese Methode liefert
 die URL, die zu der Detailansicht der Modellinstanz führt, die die
 Methode aufruft. Voraussetzung für das Erben einer Klasse von
@@ -364,7 +364,7 @@ Die vorliegende Diplomarbeit erweitert das
 \protect\hyperlink{django-und-ralph}{``Ralph''} System um 2 Module.
 Dabei handelt es sich um die beiden Pakete ``Capentory'' und
 ``Stocktaking''. Das Paket ``Capentory'' behandelt die Führung der
-Inventurdaten und wurde speziell an die Inventardaten der HTL Rennweg
+Inventardaten und wurde speziell an die Inventardaten der HTL Rennweg
 angepasst.. Das Paket ``Stocktaking'' ermöglicht die Verwaltung der
 durch die mobile Applikation durchgeführten Inventuren. Dazu zählen
 Aufgaben wie das Erstellen der Inventuren, das Einsehen von
@@ -392,16 +392,16 @@ Das ``Capentory'' Modul beherbergt 3 wichtige Modelle:
 \end{enumerate}
 
 Die wichtigsten Eigenschaften der Modelle und damit verbundenen
-Funktionsweisen werden in diesem Unterkapitel beschrieben
+Funktionsweisen werden in diesem Unterkapitel beschrieben.
 
-\hypertarget{htlitem}{%
-\subsection{HTLItem}\label{htlitem}}
+\hypertarget{das-htlitem-modell}{%
+\subsection{Das HTLItem Modell}\label{das-htlitem-modell}}
 
 Das \texttt{HTLItem}-Modell repräsentiert die Gegenstandsdaten des
 Inventars der HTL Rennweg. Es sind typische Merkmale aus dem
 \emph{SAP ERP}
 \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
-System sind vertreten. Die Attribute \texttt{anlage},
+System vertreten. Die Attribute \texttt{anlage},
 \texttt{asset\_subnumber} und \texttt{company\_code} werden direkt aus
 dem \emph{SAP ERP}
 \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
@@ -417,7 +417,7 @@ Zu den wichtigsten Attributen des \texttt{HTLItem} Modells zählen u.a.:
 \tightlist
 \item
   \texttt{anlage} und \texttt{asset\_subnummer}: Diese Attribute bilden
-  den Barcode eines Gegenstandes
+  den Barcode eines Gegenstandes.
 \item
   \texttt{barcode\_prio}: Wenn dieses Attribut gesetzt ist, überschreibt
   es den durch die Attribute \texttt{anlage} und
@@ -437,11 +437,11 @@ Zu den wichtigsten Attributen des \texttt{HTLItem} Modells zählen u.a.:
   \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
   System geändert werden kann.
 \item
-  \texttt{room}: Dieses Attribut referenziert auf das \texttt{HTLRoom}
+  \texttt{room}: Dieses Attribut referenziert auf ein \texttt{HTLRoom}
   Objekt, in dem sich ein \texttt{HTLItem} Objekt befindet.
 \item
   \texttt{is\_in\_sap}: Der Wert dieses
-  \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}-Attribut
+  \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}-Attributs
   ist \texttt{Wahr}, wenn der \texttt{HTLItem}-Datensatz aus dem
   \emph{SAP ERP}
   \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
@@ -452,9 +452,9 @@ Zu den wichtigsten Attributen des \texttt{HTLItem} Modells zählen u.a.:
   \texttt{Falsch}.
 \item
   \texttt{item\_type}: Dieses Attribut referenziert auf das
-  \texttt{HTLItemType} Objekt, welches einem \texttt{HTLItem} Objektes
+  \texttt{HTLItemType} Objekt, das einem \texttt{HTLItem} Objekts
   zugeordnet ist. Es repräsentiert die Gegenstandskategorie eines
-  \texttt{HTLItem} Objektes.
+  \texttt{HTLItem} Objekts.
 \end{itemize}
 
 \hypertarget{einzigartigkeit-von-htlitem-objekten}{%
@@ -462,4 +462,197 @@ Zu den wichtigsten Attributen des \texttt{HTLItem} Modells zählen u.a.:
 Objekten}\label{einzigartigkeit-von-htlitem-objekten}}
 
 Bezüglich der Einzigartigkeit von \texttt{HTLItem} Objekten gelten
-folgende Bestimmungen
+einige Bestimmungen.
+
+Sind die Attribute \texttt{anlage}, \texttt{asset\_subnummer} und
+\texttt{company\_code} je mit einem nichtleeren Wert befüllt, so
+repräsentieren sie ein \texttt{HTLItem} Objekt eindeutig. Es dürfen
+keine 2 \texttt{HTLItem} Objekte denselben Wert dieser Attribute haben.
+Um diese Bedingung erfüllen zu können muss eine eigens angepasste
+Validierungslogik implementiert werden. Standardverfahren wäre in diesem
+Anwendungsfall, die Metavariable \texttt{unique\_together}
+\cite{django-doku-models-options} anzupassen:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{unique\_together }\OperatorTok{=}\NormalTok{ [[}\StringTok{"anlage"}\NormalTok{,  }\StringTok{"asset\_subnummer"}\NormalTok{, }\StringTok{"company\_code"}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+Dieses Verfahren erfüllt nicht die geforderte Bedingung nur in der
+Theorie. Praktisch werden leere Werte von Attributen dieser Art nicht
+als \texttt{None} (Python) bzw. \texttt{null} (MySQL), sondern als
+Leerstrings \texttt{""} gespeichert. Um diese Werte ebenfalls von der
+Regel auszuschließen, muss die \texttt{validate\_unique()}\footnote{Eine
+  Methode einer Modell-Klasse, die unter Normalzuständen immer vor dem
+  Speichern eines Objekts des Modells aufgerufen wird. Wirft sie einen
+  Fehler auf, kann das Objekt nicht gespeichert werden.} Methode
+\cite{django-doku-models-instances} überschrieben werden.
+
+Ist das \texttt{barcode\_prio} Attribut eines \texttt{HTLItem} Objekts
+gesetzt, darf dessen Wert nicht mit jenem eines anderen \texttt{HTLItem}
+Objekts übereinstimmen. Standardverfahren wäre in diesem Anwendungsfall
+das Setzen des \texttt{unique} Parameters des Attributes auf den Wert
+\texttt{True}. Da dieses Verfahren ebenfalls das o.a. Problem aufwirft,
+muss die Logik stattdessen in die \texttt{validate\_unique()} Methode
+aufgenommen werden. Zusätzlich darf der Wert des \texttt{barcode\_prio}
+Attributs nicht mit dem aus den beiden Attributen \texttt{anlage} und
+\texttt{asset\_subnummer} generierten Barcode übereinstimmen. Um diese
+Bedingung zu erfüllen kann nur die \texttt{validate\_unique()} Methode
+herbeigezogen werden.
+
+\hypertarget{das-htlroom-modell}{%
+\subsection{Das HTLRoom Modell}\label{das-htlroom-modell}}
+
+Das \texttt{HTLRoom}-Modell repräsentiert die Raumdaten der HTL Rennweg.
+Es sind typische Merkmale aus dem \emph{SAP ERP}
+\index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+System vertreten. Die Attribute \texttt{room\_number},
+\texttt{main\_inv} und \texttt{location} werden direkt aus dem
+\emph{SAP ERP}
+\index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+System übernommen.
+
+\hypertarget{die-wichtigsten-attribute-1}{%
+\subsubsection{Die wichtigsten
+Attribute}\label{die-wichtigsten-attribute-1}}
+
+Zu den wichtigsten Attributen des \texttt{HTLRoom} Modells zählen u.a.:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{room\_number}: Dieses Attribut bildet den Barcode eines
+  Raumes.
+\item
+  \texttt{barcode\_override}: Wenn dieses Attribut gesetzt ist,
+  überschreibt es den durch das Attribut \texttt{room\_number}
+  gebildeten Barcode.
+\item
+  \texttt{internal\_room\_number}: Dieses Attribut repräsentiert die
+  schulinterne Raumnummer und ist somit von den Daten aus dem
+  \emph{SAP ERP}
+  \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+  System unabhängig.
+\item
+  \texttt{is\_in\_sap}: Der Wert dieses
+  \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}-Attributs
+  ist \texttt{Wahr}, wenn der \texttt{HTLRoom}-Datensatz einen aus dem
+  \emph{SAP ERP}
+  \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+  System vorhandenen Raum repräsentiert.
+\item
+  \texttt{children}: Mit dieser Beziehung können einem übergeordneten
+  \texttt{HTLRoom} Objekt mehrere \texttt{HTLRoom} Objekte untergeordnet
+  werden. Anwendungsfall für dieses Attribut ist die Definition von
+  Schränken oder Serverracks, die je einem übergeordneten Raum zugeteilt
+  sind, selbst aber eigenständige Räume repräsentieren.
+\item
+  \texttt{type}: Dieses Attribut spezifiziert die Art eines
+  \texttt{HTLRoom} Objekts. So kann ein \texttt{HTLRoom} Objekt einen
+  ganzen Raum oder auch nur einen Kasten in einem übergeordneten Raum
+  repräsentieren.
+\item
+  \texttt{item}: Dieses Attribut kann gesetzt werden, um ein
+  \texttt{HTLRoom} Objekt durch ein \texttt{HTLItem} Objekt zu
+  repräsentieren. Anwendungsbeisipel ist ein Schrank, der sowohl als
+  \texttt{HTLRoom} Objekt als auch als \texttt{HTLItem} Objekt definiert
+  ist. Sind die beiden Objekte durch das \texttt{item} Attribut
+  verbunden, ist der Barcode des \texttt{HTLRoom} Objekts automatisch
+  jener des \texttt{HTLItem} Objekts.
+\end{itemize}
+
+\hypertarget{einzigartigkeit-von-htlroom-objekten}{%
+\subsubsection{Einzigartigkeit von HTLRoom
+Objekten}\label{einzigartigkeit-von-htlroom-objekten}}
+
+Bezüglich der Einzigertigkeit von \texttt{HTLRoom} Objekten gelten
+ähnliche Bestimmungen wie zu jener von \texttt{HTLItem} Objekten.
+
+Die Attribute \texttt{room\_number}, \texttt{main\_inv} und
+\texttt{location} sind gemeinsam einzigartig. Leere Werte sind von
+dieser Regel ausgeschlossen. Gleichzeitig darf der Wert des
+\texttt{barcode\_override} Attribut nicht mit dem Wert des
+\texttt{room\_number} Attributes eines anderen \texttt{HTLRoom} Objekts
+übereinstimmen und vice versa. Beide Bedingungen müssen wie im Falle des
+\texttt{HTLItem} Modells durch Überschreiben der
+\texttt{validate\_unique()}\footnote{Eine Methode einer Modell-Klasse,
+  die unter Normalzuständen immer vor dem Speichern eines Objekts des
+  Modells aufgerufen wird. Wirft sie einen Fehler auf, kann das Objekt
+  nicht gespeichert werden.} Methode \cite{django-doku-models-instances}
+implementiert werden.
+
+\hypertarget{subruxe4ume}{%
+\subsubsection{Subräume}\label{subruxe4ume}}
+
+Wie im Abschnitt \protect\hyperlink{die-wichtigsten-attribute-1}{``Die
+wichtigsten Attribute''} festgehalten, können einem \texttt{HTLRoom}
+Objekt mehrere \texttt{HTLRoom} Objekte untergeordnet werden. Diese
+untergeordneten Räume werden ``Subräume'' genannt. Bei ``Subräumen''
+handelt es sich beispielsweise um einen Kasten, der als eigenständiger
+Raum in einem ihm übergeordneten Raum steht. Logisch betrachtet ist der
+Kasten auch nur ein Raum, in dem sich Gegenstände befinden. Ob der Raum
+ein Klassenraum oder ein Kasten in einem Klassenraum ist, hat keine
+logischen Auswirkungen auf seine Eigenschaften als ``Standort von
+Gegenständen''.
+
+Um eine valide Hierarchie beizubehalten, muss diese Beziehung bei jedem
+Speicherprozess eines \texttt{HTLRoom} Objekts überprüft werden. Das
+geschieht durch die Methode \texttt{clean\_children()}, die beim
+Speichern durch die graphische Administrationsoberfläche automatisch
+aufgerufen wird. Bei Speicherforgängen, die nicht direkt durch die
+Administrationsoberfläche initiiert werden \footnote{etwa das
+  automatisierte Speichern beim Datenimport}, muss
+\texttt{clean\_children()} manuell aufgerufen werden.
+
+\hypertarget{das-htlitemtype-modell}{%
+\subsection{Das HTLItemType Modell}\label{das-htlitemtype-modell}}
+
+Das \texttt{HTLItemType} Modell repräsentiert Kategorien von
+Gegenständen. Das Modell besteht aus 2 Eigenschaften. Die Eigenschaft
+\texttt{item\_type} beschreibt ein \texttt{HTLItemType} kurz, die
+Eigenschaft \texttt{description} bietet Platz für Kommentare.
+
+Durch das Setzen eines \texttt{HTLItemType} Objekts für ein
+\texttt{HTLItem} Objekt durch seine Eigenschaft \texttt{item\_type}
+werden dem \texttt{HTLItem} Objekt alle
+\emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.}
+des \texttt{HTLItemType} Objekts zugewiesen. Anwendungsbeispiel ist das
+Setzen eines
+\emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.}
+namens ``Anzahl Ports'' für den \texttt{HTLItemType} namens ``Switch''.
+Jedes \texttt{HTLItem} Objekt mit dem \texttt{item\_type} ``Switch'' hat
+nun ein \emph{Custom-Field} namens ``Anzahl Ports''.
+
+Das für
+\emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.}
+erforderliche Mixin (siehe Abschnitt
+\protect\hyperlink{designgrundlagen}{``Designgrundlagen''})
+\texttt{WithCustomFieldsMixin} bietet die Funktion der
+\texttt{custom\_fields\_inheritance}. Die Funktion ermöglicht das Erben
+von allen \emph{Custom-Field} Werten eines bestimmten Objekts an ein
+anderes. Dieser Funktion macht sich das \texttt{HTLItem} Modell zunutze.
+Um beim Speichern automatisch vom \texttt{HTLItemType} Objekt
+unabhängige \emph{Custom-Field} Werte zu erstellen, die sofort vom
+Benutzer bearbeitet werden können, muss der Speicherlogik eine Funktion
+hinzugefügt werden. Dazu wird eine \texttt{@receiver} Methode genutzt,
+die automatisch bei jedem Speichervorgang eines \texttt{HTLItemType}
+oder \texttt{HTLItem} Objekts aufgerufen wird:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\AttributeTok{@receiver}\NormalTok{(post\_save, sender}\OperatorTok{=}\NormalTok{HTLItemType)}
+\KeywordTok{def}\NormalTok{ populate\_htlitem\_custom\_field\_values(sender, instance, }\OperatorTok{**}\NormalTok{kwargs):}
+\NormalTok{    populate\_inheritants\_custom\_field\_values(instance)}
+    
+\AttributeTok{@receiver}\NormalTok{(post\_save, sender}\OperatorTok{=}\NormalTok{HTLItem)}
+\KeywordTok{def}\NormalTok{ populate\_htlitemtype\_custom\_field\_values(sender, instance, }\OperatorTok{**}\NormalTok{kwargs):}
+\NormalTok{    populate\_with\_parents\_custom\_field\_values(instance)}
+\end{Highlighting}
+\end{Shaded}
+
+Die beiden angeführten Methoden werden je beim Aufkommen eines
+\texttt{post\_save} Signals \cite{django-doku-signals} ausgeführt,
+dessen \texttt{sender} ein \texttt{HTLItemType} oder \texttt{HTLItem}
+ist. Die Methoden rufen jeweils eine weitere Methode auf, welche die
+\emph{Custom-Fields} entsprechent aggregiert.
