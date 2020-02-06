@@ -365,10 +365,10 @@ Die vorliegende Diplomarbeit erweitert das
 Dabei handelt es sich um die beiden Pakete ``Capentory'' und
 ``Stocktaking''. Das Paket ``Capentory'' behandelt die Führung der
 Inventardaten und wurde speziell an die Inventardaten der HTL Rennweg
-angepasst.. Das Paket ``Stocktaking'' ermöglicht die Verwaltung der
-durch die mobile Applikation durchgeführten Inventuren. Dazu zählen
-Aufgaben wie das Erstellen der Inventuren, das Einsehen von
-Inventurberichten oder das Anwenden der aufgetretenen Änderungen.
+angepasst. Das Paket ``Stocktaking'' ermöglicht die Verwaltung der durch
+die mobile Applikation durchgeführten Inventuren. Dazu zählen Aufgaben
+wie das Erstellen der Inventuren, das Einsehen von Inventurberichten
+oder das Anwenden der aufgetretenen Änderungen.
 
 Dieses Kapitel beschreibt die Funktionsweise der beiden Module. Die
 Bedienung der \emph{Weboberfläche}
@@ -416,12 +416,12 @@ Zu den wichtigsten Attributen des \texttt{HTLItem} Modells zählen u.a.:
 \begin{itemize}
 \tightlist
 \item
-  \texttt{anlage} und \texttt{asset\_subnummer}: Diese Attribute bilden
+  \texttt{anlage} und \texttt{asset\_subnumber}: Diese Attribute bilden
   den Barcode eines Gegenstandes.
 \item
   \texttt{barcode\_prio}: Wenn dieses Attribut gesetzt ist, überschreibt
   es den durch die Attribute \texttt{anlage} und
-  \texttt{asset\_subnummer} entstandenen Barcode.
+  \texttt{asset\_subnumber} entstandenen Barcode.
 \item
   \texttt{anlagenbeschreibung}: Dieses Attribut repräsentiert die aus
   dem \emph{SAP ERP}
@@ -464,7 +464,7 @@ Objekten}\label{einzigartigkeit-von-htlitem-objekten}}
 Bezüglich der Einzigartigkeit von \texttt{HTLItem} Objekten gelten
 einige Bestimmungen.
 
-Sind die Attribute \texttt{anlage}, \texttt{asset\_subnummer} und
+Sind die Attribute \texttt{anlage}, \texttt{asset\_subnumber} und
 \texttt{company\_code} je mit einem nichtleeren Wert befüllt, so
 repräsentieren sie ein \texttt{HTLItem} Objekt eindeutig. Es dürfen
 keine 2 \texttt{HTLItem} Objekte denselben Wert dieser Attribute haben.
@@ -475,7 +475,7 @@ Anwendungsfall, die Metavariable \texttt{unique\_together}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{unique\_together }\OperatorTok{=}\NormalTok{ [[}\StringTok{"anlage"}\NormalTok{,  }\StringTok{"asset\_subnummer"}\NormalTok{, }\StringTok{"company\_code"}\NormalTok{]]}
+\NormalTok{unique\_together }\OperatorTok{=}\NormalTok{ [[}\StringTok{"anlage"}\NormalTok{,  }\StringTok{"asset\_subnumber"}\NormalTok{, }\StringTok{"company\_code"}\NormalTok{]]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -497,7 +497,7 @@ das Setzen des \texttt{unique} Parameters des Attributes auf den Wert
 muss die Logik stattdessen in die \texttt{validate\_unique()} Methode
 aufgenommen werden. Zusätzlich darf der Wert des \texttt{barcode\_prio}
 Attributs nicht mit dem aus den beiden Attributen \texttt{anlage} und
-\texttt{asset\_subnummer} generierten Barcode übereinstimmen. Um diese
+\texttt{asset\_subnumber} generierten Barcode übereinstimmen. Um diese
 Bedingung zu erfüllen kann nur die \texttt{validate\_unique()} Methode
 herbeigezogen werden.
 
@@ -555,7 +555,7 @@ Zu den wichtigsten Attributen des \texttt{HTLRoom} Modells zählen u.a.:
 \item
   \texttt{item}: Dieses Attribut kann gesetzt werden, um ein
   \texttt{HTLRoom} Objekt durch ein \texttt{HTLItem} Objekt zu
-  repräsentieren. Anwendungsbeisipel ist ein Schrank, der sowohl als
+  repräsentieren. Anwendungsbeispiel ist ein Schrank, der sowohl als
   \texttt{HTLRoom} Objekt als auch als \texttt{HTLItem} Objekt definiert
   ist. Sind die beiden Objekte durch das \texttt{item} Attribut
   verbunden, ist der Barcode des \texttt{HTLRoom} Objekts automatisch
@@ -600,7 +600,7 @@ Um eine valide Hierarchie beizubehalten, muss diese Beziehung bei jedem
 Speicherprozess eines \texttt{HTLRoom} Objekts überprüft werden. Das
 geschieht durch die Methode \texttt{clean\_children()}, die beim
 Speichern durch die graphische Administrationsoberfläche automatisch
-aufgerufen wird. Bei Speicherforgängen, die nicht direkt durch die
+aufgerufen wird. Bei Speichervorgängen, die nicht direkt durch die
 Administrationsoberfläche initiiert werden \footnote{etwa das
   automatisierte Speichern beim Datenimport}, muss
 \texttt{clean\_children()} manuell aufgerufen werden.
@@ -655,4 +655,207 @@ Die beiden angeführten Methoden werden je beim Aufkommen eines
 \texttt{post\_save} Signals \cite{django-doku-signals} ausgeführt,
 dessen \texttt{sender} ein \texttt{HTLItemType} oder \texttt{HTLItem}
 ist. Die Methoden rufen jeweils eine weitere Methode auf, welche die
-\emph{Custom-Fields} entsprechent aggregiert.
+\emph{Custom-Fields} entsprechend aggregiert.
+
+\hypertarget{datenimport}{%
+\subsection{Datenimport}\label{datenimport}}
+
+Um die Gegenstands- und Raumdaten des Inventars der HTL Rennweg in das
+erstellte System importieren zu können, muss dessen standardmäßig
+verfügbare Importfunktion entsprechend erweitert werden. Dazu sind 4
+spezielle Importverhalten notwendig.
+
+Implementiert wird das Importverhalten nicht innerhalb der
+entsprechenden Modellklasse, sondern in dessen verknüpften
+\texttt{ModelAdmin} Klasse. Durch das Attribut \texttt{resource\_class}
+wird spezifiziert, durch welche Python-Klasse die Daten importiert
+werden. Um für ein einziges Modell mehrere \texttt{resource\_class}
+Einträge zu setzen, müssen mehrere \texttt{ModelAdmin} Klassen für
+Proxy-Modelle \cite{django-doku-models} des eigentlichen Modells
+definiert werden. Ein Proxy-Modell eines Modells verweist auf dieselbe
+Tabelle in der Datenbank, kann aber programmiertechnisch als
+unabhängiges Modell betrachtet werden. Die Daten, die durch das
+Proxy-Modell ausgelesen oder eingefügt werden entsprechen exakt jenen
+des eigentlichen Modells.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Definition eines Proxy{-}Modells zu dem Modell "HTLItem"}
+\KeywordTok{class}\NormalTok{ HTLItemSecondaryImportProxy(HTLItem):}
+    \KeywordTok{class}\NormalTok{ Meta:}
+\NormalTok{        proxy }\OperatorTok{=} \VariableTok{True}
+
+\CommentTok{\# Diese Datenbankabfragen liefern beide dasselbe Ergebnis:}
+\BuiltInTok{print}\NormalTok{(HTLItem.objects.}\BuiltInTok{all}\NormalTok{())}
+\BuiltInTok{print}\NormalTok{(HTLItemSecondaryImportProxy.objects.}\BuiltInTok{all}\NormalTok{())}
+
+\CommentTok{\# Für das Proxy{-}Modell kann eine ModelAdmin{-}Klasse definiert werden.}
+\CommentTok{\# Diese bekommt eine eigene "resource\_class".}
+\AttributeTok{@register}\NormalTok{(HTLItemSecondaryImportProxy)}
+\KeywordTok{class}\NormalTok{ HTLItemSecondaryImportProxyAdmin(HTLItemSecondaryImportMixin, RalphAdmin):}
+\NormalTok{    resource\_class }\OperatorTok{=}\NormalTok{ HTLItemSecodaryResource}
+\end{Highlighting}
+\end{Shaded}
+
+Das Importverhalten wird in der Klasse, die in das Attribut
+\texttt{resource\_class} eingetragen wird, programmiertechnisch
+festgelegt. Es werden alle Zeilen der zu importierenden Datei
+nacheinander abgearbeitet. Bei sehr großen Datenmengen oder aufwändigem
+Importverhalten kann es zu Performanceverlusten kommen. Da nahezu jedes
+durch das Diplomarbeitsteam erstellte Importverhalten die zu
+importierenden Daten überprüfen oder anderweitig speziell behandeln
+muss, kann es hier besonders zu Performanceengpässen kommen.
+Beispielsweise muss beim Import von Daten aus dem \emph{SAP ERP}
+\index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+System auch geprüft werden, ob der Raum eines Gegenstandes existiert.
+Die oft sehr großen Datenmengen, die aus dem \emph{SAP ERP}
+\index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+System importiert werden müssen, sorgen ebenfalls für
+Performanceverluste.
+
+Die in den zu importierenden Dateien vorhandenen Überschriften werden
+vor dem Importprozess auf Modelleigenschaften abgebildet. Manche Werte
+der zu importierenden Datensätze müssen in Werte gewandelt werden, die
+in der Datenbank gespeichert werden können. In der Datei
+\texttt{import\_settings.py} sind diese Abbildungen bzw. Umwandlungen
+als ``\emph{Aliases} \index{Alias: ein Pseudonym}'' deklariert. In dem
+folgenden Beispiel werden die Überschriften ``Erstes Attribut'' und
+``Zweites Attribut'' auf die zwei Modelleigenschaften \texttt{field\_1}
+und \texttt{field\_2} abgebildet. Importierte Werte für ``Zweites
+Attribut'' werden von den Zeichenketten ``Ja'' und ``Nein'' auf die
+\emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}-Werte
+\texttt{True} und \texttt{False} übersetzt.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Beispielhafte Definition von Aliases für einen Import}
+\NormalTok{ALIASES\_HTLITEM }\OperatorTok{=}\NormalTok{ \{}
+    \StringTok{"field\_1"}\NormalTok{: ([}\StringTok{"Erstes Attribut"}\NormalTok{], \{}
+
+\NormalTok{    \}),}
+    \StringTok{"field\_2"}\NormalTok{: ([}\StringTok{"Zweites Attribut"}\NormalTok{], \{}
+      \StringTok{"Ja"}\NormalTok{: }\VariableTok{True}\NormalTok{,}
+      \StringTok{"Nein"}\NormalTok{: }\VariableTok{False}
+\NormalTok{    \}),}
+\end{Highlighting}
+\end{Shaded}
+
+Der Datenimport wird immer zweimal durchlaufen. Zuerst werden die
+importierten Daten zwar generiert, aber nicht gespeichert und dem
+Benutzer nur zur Validierung vorgelegt. Nach einer Bestätigung des
+Benutzers werden die Daten ein weiteres Mal von Neuem generiert und
+gespeichert.
+
+Informationen über das Format einer zu importierenden Quelldatei ist dem
+\todo{Add reference} Handbuch zum Server zu entnehmen.
+
+\hypertarget{import-aus-dem-sap-erp-system}{%
+\subsubsection{Import aus dem SAP ERP
+System}\label{import-aus-dem-sap-erp-system}}
+
+Die Daten aus dem \emph{SAP ERP}
+\index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+System der Schule können in ein gängiges Datenformat exportiert werden.
+Das üblich gewählte Format ist eine Excel-Tabelle (Dateiendung
+``\texttt{.xlsx}'').
+
+Die aus dem \emph{SAP ERP}
+\index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+System exportierten Daten haben grundsätzlich immer volle Gültigkeit.
+Bereits im ``Capentory'' System vorhandene Daten werden überschrieben.
+
+Zu importierende Datensätze werden anhand der Werte ``BuKr'', ``Anlage''
+und ``UNr.'' aus der Quelldatei verglichen. Diese Werte werden auf die
+\texttt{HTLItem} Modellattribute \texttt{company\_code}, \texttt{anlage}
+und \texttt{asset\_subnumber} abgebildet. Zusätzlich wird auch das
+\texttt{barcode\_prio} Attribut mit dem zusammengefügten Wert der
+``Anlage'' und ``UNr.'' Felder \footnote{Diese Felder repräsentieren den
+  Barcode eines \texttt{HTLItem} Objekts.} der Quelldatei verglichen.
+Stimmt ein \texttt{HTLItem} Datensatz aus dem ``Capentory'' System mit
+einem zu importierenden Datensatz aufgrund einer der beiden verglichenen
+Wertepaare überein, wird dieser damit assoziiert und überschrieben.
+
+Vor dem Verarbeiten der Daten des \texttt{HTLItem} Objekts werden die
+Daten des zugehörigen \texttt{HTLRoom} Objekts verarbeitet. Es wird nach
+einem existierenden \texttt{HTLRoom} Objekt mit einem übereinstimmenden
+\texttt{room\_number} Attribut\footnote{Das ``Raum'' Feld der Quelldatei
+  wird auf das \texttt{room\_number} Attribut abgebildet.} gesucht.
+Sollten mehrere \texttt{HTLRoom} Objekte übereinstimmen\footnote{Dieser
+  Fall sollte bei einem einzigen Schulstandort nicht auftreten.}, wird
+jener mit übereinstimmenden \texttt{main\_inv} und \texttt{location}
+Attributen \footnote{Die ``Hauptinven'' und ``Standort'' Felder der
+  Quelldatei werden auf die \texttt{main\_inv} und \texttt{location}
+  Attribute abgebildet.} ausgewählt. Ein gefundenes \texttt{HTLRoom}
+Objekt wird mit dem importierten \texttt{HTLItem} Objekt verknüpft.
+Sollte kein \texttt{HTLRoom} Objekt gefunden werden, wird es mit den
+entsprechenden Werten erstellt. In beiden Fällen wird das
+\texttt{is\_in\_sap}
+\emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}-Attribut
+des \texttt{HTLRoom} Objekts gesetzt.
+
+Es gibt eine Ausnahme der absoluten Gültigkeit der Daten aus dem
+\emph{SAP ERP}
+\index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+System. Stimmt das gefundene \texttt{HTLRoom} Objekt nicht mit jenem
+aktuell verknüpften \texttt{HTLRoom} Objekt eines \texttt{HTLItem}
+Objekts überein, wird es grundsätzlich aktualisiert. Sollte das aktuell
+verknüpfte \texttt{HTLRoom} Objekt ein ``Subraum'' des gefundenen
+Objekts sein, wird dieses nicht aktualisiert. So wird verhindert, dass
+Gegenstände durch den Import aus einem Subraum in den übergeordneten
+Raum wandern. In dem \emph{SAP ERP}
+\index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+System existieren die ``Subräume'' grundsätzlich nicht.
+
+\hypertarget{import-aus-sekunduxe4rer-und-tertiuxe4rer-quelle}{%
+\subsubsection{Import aus sekundärer und tertiärer
+Quelle}\label{import-aus-sekunduxe4rer-und-tertiuxe4rer-quelle}}
+
+Bei der sekundären und tertiären Quelle handelt es sich um schulinterne
+Inventarlisten. Beide Quellen enthalten Informationen über den Raum, in
+dem sich ein bestimmter Gegenstand befindet. Die sekundäre Quelle
+enthält Informationen über die Kategorie eines EDV-spezifischen
+Gegenstands. Die tertiäre Quelle enthält Informationen über ``Subräume''
+und welche Gegenstände sich darin befinden.
+
+Beide Quellen besitzen allerdings keine absolute Gültigkeit wie der
+Import aus dem \emph{SAP ERP}
+\index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+System. Aus diesem Grund werden alle Änderungen von Eigenschaften eines
+\texttt{HTLItem} Objekts in Änderungsvorschläge einer Inventur
+ausgelagert und nicht direkt angewendet. Die Änderungen können zu einem
+späteren Zeitpunkt eingesehen, bearbeitet und schlussendlich angewendet
+werden. Grund für dieses spezielle Importverhalten ist die
+Vertrauenswürdigkeit der Informationen, die der sekundären bzw.
+tertiären Quelle entnommen werden. Die Listen haben offiziell kein
+einheitliches Format und können daher bei sofortigem Übernehmen der
+Änderungen zu ungewollten Fehlinformationen führen. Der Import einer
+sekundären oder tertiären Quelle kann wie eine eigenständige Inventur
+angesehen werden. Es können durch den Import auch neue \texttt{HTLItem}
+Objekte hinzugefügt werden, wenn ein Datensatz mit keinem bestehenden
+Objekt assoziiert werden kann.
+
+Das Importverhalten für die sekundäre Quelle erstellt zusätzlich durch
+die Methode \texttt{get\_or\_create\_item\_type()} der Klasse
+\texttt{HTLItemSecodaryResource} definierte \texttt{HTLItemType}
+Objekte. Die erstellten \texttt{HTLItemType} Objekte werden den
+\texttt{HTLItem} Objekten indirekt über Änderungsvorschläge zugewiesen.
+
+Die bereits erwähnten Informationen über ``Subräume'' der tertiären
+Quelle werden sofort auf die entsprechenden \texttt{HTLRoom} Objekte
+angewendet. Es bedarf keiner weiteren Bestätigung, um die ``Subräume''
+zu erstellen und den übergeordneten \texttt{HTLRoom} Objekten
+zuzuweisen.
+
+\hypertarget{import-der-raumliste}{%
+\subsubsection{Import der Raumliste}\label{import-der-raumliste}}
+
+Die Importfunktion der Raumliste dient zur Verlinkung von interner
+Raumnummer (\texttt{HTLRoom}-Attribut \texttt{internal\_room\_number})
+und der Raumnummer im \emph{SAP ERP}
+\index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+System (\texttt{HTLRoom}-Attribut \texttt{room\_number}). Es werden
+dadurch bestehenden \texttt{HTLRoom} Objekten eine interne Raumnummer
+und eine Beschreibung zugewiesen, oder gänzlich neue \texttt{HTLRoom}
+Objekte anhand aller erhaltenen Informationen erstellt. Der Import
+geschieht direkt, ohne Auslagerung von Änderungen in
+Änderungsvorschläge.

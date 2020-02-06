@@ -151,7 +151,7 @@ Das Konzept des `Mixin`s wird von der Ralph-Plattform besonders häufig genutzt.
 
 \chapter{Die 2 Erweiterungsmodule}
 
-Die vorliegende Diplomarbeit erweitert das ["Ralph"](#django-und-ralph) System um 2 Module. Dabei handelt es sich um die beiden Pakete "Capentory" und "Stocktaking". Das Paket "Capentory" behandelt die Führung der Inventardaten und wurde speziell an die Inventardaten der HTL Rennweg angepasst.. Das Paket "Stocktaking" ermöglicht die Verwaltung der durch die mobile Applikation durchgeführten Inventuren. Dazu zählen Aufgaben wie das Erstellen der Inventuren, das Einsehen von Inventurberichten oder das Anwenden der aufgetretenen Änderungen.
+Die vorliegende Diplomarbeit erweitert das ["Ralph"](#django-und-ralph) System um 2 Module. Dabei handelt es sich um die beiden Pakete "Capentory" und "Stocktaking". Das Paket "Capentory" behandelt die Führung der Inventardaten und wurde speziell an die Inventardaten der HTL Rennweg angepasst. Das Paket "Stocktaking" ermöglicht die Verwaltung der durch die mobile Applikation durchgeführten Inventuren. Dazu zählen Aufgaben wie das Erstellen der Inventuren, das Einsehen von Inventurberichten oder das Anwenden der aufgetretenen Änderungen.
 
 Dieses Kapitel beschreibt die Funktionsweise der beiden Module. Die Bedienung der \emph{Weboberfläche} \index{Weboberfläche: graphische Oberfläche für administrative Tätigkeiten, die über einen Webbrowser erreichbar ist} ist dem \todo{Add reference} Handbuch zum Server zu entnehmen.
 
@@ -173,8 +173,8 @@ Das `HTLItem`-Modell repräsentiert die Gegenstandsdaten des Inventars der HTL R
 
 Zu den wichtigsten Attributen des `HTLItem` Modells zählen u.a.:
 
-* `anlage` und `asset_subnummer`: Diese Attribute bilden den Barcode eines Gegenstandes.
-* `barcode_prio`: Wenn dieses Attribut gesetzt ist, überschreibt es den durch die Attribute `anlage` und `asset_subnummer` entstandenen Barcode.
+* `anlage` und `asset_subnumber`: Diese Attribute bilden den Barcode eines Gegenstandes.
+* `barcode_prio`: Wenn dieses Attribut gesetzt ist, überschreibt es den durch die Attribute `anlage` und `asset_subnumber` entstandenen Barcode.
 * `anlagenbeschreibung`: Dieses Attribut repräsentiert die aus dem \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System entnommene Gegenstandsbeschreibung und kann nur durch den Import von Daten direkt aus dem  \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System geändert werden.
 * `anlagenbeschreibung_prio`: Dieses Attribut dient als interne Gegenstandsbeschreibung, die auch ohne einen Import aus dem \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System geändert werden kann.
 * `room`: Dieses Attribut referenziert auf ein `HTLRoom` Objekt, in dem sich ein `HTLItem` Objekt befindet.
@@ -186,17 +186,17 @@ Zu den wichtigsten Attributen des `HTLItem` Modells zählen u.a.:
 
 Bezüglich der Einzigartigkeit von `HTLItem` Objekten gelten einige Bestimmungen. 
 
-Sind die Attribute `anlage`,  `asset_subnummer` und `company_code` je mit einem nichtleeren Wert befüllt, so repräsentieren sie ein `HTLItem` Objekt eindeutig. Es dürfen keine 2 `HTLItem` Objekte denselben Wert dieser Attribute haben. Um diese Bedingung erfüllen zu können muss eine eigens angepasste Validierungslogik implementiert werden. Standardverfahren wäre in diesem Anwendungsfall, die Metavariable `unique_together` \cite{django-doku-models-options} anzupassen:
+Sind die Attribute `anlage`,  `asset_subnumber` und `company_code` je mit einem nichtleeren Wert befüllt, so repräsentieren sie ein `HTLItem` Objekt eindeutig. Es dürfen keine 2 `HTLItem` Objekte denselben Wert dieser Attribute haben. Um diese Bedingung erfüllen zu können muss eine eigens angepasste Validierungslogik implementiert werden. Standardverfahren wäre in diesem Anwendungsfall, die Metavariable `unique_together` \cite{django-doku-models-options} anzupassen:
 
 ```python
-unique_together = [["anlage",  "asset_subnummer", "company_code"]]
+unique_together = [["anlage",  "asset_subnumber", "company_code"]]
 ```
 
 Dieses Verfahren erfüllt nicht die geforderte Bedingung nur in der Theorie. Praktisch werden leere Werte von Attributen dieser Art nicht als `None` (Python) bzw. `null` (MySQL), sondern als Leerstrings `""` gespeichert. Um diese Werte ebenfalls von der Regel auszuschließen, muss die `validate_unique()`[^validate-unique] Methode \cite{django-doku-models-instances} überschrieben werden. 
 
 [^validate-unique]: Eine Methode einer Modell-Klasse, die unter Normalzuständen immer vor dem Speichern eines Objekts des Modells aufgerufen wird. Wirft sie einen Fehler auf, kann das Objekt nicht gespeichert werden. 
 
-Ist das `barcode_prio` Attribut eines `HTLItem` Objekts gesetzt, darf dessen Wert nicht mit jenem eines anderen `HTLItem` Objekts übereinstimmen. Standardverfahren wäre in diesem Anwendungsfall das Setzen des `unique` Parameters des Attributes auf den Wert `True`. Da dieses Verfahren ebenfalls das o.a. Problem aufwirft, muss die Logik stattdessen in die `validate_unique()` Methode aufgenommen werden. Zusätzlich darf der Wert des `barcode_prio` Attributs nicht mit dem aus den beiden Attributen `anlage` und `asset_subnummer` generierten Barcode übereinstimmen. Um diese Bedingung zu erfüllen kann nur die `validate_unique()` Methode herbeigezogen werden. 
+Ist das `barcode_prio` Attribut eines `HTLItem` Objekts gesetzt, darf dessen Wert nicht mit jenem eines anderen `HTLItem` Objekts übereinstimmen. Standardverfahren wäre in diesem Anwendungsfall das Setzen des `unique` Parameters des Attributes auf den Wert `True`. Da dieses Verfahren ebenfalls das o.a. Problem aufwirft, muss die Logik stattdessen in die `validate_unique()` Methode aufgenommen werden. Zusätzlich darf der Wert des `barcode_prio` Attributs nicht mit dem aus den beiden Attributen `anlage` und `asset_subnumber` generierten Barcode übereinstimmen. Um diese Bedingung zu erfüllen kann nur die `validate_unique()` Methode herbeigezogen werden. 
 
 ## Das HTLRoom Modell
 
@@ -212,7 +212,7 @@ Zu den wichtigsten Attributen des `HTLRoom` Modells zählen u.a.:
 * `is_in_sap`: Der Wert dieses \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}-Attributs ist `Wahr`, wenn der `HTLRoom`-Datensatz einen aus dem  \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System vorhandenen Raum repräsentiert.
 * `children`: Mit dieser Beziehung können einem übergeordneten `HTLRoom` Objekt mehrere `HTLRoom` Objekte untergeordnet werden. Anwendungsfall für dieses Attribut ist die Definition von Schränken oder Serverracks, die je einem übergeordneten Raum zugeteilt sind, selbst aber eigenständige Räume repräsentieren.
 * `type`: Dieses Attribut spezifiziert die Art eines `HTLRoom` Objekts. So kann ein `HTLRoom` Objekt einen ganzen Raum oder auch nur einen Kasten in einem übergeordneten Raum repräsentieren.
-* `item`: Dieses Attribut kann gesetzt werden, um ein `HTLRoom` Objekt durch ein `HTLItem` Objekt zu repräsentieren. Anwendungsbeisipel ist ein Schrank, der sowohl als `HTLRoom` Objekt als auch als `HTLItem` Objekt definiert ist. Sind die beiden Objekte durch das `item` Attribut verbunden, ist der Barcode des `HTLRoom` Objekts automatisch jener des `HTLItem` Objekts.
+* `item`: Dieses Attribut kann gesetzt werden, um ein `HTLRoom` Objekt durch ein `HTLItem` Objekt zu repräsentieren. Anwendungsbeispiel ist ein Schrank, der sowohl als `HTLRoom` Objekt als auch als `HTLItem` Objekt definiert ist. Sind die beiden Objekte durch das `item` Attribut verbunden, ist der Barcode des `HTLRoom` Objekts automatisch jener des `HTLItem` Objekts.
 
 ### Einzigartigkeit von HTLRoom Objekten
 
@@ -225,7 +225,7 @@ Beide Bedingungen müssen wie im Falle des `HTLItem` Modells durch Überschreibe
 
 Wie im Abschnitt ["Die wichtigsten Attribute"](#die-wichtigsten-attribute-1) festgehalten, können einem `HTLRoom` Objekt mehrere `HTLRoom` Objekte untergeordnet werden. Diese untergeordneten Räume werden "Subräume" genannt. Bei "Subräumen" handelt es sich beispielsweise um einen Kasten, der als eigenständiger Raum in einem ihm übergeordneten Raum steht. Logisch betrachtet ist der Kasten auch nur ein Raum, in dem sich Gegenstände befinden. Ob der Raum ein Klassenraum oder ein Kasten in einem Klassenraum ist, hat keine logischen Auswirkungen auf seine Eigenschaften als "Standort von Gegenständen".
 
-Um eine valide Hierarchie beizubehalten, muss diese Beziehung bei jedem Speicherprozess eines `HTLRoom` Objekts überprüft werden. Das geschieht durch die Methode `clean_children()`, die beim Speichern durch die graphische Administrationsoberfläche automatisch aufgerufen wird. Bei Speicherforgängen, die nicht direkt durch die Administrationsoberfläche initiiert werden [^clean_children_manually], muss `clean_children()` manuell aufgerufen werden.
+Um eine valide Hierarchie beizubehalten, muss diese Beziehung bei jedem Speicherprozess eines `HTLRoom` Objekts überprüft werden. Das geschieht durch die Methode `clean_children()`, die beim Speichern durch die graphische Administrationsoberfläche automatisch aufgerufen wird. Bei Speichervorgängen, die nicht direkt durch die Administrationsoberfläche initiiert werden [^clean_children_manually], muss `clean_children()` manuell aufgerufen werden.
 
 [^clean_children_manually]: etwa das automatisierte Speichern beim Datenimport
 
@@ -247,4 +247,78 @@ def populate_htlitemtype_custom_field_values(sender, instance, **kwargs):
     populate_with_parents_custom_field_values(instance)
 ```
 
-Die beiden angeführten Methoden werden je beim Aufkommen eines `post_save` Signals \cite{django-doku-signals} ausgeführt, dessen `sender` ein `HTLItemType` oder `HTLItem` ist. Die Methoden rufen jeweils eine weitere Methode auf, welche die \emph{Custom-Fields} entsprechent aggregiert. 
+Die beiden angeführten Methoden werden je beim Aufkommen eines `post_save` Signals \cite{django-doku-signals} ausgeführt, dessen `sender` ein `HTLItemType` oder `HTLItem` ist. Die Methoden rufen jeweils eine weitere Methode auf, welche die \emph{Custom-Fields} entsprechend aggregiert. 
+
+## Datenimport
+
+Um die Gegenstands- und Raumdaten des Inventars der HTL Rennweg in das erstellte System importieren zu können, muss dessen standardmäßig verfügbare Importfunktion entsprechend erweitert werden. Dazu sind 4 spezielle Importverhalten notwendig.
+
+Implementiert wird das Importverhalten nicht innerhalb der entsprechenden Modellklasse, sondern in dessen verknüpften `ModelAdmin` Klasse. Durch das Attribut `resource_class` wird spezifiziert, durch welche Python-Klasse die Daten importiert werden. Um für ein einziges Modell mehrere `resource_class` Einträge zu setzen, müssen mehrere `ModelAdmin` Klassen für Proxy-Modelle \cite{django-doku-models} des eigentlichen Modells definiert werden. Ein Proxy-Modell eines Modells verweist auf dieselbe Tabelle in der Datenbank, kann aber programmiertechnisch als unabhängiges Modell betrachtet werden. Die Daten, die durch das Proxy-Modell ausgelesen oder eingefügt werden entsprechen exakt jenen des eigentlichen Modells.
+
+```python
+# Definition eines Proxy-Modells zu dem Modell "HTLItem"
+class HTLItemSecondaryImportProxy(HTLItem):
+    class Meta:
+        proxy = True
+
+# Diese Datenbankabfragen liefern beide dasselbe Ergebnis:
+print(HTLItem.objects.all())
+print(HTLItemSecondaryImportProxy.objects.all())
+
+# Für das Proxy-Modell kann eine ModelAdmin-Klasse definiert werden.
+# Diese bekommt eine eigene "resource_class".
+@register(HTLItemSecondaryImportProxy)
+class HTLItemSecondaryImportProxyAdmin(HTLItemSecondaryImportMixin, RalphAdmin):
+    resource_class = HTLItemSecodaryResource
+```
+
+Das Importverhalten wird in der Klasse, die in das Attribut `resource_class` eingetragen wird, programmiertechnisch festgelegt. Es werden alle Zeilen der zu importierenden Datei nacheinander abgearbeitet. Bei sehr großen Datenmengen oder aufwändigem Importverhalten kann es zu Performanceverlusten kommen. Da nahezu jedes durch das Diplomarbeitsteam erstellte Importverhalten die zu importierenden Daten überprüfen oder anderweitig speziell behandeln muss, kann es hier besonders zu Performanceengpässen kommen. Beispielsweise muss beim Import von Daten aus dem \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System auch geprüft werden, ob der Raum eines Gegenstandes existiert. Die oft sehr großen Datenmengen, die aus dem \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System importiert werden müssen, sorgen ebenfalls für Performanceverluste.
+
+Die in den zu importierenden Dateien vorhandenen Überschriften werden vor dem Importprozess auf Modelleigenschaften abgebildet. Manche Werte der zu importierenden Datensätze müssen in Werte gewandelt werden, die in der Datenbank gespeichert werden können. In der Datei `import_settings.py` sind diese Abbildungen bzw. Umwandlungen als "\emph{Aliases} \index{Alias: ein Pseudonym}" deklariert. In dem folgenden Beispiel werden die Überschriften "Erstes Attribut" und "Zweites Attribut" auf die zwei Modelleigenschaften `field_1` und `field_2` abgebildet. Importierte Werte für "Zweites Attribut" werden von den Zeichenketten  "Ja" und "Nein" auf die \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}-Werte `True` und `False` übersetzt.
+
+```python
+# Beispielhafte Definition von Aliases für einen Import
+ALIASES_HTLITEM = {
+    "field_1": (["Erstes Attribut"], {
+
+    }),
+    "field_2": (["Zweites Attribut"], {
+      "Ja": True,
+      "Nein": False
+    }),
+```
+
+Der Datenimport wird immer zweimal durchlaufen. Zuerst werden die importierten Daten zwar generiert, aber nicht gespeichert und dem Benutzer nur zur Validierung vorgelegt. Nach einer Bestätigung des Benutzers werden die Daten ein weiteres Mal von Neuem generiert und gespeichert.
+
+Informationen über das Format einer zu importierenden Quelldatei ist dem \todo{Add reference} Handbuch zum Server zu entnehmen.
+
+### Import aus dem SAP ERP System
+
+Die Daten aus dem \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System der Schule können in ein gängiges Datenformat exportiert werden. Das üblich gewählte Format ist eine Excel-Tabelle (Dateiendung "`.xlsx`").
+
+Die aus dem \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System exportierten Daten haben grundsätzlich immer volle Gültigkeit. Bereits im "Capentory" System vorhandene Daten werden überschrieben. 
+
+Zu importierende Datensätze werden anhand der Werte "BuKr", "Anlage" und "UNr." aus der Quelldatei verglichen. Diese Werte werden auf die `HTLItem` Modellattribute `company_code`, `anlage` und `asset_subnumber` abgebildet. Zusätzlich wird auch das `barcode_prio` Attribut mit dem zusammengefügten Wert der "Anlage" und "UNr." Felder [^anlage_unr] der Quelldatei verglichen. Stimmt ein `HTLItem` Datensatz aus dem "Capentory" System mit einem zu importierenden Datensatz aufgrund einer der beiden verglichenen Wertepaare überein, wird dieser damit assoziiert und überschrieben. 
+
+Vor dem Verarbeiten der Daten des `HTLItem` Objekts werden die Daten des zugehörigen `HTLRoom` Objekts verarbeitet. Es wird nach einem existierenden `HTLRoom` Objekt mit einem übereinstimmenden `room_number` Attribut[^room_number_mapping] gesucht. Sollten mehrere `HTLRoom` Objekte übereinstimmen[^multiple_matches_case], wird jener mit übereinstimmenden `main_inv` und `location` Attributen [^room_attribute_mapping] ausgewählt. Ein gefundenes `HTLRoom` Objekt wird mit dem importierten `HTLItem` Objekt verknüpft. Sollte kein `HTLRoom` Objekt gefunden werden, wird es mit den entsprechenden Werten erstellt. In beiden Fällen wird das `is_in_sap` \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}-Attribut des `HTLRoom` Objekts gesetzt. 
+
+Es gibt eine Ausnahme der absoluten Gültigkeit der Daten aus dem \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System. Stimmt das gefundene `HTLRoom` Objekt nicht mit jenem aktuell verknüpften `HTLRoom` Objekt eines `HTLItem` Objekts überein, wird es grundsätzlich aktualisiert. Sollte das aktuell verknüpfte `HTLRoom` Objekt ein "Subraum" des gefundenen Objekts sein, wird dieses nicht aktualisiert. So wird verhindert, dass Gegenstände durch den Import aus einem Subraum in den übergeordneten Raum wandern. In dem  \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System existieren die "Subräume" grundsätzlich nicht. 
+
+[^anlage_unr]: Diese Felder repräsentieren den Barcode eines `HTLItem` Objekts.
+[^room_number_mapping]: Das "Raum" Feld der Quelldatei wird auf das `room_number` Attribut abgebildet.
+[^room_attribute_mapping]: Die "Hauptinven" und "Standort" Felder der Quelldatei werden auf die `main_inv` und `location` Attribute abgebildet.
+[^multiple_matches_case]: Dieser Fall sollte bei einem einzigen Schulstandort nicht auftreten.
+
+### Import aus sekundärer und tertiärer Quelle
+
+Bei der sekundären und tertiären Quelle handelt es sich um schulinterne Inventarlisten. Beide Quellen enthalten Informationen über den Raum, in dem sich ein bestimmter Gegenstand befindet. Die sekundäre Quelle enthält Informationen über die Kategorie eines EDV-spezifischen Gegenstands. Die tertiäre Quelle enthält Informationen über "Subräume" und welche Gegenstände sich darin befinden. 
+
+Beide Quellen besitzen allerdings keine absolute Gültigkeit wie der Import aus dem \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System. Aus diesem Grund werden alle Änderungen von Eigenschaften eines `HTLItem` Objekts in Änderungsvorschläge einer Inventur ausgelagert und nicht direkt angewendet. Die Änderungen können zu einem späteren Zeitpunkt eingesehen, bearbeitet und schlussendlich angewendet werden. Grund für dieses spezielle Importverhalten ist die Vertrauenswürdigkeit der Informationen, die der sekundären bzw. tertiären Quelle entnommen werden. Die Listen haben offiziell kein einheitliches Format und können daher bei sofortigem Übernehmen der Änderungen zu ungewollten Fehlinformationen führen. Der Import einer sekundären oder tertiären Quelle kann wie eine eigenständige Inventur angesehen werden. Es können durch den Import auch neue `HTLItem` Objekte hinzugefügt werden, wenn ein Datensatz mit keinem bestehenden Objekt assoziiert werden kann. 
+
+Das Importverhalten für die sekundäre Quelle erstellt zusätzlich durch die Methode `get_or_create_item_type()` der Klasse `HTLItemSecodaryResource` definierte `HTLItemType` Objekte. Die erstellten `HTLItemType` Objekte werden den `HTLItem` Objekten indirekt über Änderungsvorschläge zugewiesen.
+
+Die bereits erwähnten Informationen über "Subräume" der tertiären Quelle werden sofort auf die entsprechenden `HTLRoom` Objekte angewendet. Es bedarf keiner weiteren Bestätigung, um die "Subräume" zu erstellen und den übergeordneten `HTLRoom` Objekten zuzuweisen.
+
+### Import der Raumliste
+
+Die Importfunktion der Raumliste dient zur Verlinkung von interner Raumnummer (`HTLRoom`-Attribut `internal_room_number`) und der Raumnummer im \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System (`HTLRoom`-Attribut `room_number`). Es werden dadurch bestehenden `HTLRoom` Objekten eine interne Raumnummer und eine Beschreibung zugewiesen, oder gänzlich neue `HTLRoom` Objekte anhand aller erhaltenen Informationen erstellt. Der Import geschieht direkt, ohne Auslagerung von Änderungen in Änderungsvorschläge.
