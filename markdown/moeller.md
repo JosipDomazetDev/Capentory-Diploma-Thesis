@@ -149,11 +149,11 @@ Die Erweiterung von Django durch die vorliegende Diplomarbeit wurde anhand diese
 
 Das Konzept des `Mixin`s wird von der Ralph-Plattform besonders häufig genutzt. `Mixin`s sind Klassen, die anderen von ihnen erbende Klassen, bestimmte Attribute und Methoden hinzufügen. Manche `Mixin`s setzen implizit voraus, dass die davon erbenden Klassen ebenfalls von bestimmten anderen Klassen erben. Beispiel ist die Klasse `AdminAbsoluteUrlMixin`, die eine Methode `get_absolute_url` zur Verfügung stellt. Diese Methode liefert die URL, die zu der Detailansicht der Modellinstanz führt, die die Methode aufruft. Voraussetzung für das Erben einer Klasse von `AdminAbsoluteUrlMixin` ist daher, dass sie ebenfalls von der Klasse `Model` erbt.
 
-\chapter{Die 2 Erweiterungsmodule}
+\chapter{Die 2 Erweiterungsmodule des Serverssystems}
 
 Die vorliegende Diplomarbeit erweitert das ["Ralph"](#django-und-ralph) System um 2 Module. Dabei handelt es sich um die beiden Pakete "Capentory" und "Stocktaking". Das Paket "Capentory" behandelt die Führung der Inventardaten und wurde speziell an die Inventardaten der HTL Rennweg angepasst. Das Paket "Stocktaking" ermöglicht die Verwaltung der durch die mobile Applikation durchgeführten Inventuren. Dazu zählen Aufgaben wie das Erstellen der Inventuren, das Einsehen von Inventurberichten oder das Anwenden der aufgetretenen Änderungen.
 
-Dieses Kapitel beschreibt die Funktionsweise der beiden Module. Die Bedienung der \emph{Weboberfläche} \index{Weboberfläche: graphische Oberfläche für administrative Tätigkeiten, die über einen Webbrowser erreichbar ist} ist dem \todo{Add reference} Handbuch zum Server zu entnehmen.
+Dieses Kapitel beschreibt die grundlegende Funktionsweise der beiden Module. Die Bedienung der \emph{Weboberfläche} \index{Weboberfläche: graphische Oberfläche für administrative Tätigkeiten, die über einen Webbrowser erreichbar ist} ist dem \todo{Add reference} Handbuch zum Server zu entnehmen.
 
 # Das "Capentory" Modul
 
@@ -322,3 +322,80 @@ Die bereits erwähnten Informationen über "Subräume" der tertiären Quelle wer
 ### Import der Raumliste
 
 Die Importfunktion der Raumliste dient zur Verlinkung von interner Raumnummer (`HTLRoom`-Attribut `internal_room_number`) und der Raumnummer im \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System (`HTLRoom`-Attribut `room_number`). Es werden dadurch bestehenden `HTLRoom` Objekten eine interne Raumnummer und eine Beschreibung zugewiesen, oder gänzlich neue `HTLRoom` Objekte anhand aller erhaltenen Informationen erstellt. Der Import geschieht direkt, ohne Auslagerung von Änderungen in Änderungsvorschläge.
+
+# Das "Stocktaking" Modul
+
+Das "\emph{Stocktaking}" \index{Stocktaking: Inventur} Modul ermöglicht das Erstellen und Verwalten von Inventuren. Um das Datenbankmodell möglichst modular und übersichtlich zu gestalten, werden diverse Modelle miteinander hierarchisch verknüpft. Die oberste Ebene der Modellhierarchie bildet das `Stocktaking` Modell. In der Abbildung \ref{fig:stocktaking_klassendiagramm} ist die Hierarchie in Form eines Klassendiagramms abgebildet. Das Klassendiagramm wurde mithilfe der Erweiterungen `django_extensions` und `pygraphviz` erstellt. Folgendes Kommando wurde dafür aufgerufen \cite{django-graph-models}:
+
+```bash
+dev_ralph graph_models stocktaking \
+-X ItemSplitChangeProposal,MultipleValidationsChangeProposal,
+   ValueChangeProposal,TimeStampMixin \
+-g -o stocktaking_klassendiagramm.png
+```
+
+Um die \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} der Klasse `ChangeProposalBase` auszublenden, wurden diese mit der Option `-X` exkludiert.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{stocktaking_klassendiagramm.png}
+  \caption{Das automatisch generierte Klassendiagramm der Modelle des "Stocktaking" Moduls.}
+  \label{fig:stocktaking_klassendiagramm}
+\end{figure}
+
+
+## Das Stocktaking Modell
+
+Eine Inszanz des `Stocktaking` Modells repräsentiert eine Inventur. 
+
+### Die wichtigsten Attribute
+
+Zu den wichtigsten Attributen des `Stocktaking` Modells zählen u.a.:
+
+* `name`: Durch dieses Attribut kann eine Inventur benannt werden. Dieser Name erscheint auf der mobilen Applikation oder dem Inventurbericht.
+* `user`: Dieses Attribut referenziert einen Hauptverantwortlichen Benutzer einer Inventur.
+* `date_started` und `time_started`: Diese Attribute sind Zeitstempel und werden automatisch auf den Zeitpunkt der Erstellung einer `Stocktaking` Instanz gesetzt. Eine Inventur beginnt zum Zeitpunkt ihrer Erstellung.
+* `date_finished` und `time_finished`: Diese Attribute sind Zeitstempel und werden gesetzt, wenn ein Administrator eine Inventur beenden möchte. Wenn beide Attribute mit einem Wert befüllt sind, werden keine über die mobile Applikation empfangene Validierungen verarbeitet. Der Zeitpunkt, der sich aus den beiden Attributen ergibt, darf nicht vor dem Zeitpunkt aus `date_started` und `time_started` liegen.
+* `neverending_stocktaking`: Wenn dieses \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann} Attribut gesetzt ist, hat der Wert der `date_finished` und `time_finished` Attribute keine Bedeutung. Es werden alle Validierungen der mobilen Applikation verarbeitet. Ob in einem Raum bereits einmal validiert wurde oder die Inventur beendet ist, wird nicht mehr überprüft. 
+
+## Das StocktakingUserActions Modell
+
+Das `StocktakingUserActions` Modell ist die Verbindung zwischen einer Inventur und den Benutzern, die zu dieser Inventur beigetragen haben. Das Attribut `stocktaking` verlinkt je eine bestimmte `Stocktaking` Instant. Das Attribut `user` verlinkt je eine bestimmte `RalphUser` Instanz, die einem angemeldeten Benutzer entspricht. Validierungen, die ein Benutzer während einer Inventur tätigt, sind mit der entsprechenden `StocktakingUserActions` Instanz verknüpft. Pro Inventur kann es nur eine `StocktakingUserActions` Instanz für einen bestimmten Benutzer geben. Diese Bedingung wird durch die `unique_together` Metavariable \cite{django-doku-models-options} festgelegt:
+
+```python
+unique_together = [["user", "stocktaking"]]
+```
+
+## Das StocktakingRoomValidation Modell
+
+Das `StocktakingRoomValidation` Modell ist die Verbindung zwischen einer `StocktakingUserActions` Instanz und einer bestimmten Raum-Instanz. Die Raum-Instanz kann dank der `GenericForeignKey` Funktionalität \cite{django-doku-contenttypes} von jedem beliebigen Modell stammen. In der Implementierung einer Client-Schnittstelle wird ein konkretes Modell spezifiziert. Zum Zweck der Inventur an der HTL Rennweg ist das `HTLRoom` Modell in der entsprechenden Client-Schnittstelle spezifiziert. Eine Instanz des `StocktakingRoomValidation` Modells repräsentiert das Validieren von Gegenständen in einem bestimmten Raum. 
+
+## Das StocktakingItem Modell
+
+Das `StocktakingItem` Modell repräsentiert die Validierung einer Gegenstands-Instanz während einer Inventur. Die Gegenstands-Instanz kann dank der `GenericForeignKey` Funktionalität \cite{django-doku-contenttypes} von jedem beliebigen Modell stammen. In der Implementierung einer Client-Schnittstelle wird ein konkretes Modell spezifiziert. Zum Zweck der Inventur an der HTL Rennweg ist das `HTLItem` Modell in der entsprechenden Client-Schnittstelle spezifiziert. 
+Durch die Beziehungen zu den Modellen `StocktakingRoomValidation` und dadurch zu `StocktakingUserActions` und `Stocktaking` ist erkennbar, in welchem Raum durch welchen Benutzer im Rahmen welcher Inventur ein Gegenstand validiert wurde. Durch das `ChangeProposalBase` Modell sind die Änderungsvorschläge einer Gegenstandsvalidierung verknüpft.
+
+### Die wichtigsten Attribute
+
+Zu den wichtigsten Attributen des `StocktakingItem` Modells zählen u.a.:
+
+* `date_validated` und `time_validated`: Diese Attribute bilden den Zeitstempel der Gegenstandsvalidierung. Durch die Client-Schnittstelle erstellten `StocktakingItem` Instanzen wird der Wert der aktuellen Systemzeit zum Zeitpunkt des Datenempfangs zugewiesen. Wird ein Gegenstand mehrmals validiert[^multiple_validations_timestamp], ist der Zeitstempel jener der jüngsten Validierung.
+* `mark_for_later_validation`: Dieses \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann} Attribut dient zur erleichterten Verifikation der Validierungen durch einen Administrator. Ist das Attribut gesetzt, repräsentiert es eine unvertrauenswürdige Gegenstandsvalidierung. Das Attribut wird gesetzt, wenn der Benutzer durch die mobile Applikation angibt, sich bei einer Gegenstandsvalidierung nicht sicher zu sein und daher das "Später entscheiden" Feld setzt.  Innerhalb des Inventur-Berichts werden `StocktakingItem` Instanzen, dessen `mark_for_later_validation` Attribut gesetzt ist, besonders markiert. 
+
+[^multiple_validations_timestamp]: Dieser Fall tritt bei Inventuren auf, dessen `neverending_stocktaking` Attribut gesetzt ist. So kann derselbe Gegenstand Monate nach der ersten Validierung erneut während derselben Inventur validiert werden. 
+
+## Änderungsvorschläge
+
+Änderungsvorschläge beziehen sich auf eine bestimmte `StocktakingItem` Instanz. Ein Änderungsvorschlag ist eine Instanz einer \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ChangeProposalBase`. Ein Änderungsvorschlag besagt, dass der aktuelle Zustand eines Datensatzes in der Datenbank nicht der Realität entspricht. 
+
+Um während einer Inventur nicht sofort jegliche erkannte Änderungen von Gegenstandseigenschaften anwenden zu müssen, werden sie in Änderungsvorschläge ausgelagert. So kann Fehlern, die während einer Inventur entstehen können, vorgebeugt werden. Dem Benutzer der mobilen Applikation wird dadurch Vertrauenswürdigkeit entzogen. Es ist die Aufgabe eines Administrators, Änderungsvorschläge als vertrauenswürdig einzustufen und diese tatsächlich anzuwenden.
+
+Als Basis für Änderungsvorschläge dient die Klasse `ChangeProposalBase`. Sie beschreibt nicht, welche Änderung während einer Inventur festgestellt wurde. Sie erbt von der Klasse `Polymorphic`. Die Klasse `Polymorphic` ermöglicht die Vererbung von Modellklassen auf der Datenbankebene. So können alle \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} der Klassen `ChangeProposalBase` einheitlich betrachtet werden. Über die Verbindung von `StocktakingItem` zu `ChangeProposalBase` in der Abbildung \ref{fig:stocktaking_klassendiagramm} sind nicht nur alle verknüpften `ChangeProposalBase` Instanzen, sondern auch alle Instanzen der \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ChangeProposalBase`, verbunden. Eine \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ChangeProposalBase` beschreibt eine Änderung, die von einem Benutzer während einer Inventur festgestellt würde. Es sind 4  \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ChangeProposalBase` und damit 4 Arten von Änderungsvorschlägen implementiert:
+
+1. `ValueChangeProposal`
+2. `MultipleValidationsChangeProposal`
+3. `ItemSplitChangeProposal`
+4. `SAPExportChangeProposal`
+
+Weitere Informationen über die Arten von Änderungsvorschlägen und deren Handhabung sind dem \todo{Add reference} Handbuch zum Server zu entnehmen.
+
+## Die Client-Schnittstelle

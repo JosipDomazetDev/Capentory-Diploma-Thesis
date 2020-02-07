@@ -358,7 +358,7 @@ Methode aufruft. Voraussetzung für das Erben einer Klasse von
 \texttt{AdminAbsoluteUrlMixin} ist daher, dass sie ebenfalls von der
 Klasse \texttt{Model} erbt.
 
-\chapter{Die 2 Erweiterungsmodule}
+\chapter{Die 2 Erweiterungsmodule des Serverssystems}
 
 Die vorliegende Diplomarbeit erweitert das
 \protect\hyperlink{django-und-ralph}{``Ralph''} System um 2 Module.
@@ -370,8 +370,8 @@ die mobile Applikation durchgeführten Inventuren. Dazu zählen Aufgaben
 wie das Erstellen der Inventuren, das Einsehen von Inventurberichten
 oder das Anwenden der aufgetretenen Änderungen.
 
-Dieses Kapitel beschreibt die Funktionsweise der beiden Module. Die
-Bedienung der \emph{Weboberfläche}
+Dieses Kapitel beschreibt die grundlegende Funktionsweise der beiden
+Module. Die Bedienung der \emph{Weboberfläche}
 \index{Weboberfläche: graphische Oberfläche für administrative Tätigkeiten, die über einen Webbrowser erreichbar ist}
 ist dem \todo{Add reference} Handbuch zum Server zu entnehmen.
 
@@ -859,3 +859,231 @@ und eine Beschreibung zugewiesen, oder gänzlich neue \texttt{HTLRoom}
 Objekte anhand aller erhaltenen Informationen erstellt. Der Import
 geschieht direkt, ohne Auslagerung von Änderungen in
 Änderungsvorschläge.
+
+\hypertarget{das-stocktaking-modul}{%
+\section{Das ``Stocktaking'' Modul}\label{das-stocktaking-modul}}
+
+Das ``\emph{Stocktaking}'' \index{Stocktaking: Inventur} Modul
+ermöglicht das Erstellen und Verwalten von Inventuren. Um das
+Datenbankmodell möglichst modular und übersichtlich zu gestalten, werden
+diverse Modelle miteinander hierarchisch verknüpft. Die oberste Ebene
+der Modellhierarchie bildet das \texttt{Stocktaking} Modell. In der
+Abbildung \ref{fig:stocktaking_klassendiagramm} ist die Hierarchie in
+Form eines Klassendiagramms abgebildet. Das Klassendiagramm wurde
+mithilfe der Erweiterungen \texttt{django\_extensions} und
+\texttt{pygraphviz} erstellt. Folgendes Kommando wurde dafür aufgerufen
+\cite{django-graph-models}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{dev\_ralph}\NormalTok{ graph\_models stocktaking \textbackslash{}}
+\NormalTok{{-}X ItemSplitChangeProposal,MultipleValidationsChangeProposal,}
+   \ExtensionTok{ValueChangeProposal}\NormalTok{,TimeStampMixin \textbackslash{}}
+\NormalTok{{-}g {-}o stocktaking\_klassendiagramm.png}
+\end{Highlighting}
+\end{Shaded}
+
+Um die
+\emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
+der Klasse \texttt{ChangeProposalBase} auszublenden, wurden diese mit
+der Option \texttt{-X} exkludiert.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{stocktaking_klassendiagramm.png}
+  \caption{Das automatisch generierte Klassendiagramm der Modelle des "Stocktaking" Moduls.}
+  \label{fig:stocktaking_klassendiagramm}
+\end{figure}
+
+\hypertarget{das-stocktaking-modell}{%
+\subsection{Das Stocktaking Modell}\label{das-stocktaking-modell}}
+
+Eine Inszanz des \texttt{Stocktaking} Modells repräsentiert eine
+Inventur.
+
+\hypertarget{die-wichtigsten-attribute-2}{%
+\subsubsection{Die wichtigsten
+Attribute}\label{die-wichtigsten-attribute-2}}
+
+Zu den wichtigsten Attributen des \texttt{Stocktaking} Modells zählen
+u.a.:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{name}: Durch dieses Attribut kann eine Inventur benannt
+  werden. Dieser Name erscheint auf der mobilen Applikation oder dem
+  Inventurbericht.
+\item
+  \texttt{user}: Dieses Attribut referenziert einen
+  Hauptverantwortlichen Benutzer einer Inventur.
+\item
+  \texttt{date\_started} und \texttt{time\_started}: Diese Attribute
+  sind Zeitstempel und werden automatisch auf den Zeitpunkt der
+  Erstellung einer \texttt{Stocktaking} Instanz gesetzt. Eine Inventur
+  beginnt zum Zeitpunkt ihrer Erstellung.
+\item
+  \texttt{date\_finished} und \texttt{time\_finished}: Diese Attribute
+  sind Zeitstempel und werden gesetzt, wenn ein Administrator eine
+  Inventur beenden möchte. Wenn beide Attribute mit einem Wert befüllt
+  sind, werden keine über die mobile Applikation empfangene
+  Validierungen verarbeitet. Der Zeitpunkt, der sich aus den beiden
+  Attributen ergibt, darf nicht vor dem Zeitpunkt aus
+  \texttt{date\_started} und \texttt{time\_started} liegen.
+\item
+  \texttt{neverending\_stocktaking}: Wenn dieses
+  \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}
+  Attribut gesetzt ist, hat der Wert der \texttt{date\_finished} und
+  \texttt{time\_finished} Attribute keine Bedeutung. Es werden alle
+  Validierungen der mobilen Applikation verarbeitet. Ob in einem Raum
+  bereits einmal validiert wurde oder die Inventur beendet ist, wird
+  nicht mehr überprüft.
+\end{itemize}
+
+\hypertarget{das-stocktakinguseractions-modell}{%
+\subsection{Das StocktakingUserActions
+Modell}\label{das-stocktakinguseractions-modell}}
+
+Das \texttt{StocktakingUserActions} Modell ist die Verbindung zwischen
+einer Inventur und den Benutzern, die zu dieser Inventur beigetragen
+haben. Das Attribut \texttt{stocktaking} verlinkt je eine bestimmte
+\texttt{Stocktaking} Instant. Das Attribut \texttt{user} verlinkt je
+eine bestimmte \texttt{RalphUser} Instanz, die einem angemeldeten
+Benutzer entspricht. Validierungen, die ein Benutzer während einer
+Inventur tätigt, sind mit der entsprechenden
+\texttt{StocktakingUserActions} Instanz verknüpft. Pro Inventur kann es
+nur eine \texttt{StocktakingUserActions} Instanz für einen bestimmten
+Benutzer geben. Diese Bedingung wird durch die \texttt{unique\_together}
+Metavariable \cite{django-doku-models-options} festgelegt:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{unique\_together }\OperatorTok{=}\NormalTok{ [[}\StringTok{"user"}\NormalTok{, }\StringTok{"stocktaking"}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{das-stocktakingroomvalidation-modell}{%
+\subsection{Das StocktakingRoomValidation
+Modell}\label{das-stocktakingroomvalidation-modell}}
+
+Das \texttt{StocktakingRoomValidation} Modell ist die Verbindung
+zwischen einer \texttt{StocktakingUserActions} Instanz und einer
+bestimmten Raum-Instanz. Die Raum-Instanz kann dank der
+\texttt{GenericForeignKey} Funktionalität
+\cite{django-doku-contenttypes} von jedem beliebigen Modell stammen. In
+der Implementierung einer Client-Schnittstelle wird ein konkretes Modell
+spezifiziert. Zum Zweck der Inventur an der HTL Rennweg ist das
+\texttt{HTLRoom} Modell in der entsprechenden Client-Schnittstelle
+spezifiziert. Eine Instanz des \texttt{StocktakingRoomValidation}
+Modells repräsentiert das Validieren von Gegenständen in einem
+bestimmten Raum.
+
+\hypertarget{das-stocktakingitem-modell}{%
+\subsection{Das StocktakingItem
+Modell}\label{das-stocktakingitem-modell}}
+
+Das \texttt{StocktakingItem} Modell repräsentiert die Validierung einer
+Gegenstands-Instanz während einer Inventur. Die Gegenstands-Instanz kann
+dank der \texttt{GenericForeignKey} Funktionalität
+\cite{django-doku-contenttypes} von jedem beliebigen Modell stammen. In
+der Implementierung einer Client-Schnittstelle wird ein konkretes Modell
+spezifiziert. Zum Zweck der Inventur an der HTL Rennweg ist das
+\texttt{HTLItem} Modell in der entsprechenden Client-Schnittstelle
+spezifiziert. Durch die Beziehungen zu den Modellen
+\texttt{StocktakingRoomValidation} und dadurch zu
+\texttt{StocktakingUserActions} und \texttt{Stocktaking} ist erkennbar,
+in welchem Raum durch welchen Benutzer im Rahmen welcher Inventur ein
+Gegenstand validiert wurde. Durch das \texttt{ChangeProposalBase} Modell
+sind die Änderungsvorschläge einer Gegenstandsvalidierung verknüpft.
+
+\hypertarget{die-wichtigsten-attribute-3}{%
+\subsubsection{Die wichtigsten
+Attribute}\label{die-wichtigsten-attribute-3}}
+
+Zu den wichtigsten Attributen des \texttt{StocktakingItem} Modells
+zählen u.a.:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{date\_validated} und \texttt{time\_validated}: Diese Attribute
+  bilden den Zeitstempel der Gegenstandsvalidierung. Durch die
+  Client-Schnittstelle erstellten \texttt{StocktakingItem} Instanzen
+  wird der Wert der aktuellen Systemzeit zum Zeitpunkt des Datenempfangs
+  zugewiesen. Wird ein Gegenstand mehrmals validiert\footnote{Dieser
+    Fall tritt bei Inventuren auf, dessen
+    \texttt{neverending\_stocktaking} Attribut gesetzt ist. So kann
+    derselbe Gegenstand Monate nach der ersten Validierung erneut
+    während derselben Inventur validiert werden.}, ist der Zeitstempel
+  jener der jüngsten Validierung.
+\item
+  \texttt{mark\_for\_later\_validation}: Dieses
+  \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}
+  Attribut dient zur erleichterten Verifikation der Validierungen durch
+  einen Administrator. Ist das Attribut gesetzt, repräsentiert es eine
+  unvertrauenswürdige Gegenstandsvalidierung. Das Attribut wird gesetzt,
+  wenn der Benutzer durch die mobile Applikation angibt, sich bei einer
+  Gegenstandsvalidierung nicht sicher zu sein und daher das ``Später
+  entscheiden'' Feld setzt. Innerhalb des Inventur-Berichts werden
+  \texttt{StocktakingItem} Instanzen, dessen
+  \texttt{mark\_for\_later\_validation} Attribut gesetzt ist, besonders
+  markiert.
+\end{itemize}
+
+\hypertarget{uxe4nderungsvorschluxe4ge}{%
+\subsection{Änderungsvorschläge}\label{uxe4nderungsvorschluxe4ge}}
+
+Änderungsvorschläge beziehen sich auf eine bestimmte
+\texttt{StocktakingItem} Instanz. Ein Änderungsvorschlag ist eine
+Instanz einer
+\emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
+von \texttt{ChangeProposalBase}. Ein Änderungsvorschlag besagt, dass der
+aktuelle Zustand eines Datensatzes in der Datenbank nicht der Realität
+entspricht.
+
+Um während einer Inventur nicht sofort jegliche erkannte Änderungen von
+Gegenstandseigenschaften anwenden zu müssen, werden sie in
+Änderungsvorschläge ausgelagert. So kann Fehlern, die während einer
+Inventur entstehen können, vorgebeugt werden. Dem Benutzer der mobilen
+Applikation wird dadurch Vertrauenswürdigkeit entzogen. Es ist die
+Aufgabe eines Administrators, Änderungsvorschläge als vertrauenswürdig
+einzustufen und diese tatsächlich anzuwenden.
+
+Als Basis für Änderungsvorschläge dient die Klasse
+\texttt{ChangeProposalBase}. Sie beschreibt nicht, welche Änderung
+während einer Inventur festgestellt wurde. Sie erbt von der Klasse
+\texttt{Polymorphic}. Die Klasse \texttt{Polymorphic} ermöglicht die
+Vererbung von Modellklassen auf der Datenbankebene. So können alle
+\emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
+der Klassen \texttt{ChangeProposalBase} einheitlich betrachtet werden.
+Über die Verbindung von \texttt{StocktakingItem} zu
+\texttt{ChangeProposalBase} in der Abbildung
+\ref{fig:stocktaking_klassendiagramm} sind nicht nur alle verknüpften
+\texttt{ChangeProposalBase} Instanzen, sondern auch alle Instanzen der
+\emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
+von \texttt{ChangeProposalBase}, verbunden. Eine
+\emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
+von \texttt{ChangeProposalBase} beschreibt eine Änderung, die von einem
+Benutzer während einer Inventur festgestellt würde. Es sind 4
+\emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
+von \texttt{ChangeProposalBase} und damit 4 Arten von
+Änderungsvorschlägen implementiert:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{ValueChangeProposal}
+\item
+  \texttt{MultipleValidationsChangeProposal}
+\item
+  \texttt{ItemSplitChangeProposal}
+\item
+  \texttt{SAPExportChangeProposal}
+\end{enumerate}
+
+Weitere Informationen über die Arten von Änderungsvorschlägen und deren
+Handhabung sind dem \todo{Add reference} Handbuch zum Server zu
+entnehmen.
+
+\hypertarget{die-client-schnittstelle}{%
+\subsection{Die Client-Schnittstelle}\label{die-client-schnittstelle}}
