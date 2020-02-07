@@ -166,20 +166,23 @@ und erklärt.
 \subsection{Installation des
 Betriebsystemes}\label{installation-des-betriebsystemes}}
 
-Wie bereits unter Punkt ""``Anschaffung des Servers''"" erwähnt, wird
+Wie bereits unter Punkt \ref{anschaffung-des-servers}) erwähnt, wird
 uns von der Schule ein eigener Servercluster mit virtuellen Maschinen
 zur Verfügung gestellt. Durch die ProxMox-Umgebung und diversen Tools,
 ging die Installation der Ubuntu-Distribution rasch von der Hand. In der
 Virtualisierungsumgebung der Schule musste nur ein vorhandenes
 Linux-Ubuntu 18.04 ISO-File gemountet und anschließend eine gewöhnliche
 Betriebsysteminstallation für Ubuntu durchgeführt werden. Jedoch kam es
-beim ersten Versuch zu Problemen mit der ""``Konfiguration der
-Netzwerkschnittstellen''"", die im nächsten Punkt genauer erläutert
-werden.
+beim ersten Versuch zu Problemen mit der Konfiguration der
+Netzwerkschnittstellen, die im nächsten Punkt genauer erläutert werden.
 
 \hypertarget{konfiguration-der-netzwerkschnittstellen}{%
 \subsection{Konfiguration der
 Netzwerkschnittstellen}\label{konfiguration-der-netzwerkschnittstellen}}
+
+\hypertarget{problematische-ereignise-bei-der-konfiguration-der-schnittstellen}{%
+\subsubsection{Problematische Ereignise bei der Konfiguration der
+Schnittstellen}\label{problematische-ereignise-bei-der-konfiguration-der-schnittstellen}}
 
 Um eine funktiorierende Internetverbindung zu erstellen, durfte die
 Konfiguration der Schnittstellen nicht erst ``später durchgeführt''
@@ -193,28 +196,242 @@ eine Konnektivität herzustellen. Dadurch musste ein zweiter
 Installationsdurchgang durchgeführt werden, worauf dann alles fehlerfrei
 und problemlos lief.
 
+\hypertarget{konfiguration}{%
+\subsubsection{Konfiguration}\label{konfiguration}}
+
+Im Rahmen des Laborunterrichts an der Htl Rennweg, bekamen die Schüler
+für diverse Unklarheiten ein sogenanntes
+\href{https://netzwerktechnik.htl.rennweg.at/~zai/Fachschule/NWT_Stamm_Foerderkurs/Survival_Guide_Linux_Network_Configuration.pdf}{Cheat-Sheet}
+für Linux-Befehle zur Verfügung gestellt. In diesem Cheat-Sheet finden
+sich unteranderem Anleitungen für die Konfiguration einer
+Netzwerkschnittstelle auf einer CentOS/RedHat sowie
+Ubuntu/Debian-Distribution. Den Schülern der fünften
+Netzwerktechnikklasse sollte diese Kurzkonfiguration jedoch schon leicht
+von der Hand gehen, da sie diese Woche für Woche benötigen.
+
+Eine Netzwerkkonfiguration mit statischen IPv4-Adressen für eine
+Ubuntu-Distribution könnte wie folgt aussehen:
+
+Eine Netzwerkkonfiguration mit Verwendung eines IPv4-DHCP-Servers für
+eine Ubuntu-Distribution könnte wie folgt aussehen:
+
 \hypertarget{topologie-des-netzwerkes}{%
 \subsubsection{Topologie des
 Netzwerkes}\label{topologie-des-netzwerkes}}
 
-Unter Abbildung 5.1 wird der Netzwerkplan veranschaulicht.
+Unter Abbildung 5.1 wird der Netzwerkplan veranschaulicht. Auf der
+linken Seite wird der Servercluster der Diplomarbeitsteams dargestellt,
+worauf die virtuelle Maschine von ``Capentory'' gehostet wird. In der
+Mitte ist die FortiGate-Firewall zu sehen, die nicht nur als äußerster
+Schutz vor Angriffen dient, sondern auch die konfigurierte
+VPN-Verbindung beinhaltet und nur berechtigten Teammitgliedern den
+Zugriff gewährleistet. Desweiteren ist die moderne Firewall auch für die
+Konnektivität der virtuellen Maschine im Schulnetz zuständig, aber dazu
+später (unter Punkt \ref{absicherung-der-virtuellen-maschine}) mehr.
+\begin{figure}[ht]
+\centering
 \includegraphics{topo1.png}
-
-\hypertarget{konfiguration-der-notwendigen-applikationen}{%
-\subsection{Konfiguration der notwendigen
-Applikationen}\label{konfiguration-der-notwendigen-applikationen}}
+\caption{Netzwerkplan}
+\end{figure}
 
 \hypertarget{testen-der-konnektivituxe4t-im-netzwerk}{%
-\subsection{Testen der Konnektivität im
+\subsubsection{Testen der Konnektivität im
 Netzwerk}\label{testen-der-konnektivituxe4t-im-netzwerk}}
+
+\hypertarget{installation-der-notwendigen-applikationen}{%
+\subsection{Installation der notwendigen
+Applikationen}\label{installation-der-notwendigen-applikationen}}
+
+Damit die Ubuntu-Maschine für den Produktivbetrieb startbereit ist,
+müssen im Vorhinein noch einige wichtige Konfigurationen durchgeführt
+werden. Die wichtigste (Netzwerkkonfiguration) wurde soeben ausführlich
+erläutert doch ohne der Installation von diversen Applikationen, wäre
+das System nicht brauchbar.
+
+\hypertarget{advanced-packaging-tool}{%
+\subsubsection{Advanced Packaging Tool}\label{advanced-packaging-tool}}
+
+Jeder Ubuntu Benutzer kennt es. Mit diesem Tool werden auf dem System
+die notwendigen Applikationen heruntergeladen, extrahiert und
+anschließend installiert. Insgesamt stehen einem 18 apt-get commands zur
+Verfügung. Genauere Erklärungen sowie die Syntax zu den wichtigsten
+commands folgen.
+
+\hypertarget{apt-get-update}{%
+\paragraph{apt-get update}\label{apt-get-update}}
+
+Update liest alle in \texttt{/etc/apt/sources.list} sowie in
+\texttt{/etc/apt/sources.list.d/} eingetragenen Paketquellen neu ein.
+Dieser Schritt wird vor allem vor einem upgrade-command oder nach dem
+Hinzufügen einer neuen Quelle empfohlen, um sich die neusten
+Informationen für Pakete ansehen zu können.
+
+Syntax: \texttt{{[}sudo{]}\ apt-get\ {[}Option(en){]}\ update}
+
+\hypertarget{apt-get-upgrade}{%
+\paragraph{apt-get upgrade}\label{apt-get-upgrade}}
+
+Upgrade bringt alle bereits installierten Pakete auf den neuesten Stand.
+
+Syntax: \texttt{{[}sudo{]}\ apt-get\ {[}Option(en){]}\ upgrade}
+
+\hypertarget{apt-get-install}{%
+\paragraph{apt-get install}\label{apt-get-install}}
+
+Install lädt das Paket bzw. die Pakete inklusive der noch nicht
+installierten Abhängigkeiten (und eventuell der vorgeschlagenen weiteren
+Pakete) herunter und installiert diese. Außerdem besteht die
+Möglichkeit, beliebig viele Pakete auf einmal anzugeben, indem sie
+mittels eines Leerzeichens getrennt werden.
+
+Syntax:
+
+\texttt{{[}sudo{]}\ apt-get\ {[}Option(en){]}\ install\ PAKET1\ {[}PAKET2{]}}
+
+Falls eine bestimmte Version installiert werden soll:
+
+\texttt{{[}sudo{]}\ apt-get\ {[}Option(en){]}\ install\ PAKET1=VERSION\ {[}PAKET2=VERSION{]}}
+
+\hypertarget{apt-get-remove}{%
+\paragraph{apt-get remove}\label{apt-get-remove}}
+
+Wie bereits erkannt, gibt es die Möglichkeit, sich ein beliebiges Paket
+zu installieren. Doch was soll geschehen falls dieses Paket nicht mehr
+benötigt wird? Daher gibt es prakitscherweise den remove-command, der,
+wie schon im Namen deutlich wird, ein oder mehrere Paket/e vollständig
+vom System entfernt.
+
+Syntax:
+\texttt{sudo\ apt-get\ {[}Option(en){]}\ remove\ PAKET1\ {[}PAKET2{]}}
+
+\hypertarget{installierte-pakete-mittels-apt-get}{%
+\subsubsection{Installierte Pakete mittels
+apt-get}\label{installierte-pakete-mittels-apt-get}}
+
+\hypertarget{nginx}{%
+\paragraph{NGINX}\label{nginx}}
+
+NGINX ist der am Häufigsten verwendete OpenSource-Webserver unter Linux
+für diverse Webanwendungen. Große Unternehmen wie Cisco, Microsoft,
+Facebook oder auch IBM schwören auf die Verwendung dieses genialen
+Paketes. Unteranderem wird NGINX auch als Reverse-Proxy, HTTP-Cache und
+Load-Balancer verwendet. Wie genau NGINX für den Produktivbetrieb
+funktioniert wird im Laufe des Punktes \ref{produktivbetrieb-der-applikation} erläutert.
+
+Installation: \texttt{{[}sudo{]}\ apt-get\ install\ nginx}
+
+\hypertarget{docker}{%
+\paragraph{Docker}\label{docker}}
+
+Die OpenSource-Software Docker ist eine
+Containervirtualisierungstechnologie, die die Erstellung und den Betrieb
+von Linux Containern ermöglicht. Wie genau dies funktioniert, wird
+später unter Punkt \ref{produktivbetrieb-der-applikation} genauer
+beschrieben und erklärt.
+
+Installation: \texttt{{[}sudo{]}\ apt-get\ install\ docker}
+
+\hypertarget{docker-compose}{%
+\paragraph{docker-compose}\label{docker-compose}}
+
+Jeder Linux-Benutzer hat mindestens einmal in seinem Leben etwas über
+das \texttt{docker-compose.yml} File gehört. Doch was ist docker-compose
+eigentlich? Nun, die Verwaltung und Verlinkung von mehreren Containern
+kann auf Dauer sehr nervenaufreibend sein. Die Lösung dieses Problems
+nennt sich docker-compose. Wie docker-compose jedoch genau funktioniert,
+wird ebenfalls wie das Grundkonzept von Docker unter Punkt
+\ref{produktivbetrieb-der-applikation} präziser erläutert.
+
+Installation: \texttt{{[}sudo{]}\ apt-get\ install\ docker-compose}
+
+\hypertarget{mysql}{%
+\paragraph{MySQL}\label{mysql}}
+
+MySQL ist ein OpenSource-Datenverwaltungssystem und die Grundlage für
+die meisten dynamischen Websiten. Darauf werden die Inventurdatensätze
+der Htl Rennweg gespeichert. Nähere Informationen finden sich Punkt
+\ref{produktivbetrieb-der-applikation} wieder.
+
+Installation: \texttt{{[}sudo{]}\ apt-get\ install\ mysql}
+
+\hypertarget{redis}{%
+\paragraph{Redis}\label{redis}}
+
+Redis ist eine In-Memory-Datenbank mit einer
+Schlüssel-Wert-Datenstruktur (Key Value Store). Wie auch MySQL handelt
+es sich um eine OpenSource-Datenbank. Warum Redis ebenfalls benötigt
+wurde, wird ebenfalls später im Punkt \ref{produktivbetrieb-der-applikation}' erklärt.
+
+Installation: \texttt{{[}sudo{]}\ apt-get\ install\ redis}
+
+\hypertarget{virtualenv}{%
+\paragraph{virtualenv}\label{virtualenv}}
+
+Bei virtualenv handelt es sich um ein Tool, mit dem eine isolierte
+Python-Umgebung erstellt werden kann. Eine solch isolierte Umgebung
+besitzt eine eigene Installation von diversen Services und teilt ihre
+libraries nicht mit anderen virtuellen Umgebungen (im optionalen Fall
+greifen sie auch nicht auf die global installierten libraries zu). Dies
+bringt vor allem den großen Vorteil, dass im Testfall virtuelle
+Umgebungen aufgesetzt werden können, um nicht die globalen
+Konfigurationen zu gefährden.
+
+Installation: \texttt{{[}sudo{]}\ apt-get\ install\ virtualenv}
+
+\hypertarget{python}{%
+\paragraph{Python}\label{python}}
+
+Python ist einer der Hauptbestandteile auf dem Serversystem der
+Diplomarbeit ``Capentory''. Das Backend (=Serveranwendung) basiert wie
+bereits erwähnt auf dem Python-Framework ``Django''. Um dieses Framework
+auf dem System installieren zu können wird jedoch noch ein weiteres
+``Packaging-Tool'', speziell für Python-Module, benötigt.
+
+Installation: \texttt{{[}sudo{]}\ apt-get\ install\ python3.x}
+
+\hypertarget{pip}{%
+\subsubsection{pip}\label{pip}}
+
+Und dieses Tool nennt sich Pip. Pip ist ein rekursives Akronym für
+\textbf{P}ip \textbf{I}nstalls \textbf{P}ython und ist, wie bereits
+erwähnt, das Standardverwaltungswerkzeug für Python-Module. Die Funktion
+sowie Syntax kann relativ gut mit der von apt verglichen werden.
+
+Installation von pip3 (vorrausgesetzt python3.x ist auf dem System
+bereits installiert):
+
+\texttt{{[}sudo{]}\ apt-get\ install\ python3-pip}
+
+\hypertarget{installierte-pakete-mittels-pip3}{%
+\subsubsection{Installierte Pakete mittels
+pip3}\label{installierte-pakete-mittels-pip3}}
+
+\hypertarget{uwsgi}{%
+\paragraph{uWSGI}\label{uwsgi}}
+
+Das eigentliche Paket, mit dem der Produktivbetrieb schlussendlich
+gewährleistet wurde, nennt sich uWSGI. Speziell wurde es für die
+Produktivbereitstellung von Serveranwendungen (wie eben der
+Django-Server von Team ``Capentory'') entwickelt und harmoniert
+eindrucksvoll mit der Webserver-Software NGINX. Die grundlegende
+Funktionsweise von uWSGI, sowie eine Erklärung, warum schlussendlich
+dieses Paket und nicht Docker verwendet wurde, wird unter Punkt
+\ref{produktivbetrieb-der-applikation} veranschaulicht.
+
+Installation: \texttt{{[}sudo{]}\ pip3\ install\ uwsgi}
+
+\hypertarget{django}{%
+\paragraph{Django}\label{django}}
+
+Django ist ein in Python geschriebenes Webframework, auf dem unsere
+Serveranwendung basiert. Genauere Informationen wurden jedoch schon
+unter Punkt \ref{django-und-ralph} übermittelt.
+
+Installation: \texttt{{[}sudo{]}\ pip3\ install\ Django}
 
 \hypertarget{produktivbetrieb-der-applikation}{%
 \subsection{Produktivbetrieb der
 Applikation}\label{produktivbetrieb-der-applikation}}
-
-\hypertarget{verfassen-einer-serverdokumentation}{%
-\subsection{Verfassen einer
-Serverdokumentation}\label{verfassen-einer-serverdokumentation}}
 
 \hypertarget{absicherung-der-virtuellen-maschine}{%
 \subsection{Absicherung der virtuellen
@@ -223,3 +440,7 @@ Maschine}\label{absicherung-der-virtuellen-maschine}}
 \hypertarget{uxfcberwachung-des-netzwerks}{%
 \subsection{Überwachung des
 Netzwerks}\label{uxfcberwachung-des-netzwerks}}
+
+\hypertarget{verfassen-einer-serverdokumentation}{%
+\subsection{Verfassen einer
+Serverdokumentation}\label{verfassen-einer-serverdokumentation}}
