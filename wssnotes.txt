@@ -1,0 +1,11 @@
+Anschaffung des Servers (siehe \ref{anschaffung-des-servers})
+Konfiguration der Netzwerkschnittstellen, die im nächsten Punkt (siehe \ref{konfiguration-der-netzwerkschnittstellen})
+
+\begin{figure}[ht]
+\centering
+\includegraphics{topo1.png}
+\caption{Netzwerkplan}
+\end{figure}
+
+\ref{produktivbetrieb-der-applikation}
+pip noch anschauen
