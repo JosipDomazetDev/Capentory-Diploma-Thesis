@@ -1,3 +1,4 @@
+\chapter{Einführung in die App-Architektur}
 
 Wie im vorherigen Kapitel angesprochen, ist das Ziel der Diplomarbeit, eine App zu entwickeln, mit der man in der Lage ist, eine Inventur durchzuführen. Doch wieso eine App und wieso überhaupt Android? Um diese Frage zu klären, muss man zwischen zwei Begriffen unterscheiden \cite{native-vs-web}:
 
@@ -22,15 +23,17 @@ Das Ziel ist es nicht, möglichst viele Downloads im Play Store zu erzielen oder
 Es soll stattdessen mit den gegebenen Ressourcen eine Inventurlösung entwickelt werden, die die bestmögliche Lösung für unsere Schule darstellt. 
 Eine native App wird eine Web-App immer hinsichtlich Qualität und User Experience klar übertreffen. 
 Im vorliegenden Fall wäre es sicherlich möglich, eine Inventur mittels Web-App durchzuführen, allerdings würde diese vor allem in den Bereichen Performanz und Verlässlichkeit Mängel aufweisen.
-Diese zwei Bereiche stellen genau die zwei Problembereiche da, die es mit der vorliegenden Gesamtlösung bestmöglich zu optimieren gilt. 
-Des Weiteren bieten sich native Apps ebenfalls für komplexe Projekte an, da Web-Apps aktuell noch nicht in der Lage sind, komplexe Aufgabenstellungen mit vergleichbar geringem Aufwand zu inkorporieren.
-Ein typisches Beispiel für eine Web-App stellt eine mobile Website einer Tageszeitung (eventuell auch mit Kommentaren, Bewertungssystemen etc.) da.
+Diese zwei Bereiche stellen genau die zwei Problembereiche dar, die es mit der vorliegenden Gesamtlösung bestmöglich zu optimieren gilt. 
+Des Weiteren bieten sich native Apps ebenfalls für komplexe Projekte an, da Web-Apps aktuell noch nicht in der Lage sind, komplexe Aufgabenstellungen mit vergleichbar geringem Aufwand zu inkorporieren \cite{complex-article}. 
+Die vorliegende Arbeit ist dabei bereits allein aufgrund der in Betracht zu ziehenden Sonderfälle als komplexe Aufgabenstellung einzustufen.
+
+
 Unter Berücksichtigung dieser Gesichtspunkte wurde also der Entschluss gefasst, eine native Applikation zu entwickeln, da diese ein insgesamt besseres Produkt darstellen wird.
 Es sei gesagt, dass es auch Hybride Apps gibt. Diese sind jedoch einer nativen App in denselben Aspekten wie eine Web-App klar unterlegen.
 
 ## Auswahl der nativen Technologie
 
-Nun gilt es zu klären, warum die App für natives Android (in Java) entwickelt wurde. Folgende nativen Alternativen galt es abzuwägen:
+Folgende nativen Alternativen waren zu vergleichen:
 
 
 * Flutter \cite{flutter}
@@ -45,7 +48,7 @@ Flutter ist eine relativ neue Plattform – das erste stabile Release wurde erst
 Diese Umstände sind ein Segen und Fluch zugleich. Flutter wird in Zukunft sicherlich weiterhin an Popularität zulegen, allerdings ist die Anzahl an verfügbarer Dokumentation für das junge Flutter im Vergleich zu den anderen Optionen immer noch weitaus geringer. 
 Xamarin ähnelt Flutter in den soeben aufgezählten Aspekten stark. Es ist ebenfalls ein cross-platform Framework, das jedoch in C# geschrieben wird. 
 
-Native IOS wird nur der Vollständigkeit Halber aufgelistet, stellte allerdings zu keinem Zeitpunkt eine wirkliche Alternative da, weil IOS-Geräte einige Eigenschaften besitzen, die für eine Inventur nicht optimal sind (Sprichwort: Akkukapazität). Außerdem haben in etwa nur 20% aller Geräte \cite{ios-market-share} IOS als Betriebssystem und die Entwicklung einer IOS-App wird durch strenge Voraussetzungen äußerst unattraktiv gemacht. So kann man beispielsweise nur auf einem Apple-Gerät IOS-Apps entwickeln. All dies hat zum Entschluss geführt, IOS aus dem Spiel zu lassen und uns auf Android zu fokussieren. 
+Native IOS wird nur der Vollständigkeit halber aufgelistet, stellte allerdings zu keinem Zeitpunkt eine wirkliche Alternative da, weil IOS-Geräte einige Eigenschaften besitzen, die für eine Inventur nicht optimal sind (z.B. die Akkukapazität). Außerdem haben in etwa nur 20% aller Geräte \cite{ios-market-share} IOS als Betriebssystem und die Entwicklung einer IOS-App wird durch strenge Voraussetzungen äußerst unattraktiv gemacht. So kann man beispielsweise nur auf einem Apple-Gerät IOS-Apps entwickeln.
 
 ### Begründung: Natives Android (Java)
 
@@ -53,7 +56,7 @@ Die Entscheidung ist schlussendlich auf natives Android (Java) gefallen. Es mag 
 
 * Natives Android ist eine allbekannte und weit etablierte Lösung. Die Wahrscheinlichkeit, dass die Unterstützung durch Google eingestellt wird, ist also äußerst gering.
 * Die App wird in den nächsten Jahren immer noch am Stand der Technik sein.
-* Natives Android hat mit großem Abstand die größte Dokumentation.
+* Natives Android hat mit großem Abstand die umfassendste Dokumentation.
 * An der Schule wird Java unterrichtet. Das macht somit eventuelle Modifikationen nach Projektabschluss durch andere Schüler viel einfacher möglich.
 * Dadurch, dass Kotlin erst seit 2019 \cite{kotlin-preference} offiziell die von Google bevorzugte Sprache ist, sind die meisten Tutorials immer noch in Java.
 * Sehr viele Unternehmen haben viele aktive Java-Entwickler. Dadurch wird die App attraktiver, da die Unternehmensmitarbeiter (von z.B. allegro) keine neue Sprache lernen müssen, um Anpassungen durchzuführen.
@@ -67,7 +70,7 @@ Android 4.0 hat sehr viele nützliche Libraries hervorgebracht. So zum Beispiel 
 
 # Einführung zu nativem Java
 
-Um eine Basis für die folgenden Kapitel zu schaffen, werden hier die Basics der Android-Entwicklung mit nativem Java näher beschrieben. Das Layout einer App wird in XML Files gespeichert, währenddessen das wirkliche Programmieren mit Java erfolgt.
+Um eine Basis für die folgenden Kapitel zu schaffen, werden hier die Basics der Android-Entwicklung mit nativem Java näher beschrieben. Das Layout einer App wird in XML Files gespeichert, während das wirkliche Programmieren mit Java erfolgt.
 
 
 ## Single-Activity-App
@@ -76,17 +79,17 @@ Als Einstiegspunkt in eine App dient eine sogenannte \emph{Activity}. Eine Activ
 
 Bis vor kurzem war es üblich, dass eine App mehrere Activities hat. Das wird bei den Benutzern dadurch bemerkbar, dass die App z.B. bei einem Tastendruck ein weiteres Fenster öffnet, das das bisherige überdeckt. Das neue Fenster ist eine eigene Activity. Google hat sich nun offiziell für sogenannte Single-Activities ausgesprochen \cite{single-activity}. Das heißt, dass es nur eine Activity und mehrere \emph{Fragments} gibt. Ein Fragment ist eine Teilmenge des UIs bzw. einer Activity. Anstatt jetzt beim Tastendruck eine neue Activity zu starten, wird einfach das aktuelle Fragment ausgetauscht. Dadurch, dass keine neuen Fenster geöffnet werden, ist die User Expierence (UX) um ein Vielfaches besser – die Performanz leidet nur minimal darunter. Die vorliegende App ist aus diesen Gründen ebenfalls eine Single-Activity-App.
 
-## Seperation of Concerns
+## Separation of Concerns
 
 In Android ist es eine äußerst schlechte Idee, sämtliche Logik in einer Activity oder einem Fragment zu implementieren.
-Das softwaretechnische Prinzip \emph{Seperation of Concerns (SoP)} hat unter Android einen besonderen Stellenwert. Dieses Prinzip beschreibt im Wesentlichen, dass eine Klasse nur einer Aufgabe dienen sollte. Falls eine Klasse mehrere Aufgaben erfüllt, so gilt es diese auf mehrere logische Komponenten aufzuteilen.
+Das softwaretechnische Prinzip \emph{Separation of Concerns (SoP)} hat unter Android einen besonderen Stellenwert. Dieses Prinzip beschreibt im Wesentlichen, dass eine Klasse nur einer Aufgabe dienen sollte. Falls eine Klasse mehrere Aufgaben erfüllt, so muss diese auf mehrere logische Komponenten aufgeteilt werden.
 Beispiel: Eine Activity hat immer die Verantwortung, die Kommunikation zwischen UI und Benutzer abzuwickeln. Bad Practice wäre es, wenn jene Activity ebenfalls dafür verantwortlich ist, Daten von einem Server abzurufen.
 Das Prinzip verfolgt das Ziel, die \emph{God Activity Architecture (GAA)} möglichst zu vermeiden \cite{god-activities}. 
 Eine God-Activity ist unter Android eine Activity, die die komplette Business-Logic beinhaltet und SoP in jeglicher Hinsicht widerspricht.
 God-Activities gilt es dringlichst zu vermeiden, da sie folgende Nachteile mit sich bringen:
 
  * Refactoring wird kompliziert
- * Wartung und Dokumentierung wird äußerst schwierig
+ * Wartung und Dokumentation werden äußerst schwierig
  * Automatisiertes Testing (z.B. Unit-Testing) wird nahezu unmöglich gemacht
  * Größere Bug-Anfälligkeit
  * Im Bezug auf Android gibt es oftmals massive Probleme mit dem \emph{Lifecycle} einer Activity - da eine Activity und ihre Daten schnell vernichtet werden können (z.B. wenn der Benutzer sein Gerät rotiert und das Gerät den Bildschirmmodus wechselt)
