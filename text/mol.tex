@@ -1,4 +1,5 @@
 \chapter{Einführung in die Server-Architektur}
+\label{intro_server}
 
 Die Inventur- sowie Gegenstandsdaten der HTL Rennweg sollen an einem
 zentralen Ort verwaltet und geführt werden. Der für diesen Zweck
@@ -628,14 +629,14 @@ Das für
 \emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.}
 erforderliche Mixin (siehe Abschnitt
 \protect\hyperlink{designgrundlagen}{``Designgrundlagen''})
-\texttt{WithCustomFieldsMixin} bietet die Funktion der
-\texttt{custom\_fields\_inheritance}. Die Funktion ermöglicht das Erben
-von allen \emph{Custom-Field} Werten eines bestimmten Objekts an ein
-anderes. Dieser Funktion macht sich das \texttt{HTLItem} Modell zunutze.
-Um beim Speichern automatisch vom \texttt{HTLItemType} Objekt
-unabhängige \emph{Custom-Field} Werte zu erstellen, die sofort vom
-Benutzer bearbeitet werden können, muss der Speicherlogik eine Funktion
-hinzugefügt werden. Dazu wird eine \texttt{@receiver} Methode genutzt,
+\texttt{WithCustomFieldsMixin} bietet die Funktionalität der
+\texttt{custom\_fields\_inheritance}. Sie ermöglicht das Erben von allen
+\emph{Custom-Field} Werten eines bestimmten Objekts an ein anderes.
+Diese Funktion macht sich das \texttt{HTLItem} Modell zunutze. Um beim
+Speichern automatisch vom \texttt{HTLItemType} Objekt unabhängige
+\emph{Custom-Field} Werte zu erstellen, die sofort vom Benutzer
+bearbeitet werden können, muss der Speicherlogik eine Funktion
+hinzugefügt werden. Dazu wird eine \texttt{@receiver} Funktion genutzt,
 die automatisch bei jedem Speichervorgang eines \texttt{HTLItemType}
 oder \texttt{HTLItem} Objekts aufgerufen wird:
 
@@ -651,10 +652,10 @@ oder \texttt{HTLItem} Objekts aufgerufen wird:
 \end{Highlighting}
 \end{Shaded}
 
-Die beiden angeführten Methoden werden je beim Aufkommen eines
+Die beiden angeführten Funktionen werden je beim Aufkommen eines
 \texttt{post\_save} Signals \cite{django-doku-signals} ausgeführt,
 dessen \texttt{sender} ein \texttt{HTLItemType} oder \texttt{HTLItem}
-ist. Die Methoden rufen jeweils eine weitere Methode auf, welche die
+ist. Die Funktionen rufen jeweils eine weitere Funktion auf, welche die
 \emph{Custom-Fields} entsprechend aggregiert.
 
 \hypertarget{datenimport}{%
@@ -1087,3 +1088,148 @@ entnehmen.
 
 \hypertarget{die-client-schnittstelle}{%
 \subsection{Die Client-Schnittstelle}\label{die-client-schnittstelle}}
+
+Jede Art der Inventur benötigt eine eigene Client-Schnittstelle. Eine
+Art der Inventur unterscheidet sich von anderen durch das Gegenstands-
+und Raummodell, gegen welches inventarisiert wird. Ein Beispiel ist die
+Inventur für die Gegenstände HTL Rennweg, durch die gegen die
+\texttt{HTLItem} und \texttt{HTLRoom} Modelle inventarisiert wird.
+
+Um die Kommunikation zwischen Server und mobiler Client-Applikation für
+eine Art der Inventur zu ermöglichen, werden 2 \texttt{APIView} Klassen
+erstellt (siehe \autoref{intro_server} Abschnitt
+\protect\hyperlink{views}{Views}):
+
+\begin{itemize}
+\tightlist
+\item
+  Eine Klasse, die von der Klasse \texttt{BaseStocktakeItemView} erbt.
+\item
+  Eine Klasse, die von der Klasse \texttt{BaseStocktakeRoomView} erbt.
+\end{itemize}
+
+In den
+\emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
+wird u.a. definiert, um welche Gegenstands- und Raummodelle es sich bei
+der Art der Inventur handelt. Die beiden vordefinierten Klassen
+\texttt{BaseStocktakeItemView} und \texttt{BaseStocktakeRoomView} wurden
+dazu konzipiert, möglichst wenig Anpassung für die Implementierung einer
+Art der Inventur zu benötigen. Um das Anpassungspotenzial allerdings
+nicht einzuschränken, sind die Funktionalitäten der Klassen möglichst
+modular. Eine Funktionalität wird durch eine Methode implementiert, die
+von den
+\emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
+angepasst werden kann. In dem unten angeführten Beispiel repräsentiert
+jede Methode eine Anpassung gegenüber dem von
+\texttt{BaseStocktakeItemView} und \texttt{BaseStocktakeRoomView}
+definierten Standardverhalten.
+
+Zu Demonstrationszwecken wurde eine voll funktionstüchtige
+Client-Schnittstelle für die Inventur des Gegenstandsmodells
+\texttt{BackOfficeAsset} und Raummodells \texttt{Warehouse} in weniger
+als 30 Code-Zeilen erstellt.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{ BackOfficeAssetStocktakingView(StocktakingGETWithCustomFieldsMixin,}
+\NormalTok{                                     ClientAttachmentsGETMixin,}
+\NormalTok{                                     BaseStocktakeItemView):}
+\NormalTok{    item\_model }\OperatorTok{=}\NormalTok{ BackOfficeAsset}
+\NormalTok{    pk\_url\_kwarg }\OperatorTok{=} \VariableTok{None}
+\NormalTok{    slug\_url\_kwarg }\OperatorTok{=} \StringTok{"barcode\_final"}
+\NormalTok{    slug\_field }\OperatorTok{=} \StringTok{"barcode\_final"}
+
+\NormalTok{    display\_fields }\OperatorTok{=}\NormalTok{ (}\StringTok{"hostname"}\NormalTok{, }\StringTok{"status"}\NormalTok{, }\StringTok{"location"}\NormalTok{, }\StringTok{"price"}\NormalTok{, }\StringTok{"provider"}\NormalTok{)}
+\NormalTok{    extra\_fields }\OperatorTok{=}\NormalTok{ (}
+        \StringTok{"custom\_fields"}\NormalTok{, }\StringTok{"office\_infrastructure"}\NormalTok{, }\StringTok{"depreciation\_rate"}\NormalTok{,}
+        \StringTok{"budget\_info"}\NormalTok{, }\StringTok{"property\_of"}\NormalTok{, }\StringTok{"start\_usage"}
+\NormalTok{    )}
+\NormalTok{    explicit\_readonly\_fields }\OperatorTok{=}\NormalTok{ (}\StringTok{"hostname"}\NormalTok{, }\StringTok{"price"}\NormalTok{)}
+
+    \KeywordTok{def}\NormalTok{ get\_queryset(}\VariableTok{self}\NormalTok{, request}\OperatorTok{=}\VariableTok{None}\NormalTok{, previous\_room\_validation}\OperatorTok{=}\VariableTok{None}\NormalTok{):}
+        \CommentTok{\# annotate custom barcode as either "barcode" or "sn"}
+        \ControlFlowTok{return} \BuiltInTok{super}\NormalTok{(BackOfficeAssetStocktakingView, }\VariableTok{self}\NormalTok{).get\_queryset(}
+\NormalTok{            request}\OperatorTok{=}\NormalTok{request, previous\_room\_validation}\OperatorTok{=}\NormalTok{previous\_room\_validation}
+\NormalTok{        ).annotate(}
+\NormalTok{            barcode\_final}\OperatorTok{=}\NormalTok{Case(}
+\NormalTok{                When(Q(barcode\_\_isnull}\OperatorTok{=}\VariableTok{True}\NormalTok{) }\OperatorTok{|}\NormalTok{ Q(barcode\_\_exact}\OperatorTok{=}\StringTok{""}\NormalTok{),}
+\NormalTok{                     then}\OperatorTok{=}\NormalTok{(F(}\StringTok{"sn"}\NormalTok{))),}
+\NormalTok{                default}\OperatorTok{=}\NormalTok{F(}\StringTok{"barcode"}\NormalTok{), output\_field}\OperatorTok{=}\NormalTok{CharField()))}
+
+    \KeywordTok{def}\NormalTok{ get\_room\_for\_item(}\VariableTok{self}\NormalTok{, item\_object):}
+        \ControlFlowTok{return} \BuiltInTok{str}\NormalTok{(item\_object.warehouse)}
+
+    \KeywordTok{def}\NormalTok{ item\_display\_name\_getter(}\VariableTok{self}\NormalTok{, item\_object):}
+        \ControlFlowTok{return} \BuiltInTok{str}\NormalTok{(item\_object)}
+
+    \KeywordTok{def}\NormalTok{ item\_barcode\_getter(}\VariableTok{self}\NormalTok{, item\_object):}
+        \ControlFlowTok{return} \BuiltInTok{str}\NormalTok{(}
+\NormalTok{            item\_object.barcode\_final}
+\NormalTok{        ) }\KeywordTok{or} \StringTok{""} \ControlFlowTok{if} \BuiltInTok{hasattr}\NormalTok{(}
+\NormalTok{            item\_object, }\StringTok{"id"}
+\NormalTok{        ) }\ControlFlowTok{else} \StringTok{""}
+
+
+\KeywordTok{class}\NormalTok{ WarehouseStocktakingView(StocktakingPOSTWithCustomFieldsMixin,}
+\NormalTok{                               ClientAttachmentsPOSTMixin,}
+\NormalTok{                               BaseStocktakeRoomView):}
+\NormalTok{    room\_model }\OperatorTok{=}\NormalTok{ Warehouse}
+\NormalTok{    item\_detail\_view }\OperatorTok{=}\NormalTok{ BackOfficeAssetStocktakingView()}
+
+\NormalTok{    item\_room\_field\_name }\OperatorTok{=} \StringTok{"warehouse"}
+\end{Highlighting}
+\end{Shaded}
+
+Die Modelle \texttt{BackOfficeAsset} und \texttt{Warehouse} sind in dem
+unveränderten ``Ralph'' System vorhanden.
+
+\hypertarget{modell-voraussetzungen}{%
+\subsubsection{Modell-Voraussetzungen}\label{modell-voraussetzungen}}
+
+Um eine Client-Schnittstelle für die Inventarisierung bestimmter
+Gegenstands- und der dazugehörigen Raummodelle zu implementieren, müssen
+diese bestimmte Voraussetzungen erfüllen. Die Voraussetzungen werden in
+diesem Abschnitt beschrieben.
+
+\hypertarget{raum-gegenstand-verknuxfcpfung}{%
+\paragraph{Raum-Gegenstand-Verknüpfung}\label{raum-gegenstand-verknuxfcpfung}}
+
+Das Gegenstandsmodell muss ein Attribut der Klasse \texttt{ForeignKey}
+besitzen, das auf das Raummodell verweist. Der Name dieses Attributs
+wird in der Klasse, die von \texttt{BaseStocktakeRoomView} erbt, in dem
+Attribut \texttt{item\_room\_field\_name} angegeben. Zusätzlich kann in
+der von \texttt{BaseStocktakeItemView} erbenden Klasse durch die
+\texttt{get\_room\_for\_item()} Methode der Raum einer
+Gegenstandsinstanz als \emph{String}
+\index{String: Bezeichnung des Datentyps: Zeichenkette} zurückgegeben
+werden. Ein Implementierungsbeispiel ist in der o.a.
+Client-Schnittstelle zu finden.
+
+\hypertarget{string-repruxe4sentation}{%
+\paragraph{String-Repräsentation}\label{string-repruxe4sentation}}
+
+Gegenstands- und Rauminstanzen müssen eine vom Menschen lesbare
+Repräsentation ermöglichen. Standardmäßig wird dazu die
+\texttt{\_\_str\_\_()} Methode der jeweiligen Instanz aufgerufen. Das
+Verhalten kann durch das Überschreiben der Methoden
+\texttt{item\_display\_name\_getter()} (aus der Klasse
+\texttt{BaseStocktakeItemView}) und
+\texttt{room\_display\_name\_getter()} (aus der Klasse
+\texttt{BaseStocktakeRoomView}) angepasst werden.
+
+\hypertarget{barcode-eines-gegenstandes}{%
+\paragraph{Barcode eines
+Gegenstandes}\label{barcode-eines-gegenstandes}}
+
+Es muss für eine Instanz des Gegenstandsmodells ein Barcode generiert
+werden können. Diese Funktion wird in der Methode
+\texttt{item\_barcode\_getter()} der von \texttt{BaseStocktakeItemView}
+erbenden Klasse definiert. Um über den von der mobilen Applikation
+gescannten Barcode auf einen Gegenstand schließen zu können, müssen die
+Attribute \texttt{slug\_url\_kwarg} und \texttt{slug\_field} auf den
+Namen eines Attributes gesetzt werden, das den Barcode eines
+Gegenstandes repräsentiert. Dieses Attribut muss für jeden Datensatz,
+der durch die \texttt{get\_queryset()} Methode entsteht, vorhanden sein.
+In dem o.a. Beispiel wird dieses Attribut in der
+\texttt{get\_queryset()} Methode durch \texttt{annotate()}
+\cite{django-doku-queriesets} hinzugefügt.

@@ -1,4 +1,5 @@
 \chapter{Einführung in die Server-Architektur}
+\label{intro_server}
 
 Die Inventur- sowie Gegenstandsdaten der HTL Rennweg sollen an einem zentralen Ort verwaltet und geführt werden. Der für diesen Zweck entwickelte Server muss also folgende Anforderungen erfüllen:
 
@@ -235,7 +236,7 @@ Das `HTLItemType` Modell repräsentiert Kategorien von Gegenständen. Das Modell
 
 Durch das Setzen eines `HTLItemType` Objekts für ein `HTLItem` Objekt durch seine Eigenschaft `item_type` werden dem `HTLItem` Objekt alle \emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.} des `HTLItemType` Objekts zugewiesen. Anwendungsbeispiel ist das Setzen eines \emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.} namens "Anzahl Ports" für den `HTLItemType` namens "Switch". Jedes `HTLItem` Objekt mit dem `item_type` "Switch" hat nun ein \emph{Custom-Field} namens "Anzahl Ports".
 
-Das für \emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.} erforderliche Mixin (siehe Abschnitt ["Designgrundlagen"](#designgrundlagen)) `WithCustomFieldsMixin` bietet die Funktion der `custom_fields_inheritance`. Die Funktion ermöglicht das Erben von allen \emph{Custom-Field} Werten eines bestimmten Objekts an ein anderes. Dieser Funktion macht sich das `HTLItem` Modell zunutze. Um beim Speichern automatisch vom `HTLItemType` Objekt unabhängige \emph{Custom-Field} Werte zu erstellen, die sofort vom Benutzer bearbeitet werden können, muss der Speicherlogik eine Funktion hinzugefügt werden. Dazu wird eine `@receiver` Methode genutzt, die automatisch bei jedem Speichervorgang eines `HTLItemType` oder `HTLItem` Objekts aufgerufen wird:
+Das für \emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.} erforderliche Mixin (siehe Abschnitt ["Designgrundlagen"](#designgrundlagen)) `WithCustomFieldsMixin` bietet die Funktionalität der `custom_fields_inheritance`. Sie ermöglicht das Erben von allen \emph{Custom-Field} Werten eines bestimmten Objekts an ein anderes. Diese Funktion macht sich das `HTLItem` Modell zunutze. Um beim Speichern automatisch vom `HTLItemType` Objekt unabhängige \emph{Custom-Field} Werte zu erstellen, die sofort vom Benutzer bearbeitet werden können, muss der Speicherlogik eine Funktion hinzugefügt werden. Dazu wird eine `@receiver` Funktion genutzt, die automatisch bei jedem Speichervorgang eines `HTLItemType` oder `HTLItem` Objekts aufgerufen wird:
 
 ```python
 @receiver(post_save, sender=HTLItemType)
@@ -247,7 +248,7 @@ def populate_htlitemtype_custom_field_values(sender, instance, **kwargs):
     populate_with_parents_custom_field_values(instance)
 ```
 
-Die beiden angeführten Methoden werden je beim Aufkommen eines `post_save` Signals \cite{django-doku-signals} ausgeführt, dessen `sender` ein `HTLItemType` oder `HTLItem` ist. Die Methoden rufen jeweils eine weitere Methode auf, welche die \emph{Custom-Fields} entsprechend aggregiert. 
+Die beiden angeführten Funktionen werden je beim Aufkommen eines `post_save` Signals \cite{django-doku-signals} ausgeführt, dessen `sender` ein `HTLItemType` oder `HTLItem` ist. Die Funktionen rufen jeweils eine weitere Funktion auf, welche die \emph{Custom-Fields} entsprechend aggregiert. 
 
 ## Datenimport
 
@@ -399,3 +400,82 @@ Als Basis für Änderungsvorschläge dient die Klasse `ChangeProposalBase`. Sie 
 Weitere Informationen über die Arten von Änderungsvorschlägen und deren Handhabung sind dem \todo{Add reference} Handbuch zum Server zu entnehmen.
 
 ## Die Client-Schnittstelle
+
+Jede Art der Inventur benötigt eine eigene Client-Schnittstelle. Eine Art der Inventur unterscheidet sich von anderen durch das Gegenstands- und Raummodell, gegen welches inventarisiert wird. Ein Beispiel ist die Inventur für die Gegenstände HTL Rennweg, durch die gegen die `HTLItem` und `HTLRoom` Modelle inventarisiert wird. 
+
+Um die Kommunikation zwischen Server und mobiler Client-Applikation für eine Art der Inventur zu ermöglichen, werden 2 `APIView` Klassen erstellt (siehe \autoref{intro_server} Abschnitt [Views][views]):
+
+* Eine Klasse, die von der Klasse `BaseStocktakeItemView` erbt.
+* Eine Klasse, die von der Klasse `BaseStocktakeRoomView` erbt.
+
+In den \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} wird u.a. definiert, um welche Gegenstands- und Raummodelle es sich bei der Art der Inventur handelt. Die beiden vordefinierten Klassen `BaseStocktakeItemView` und `BaseStocktakeRoomView` wurden dazu konzipiert, möglichst wenig Anpassung für die Implementierung einer Art der Inventur zu benötigen. Um das Anpassungspotenzial allerdings nicht einzuschränken, sind die Funktionalitäten der Klassen möglichst modular. Eine Funktionalität wird durch eine Methode implementiert, die von den \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} angepasst werden kann. In dem unten angeführten Beispiel repräsentiert jede Methode eine Anpassung gegenüber dem von `BaseStocktakeItemView` und `BaseStocktakeRoomView` definierten Standardverhalten. 
+
+Zu Demonstrationszwecken wurde eine voll funktionstüchtige Client-Schnittstelle für die Inventur des Gegenstandsmodells `BackOfficeAsset` und Raummodells `Warehouse` in weniger als 30 Code-Zeilen erstellt. 
+
+```python
+class BackOfficeAssetStocktakingView(StocktakingGETWithCustomFieldsMixin,
+                                     ClientAttachmentsGETMixin,
+                                     BaseStocktakeItemView):
+    item_model = BackOfficeAsset
+    pk_url_kwarg = None
+    slug_url_kwarg = "barcode_final"
+    slug_field = "barcode_final"
+
+    display_fields = ("hostname", "status", "location", "price", "provider")
+    extra_fields = (
+        "custom_fields", "office_infrastructure", "depreciation_rate",
+        "budget_info", "property_of", "start_usage"
+    )
+    explicit_readonly_fields = ("hostname", "price")
+
+    def get_queryset(self, request=None, previous_room_validation=None):
+        # annotate custom barcode as either "barcode" or "sn"
+        return super(BackOfficeAssetStocktakingView, self).get_queryset(
+            request=request, previous_room_validation=previous_room_validation
+        ).annotate(
+            barcode_final=Case(
+                When(Q(barcode__isnull=True) | Q(barcode__exact=""),
+                     then=(F("sn"))),
+                default=F("barcode"), output_field=CharField()))
+
+    def get_room_for_item(self, item_object):
+        return str(item_object.warehouse)
+
+    def item_display_name_getter(self, item_object):
+        return str(item_object)
+
+    def item_barcode_getter(self, item_object):
+        return str(
+            item_object.barcode_final
+        ) or "" if hasattr(
+            item_object, "id"
+        ) else ""
+
+
+class WarehouseStocktakingView(StocktakingPOSTWithCustomFieldsMixin,
+                               ClientAttachmentsPOSTMixin,
+                               BaseStocktakeRoomView):
+    room_model = Warehouse
+    item_detail_view = BackOfficeAssetStocktakingView()
+
+    item_room_field_name = "warehouse"
+```
+
+Die Modelle `BackOfficeAsset` und `Warehouse` sind in dem unveränderten "Ralph" System vorhanden.
+
+### Modell-Voraussetzungen
+
+Um eine Client-Schnittstelle für die Inventarisierung bestimmter Gegenstands- und der dazugehörigen Raummodelle zu implementieren, müssen diese bestimmte Voraussetzungen erfüllen. Die Voraussetzungen werden in diesem Abschnitt beschrieben.
+
+#### Raum-Gegenstand-Verknüpfung
+
+Das Gegenstandsmodell muss ein Attribut der Klasse `ForeignKey` besitzen, das auf das Raummodell verweist. Der Name dieses Attributs wird in der Klasse, die von `BaseStocktakeRoomView` erbt, in dem Attribut `item_room_field_name` angegeben. Zusätzlich kann in der von `BaseStocktakeItemView` erbenden Klasse durch die `get_room_for_item()` Methode der Raum einer Gegenstandsinstanz als \emph{String} \index{String: Bezeichnung des Datentyps: Zeichenkette} zurückgegeben werden. Ein Implementierungsbeispiel ist in der o.a. Client-Schnittstelle zu finden. 
+
+#### String-Repräsentation
+
+Gegenstands- und Rauminstanzen müssen eine vom Menschen lesbare Repräsentation ermöglichen. Standardmäßig wird dazu die `__str__()` Methode der jeweiligen Instanz aufgerufen. Das Verhalten kann durch das Überschreiben der Methoden `item_display_name_getter()` (aus der Klasse `BaseStocktakeItemView`) und `room_display_name_getter()` (aus der Klasse `BaseStocktakeRoomView`) angepasst werden.
+
+#### Barcode eines Gegenstandes
+
+Es muss für eine Instanz des Gegenstandsmodells ein Barcode generiert werden können. Diese Funktion wird in der Methode `item_barcode_getter()` der von `BaseStocktakeItemView` erbenden Klasse definiert. Um über den von der mobilen Applikation gescannten Barcode auf einen Gegenstand schließen zu können, müssen die Attribute `slug_url_kwarg` und `slug_field` auf den Namen eines Attributes gesetzt werden, das den Barcode eines Gegenstandes repräsentiert. Dieses Attribut muss für jeden Datensatz, der durch die `get_queryset()` Methode entsteht, vorhanden sein. In dem o.a. Beispiel wird dieses Attribut in der `get_queryset()` Methode durch `annotate()` \cite{django-doku-queriesets} hinzugefügt.
+
