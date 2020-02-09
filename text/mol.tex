@@ -94,7 +94,7 @@ zu Alternativen wie etwa ``Flask'') u.a.:
   \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem}
   oder
   \emph{CSRF}\index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}\cite{csrf}),
-  siehe \protect\hyperlink{views}{Views}
+  siehe Abschnitt \href{views}{``Views''}
 \end{itemize}
 
 Zusätzlich bietet Ralph bereits einige
@@ -143,10 +143,11 @@ Module gegliedert. Jedes Paket ist ein Ordner, der verschiedene Dateien
 und Unterordner beinhalten kann. Die Dateinamen-Nomenklatur eines
 Packets ist normiert.\cite{django-file-nomenklatur} Der Name eines
 Pakets wird fortan ``App-Label'' genannt. Standardmäßig ist dieser Name
-erster Bestandteil einer URL zu einer beliebigen graphischen
-Administrationsoberfläche des Pakets. Pakete werden durch einen Eintrag
-in die Variable \texttt{INSTALLED\_APPS} innerhalb der o.a.
-Einstellungsdatei registriert. Beispiele sind die beiden durch die
+erster Bestandteil einer \emph{URL}
+\index{URL: Addressierungsstandard im Internet} zu einer beliebigen
+graphischen Administrationsoberfläche des Pakets. Pakete werden durch
+einen Eintrag in die Variable \texttt{INSTALLED\_APPS} innerhalb der
+o.a. Einstellungsdatei registriert. Beispiele sind die beiden durch die
 vorliegende Diplomarbeit registrierten Pakete \texttt{"ralph.capentory"}
 und \texttt{"ralph.stocktaking"}
 
@@ -202,26 +203,29 @@ Klassen werden in der Datei \texttt{forms.py} definiert und besitzen,
 
 Um die \texttt{ModelAdmin}
 \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
-über eine URL erreichbar zu machen, müssen diese registriert werden.
-Dies geschieht durch den \texttt{register}
+über eine \emph{URL} \index{URL: Addressierungsstandard im Internet}
+erreichbar zu machen, müssen diese registriert werden. Dies geschieht
+durch den \texttt{register}
 \emph{Dekorator}\index{Dekorator: Fügt unter Python einer Klasse oder Methode eine bestimmte Funktionsweise hinzu \cite{python-decorators}}.
 Dieser Dekorator akzeptiert die zu registrierende Modellklasse, die zu
 dem \texttt{ModelAdmin} gehört, als Parameter. Die Listenansicht einer
 registrierten \texttt{ModelAdmin} Subklasse ist standardmäßig unter der
-URL
+\emph{URL} \index{URL: Addressierungsstandard im Internet}
 
 \begin{verbatim}
 /<App-Label>/<Modell-Name>/
 \end{verbatim}
 
-erreichbar, die Detailansicht einer Modellinstanz unter der URL
+erreichbar, die Detailansicht einer Modellinstanz unter der \emph{URL}
+\index{URL: Addressierungsstandard im Internet}
 
 \begin{verbatim}
 /<App-Label>/<Modell-Name>/<Modellinstanz-ID>/
 \end{verbatim}
 
-. Somit repräsentiert die URL der Listenansicht gleichzeitig den Pfad,
-unter der sie definiert wurde.
+. Somit repräsentiert die \emph{URL}
+\index{URL: Addressierungsstandard im Internet} der Listenansicht
+gleichzeitig den Pfad, unter der sie definiert wurde.
 
 Die Dokumentation der Administrationsfeatures von Django ist auf der
 offiziellen Dokumentationswebseite von Django \cite{django-doku-admin}
@@ -354,12 +358,13 @@ erbende Klassen, bestimmte Attribute und Methoden hinzufügen. Manche
 ebenfalls von bestimmten anderen Klassen erben. Beispiel ist die Klasse
 \texttt{AdminAbsoluteUrlMixin}, die eine Methode
 \texttt{get\_absolute\_url} zur Verfügung stellt. Diese Methode liefert
-die URL, die zu der Detailansicht der Modellinstanz führt, die die
-Methode aufruft. Voraussetzung für das Erben einer Klasse von
+die \emph{URL} \index{URL: Addressierungsstandard im Internet}, die zu
+der Detailansicht der Modellinstanz führt, die die Methode aufruft.
+Voraussetzung für das Erben einer Klasse von
 \texttt{AdminAbsoluteUrlMixin} ist daher, dass sie ebenfalls von der
 Klasse \texttt{Model} erbt.
 
-\chapter{Die 2 Erweiterungsmodule des Serverssystems}
+\chapter{Die 2 Erweiterungsmodule des Serversystems}
 
 Die vorliegende Diplomarbeit erweitert das
 \protect\hyperlink{django-und-ralph}{``Ralph''} System um 2 Module.
@@ -628,7 +633,7 @@ nun ein \emph{Custom-Field} namens ``Anzahl Ports''.
 Das für
 \emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.}
 erforderliche Mixin (siehe Abschnitt
-\protect\hyperlink{designgrundlagen}{``Designgrundlagen''})
+\href{designgrundlagen}{``Designgrundlagen''})
 \texttt{WithCustomFieldsMixin} bietet die Funktionalität der
 \texttt{custom\_fields\_inheritance}. Sie ermöglicht das Erben von allen
 \emph{Custom-Field} Werten eines bestimmten Objekts an ein anderes.
@@ -1092,13 +1097,13 @@ entnehmen.
 Jede Art der Inventur benötigt eine eigene Client-Schnittstelle. Eine
 Art der Inventur unterscheidet sich von anderen durch das Gegenstands-
 und Raummodell, gegen welches inventarisiert wird. Ein Beispiel ist die
-Inventur für die Gegenstände HTL Rennweg, durch die gegen die
+Inventur für die Gegenstände der HTL Rennweg, durch die gegen die
 \texttt{HTLItem} und \texttt{HTLRoom} Modelle inventarisiert wird.
 
 Um die Kommunikation zwischen Server und mobiler Client-Applikation für
 eine Art der Inventur zu ermöglichen, werden 2 \texttt{APIView} Klassen
 erstellt (siehe \autoref{intro_server} Abschnitt
-\protect\hyperlink{views}{Views}):
+\href{views}{``Views''}):
 
 \begin{itemize}
 \tightlist
@@ -1183,6 +1188,14 @@ als 30 Code-Zeilen erstellt.
 Die Modelle \texttt{BackOfficeAsset} und \texttt{Warehouse} sind in dem
 unveränderten ``Ralph'' System vorhanden.
 
+\hypertarget{kommunikationsformat}{%
+\subsubsection{Kommunikationsformat}\label{kommunikationsformat}}
+
+Die Kommunikation zwischen Server und mobilem Client erfolgt über HTTP
+Abfragen. Das Datenformat wurde auf das JSON-Format
+\cite{json-format-doku} festgelegt. Grund dafür ist die weit verbreitete
+Unterstützung und relativ geringe Komplexität des Formats.
+
 \hypertarget{modell-voraussetzungen}{%
 \subsubsection{Modell-Voraussetzungen}\label{modell-voraussetzungen}}
 
@@ -1233,3 +1246,671 @@ der durch die \texttt{get\_queryset()} Methode entsteht, vorhanden sein.
 In dem o.a. Beispiel wird dieses Attribut in der
 \texttt{get\_queryset()} Methode durch \texttt{annotate()}
 \cite{django-doku-queriesets} hinzugefügt.
+
+\hypertarget{einbindung-und-erreichbarkeit-der-apiview-klassen}{%
+\subsubsection{Einbindung und Erreichbarkeit der
+APIView-Klassen}\label{einbindung-und-erreichbarkeit-der-apiview-klassen}}
+
+Um die für eine Art der Inventur implementierten Klassen über das
+\emph{DRF}\index{DRF: Django REST Framework - Implementierung einer \emph{REST-API}\index{REST-API: Representational State Transfer \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} - eine zustandslose Schnittstelle für den Datenaustausch zwischen Clients und Servern \cite{rest-api}} unter Django \cite{django-rest-framework}}
+ansprechbar zu machen, werden diese in die Variable \texttt{urlpatterns}
+\cite{django-doku-urls} eingebunden. Die Einbindung erfolgt
+beispielsweise in der Datei \texttt{api.py} eines beliebigen Pakets. Bei
+der Einbindung müssen den jeweiligen Schnittstellen zur späteren
+Verwendung interne Namen vergeben werden. Folgendes
+Implementierungsbeispiel bindet die oben definierten Klassen
+\texttt{BackOfficeAssetStocktakingView} und
+\texttt{WarehouseStocktakingView} ein:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{urlpatterns }\OperatorTok{=}\NormalTok{ [}
+\NormalTok{    url(}
+        \VerbatimStringTok{r"\^{}warehousesforstocktaking/(?:(?P<pk>[\textbackslash{}w/]+)/)?$"}\NormalTok{, }
+\NormalTok{        WarehouseStocktakingView.as\_view(),}
+\NormalTok{        name}\OperatorTok{=}\StringTok{"warehousesforstocktaking"}\NormalTok{),}
+\NormalTok{    url(}
+        \VerbatimStringTok{r"\^{}backofficeassetsforstocktaking/(?:(?P<barcode\_final>[\textbackslash{}w/]+)/)?$"}\NormalTok{, }
+\NormalTok{        BackOfficeAssetStocktakingView.as\_view(),}
+\NormalTok{        name}\OperatorTok{=}\StringTok{"backofficeassetsforstocktaking"}\NormalTok{),}
+\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+Die Namen der Schnittstellen werden auf
+\texttt{"warehousesforstocktaking"} und
+\texttt{"backofficeassetsforstocktaking"} gesetzt. In der Einbindung der
+Klasse \texttt{BackOfficeAssetStocktakingView} wird definiert, dass der
+Name des Barcode-Attributes eines Gegenstandes \texttt{barcode\_final}
+lautet. Das \texttt{barcode\_final} Attribut wird in der Definition von
+\texttt{BackOfficeAssetStocktakingView} hinzugefügt (siehe auch:
+Abschnitt \href{barcode-eines-gegenstandes}{``Barcode eines
+Gegenstandes''}).
+
+Die Klassen \texttt{BackOfficeAssetStocktakingView} und
+\texttt{WarehouseStocktakingView} sind dadurch über die \emph{URLs}
+\index{URL: Addressierungsstandard im Internet}
+\texttt{/api/backofficeassetsforstocktaking/} und
+\texttt{/api/warehousesforstocktaking/} erreichbar.
+
+Für die Implementierung der Inventur der HTL Rennweg wurden die
+\emph{URLs} \index{URL: Addressierungsstandard im Internet}
+\texttt{/api/htlinventoryitems/} und \texttt{/api/htlinventoryrooms/}
+definiert.
+
+\hypertarget{statische-ausgangspunkte}{%
+\subsubsection{Statische
+Ausgangspunkte}\label{statische-ausgangspunkte}}
+
+Der mobilen Client-Applikation müssen notwendige Informationen der
+dynamisch erweiterbaren Inventuren und Inventurarten über statisch
+festgelegte \emph{URLs} \index{URL: Addressierungsstandard im Internet}
+mitgeteilt werden:
+
+\hypertarget{verfuxfcgbare-inventuren}{%
+\paragraph{Verfügbare Inventuren}\label{verfuxfcgbare-inventuren}}
+
+Der mobilen Client-Applikation muss mitgeteilt werden, welche Inventuren
+zurzeit durchgeführt werden können. Für das Modell
+\texttt{Stocktaking}ist eine
+\emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht}-Schnittstelle
+implementiert (siehe \autoref{intro_server} Abschnitt
+\href{api-und-drf}{``API und DRF''}). Über diese Schnittstelle können
+durch folgende Abfrage-URL mittels eines HTTP GET-Requests
+\cite{rest-http-methods} alle verfügbaren Inventuren und dessen
+einzigartige \emph{IDs}
+\index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
+abgefragt werden:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{/api/stocktaking}\NormalTok{/}\ExtensionTok{?date\_finished\_\_isnull}\NormalTok{=True}\KeywordTok{\&}\VariableTok{time\_finish\_isnull=}\NormalTok{True}\KeywordTok{\&}\VariableTok{format=}\NormalTok{json}
+\end{Highlighting}
+\end{Shaded}
+
+Durch \texttt{\&format=json} wird festgelegt, dass der Server eine
+Antwort im JSON-Format \cite{json-format-doku} liefert. Die Antwort des
+Servers auf die o.a. Abfrage sieht beispielsweise wie folgt aus (Die
+Daten wurden zwecks Lesbarkeit auf die wesentlichsten Attribute
+gekürzt.):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OtherTok{[}
+    \FunctionTok{\{}
+        \DataTypeTok{"stocktake\_id"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"Inventur 1"}\FunctionTok{,}
+        \DataTypeTok{"comment"}\FunctionTok{:} \StringTok{"Diese Inventur endet nie!"}\FunctionTok{,}
+        \DataTypeTok{"neverending\_stocktaking"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+        \DataTypeTok{"stocktake\_id"}\FunctionTok{:} \DecValTok{2}\FunctionTok{,}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"Inventur 2"}\FunctionTok{,}
+        \DataTypeTok{"comment"}\FunctionTok{:} \StringTok{""}\FunctionTok{,}
+        \DataTypeTok{"neverending\_stocktaking"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \FunctionTok{\}}
+\OtherTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+Laut der Antwort des Servers sind aktuell 2 Inventuren - ``Inventur 1''
+und ``Inventur 2'' -verfügbar. Die mobile Client-Applikation benötigt
+den Wert des Attributs \texttt{"stocktake\_id"}, um bei späteren
+Abfragen festzulegen, welche Inventur von einem Benutzer ausgewählt
+wurde.
+
+\hypertarget{verfuxfcgbare-arten-der-inventur}{%
+\paragraph{Verfügbare Arten der
+Inventur}\label{verfuxfcgbare-arten-der-inventur}}
+
+Der mobilen Client-Applikation muss mitgeteilt werden, welche Arten der
+Inventur verfügbar sind und über welche \emph{URLs}
+\index{URL: Addressierungsstandard im Internet} die jeweiligen
+\texttt{APIView} Klassen ansprechbar sind. Unter der \emph{URL}
+\index{URL: Addressierungsstandard im Internet}
+\texttt{/api/inventoryserializers/} werden je eine Beschreibung der
+Inventurart und die benötigten \emph{URLs}
+\index{URL: Addressierungsstandard im Internet} ausgegeben. Bei
+korrekter Implementierung der Inventurarten für die Gegenstandsmodelle
+\texttt{HTLItem} und \texttt{BackOfficeAsset} liefert der Server
+folgende Antwort im JSON-Format \cite{json-format-doku}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \DataTypeTok{"HTL"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"roomUrl"}\FunctionTok{:} \StringTok{"/api/htlinventoryrooms/"}\FunctionTok{,}
+        \DataTypeTok{"itemUrl"}\FunctionTok{:} \StringTok{"/api/htlinventoryitems/"}\FunctionTok{,}
+        \DataTypeTok{"description"}\FunctionTok{:} \StringTok{"Inventur der HTL{-}Items"}
+    \FunctionTok{\},}
+    \DataTypeTok{"BackOfficeAsset{-}Inventur"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"roomUrl"}\FunctionTok{:} \StringTok{"/api/warehousesforstocktaking/"}\FunctionTok{,}
+        \DataTypeTok{"itemUrl"}\FunctionTok{:} \StringTok{"/api/backofficeassetsforstocktaking/"}\FunctionTok{,}
+        \DataTypeTok{"description"}\FunctionTok{:} \StringTok{"Demonstrations{-}Inventur fuer BackOfficeAssets"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Um eine Art der Inventur in diese Ausgabe miteinzubeziehen, muss in der
+Datei \texttt{api.py} des ``stocktaking'' Pakets die Variable
+\texttt{STOCKTAKING\_SERIALIZER\_VIEWS} entsprechend erweitert werden.
+Dazu wird der o.a. Name der Schnittstelle verwendet, wie er in der
+Variable \texttt{urlpatterns} gesetzt wurde. Die zu dem angeführten
+Beispiel gehörige \texttt{STOCKTAKING\_SERIALIZER\_VIEWS} Variable ist
+wie folgt definiert:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{STOCKTAKING\_SERIALIZER\_VIEWS }\OperatorTok{=}\NormalTok{ \{}
+    \StringTok{"HTL"}\NormalTok{: (}
+        \StringTok{"htlinventoryrooms"}\NormalTok{, }
+        \StringTok{"htlinventoryitems"}\NormalTok{, }
+        \StringTok{"Inventur der HTL{-}Items"}
+\NormalTok{    ),}
+    \StringTok{"BackOfficeAsset{-}Inventur"}\NormalTok{: (}
+        \StringTok{"warehousesforstocktaking"}\NormalTok{, }
+        \StringTok{"backofficeassetsforstocktaking"}\NormalTok{, }
+        \StringTok{"Demonstrations{-}Inventur fuer BackOfficeAssets"}
+\NormalTok{    )}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{"BackOfficeAsset-Inventur"} ist der Name der Inventurart für das
+Gegenstandsmodell \texttt{BackOfficeAsset}.
+\texttt{"warehousesforstocktaking"} ist der Name der Schnittstelle für
+die Klasse \texttt{WarehouseStocktakingView}.
+\texttt{"backofficeassetsforstocktaking"} ist der Name der Schnittstelle
+für die Klasse \texttt{BackOfficeAssetStocktakingView}.
+\texttt{"Demonstrations-Inventur\ fuer\ BackOfficeAssets"} ist eine
+Beschreibung der Inventurart.
+
+\hypertarget{json-schema}{%
+\subsubsection{JSON Schema}\label{json-schema}}
+
+Die Daten, die durch die implementierten \texttt{APIView} Klassen
+gesendet oder empfangen werden, müssen einer bestimmten Struktur folgen.
+In diesem Abschnitt werden die durch die Klassen akzeptierten
+HTTP-Methoden \cite{rest-http-methods} aufgezählt und deren JSON Schema
+anhand mehrerer Beispiele dargestellt. Die Beispiele können zwecks
+Lesbarkeit gekürzt sein. Gekürzte Bereiche werden mit \texttt{{[}...{]}}
+markiert.
+
+\hypertarget{basestocktakeitemview-get-methode}{%
+\paragraph{\texorpdfstring{\texttt{BaseStocktakeItemView}
+GET-Methode}{BaseStocktakeItemView GET-Methode}}\label{basestocktakeitemview-get-methode}}
+
+Die Klasse \texttt{BaseStocktakeItemView} akzeptiert 2 unterschiedliche
+Abfragen der GET-Methode.
+
+Eine Abfrage über die \emph{URL}
+\index{URL: Addressierungsstandard im Internet} ohne weitere Zusätze
+liefert eine Liste aller Gegenstände und deren Eigenschaften:
+
+\texttt{GET\ /api/htlinventoryitems/} liefert:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \DataTypeTok{"items"}\FunctionTok{:} \OtherTok{[}\FunctionTok{\{}
+            \DataTypeTok{"itemID"}\FunctionTok{:} \DecValTok{2}\FunctionTok{,}
+            \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"Tischlampe"}\FunctionTok{,}
+            \DataTypeTok{"displayDescription"}\FunctionTok{:} \StringTok{""}\FunctionTok{,}
+            \DataTypeTok{"barcode"}\FunctionTok{:} \StringTok{"46010000"}\FunctionTok{,}
+            \DataTypeTok{"room"}\FunctionTok{:} \StringTok{"111 (Klassenraum)"}\FunctionTok{,}
+            \DataTypeTok{"fields"}\FunctionTok{:} \FunctionTok{\{}
+                \DataTypeTok{"anlagenbeschreibung"}\FunctionTok{:} \StringTok{"Tischlampe"}\FunctionTok{,}
+                \ErrorTok{[...]}
+            \FunctionTok{\},}
+            \DataTypeTok{"attachments"}\FunctionTok{:} \OtherTok{[]}
+        \FunctionTok{\}}\OtherTok{,}
+        \OtherTok{[}\ErrorTok{...}\OtherTok{]}
+    \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Eine Abfrage über die \emph{URL}
+\index{URL: Addressierungsstandard im Internet} mit Zusatz des Barcodes
+eines Gegenstandes liefert eine Liste aller Gegenstände mit dem
+entsprechenden Barcode und dessen Eigenschaften:
+
+\texttt{GET\ /api/htlinventoryitems/46010000/} liefert:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \DataTypeTok{"items"}\FunctionTok{:} \OtherTok{[}\FunctionTok{\{}
+            \DataTypeTok{"itemID"}\FunctionTok{:} \DecValTok{2}\FunctionTok{,}
+            \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"Tischlampe"}\FunctionTok{,}
+            \DataTypeTok{"displayDescription"}\FunctionTok{:} \StringTok{""}\FunctionTok{,}
+            \DataTypeTok{"barcode"}\FunctionTok{:} \StringTok{"46010000"}\FunctionTok{,}
+            \DataTypeTok{"room"}\FunctionTok{:} \StringTok{"111 (Klassenraum)"}\FunctionTok{,}
+            \DataTypeTok{"fields"}\FunctionTok{:} \FunctionTok{\{}
+                \DataTypeTok{"anlagenbeschreibung"}\FunctionTok{:} \StringTok{"Tischlampe"}\FunctionTok{,}
+                \ErrorTok{[...]}
+            \FunctionTok{\},}
+            \DataTypeTok{"attachments"}\FunctionTok{:} \OtherTok{[]}
+        \FunctionTok{\}}
+    \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{basestocktakeitemview-options-methode}{%
+\paragraph{\texorpdfstring{\texttt{BaseStocktakeItemView}
+OPTIONS-Methode}{BaseStocktakeItemView OPTIONS-Methode}}\label{basestocktakeitemview-options-methode}}
+
+Der \texttt{OPTIONS} Request wird von der mobilen Client-Applikation
+benötigt, um ein Formular für Gegenstandsdaten zu erstellen. Dafür
+werden die Eigenschaften eines Gegenstandes nach Relevanz in
+\texttt{"displayFields"} (hohe Priorität; wichtige Eigenschaften) und
+\texttt{"extraFields"}(niedrige Priorität; unwichtige Eigenschaften)
+geteilt. Welche Eigenschaften welcher Kategorie zugeordnet werden ist in
+der Implementierung der \texttt{BaseStocktakeItemView}
+\emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
+durch die Variablen \texttt{display\_fields} und \texttt{extra\_fields}
+definiert. Jede Eigenschaft wird anhand folgender Kenngrößen
+beschrieben:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{"verboseFieldName"}: Eine vom Menschen lesbare Beschreibung
+  der Eigenschaft.
+\item
+  \texttt{"readOnly"}: Dieses
+  \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}
+  Feld ist \texttt{true}, wenn die Eigenschaft durch Eintragen in die
+  \texttt{explicit\_readonly\_fields} Variable der
+  \texttt{BaseStocktakeItemView}
+  \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
+  als schreibgeschützt markiert wurde.
+\item
+  \texttt{"type"}: Dieses Feld gibt die Art der Eigenschaft an.
+  Beispiele sind \texttt{"string"}, \texttt{"boolean"},
+  \texttt{"integer"}, die jeweils eine Zeichenkette,
+  \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}
+  oder ganzzahlige Nummer identifizieren. Besondere Eigenschaftsarten
+  sind \texttt{"choice"} und\texttt{"dict"}.
+\item
+  \texttt{"choices"}: Dieses Feld ist nur angeführt, wenn das
+  \texttt{"type"} Feld den Wert \texttt{"choice"} hat. Es beinhaltet
+  eine Liste aller möglichen Werte inkl. vom Menschen lesbare
+  Repräsentation der Werte für die Eigenschaft.
+\item
+  \texttt{"fields"}: Dieses Feld ist nur angeführt, wenn das
+  \texttt{"type"} Feld den Wert \texttt{"dict"} hat. Es beinhaltet eine
+  Kollektion an Eigenschaften, je mit eigenen
+  \texttt{"verboseFieldName"}, \texttt{"readOnly"} und \texttt{"type"}
+  Feldern. Dadurch können Felder rekursiv verschachtelt werden. Ein
+  Beispiel ist unten angeführt.
+\end{itemize}
+
+\texttt{OPTIONS\ /api/htlinventoryitems/} liefert:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \DataTypeTok{"displayFields"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"anlagenbeschreibung\_prio"}\FunctionTok{:} \FunctionTok{\{}
+            \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"interne Gegenstandsbeschreibung"}\FunctionTok{,}
+            \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+            \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"string"}
+        \FunctionTok{\},}
+        \DataTypeTok{"item\_type"}\FunctionTok{:} \FunctionTok{\{}
+            \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Kategorie"}\FunctionTok{,}
+            \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+            \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"choice"}\FunctionTok{,}
+            \DataTypeTok{"choices"}\FunctionTok{:} \OtherTok{[}
+                \FunctionTok{\{}
+                    \DataTypeTok{"value"}\FunctionTok{:} \KeywordTok{null}\FunctionTok{,}
+                    \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"{-}{-}{-} kein Wert {-}{-}{-}"}
+                \FunctionTok{\}}\OtherTok{,}
+                \FunctionTok{\{}
+                    \DataTypeTok{"value"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+                    \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"IT{-}Infrastruktur"}
+                \FunctionTok{\}}\OtherTok{,}
+                \OtherTok{[}\ErrorTok{...}\OtherTok{]}
+            \OtherTok{]}
+        \FunctionTok{\},}
+        \DataTypeTok{"comment"}\FunctionTok{:} \FunctionTok{\{}
+            \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Anmerkung"}\FunctionTok{,}
+            \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+            \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"string"}
+        \FunctionTok{\},}
+        \DataTypeTok{"label"}\FunctionTok{:} \FunctionTok{\{}
+            \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Gegenstand benötigt ein neues Etikett"}\FunctionTok{,}
+            \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+            \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"boolean"}
+        \FunctionTok{\},}
+        \ErrorTok{[...]}
+    \FunctionTok{\},}
+    \DataTypeTok{"extraFields"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"anlagenbeschreibung"}\FunctionTok{:} \FunctionTok{\{}
+            \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"SAP Anlagenbeschreibung"}\FunctionTok{,}
+            \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+            \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"string"}
+        \FunctionTok{\},}
+        \DataTypeTok{"custom\_fields"}\FunctionTok{:} \FunctionTok{\{}
+            \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Custom Fields"}\FunctionTok{,}
+            \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+            \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"dict"}\FunctionTok{,}
+            \DataTypeTok{"fields"}\FunctionTok{:} \FunctionTok{\{}
+                \DataTypeTok{"Beispiel{-}Custom{-}Field + Auswahl"}\FunctionTok{:} \FunctionTok{\{}
+                    \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Beispiel{-}Custom{-}Field + Auswahl"}\FunctionTok{,}
+                    \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"choice"}\FunctionTok{,}
+                    \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+                    \DataTypeTok{"choices"}\FunctionTok{:} \OtherTok{[}
+                        \FunctionTok{\{}
+                            \DataTypeTok{"value"}\FunctionTok{:} \StringTok{"A"}\FunctionTok{,}
+                            \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"A"}
+                        \FunctionTok{\}}\OtherTok{,}
+                        \FunctionTok{\{}
+                            \DataTypeTok{"value"}\FunctionTok{:} \StringTok{"B"}\FunctionTok{,}
+                            \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"B"}
+                        \FunctionTok{\}}\OtherTok{,}
+                        \FunctionTok{\{}
+                            \DataTypeTok{"value"}\FunctionTok{:} \StringTok{"C"}\FunctionTok{,}
+                            \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"C"}
+                        \FunctionTok{\}}
+                    \OtherTok{]}
+                \FunctionTok{\},}
+                \DataTypeTok{"Beispiel{-}Custom{-}Field"}\FunctionTok{:} \FunctionTok{\{}
+                    \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Beispiel{-}Custom{-}Field"}\FunctionTok{,}
+                    \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"string"}\FunctionTok{,}
+                    \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}
+                \FunctionTok{\}}
+            \FunctionTok{\}}
+        \FunctionTok{\},}
+        \DataTypeTok{"sponsor"}\FunctionTok{:} \FunctionTok{\{}
+            \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Sponsor"}\FunctionTok{,}
+            \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+            \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"string"}
+        \FunctionTok{\},}
+        \DataTypeTok{"is\_in\_sap"}\FunctionTok{:} \FunctionTok{\{}
+            \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Gegenstand ist in der SAP Datenbank"}\FunctionTok{,}
+            \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+            \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"boolean"}
+        \FunctionTok{\}}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{basestocktakeroomview-get-methode}{%
+\paragraph{\texorpdfstring{\texttt{BaseStocktakeRoomView}
+GET-Methode}{BaseStocktakeRoomView GET-Methode}}\label{basestocktakeroomview-get-methode}}
+
+Die Klasse \texttt{BaseStocktakeRoomView} akzeptiert 2 unterschiedliche
+Abfragen der GET-Methode. Beide Abfragen benötigen die \emph{ID}
+\index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
+der ausgewählten Inventurinstanz als \emph{URL}
+\index{URL: Addressierungsstandard im Internet}-Parameter
+\texttt{stocktaking\_id}.
+
+Eine Abfrage über die \emph{URL}
+\index{URL: Addressierungsstandard im Internet} ohne weitere Zusätze
+liefert eine Liste aller Räume:
+
+\texttt{GET\ /api/htlinventoryrooms/?stocktaking\_id=1} liefert:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \DataTypeTok{"rooms"}\FunctionTok{:} \OtherTok{[}\FunctionTok{\{}
+            \DataTypeTok{"roomID"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+            \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"111"}\FunctionTok{,}
+            \DataTypeTok{"displayDescription"}\FunctionTok{:} \StringTok{"Klassenraum"}\FunctionTok{,}
+            \DataTypeTok{"barcode"}\FunctionTok{:} \StringTok{"11111111"}\FunctionTok{,}
+            \DataTypeTok{"itemID"}\FunctionTok{:} \KeywordTok{null}
+        \FunctionTok{\}}\OtherTok{,} \FunctionTok{\{}
+            \DataTypeTok{"roomID"}\FunctionTok{:} \DecValTok{2}\FunctionTok{,}
+            \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"222"}\FunctionTok{,}
+            \DataTypeTok{"displayDescription"}\FunctionTok{:} \StringTok{"Labor"}\FunctionTok{,}
+            \DataTypeTok{"barcode"}\FunctionTok{:} \StringTok{"22222222"}\FunctionTok{,}
+            \DataTypeTok{"itemID"}\FunctionTok{:} \KeywordTok{null}
+        \FunctionTok{\}}\OtherTok{,}
+    \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Eine Abfrage über die \emph{URL}
+\index{URL: Addressierungsstandard im Internet} mit Zusatz der \emph{ID}
+\index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
+einer Rauminstanz\footnote{Diese ID wird etwa der Antwort auf die
+  Abfrage ohne URL-Zusatz entnommen. Die entsprechende Eigenschaft ist
+  \texttt{"roomID"}} liefert die Details der angegebenen Rauminstanz
+inkl. aller Gegenstände, die sich in dem Raum befinden sollten, deren
+Eigenschaften und allen ``Subräumen'' der Rauminstanz:
+
+\texttt{GET\ /api/htlinventoryrooms/1/?stocktaking\_id=1} liefert:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \DataTypeTok{"roomID"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+    \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"111"}\FunctionTok{,}
+    \DataTypeTok{"displayDescription"}\FunctionTok{:} \StringTok{"Klassenraum"}\FunctionTok{,}
+    \DataTypeTok{"barcode"}\FunctionTok{:} \StringTok{"11111111"}\FunctionTok{,}
+    \DataTypeTok{"itemID"}\FunctionTok{:} \KeywordTok{null}\FunctionTok{,}
+    \DataTypeTok{"subrooms"}\FunctionTok{:} \OtherTok{[]}\FunctionTok{,}
+    \DataTypeTok{"items"}\FunctionTok{:} \OtherTok{[}\FunctionTok{\{}
+            \DataTypeTok{"times\_found\_last"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+            \DataTypeTok{"itemID"}\FunctionTok{:} \DecValTok{2}\FunctionTok{,}
+            \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"Tischlampe"}\FunctionTok{,}
+            \DataTypeTok{"displayDescription"}\FunctionTok{:} \StringTok{""}\FunctionTok{,}
+            \DataTypeTok{"barcode"}\FunctionTok{:} \StringTok{"46010000"}\FunctionTok{,}
+            \DataTypeTok{"room"}\FunctionTok{:} \StringTok{"111 (Klassenraum)"}\FunctionTok{,}
+            \DataTypeTok{"fields"}\FunctionTok{:} \FunctionTok{\{}
+                \DataTypeTok{"anlagenbeschreibung"}\FunctionTok{:} \StringTok{"Tischlampe"}\FunctionTok{,}
+                \ErrorTok{[...]}
+            \FunctionTok{\},}
+            \DataTypeTok{"attachments"}\FunctionTok{:} \OtherTok{[]}
+        \FunctionTok{\}}
+    \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{basestocktakeroomview-post-methode}{%
+\paragraph{\texorpdfstring{\texttt{BaseStocktakeRoomView}
+POST-Methode}{BaseStocktakeRoomView POST-Methode}}\label{basestocktakeroomview-post-methode}}
+
+Mit dieser Methode sendet die mobile Client-Applikation den
+aufgezeichneten Ist-Zustand der in einem Raum befindlichen Gegenstände.
+Eine Abfrage kann nur über die \emph{URL}
+\index{URL: Addressierungsstandard im Internet} mit Zusatz der \emph{ID}
+\index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
+einer Rauminstanz\footnote{Diese ID wird etwa der Antwort auf die
+  Abfrage ohne URL-Zusatz entnommen. Die entsprechende Eigenschaft ist
+  \texttt{"roomID"}} getätigt werden. Die \emph{ID}
+\index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
+der ausgewählten Inventurinstanz muss als Teil der übermittelten Daten
+im Feld \texttt{"stocktaking"} angegeben werden. Unter dem Feld
+\texttt{"validations"} werden alle validierten Gegenstände mit
+mindestens deren \emph{ID}
+\index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
+als Feld \texttt{"itemID"} angegeben. Zusätzlich können alle
+Gegenstandseigenschaften spezifiziert werden. Die Eigenschaften jedes
+Gegenstandes werden von der Klasse \texttt{BaseStocktakeRoomView} oder
+der davon erbenden Klasse verarbeitet und mit dem aktuell in der
+Datenbank eingetragenen Wert verglichen. Bei einer Differenz wird
+automatisch ein Änderungsvorschlag für diesen Gegenstand erstellt.
+
+\texttt{POST\ /api/htlinventoryrooms/1/} mit folgenden Daten
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \DataTypeTok{"stocktaking"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+    \DataTypeTok{"validations"}\FunctionTok{:} \OtherTok{[}
+        \FunctionTok{\{}
+            \DataTypeTok{"itemID"}\FunctionTok{:} \DecValTok{1}
+        \FunctionTok{\}}\OtherTok{,}
+        \FunctionTok{\{}
+            \DataTypeTok{"itemID"}\FunctionTok{:} \DecValTok{2}
+        \FunctionTok{\}}
+    \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+liefert die Antwort:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \DataTypeTok{"success:"}\FunctionTok{:} \KeywordTok{true}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Tritt ein Fehler während der Verarbeitung der Daten auf, wird der
+Zustand der Datenbank vor dem Empfangen der Daten wiederhergestellt. In
+diesem Fall teilt der Server dem Client in seiner Antwort mit, welcher
+Fehler aufgetreten ist.
+
+\texttt{POST\ /api/htlinventoryrooms/1/} mit folgenden Daten
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \DataTypeTok{"stocktaking"}\FunctionTok{:} \DecValTok{100}\FunctionTok{,}
+    \DataTypeTok{"validations"}\FunctionTok{:} \OtherTok{[}
+        \FunctionTok{\{}
+            \DataTypeTok{"itemID"}\FunctionTok{:} \DecValTok{1}
+        \FunctionTok{\}}\OtherTok{,}
+        \FunctionTok{\{}
+            \DataTypeTok{"itemID"}\FunctionTok{:} \DecValTok{2}
+        \FunctionTok{\}}
+    \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+liefert die Antwort:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \DataTypeTok{"errors"}\FunctionTok{:} \OtherTok{[}
+        \StringTok{"No stocktaking with ID 100"}
+    \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Um eine Gegenstandsvalidierung zur erneuten Validierung zu einem
+späteren Zeitpunkt durch einen Administrator zu markieren, kann das Feld
+\texttt{"mark\_for\_later\_validation"} auf \texttt{true} gesetzt
+werden:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \DataTypeTok{"stocktaking"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+    \DataTypeTok{"validations"}\FunctionTok{:} \OtherTok{[}
+        \FunctionTok{\{}
+            \DataTypeTok{"itemID"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+            \DataTypeTok{"mark\_for\_later\_validation"}\FunctionTok{:} \KeywordTok{true}
+        \FunctionTok{\}}
+    \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Dadurch wird die
+\emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}-Eigenschaft
+der erstellten \texttt{StocktakingItem} Instanz gesetzt (siehe Abschnitt
+\href{das-stocktakingitem-modell}{``Das StocktakingItem Modell''}).
+
+Um einen Gegenstand in einem ``Subraum'' (siehe Abschnitt
+\href{subruxe4ume}{``Subräume''}) zu validieren, kann eine der folgenden
+3 Maßnahmen gesetzt werden:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Eine separate POST-Abfrage auf die \emph{URL}
+  \index{URL: Addressierungsstandard im Internet} mit Zusatz der
+  \emph{ID}
+  \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
+  des Subraums mit den Daten der entsprechenden Gegenstände. Für einen
+  \texttt{HTLRoom}-Subraum mit \emph{ID}
+  \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
+  100 ist die anzuwendende \emph{URL}
+  \index{URL: Addressierungsstandard im Internet}
+  \texttt{/api/htlinventoryrooms/100/}.
+\item
+  Das Setzen des \texttt{"room"} Feldes auf die \emph{ID}
+  \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
+  des Subraums innerhalb einer Gegenstandsvalidierung. Ein Beispiel
+  bietet die folgende Abfrage. Die \emph{ID}
+  \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
+  des Subraums ist 100. Die \emph{ID}
+  \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
+  des übergeordneten Raumes ist 1.
+\end{enumerate}
+
+\texttt{POST\ /api/htlinventoryrooms/1/} mit folgenden Daten:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \DataTypeTok{"stocktaking"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+    \DataTypeTok{"validations"}\FunctionTok{:} \OtherTok{[}
+        \FunctionTok{\{}
+            \DataTypeTok{"itemID"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+            \DataTypeTok{"room"}\FunctionTok{:} \DecValTok{100}
+        \FunctionTok{\}}
+    \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Das Auslagern der Gegenstandsvalidierungen in das Feld
+  \texttt{"subroomValidations"} wie in folgendem Beispiel. Das Ergebnis
+  gleicht dem Beispiel aus Alternative 2:
+\end{enumerate}
+
+\texttt{POST\ /api/htlinventoryrooms/1/} mit folgenden Daten:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \DataTypeTok{"stocktaking"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+    \DataTypeTok{"validations"}\FunctionTok{:} \OtherTok{[}
+    \OtherTok{]}\FunctionTok{,}
+    \DataTypeTok{"subroomValidations"}\FunctionTok{:} \OtherTok{[}
+        \StringTok{"roomID"}\ErrorTok{:} \DecValTok{100}\OtherTok{,}
+        \StringTok{"validations"}\ErrorTok{:} \OtherTok{[}\FunctionTok{\{}
+                \DataTypeTok{"itemID"}\FunctionTok{:} \DecValTok{1}
+            \FunctionTok{\}}
+        \OtherTok{],}
+        \StringTok{"subroomValidations"}\ErrorTok{:} \OtherTok{[}
+        \OtherTok{]}
+    \OtherTok{]}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{"subroomValidations"} können rekursiv definiert werden. In dem
+Beispiel aus Alternative 3 muss darauf geachtet werden, dass der Raum
+mit \emph{ID}
+\index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
+100 direkter ``Subraum'' des Raums mit \emph{ID}
+\index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
+1 ist.
+
+Weitere Details zur Funktionsweise und Anpassung der
+Client-Schnittstelle ist der im Source-Code enthaltenen Dokumentation zu
+entnehmen.
