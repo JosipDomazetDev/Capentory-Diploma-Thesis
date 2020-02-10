@@ -33,7 +33,7 @@ Django bietet eine weit verbreitete Open-Source Lösung für die Entwicklung von
 Django zeichnet sich besonders durch die sog. \emph{"Batteries included"}\index{Batteries included: Das standardmäßige Vorhandensein von erwünschten bzw. gängigen \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems}, zu Deutsch: Batterien einbezogen} Mentalität aus. Das heißt, dass Django bereits die gängigsten \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems} eines Webserver-Backends standardmäßig innehat. Diese sind (im Vergleich zu Alternativen wie etwa "Flask") u.a.:
 
 * Authentifikation und Autorisierung, sowie eine damit verbundene Benutzerverwaltung
-* Schutz vor gängigen Attacken (wie \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem} oder \emph{CSRF}\index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}\cite{csrf}), siehe [Views][views]
+* Schutz vor gängigen Attacken (wie \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem} oder \emph{CSRF}\index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}\cite{csrf}), siehe Abschnitt ["Views"](views)
 
 Zusätzlich bietet Ralph bereits einige \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems}, die die grundlegende Führung und Verwaltung eines herkömmlichen Inventars unterstützen (beispielsweise eine Suchfunktion mit automatischer Textvervollständigung). 
 
@@ -54,7 +54,7 @@ Die Konfiguration der Datenbank-Verbindung geschieht unter Standard-Django in de
 Eine detaillierte Anleitung zur Verbindung mit einer Datenbank ist in der offiziellen Django-Dokumentation \cite{django-doku-db} zu finden.
 
 
-Die verschiedenen Funktionsbereiche des Servers sind in Pakete bzw. Module gegliedert. Jedes Paket ist ein Ordner, der verschiedene Dateien und Unterordner beinhalten kann. Die Dateinamen-Nomenklatur eines Packets ist normiert.\cite{django-file-nomenklatur} Der Name eines Pakets wird fortan "App-Label" genannt. Standardmäßig ist dieser Name erster Bestandteil einer URL zu einer beliebigen graphischen Administrationsoberfläche des Pakets.
+Die verschiedenen Funktionsbereiche des Servers sind in Pakete bzw. Module gegliedert. Jedes Paket ist ein Ordner, der verschiedene Dateien und Unterordner beinhalten kann. Die Dateinamen-Nomenklatur eines Packets ist normiert.\cite{django-file-nomenklatur} Der Name eines Pakets wird fortan "App-Label" genannt. Standardmäßig ist dieser Name erster Bestandteil einer \emph{URL} \index{URL: Addressierungsstandard im Internet} zu einer beliebigen graphischen Administrationsoberfläche des Pakets.
 Pakete werden durch einen Eintrag in die Variable `INSTALLED_APPS`
 innerhalb der o.a. Einstellungsdatei registriert. Beispiele sind die beiden durch die vorliegende Diplomarbeit registrierten Pakete `"ralph.capentory"` und  `"ralph.stocktaking"`
 
@@ -76,16 +76,16 @@ Die Listenansicht aller Datensätze eines Modells wird in der Datei `admin.py` a
 
 Die Detailansicht einzelner Datensätze wird grundsätzlich durch die `ModelAdmin` Klasse automatisch generiert, kann aber durch Setzen dessen `form` Attributs auf eine eigens definierte \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ModelForm`[^ralph-adminform]  angepasst werden. Diese Klassen werden in der Datei `forms.py` definiert und besitzen, ähnlich der `Model` Klasse, auch eine innere Klasse  `Meta`.
 
-Um die `ModelAdmin`  \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} über eine URL erreichbar zu machen, müssen diese registriert werden. Dies geschieht durch den `register` \emph{Dekorator}\index{Dekorator: Fügt unter Python einer Klasse oder Methode eine bestimmte Funktionsweise hinzu \cite{python-decorators}}. Dieser Dekorator akzeptiert die zu registrierende Modellklasse, die zu dem `ModelAdmin` gehört, als Parameter.
-Die Listenansicht einer registrierten `ModelAdmin` Subklasse ist standardmäßig unter der URL 
+Um die `ModelAdmin`  \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} über eine \emph{URL} \index{URL: Addressierungsstandard im Internet} erreichbar zu machen, müssen diese registriert werden. Dies geschieht durch den `register` \emph{Dekorator}\index{Dekorator: Fügt unter Python einer Klasse oder Methode eine bestimmte Funktionsweise hinzu \cite{python-decorators}}. Dieser Dekorator akzeptiert die zu registrierende Modellklasse, die zu dem `ModelAdmin` gehört, als Parameter.
+Die Listenansicht einer registrierten `ModelAdmin` Subklasse ist standardmäßig unter der \emph{URL} \index{URL: Addressierungsstandard im Internet} 
 ```
 /<App-Label>/<Modell-Name>/
 ```
-erreichbar, die Detailansicht einer Modellinstanz unter der URL 
+erreichbar, die Detailansicht einer Modellinstanz unter der \emph{URL} \index{URL: Addressierungsstandard im Internet} 
 ```
 /<App-Label>/<Modell-Name>/<Modellinstanz-ID>/
 ```
-. Somit repräsentiert die URL der Listenansicht gleichzeitig den Pfad, unter der sie definiert wurde. 
+. Somit repräsentiert die \emph{URL} \index{URL: Addressierungsstandard im Internet} der Listenansicht gleichzeitig den Pfad, unter der sie definiert wurde. 
 
 Die Dokumentation der Administrationsfeatures von Django ist auf der offiziellen Dokumentationswebseite von Django  \cite{django-doku-admin} zu finden.
 
@@ -148,9 +148,9 @@ Weitere Beispiele und Methoden sind der offiziellen Django-Dokumentation zu entn
 Designgrundlagen für Django-Entwickler sind auf der offiziellen Dokumentationsseite von Django abrufbar. \cite{django-doku-coding-style}
 Die Erweiterung von Django durch die vorliegende Diplomarbeit wurde anhand dieser Grundlagen entwickelt. 
 
-Das Konzept des `Mixin`s wird von der Ralph-Plattform besonders häufig genutzt. `Mixin`s sind Klassen, die anderen von ihnen erbende Klassen, bestimmte Attribute und Methoden hinzufügen. Manche `Mixin`s setzen implizit voraus, dass die davon erbenden Klassen ebenfalls von bestimmten anderen Klassen erben. Beispiel ist die Klasse `AdminAbsoluteUrlMixin`, die eine Methode `get_absolute_url` zur Verfügung stellt. Diese Methode liefert die URL, die zu der Detailansicht der Modellinstanz führt, die die Methode aufruft. Voraussetzung für das Erben einer Klasse von `AdminAbsoluteUrlMixin` ist daher, dass sie ebenfalls von der Klasse `Model` erbt.
+Das Konzept des `Mixin`s wird von der Ralph-Plattform besonders häufig genutzt. `Mixin`s sind Klassen, die anderen von ihnen erbende Klassen, bestimmte Attribute und Methoden hinzufügen. Manche `Mixin`s setzen implizit voraus, dass die davon erbenden Klassen ebenfalls von bestimmten anderen Klassen erben. Beispiel ist die Klasse `AdminAbsoluteUrlMixin`, die eine Methode `get_absolute_url` zur Verfügung stellt. Diese Methode liefert die \emph{URL} \index{URL: Addressierungsstandard im Internet}, die zu der Detailansicht der Modellinstanz führt, die die Methode aufruft. Voraussetzung für das Erben einer Klasse von `AdminAbsoluteUrlMixin` ist daher, dass sie ebenfalls von der Klasse `Model` erbt.
 
-\chapter{Die 2 Erweiterungsmodule des Serverssystems}
+\chapter{Die 2 Erweiterungsmodule des Serversystems}
 
 Die vorliegende Diplomarbeit erweitert das ["Ralph"](#django-und-ralph) System um 2 Module. Dabei handelt es sich um die beiden Pakete "Capentory" und "Stocktaking". Das Paket "Capentory" behandelt die Führung der Inventardaten und wurde speziell an die Inventardaten der HTL Rennweg angepasst. Das Paket "Stocktaking" ermöglicht die Verwaltung der durch die mobile Applikation durchgeführten Inventuren. Dazu zählen Aufgaben wie das Erstellen der Inventuren, das Einsehen von Inventurberichten oder das Anwenden der aufgetretenen Änderungen.
 
@@ -236,7 +236,7 @@ Das `HTLItemType` Modell repräsentiert Kategorien von Gegenständen. Das Modell
 
 Durch das Setzen eines `HTLItemType` Objekts für ein `HTLItem` Objekt durch seine Eigenschaft `item_type` werden dem `HTLItem` Objekt alle \emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.} des `HTLItemType` Objekts zugewiesen. Anwendungsbeispiel ist das Setzen eines \emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.} namens "Anzahl Ports" für den `HTLItemType` namens "Switch". Jedes `HTLItem` Objekt mit dem `item_type` "Switch" hat nun ein \emph{Custom-Field} namens "Anzahl Ports".
 
-Das für \emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.} erforderliche Mixin (siehe Abschnitt ["Designgrundlagen"](#designgrundlagen)) `WithCustomFieldsMixin` bietet die Funktionalität der `custom_fields_inheritance`. Sie ermöglicht das Erben von allen \emph{Custom-Field} Werten eines bestimmten Objekts an ein anderes. Diese Funktion macht sich das `HTLItem` Modell zunutze. Um beim Speichern automatisch vom `HTLItemType` Objekt unabhängige \emph{Custom-Field} Werte zu erstellen, die sofort vom Benutzer bearbeitet werden können, muss der Speicherlogik eine Funktion hinzugefügt werden. Dazu wird eine `@receiver` Funktion genutzt, die automatisch bei jedem Speichervorgang eines `HTLItemType` oder `HTLItem` Objekts aufgerufen wird:
+Das für \emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.} erforderliche Mixin (siehe Abschnitt ["Designgrundlagen"](designgrundlagen)) `WithCustomFieldsMixin` bietet die Funktionalität der `custom_fields_inheritance`. Sie ermöglicht das Erben von allen \emph{Custom-Field} Werten eines bestimmten Objekts an ein anderes. Diese Funktion macht sich das `HTLItem` Modell zunutze. Um beim Speichern automatisch vom `HTLItemType` Objekt unabhängige \emph{Custom-Field} Werte zu erstellen, die sofort vom Benutzer bearbeitet werden können, muss der Speicherlogik eine Funktion hinzugefügt werden. Dazu wird eine `@receiver` Funktion genutzt, die automatisch bei jedem Speichervorgang eines `HTLItemType` oder `HTLItem` Objekts aufgerufen wird:
 
 ```python
 @receiver(post_save, sender=HTLItemType)
@@ -401,9 +401,9 @@ Weitere Informationen über die Arten von Änderungsvorschlägen und deren Handh
 
 ## Die Client-Schnittstelle
 
-Jede Art der Inventur benötigt eine eigene Client-Schnittstelle. Eine Art der Inventur unterscheidet sich von anderen durch das Gegenstands- und Raummodell, gegen welches inventarisiert wird. Ein Beispiel ist die Inventur für die Gegenstände HTL Rennweg, durch die gegen die `HTLItem` und `HTLRoom` Modelle inventarisiert wird. 
+Jede Art der Inventur benötigt eine eigene Client-Schnittstelle. Eine Art der Inventur unterscheidet sich von anderen durch das Gegenstands- und Raummodell, gegen welches inventarisiert wird. Ein Beispiel ist die Inventur für die Gegenstände der HTL Rennweg, durch die gegen die `HTLItem` und `HTLRoom` Modelle inventarisiert wird. 
 
-Um die Kommunikation zwischen Server und mobiler Client-Applikation für eine Art der Inventur zu ermöglichen, werden 2 `APIView` Klassen erstellt (siehe \autoref{intro_server} Abschnitt [Views][views]):
+Um die Kommunikation zwischen Server und mobiler Client-Applikation für eine Art der Inventur zu ermöglichen, werden 2 `APIView` Klassen erstellt (siehe \autoref{intro_server} Abschnitt ["Views"](views)):
 
 * Eine Klasse, die von der Klasse `BaseStocktakeItemView` erbt.
 * Eine Klasse, die von der Klasse `BaseStocktakeRoomView` erbt.
@@ -463,6 +463,10 @@ class WarehouseStocktakingView(StocktakingPOSTWithCustomFieldsMixin,
 
 Die Modelle `BackOfficeAsset` und `Warehouse` sind in dem unveränderten "Ralph" System vorhanden.
 
+### Kommunikationsformat
+
+Die Kommunikation zwischen Server und mobilem Client erfolgt über HTTP Abfragen. Das Datenformat wurde auf das JSON-Format \cite{json-format-doku} festgelegt. Grund dafür ist die weit verbreitete Unterstützung und relativ geringe Komplexität des Formats. 
+
 ### Modell-Voraussetzungen
 
 Um eine Client-Schnittstelle für die Inventarisierung bestimmter Gegenstands- und der dazugehörigen Raummodelle zu implementieren, müssen diese bestimmte Voraussetzungen erfüllen. Die Voraussetzungen werden in diesem Abschnitt beschrieben.
@@ -479,3 +483,408 @@ Gegenstands- und Rauminstanzen müssen eine vom Menschen lesbare Repräsentation
 
 Es muss für eine Instanz des Gegenstandsmodells ein Barcode generiert werden können. Diese Funktion wird in der Methode `item_barcode_getter()` der von `BaseStocktakeItemView` erbenden Klasse definiert. Um über den von der mobilen Applikation gescannten Barcode auf einen Gegenstand schließen zu können, müssen die Attribute `slug_url_kwarg` und `slug_field` auf den Namen eines Attributes gesetzt werden, das den Barcode eines Gegenstandes repräsentiert. Dieses Attribut muss für jeden Datensatz, der durch die `get_queryset()` Methode entsteht, vorhanden sein. In dem o.a. Beispiel wird dieses Attribut in der `get_queryset()` Methode durch `annotate()` \cite{django-doku-queriesets} hinzugefügt.
 
+### Einbindung und Erreichbarkeit der APIView-Klassen
+
+Um die für eine Art der Inventur implementierten Klassen über das \emph{DRF}\index{DRF: Django REST Framework - Implementierung einer \emph{REST-API}\index{REST-API: Representational State Transfer \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} - eine zustandslose Schnittstelle für den Datenaustausch zwischen Clients und Servern \cite{rest-api}} unter Django \cite{django-rest-framework}} ansprechbar zu machen, werden diese in die Variable `urlpatterns` \cite{django-doku-urls} eingebunden. Die Einbindung erfolgt beispielsweise in der Datei `api.py` eines beliebigen Pakets. Bei der Einbindung müssen den jeweiligen Schnittstellen zur späteren Verwendung interne Namen vergeben werden. Folgendes Implementierungsbeispiel bindet die oben definierten Klassen `BackOfficeAssetStocktakingView` und `WarehouseStocktakingView` ein:
+
+```python
+urlpatterns = [
+    url(
+        r"^warehousesforstocktaking/(?:(?P<pk>[\w/]+)/)?$", 
+        WarehouseStocktakingView.as_view(),
+        name="warehousesforstocktaking"),
+    url(
+        r"^backofficeassetsforstocktaking/(?:(?P<barcode_final>[\w/]+)/)?$", 
+        BackOfficeAssetStocktakingView.as_view(),
+        name="backofficeassetsforstocktaking"),
+]
+```
+Die Namen der Schnittstellen werden auf `"warehousesforstocktaking"` und `"backofficeassetsforstocktaking"` gesetzt. In der Einbindung der Klasse `BackOfficeAssetStocktakingView` wird definiert, dass der Name des Barcode-Attributes eines Gegenstandes `barcode_final` lautet. Das `barcode_final` Attribut wird in der Definition von `BackOfficeAssetStocktakingView` hinzugefügt (siehe auch: Abschnitt ["Barcode eines Gegenstandes"](barcode-eines-gegenstandes)).
+
+Die Klassen `BackOfficeAssetStocktakingView` und `WarehouseStocktakingView` sind dadurch über die \emph{URLs} \index{URL: Addressierungsstandard im Internet} `/api/backofficeassetsforstocktaking/` und `/api/warehousesforstocktaking/` erreichbar. 
+
+Für die Implementierung der Inventur der HTL Rennweg wurden die  \emph{URLs} \index{URL: Addressierungsstandard im Internet} `/api/htlinventoryitems/` und `/api/htlinventoryrooms/` definiert. 
+
+### Statische Ausgangspunkte
+
+Der mobilen Client-Applikation müssen notwendige Informationen der dynamisch erweiterbaren Inventuren und Inventurarten über statisch festgelegte \emph{URLs} \index{URL: Addressierungsstandard im Internet} mitgeteilt werden:
+
+#### Verfügbare Inventuren
+
+Der mobilen Client-Applikation muss mitgeteilt werden, welche Inventuren zurzeit durchgeführt werden können. Für das Modell `Stocktaking`ist eine \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht}-Schnittstelle implementiert (siehe \autoref{intro_server} Abschnitt ["API und DRF"](api-und-drf)). Über diese Schnittstelle können durch folgende Abfrage-URL mittels eines HTTP GET-Requests \cite{rest-http-methods} alle verfügbaren Inventuren und dessen einzigartige \emph{IDs} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} abgefragt werden:
+
+```bash
+/api/stocktaking/?date_finished__isnull=True&time_finish_isnull=True&format=json
+```
+
+Durch `&format=json` wird festgelegt, dass der Server eine Antwort im JSON-Format \cite{json-format-doku} liefert. Die Antwort des Servers auf die o.a. Abfrage sieht beispielsweise wie folgt aus (Die Daten wurden zwecks Lesbarkeit auf die wesentlichsten Attribute gekürzt.):
+
+```json
+[
+    {
+        "stocktake_id": 1,
+        "name": "Inventur 1",
+        "comment": "Diese Inventur endet nie!",
+        "neverending_stocktaking": true,
+    },
+    {
+        "stocktake_id": 2,
+        "name": "Inventur 2",
+        "comment": "",
+        "neverending_stocktaking": false,
+    }
+]
+```
+Laut der Antwort des Servers sind aktuell 2 Inventuren - "Inventur 1" und "Inventur 2" -verfügbar. 
+Die mobile Client-Applikation benötigt den Wert des Attributs `"stocktake_id"`, um bei späteren Abfragen festzulegen, welche Inventur von einem Benutzer ausgewählt wurde.
+
+
+#### Verfügbare Arten der Inventur
+
+Der mobilen Client-Applikation muss mitgeteilt werden, welche Arten der Inventur verfügbar sind und über welche \emph{URLs} \index{URL: Addressierungsstandard im Internet} die jeweiligen `APIView` Klassen ansprechbar sind. Unter der \emph{URL} \index{URL: Addressierungsstandard im Internet} `/api/inventoryserializers/` werden je eine Beschreibung der Inventurart und die benötigten \emph{URLs} \index{URL: Addressierungsstandard im Internet} ausgegeben. Bei korrekter Implementierung der Inventurarten für die Gegenstandsmodelle `HTLItem` und `BackOfficeAsset` liefert der Server folgende Antwort im JSON-Format \cite{json-format-doku}:
+
+```json
+{
+    "HTL": {
+        "roomUrl": "/api/htlinventoryrooms/",
+        "itemUrl": "/api/htlinventoryitems/",
+        "description": "Inventur der HTL-Items"
+    },
+    "BackOfficeAsset-Inventur": {
+        "roomUrl": "/api/warehousesforstocktaking/",
+        "itemUrl": "/api/backofficeassetsforstocktaking/",
+        "description": "Demonstrations-Inventur fuer BackOfficeAssets"
+    }
+}
+```
+
+Um eine Art der Inventur in diese Ausgabe miteinzubeziehen, muss in der Datei `api.py` des "stocktaking" Pakets die Variable `STOCKTAKING_SERIALIZER_VIEWS` entsprechend erweitert werden. Dazu wird der o.a. Name der Schnittstelle verwendet, wie er in der Variable `urlpatterns` gesetzt wurde. Die zu dem angeführten Beispiel gehörige `STOCKTAKING_SERIALIZER_VIEWS` Variable ist wie folgt definiert:
+
+```python
+STOCKTAKING_SERIALIZER_VIEWS = {
+    "HTL": (
+        "htlinventoryrooms", 
+        "htlinventoryitems", 
+        "Inventur der HTL-Items"
+    ),
+    "BackOfficeAsset-Inventur": (
+        "warehousesforstocktaking", 
+        "backofficeassetsforstocktaking", 
+        "Demonstrations-Inventur fuer BackOfficeAssets"
+    )
+}
+```
+
+`"BackOfficeAsset-Inventur"` ist der Name der Inventurart für das Gegenstandsmodell `BackOfficeAsset`. `"warehousesforstocktaking"` ist der Name der Schnittstelle für die Klasse `WarehouseStocktakingView`. `"backofficeassetsforstocktaking"` ist der Name der Schnittstelle für die Klasse `BackOfficeAssetStocktakingView`. `"Demonstrations-Inventur fuer BackOfficeAssets"` ist eine Beschreibung der Inventurart. 
+
+### JSON Schema
+
+Die Daten, die durch die implementierten `APIView` Klassen gesendet oder empfangen werden, müssen einer bestimmten Struktur folgen. In diesem Abschnitt werden die durch die Klassen akzeptierten HTTP-Methoden \cite{rest-http-methods} aufgezählt und deren JSON Schema anhand mehrerer Beispiele dargestellt. Die Beispiele können zwecks Lesbarkeit gekürzt sein. Gekürzte Bereiche werden mit `[...]` markiert.
+
+#### `BaseStocktakeItemView` GET-Methode
+
+Die Klasse `BaseStocktakeItemView` akzeptiert 2 unterschiedliche Abfragen der GET-Methode. 
+
+Eine Abfrage über die \emph{URL} \index{URL: Addressierungsstandard im Internet} ohne weitere Zusätze liefert eine Liste aller Gegenstände und deren Eigenschaften:
+
+`GET /api/htlinventoryitems/` liefert:
+```json
+{
+    "items": [{
+            "itemID": 2,
+            "displayName": "Tischlampe",
+            "displayDescription": "",
+            "barcode": "46010000",
+            "room": "111 (Klassenraum)",
+            "fields": {
+                "anlagenbeschreibung": "Tischlampe",
+                [...]
+            },
+            "attachments": []
+        },
+		[...]
+    ]
+}
+```
+
+Eine Abfrage über die \emph{URL} \index{URL: Addressierungsstandard im Internet} mit Zusatz des Barcodes eines Gegenstandes liefert eine Liste aller Gegenstände mit dem entsprechenden Barcode und dessen Eigenschaften:
+
+`GET /api/htlinventoryitems/46010000/` liefert:
+```json
+{
+    "items": [{
+            "itemID": 2,
+            "displayName": "Tischlampe",
+            "displayDescription": "",
+            "barcode": "46010000",
+            "room": "111 (Klassenraum)",
+            "fields": {
+                "anlagenbeschreibung": "Tischlampe",
+                [...]
+            },
+            "attachments": []
+        }
+    ]
+}
+```
+
+#### `BaseStocktakeItemView` OPTIONS-Methode
+
+Der `OPTIONS` Request wird von der mobilen Client-Applikation benötigt, um ein Formular für Gegenstandsdaten zu erstellen. Dafür werden die Eigenschaften eines Gegenstandes nach Relevanz in `"displayFields"` (hohe Priorität; wichtige Eigenschaften) und  `"extraFields"`(niedrige Priorität; unwichtige Eigenschaften) geteilt. Welche Eigenschaften welcher Kategorie zugeordnet werden ist in der Implementierung der `BaseStocktakeItemView` \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} durch die Variablen `display_fields` und `extra_fields` definiert. Jede Eigenschaft wird anhand folgender Kenngrößen beschrieben:
+
+* `"verboseFieldName"`: Eine vom Menschen lesbare Beschreibung der Eigenschaft.
+* `"readOnly"`: Dieses \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann} Feld ist `true`, wenn die Eigenschaft durch Eintragen in die `explicit_readonly_fields` Variable der `BaseStocktakeItemView` \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} als schreibgeschützt markiert wurde.
+* `"type"`: Dieses Feld gibt die Art der Eigenschaft an. Beispiele sind `"string"`, `"boolean"`, `"integer"`, die jeweils eine Zeichenkette, \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann} oder ganzzahlige Nummer identifizieren. Besondere Eigenschaftsarten sind `"choice"` und`"dict"`.
+* `"choices"`: Dieses Feld ist nur angeführt, wenn das `"type"` Feld den Wert `"choice"` hat. Es beinhaltet eine Liste aller möglichen Werte inkl. vom Menschen lesbare Repräsentation der Werte für die Eigenschaft.
+* `"fields"`: Dieses Feld ist nur angeführt, wenn das `"type"` Feld den Wert `"dict"` hat. Es beinhaltet eine Kollektion an Eigenschaften, je mit eigenen `"verboseFieldName"`, `"readOnly"` und `"type"` Feldern. Dadurch können Felder rekursiv verschachtelt werden. Ein Beispiel ist unten angeführt.
+
+`OPTIONS /api/htlinventoryitems/` liefert:
+
+```json
+{
+    "displayFields": {
+        "anlagenbeschreibung_prio": {
+            "verboseFieldName": "interne Gegenstandsbeschreibung",
+            "readOnly": false,
+            "type": "string"
+        },
+        "item_type": {
+            "verboseFieldName": "Kategorie",
+            "readOnly": false,
+            "type": "choice",
+            "choices": [
+                {
+                    "value": null,
+                    "displayName": "--- kein Wert ---"
+                },
+                {
+                    "value": 1,
+                    "displayName": "IT-Infrastruktur"
+                },
+                [...]
+            ]
+        },
+        "comment": {
+            "verboseFieldName": "Anmerkung",
+            "readOnly": false,
+            "type": "string"
+        },
+        "label": {
+            "verboseFieldName": "Gegenstand benötigt ein neues Etikett",
+            "readOnly": false,
+            "type": "boolean"
+        },
+		[...]
+    },
+    "extraFields": {
+        "anlagenbeschreibung": {
+            "verboseFieldName": "SAP Anlagenbeschreibung",
+            "readOnly": true,
+            "type": "string"
+        },
+        "custom_fields": {
+            "verboseFieldName": "Custom Fields",
+            "readOnly": false,
+            "type": "dict",
+            "fields": {
+                "Beispiel-Custom-Field + Auswahl": {
+                    "verboseFieldName": "Beispiel-Custom-Field + Auswahl",
+                    "type": "choice",
+                    "readOnly": false,
+                    "choices": [
+                        {
+                            "value": "A",
+                            "displayName": "A"
+                        },
+                        {
+                            "value": "B",
+                            "displayName": "B"
+                        },
+                        {
+                            "value": "C",
+                            "displayName": "C"
+                        }
+                    ]
+                },
+                "Beispiel-Custom-Field": {
+                    "verboseFieldName": "Beispiel-Custom-Field",
+                    "type": "string",
+                    "readOnly": false
+                }
+            }
+        },
+        "sponsor": {
+            "verboseFieldName": "Sponsor",
+            "readOnly": false,
+            "type": "string"
+        },
+        "is_in_sap": {
+            "verboseFieldName": "Gegenstand ist in der SAP Datenbank",
+            "readOnly": true,
+            "type": "boolean"
+        }
+    }
+}
+```
+
+#### `BaseStocktakeRoomView` GET-Methode
+
+Die Klasse `BaseStocktakeRoomView` akzeptiert 2 unterschiedliche Abfragen der GET-Methode.  Beide Abfragen benötigen die \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} der ausgewählten Inventurinstanz als \emph{URL} \index{URL: Addressierungsstandard im Internet}-Parameter `stocktaking_id`. 
+
+Eine Abfrage über die \emph{URL} \index{URL: Addressierungsstandard im Internet} ohne weitere Zusätze liefert eine Liste aller Räume:
+
+`GET /api/htlinventoryrooms/?stocktaking_id=1` liefert:
+```json
+{
+    "rooms": [{
+            "roomID": 1,
+            "displayName": "111",
+            "displayDescription": "Klassenraum",
+            "barcode": "11111111",
+            "itemID": null
+        }, {
+            "roomID": 2,
+            "displayName": "222",
+            "displayDescription": "Labor",
+            "barcode": "22222222",
+            "itemID": null
+        },
+    ]
+}
+```
+Eine Abfrage über die \emph{URL} \index{URL: Addressierungsstandard im Internet} mit Zusatz der \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} einer Rauminstanz[^id_detail] liefert die Details der angegebenen Rauminstanz inkl. aller Gegenstände, die sich in dem Raum befinden sollten, deren Eigenschaften und allen "Subräumen" der Rauminstanz:
+
+`GET /api/htlinventoryrooms/1/?stocktaking_id=1` liefert:
+```json
+{
+    "roomID": 1,
+    "displayName": "111",
+    "displayDescription": "Klassenraum",
+    "barcode": "11111111",
+    "itemID": null,
+    "subrooms": [],
+    "items": [{
+            "times_found_last": 1,
+            "itemID": 2,
+            "displayName": "Tischlampe",
+            "displayDescription": "",
+            "barcode": "46010000",
+            "room": "111 (Klassenraum)",
+            "fields": {
+                "anlagenbeschreibung": "Tischlampe",
+                [...]
+            },
+            "attachments": []
+        }
+    ]
+}
+
+```
+
+[^id_detail]: Diese ID wird etwa der Antwort auf die Abfrage ohne URL-Zusatz entnommen. Die entsprechende Eigenschaft ist `"roomID"`
+
+#### `BaseStocktakeRoomView` POST-Methode
+
+Mit dieser Methode sendet die mobile Client-Applikation den aufgezeichneten Ist-Zustand der in einem Raum befindlichen Gegenstände. Eine Abfrage kann nur über die \emph{URL} \index{URL: Addressierungsstandard im Internet} mit Zusatz der \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} einer Rauminstanz[^id_detail] getätigt werden. Die \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} der ausgewählten Inventurinstanz muss als Teil der übermittelten Daten im Feld `"stocktaking"`  angegeben werden. Unter dem Feld `"validations"` werden alle validierten Gegenstände mit mindestens deren \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} als Feld `"itemID"` angegeben. Zusätzlich können alle Gegenstandseigenschaften spezifiziert werden. Die Eigenschaften jedes Gegenstandes werden von der Klasse `BaseStocktakeRoomView` oder der davon erbenden Klasse verarbeitet und mit dem aktuell in der Datenbank eingetragenen Wert verglichen. Bei einer Differenz wird automatisch ein Änderungsvorschlag für diesen Gegenstand erstellt. 
+
+`POST /api/htlinventoryrooms/1/` mit folgenden Daten
+```json
+{
+    "stocktaking": 1,
+    "validations": [
+    	{
+    		"itemID": 1
+    	},
+    	{
+    		"itemID": 2
+    	}
+    ]
+}
+```
+liefert die Antwort:
+```json
+{
+    "success:": true
+}
+```
+
+Tritt ein Fehler während der Verarbeitung der Daten auf, wird der Zustand der Datenbank vor dem Empfangen der Daten wiederhergestellt. In diesem Fall teilt der Server dem Client in seiner Antwort mit, welcher Fehler aufgetreten ist.
+
+`POST /api/htlinventoryrooms/1/` mit folgenden Daten
+```json
+{
+    "stocktaking": 100,
+    "validations": [
+    	{
+    		"itemID": 1
+    	},
+    	{
+    		"itemID": 2
+    	}
+    ]
+}
+```
+liefert die Antwort:
+```json
+{
+    "errors": [
+        "No stocktaking with ID 100"
+    ]
+}
+```
+
+Um eine Gegenstandsvalidierung zur erneuten Validierung zu einem späteren Zeitpunkt durch einen Administrator zu markieren, kann das Feld `"mark_for_later_validation"` auf `true` gesetzt werden:
+```json
+{
+    "stocktaking": 1,
+    "validations": [
+    	{
+    		"itemID": 1,
+    		"mark_for_later_validation": true
+    	}
+    ]
+}
+```
+Dadurch wird die  \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}-Eigenschaft der erstellten `StocktakingItem` Instanz gesetzt (siehe Abschnitt ["Das StocktakingItem Modell"](das-stocktakingitem-modell)).
+
+Um einen Gegenstand in einem "Subraum" (siehe Abschnitt ["Subräume"](subruxe4ume)) zu validieren, kann eine der folgenden 3 Maßnahmen gesetzt werden:
+
+1. Eine separate POST-Abfrage auf die \emph{URL} \index{URL: Addressierungsstandard im Internet} mit Zusatz der \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} des Subraums mit den Daten der entsprechenden Gegenstände. Für einen `HTLRoom`-Subraum mit \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} 100 ist die anzuwendende \emph{URL} \index{URL: Addressierungsstandard im Internet} `/api/htlinventoryrooms/100/`.
+2. Das Setzen des `"room"` Feldes auf die \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} des Subraums innerhalb einer Gegenstandsvalidierung. Ein Beispiel bietet die folgende Abfrage. Die \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} des Subraums ist 100. Die \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} des übergeordneten Raumes ist 1.
+
+`POST /api/htlinventoryrooms/1/` mit folgenden Daten:
+```json
+{
+    "stocktaking": 1,
+    "validations": [
+    	{
+    		"itemID": 1,
+    		"room": 100
+    	}
+    ]
+}
+```
+
+3. Das Auslagern der Gegenstandsvalidierungen in das Feld `"subroomValidations"` wie in folgendem Beispiel. Das Ergebnis gleicht dem Beispiel aus Alternative 2:
+
+`POST /api/htlinventoryrooms/1/` mit folgenden Daten:
+```json
+{
+    "stocktaking": 1,
+    "validations": [
+    ],
+    "subroomValidations": [
+        "roomID": 100,
+        "validations": [{
+                "itemID": 1
+            }
+        ],
+        "subroomValidations": [
+        ]
+    ]
+}
+```
+
+`"subroomValidations"` können rekursiv definiert werden. In dem Beispiel aus Alternative 3 muss darauf geachtet werden, dass der Raum mit \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} 100 direkter "Subraum" des Raums mit \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} 1 ist. 
+
+Weitere Details zur Funktionsweise und Anpassung der Client-Schnittstelle ist der im Source-Code enthaltenen Dokumentation zu entnehmen. 
