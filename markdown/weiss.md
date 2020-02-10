@@ -38,7 +38,7 @@ FortiClient ermöglicht es, eines VPN-Konnektivität anhand von IPsec oder SSL z
 
 Da die Diplomarbeit "Capentory" jedoch Erreichbarkeit im Schulnetz verlangt, muss die Maschine in einem Ausmaß abgesichert werden, damit sie ohne Bedenken in das Schulnetz gehängt werden kann. Dafür müssen folgende Punkte gewährleistet sein:
 
-* Konfiguration beider Firewalls (siehe Punkt **Absicherung der virtuellen Maschine**)
+* Konfiguration beider Firewalls (siehe Punkt \ref{absicherung-der-virtuellen-maschine})
 * Wohlüberlegte Passwörter und Zugriffsrechte
 
 ## Wahl des Betriebssystems
@@ -75,7 +75,7 @@ Aus den angeführten Punkten entschied sich "Capentory" klarerweise das Betriebs
 
 ## Installation des Betriebsystemes
 
-Wie bereits unter Punkt """Anschaffung des Servers""" erwähnt, wird uns von der Schule ein eigener Servercluster mit virtuellen Maschinen zur Verfügung gestellt. Durch die ProxMox-Umgebung und diversen Tools, ging die Installation der Ubuntu-Distribution rasch von der Hand. In der Virtualisierungsumgebung der Schule musste nur ein vorhandenes Linux-Ubuntu 18.04 ISO-File gemountet und anschließend eine gewöhnliche Betriebsysteminstallation für Ubuntu durchgeführt werden. 
+Wie bereits unter Punkt Anschaffung des Servers (siehe \ref{anschaffung-des-servers}) erwähnt, wird uns von der Schule ein eigener Servercluster mit virtuellen Maschinen zur Verfügung gestellt. Durch die ProxMox-Umgebung und diversen Tools, ging die Installation der Ubuntu-Distribution rasch von der Hand. In der Virtualisierungsumgebung der Schule musste nur ein vorhandenes Linux-Ubuntu 18.04 ISO-File gemountet und anschließend eine gewöhnliche Betriebsysteminstallation für Ubuntu durchgeführt werden. 
 Jedoch kam es beim ersten Versuch zu Problemen mit der Konfiguration der Netzwerkschnittstellen, die im nächsten Punkt genauer erläutert werden.
 
 ## Konfiguration der Netzwerkschnittstellen
@@ -90,12 +90,29 @@ Den Schülern der fünften Netzwerktechnikklasse sollte diese Kurzkonfiguration 
 
 Eine Netzwerkkonfiguration mit statischen IPv4-Adressen für eine Ubuntu-Distribution könnte wie folgt aussehen:
 
+In `/etc/network/interfaces`:
+
+    auto ens32
+    iface ens32 inet static
+    address 192.168.0.1
+    netmask 255.255.255.0
+    
+
 Eine Netzwerkkonfiguration mit Verwendung eines IPv4-DHCP-Servers für eine Ubuntu-Distribution könnte wie folgt aussehen:
+
+In `/etc/network/interfaces`:
+
+    auto ens32
+    iface ens32 inet dhcp
 
 ### Topologie des Netzwerkes
 
 Unter Abbildung 5.1 wird der Netzwerkplan veranschaulicht. Auf der linken Seite wird der Servercluster der Diplomarbeitsteams dargestellt, worauf die virtuelle Maschine von "Capentory" gehostet wird. In der Mitte ist die FortiGate-Firewall zu sehen, die nicht nur als äußerster Schutz vor Angriffen dient, sondern auch die konfigurierte VPN-Verbindung beinhaltet und nur berechtigten Teammitgliedern den Zugriff gewährleistet. Desweiteren ist die moderne Firewall auch für die Konnektivität der virtuellen Maschine im Schulnetz zuständig, aber dazu später (unter Punkt "Absicherung der virtuellen Maschine") mehr.
-	![Netzwerkplan](topo1.png)
+\begin{figure}[ht]
+\centering
+\includegraphics{topo1.png}
+\caption{Netzwerkplan}
+\end{figure}
 	
 ### Testen der Konnektivität im Netzwerk
 
@@ -139,31 +156,31 @@ Syntax: `sudo apt-get [Option(en)] remove PAKET1 [PAKET2]`
 
 #### NGINX
 
-NGINX ist der am Häufigsten verwendete OpenSource-Webserver unter Linux für diverse Webanwendungen. Große Unternehmen wie Cisco, Microsoft, Facebook oder auch IBM schwören auf die Verwendung dieses genialen Paketes. Unteranderem wird NGINX auch als Reverse-Proxy, HTTP-Cache und Load-Balancer verwendet. Wie genau NGINX für den Produktivbetrieb funktioniert wird im Laufe des Punktes "Produktivbetrieb der Applikation" erläutert.
+NGINX ist der am Häufigsten verwendete OpenSource-Webserver unter Linux für diverse Webanwendungen. Große Unternehmen wie Cisco, Microsoft, Facebook oder auch IBM schwören auf die Verwendung dieses genialen Paketes. Unteranderem wird NGINX auch als Reverse-Proxy, HTTP-Cache und Load-Balancer verwendet. Wie genau NGINX für den Produktivbetrieb funktioniert wird im Laufe des Punktes \ref{produktivbetrieb-der-applikation} erläutert.
 
 Installation: `[sudo] apt-get install nginx`
 
 #### Docker
 
-Die OpenSource-Software Docker ist eine Containervirtualisierungstechnologie, die die Erstellung und den Betrieb von Linux Containern ermöglicht. Wie genau dies funktioniert, wird später unter Punkt "Produktivbetrieb der Applikation" genauer beschrieben und erklärt.
+Die OpenSource-Software Docker ist eine Containervirtualisierungstechnologie, die die Erstellung und den Betrieb von Linux Containern ermöglicht. Wie genau dies funktioniert, wird später unter Punkt \ref{produktivbetrieb-der-applikation} genauer beschrieben und erklärt.
 
 Installation: `[sudo] apt-get install docker`
 
 #### docker-compose
 
-Jeder Linux-Benutzer hat mindestens einmal in seinem Leben etwas über das `docker-compose.yml` File gehört. Doch was ist docker-compose eigentlich? Nun, die Verwaltung und Verlinkung von mehreren Containern kann auf Dauer sehr nervenaufreibend sein. Die Lösung dieses Problems nennt sich docker-compose. Wie docker-compose jedoch genau funktioniert, wird ebenfalls wie das Grundkonzept von Docker unter Punkt "Produktivbetrieb der Applikation" präziser erläutert.
+Jeder Linux-Benutzer hat mindestens einmal in seinem Leben etwas über das `docker-compose.yml` File gehört. Doch was ist docker-compose eigentlich? Nun, die Verwaltung und Verlinkung von mehreren Containern kann auf Dauer sehr nervenaufreibend sein. Die Lösung dieses Problems nennt sich docker-compose. Wie docker-compose jedoch genau funktioniert, wird ebenfalls wie das Grundkonzept von Docker unter Punkt \ref{produktivbetrieb-der-applikation} präziser erläutert.
 
 Installation: `[sudo] apt-get install docker-compose`
 
 #### MySQL
 
-MySQL ist ein OpenSource-Datenverwaltungssystem und die Grundlage für die meisten dynamischen Websiten. Darauf werden die Inventurdatensätze der Htl Rennweg gespeichert. Nähere Informationen finden sich Punkt "Produktivbetrieb der Applikation" wieder.
+MySQL ist ein OpenSource-Datenverwaltungssystem und die Grundlage für die meisten dynamischen Websiten. Darauf werden die Inventurdatensätze der Htl Rennweg gespeichert. Nähere Informationen finden sich Punkt \ref{produktivbetrieb-der-applikation} wieder.
 
 Installation: `[sudo] apt-get install mysql`
 
 #### Redis
 
-Redis ist eine In-Memory-Datenbank mit einer Schlüssel-Wert-Datenstruktur (Key Value Store). Wie auch MySQL handelt es sich um eine OpenSource-Datenbank. Warum Redis ebenfalls benötigt wurde, wird ebenfalls später im Punkt "Produktivbetrieb der Applikation" erklärt.
+Redis ist eine In-Memory-Datenbank mit einer Schlüssel-Wert-Datenstruktur (Key Value Store). Wie auch MySQL handelt es sich um eine OpenSource-Datenbank. Warum Redis ebenfalls benötigt wurde, wird ebenfalls später im Punkt \ref{produktivbetrieb-der-applikation} erklärt.
 
 Installation: `[sudo] apt-get install redis`
 
@@ -190,13 +207,13 @@ Installation von pip3 (vorrausgesetzt python3.x ist auf dem System bereits insta
  
 #### uWSGI
 
-Das eigentliche Paket, mit dem der Produktivbetrieb schlussendlich gewährleistet wurde, nennt sich uWSGI. Speziell wurde es für die Produktivbereitstellung von Serveranwendungen (wie eben der Django-Server von Team "Capentory") entwickelt und harmoniert eindrucksvoll mit der Webserver-Software NGINX. Die grundlegende Funktionsweise von uWSGI, sowie eine Erklärung, warum schlussendlich dieses Paket und nicht Docker verwendet wurde, wird unter Punkt "Produktivbetrieb der Applikation" veranschaulicht.
+Das eigentliche Paket, mit dem der Produktivbetrieb schlussendlich gewährleistet wurde, nennt sich uWSGI. Speziell wurde es für die Produktivbereitstellung von Serveranwendungen (wie eben der Django-Server von Team "Capentory") entwickelt und harmoniert eindrucksvoll mit der Webserver-Software NGINX. Die grundlegende Funktionsweise von uWSGI, sowie eine Erklärung, warum schlussendlich dieses Paket und nicht Docker verwendet wurde, wird unter Punkt \ref{produktivbetrieb-der-applikation} veranschaulicht.
 
 Installation: `[sudo] pip3 install uwsgi`
 
 #### Django
 
-Django ist ein in Python geschriebenes Webframework, auf dem unsere Serveranwendung basiert. Genauere Informationen wurden jedoch schon unter Punkt "Django und Ralph" übermittelt.
+Django ist ein in Python geschriebenes Webframework, auf dem unsere Serveranwendung basiert. Genauere Informationen wurden jedoch schon unter Punkt \ref{django-und-ralph} übermittelt.
 
 Installation: `[sudo] pip3 install Django`
 

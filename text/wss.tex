@@ -79,8 +79,8 @@ folgende Punkte gewährleistet sein:
 \begin{itemize}
 \tightlist
 \item
-  Konfiguration beider Firewalls (siehe Punkt \textbf{Absicherung der
-  virtuellen Maschine})
+  Konfiguration beider Firewalls (siehe Punkt
+  \ref{absicherung-der-virtuellen-maschine})
 \item
   Wohlüberlegte Passwörter und Zugriffsrechte
 \end{itemize}
@@ -166,15 +166,16 @@ und erklärt.
 \subsection{Installation des
 Betriebsystemes}\label{installation-des-betriebsystemes}}
 
-Wie bereits unter Punkt \ref{anschaffung-des-servers}) erwähnt, wird
-uns von der Schule ein eigener Servercluster mit virtuellen Maschinen
-zur Verfügung gestellt. Durch die ProxMox-Umgebung und diversen Tools,
-ging die Installation der Ubuntu-Distribution rasch von der Hand. In der
-Virtualisierungsumgebung der Schule musste nur ein vorhandenes
-Linux-Ubuntu 18.04 ISO-File gemountet und anschließend eine gewöhnliche
-Betriebsysteminstallation für Ubuntu durchgeführt werden. Jedoch kam es
-beim ersten Versuch zu Problemen mit der Konfiguration der
-Netzwerkschnittstellen, die im nächsten Punkt genauer erläutert werden.
+Wie bereits unter Punkt Anschaffung des Servers (siehe
+\ref{anschaffung-des-servers}) erwähnt, wird uns von der Schule ein
+eigener Servercluster mit virtuellen Maschinen zur Verfügung gestellt.
+Durch die ProxMox-Umgebung und diversen Tools, ging die Installation der
+Ubuntu-Distribution rasch von der Hand. In der Virtualisierungsumgebung
+der Schule musste nur ein vorhandenes Linux-Ubuntu 18.04 ISO-File
+gemountet und anschließend eine gewöhnliche Betriebsysteminstallation
+für Ubuntu durchgeführt werden. Jedoch kam es beim ersten Versuch zu
+Problemen mit der Konfiguration der Netzwerkschnittstellen, die im
+nächsten Punkt genauer erläutert werden.
 
 \hypertarget{konfiguration-der-netzwerkschnittstellen}{%
 \subsection{Konfiguration der
@@ -212,8 +213,24 @@ von der Hand gehen, da sie diese Woche für Woche benötigen.
 Eine Netzwerkkonfiguration mit statischen IPv4-Adressen für eine
 Ubuntu-Distribution könnte wie folgt aussehen:
 
+In \texttt{/etc/network/interfaces}:
+
+\begin{verbatim}
+auto ens32
+iface ens32 inet static
+address 192.168.0.1
+netmask 255.255.255.0
+\end{verbatim}
+
 Eine Netzwerkkonfiguration mit Verwendung eines IPv4-DHCP-Servers für
 eine Ubuntu-Distribution könnte wie folgt aussehen:
+
+In \texttt{/etc/network/interfaces}:
+
+\begin{verbatim}
+auto ens32
+iface ens32 inet dhcp
+\end{verbatim}
 
 \hypertarget{topologie-des-netzwerkes}{%
 \subsubsection{Topologie des
@@ -227,7 +244,8 @@ Schutz vor Angriffen dient, sondern auch die konfigurierte
 VPN-Verbindung beinhaltet und nur berechtigten Teammitgliedern den
 Zugriff gewährleistet. Desweiteren ist die moderne Firewall auch für die
 Konnektivität der virtuellen Maschine im Schulnetz zuständig, aber dazu
-später (unter Punkt \ref{absicherung-der-virtuellen-maschine}) mehr.
+später (unter Punkt ``Absicherung der virtuellen Maschine'') mehr.
+
 \begin{figure}[ht]
 \centering
 \includegraphics{topo1.png}
@@ -285,7 +303,6 @@ Möglichkeit, beliebig viele Pakete auf einmal anzugeben, indem sie
 mittels eines Leerzeichens getrennt werden.
 
 Syntax:
-
 \texttt{{[}sudo{]}\ apt-get\ {[}Option(en){]}\ install\ PAKET1\ {[}PAKET2{]}}
 
 Falls eine bestimmte Version installiert werden soll:
@@ -316,7 +333,8 @@ für diverse Webanwendungen. Große Unternehmen wie Cisco, Microsoft,
 Facebook oder auch IBM schwören auf die Verwendung dieses genialen
 Paketes. Unteranderem wird NGINX auch als Reverse-Proxy, HTTP-Cache und
 Load-Balancer verwendet. Wie genau NGINX für den Produktivbetrieb
-funktioniert wird im Laufe des Punktes \ref{produktivbetrieb-der-applikation} erläutert.
+funktioniert wird im Laufe des Punktes
+\ref{produktivbetrieb-der-applikation} erläutert.
 
 Installation: \texttt{{[}sudo{]}\ apt-get\ install\ nginx}
 
@@ -360,7 +378,8 @@ Installation: \texttt{{[}sudo{]}\ apt-get\ install\ mysql}
 Redis ist eine In-Memory-Datenbank mit einer
 Schlüssel-Wert-Datenstruktur (Key Value Store). Wie auch MySQL handelt
 es sich um eine OpenSource-Datenbank. Warum Redis ebenfalls benötigt
-wurde, wird ebenfalls später im Punkt \ref{produktivbetrieb-der-applikation}' erklärt.
+wurde, wird ebenfalls später im Punkt
+\ref{produktivbetrieb-der-applikation} erklärt.
 
 Installation: \texttt{{[}sudo{]}\ apt-get\ install\ redis}
 
