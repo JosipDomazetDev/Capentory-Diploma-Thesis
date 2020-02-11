@@ -873,16 +873,18 @@ Um einen Gegenstand in einem "Subraum" (siehe Abschnitt ["Subräume"](subruxe4um
     "stocktaking": 1,
     "validations": [
     ],
-    "subroomValidations": [
-        "roomID": 100,
-        "validations": [{
-                "itemID": 1
-            }
-        ],
-        "subroomValidations": [
-        ]
+    "subroomValidations": [{
+            "roomID": 100,
+            "validations": [{
+                    "itemID": 1
+                }
+            ],
+            "subroomValidations": [
+            ]
+        }
     ]
 }
+
 ```
 
 `"subroomValidations"` können rekursiv definiert werden. In dem Beispiel aus Alternative 3 muss darauf geachtet werden, dass der Raum mit \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} 100 direkter "Subraum" des Raums mit \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} 1 ist. 
