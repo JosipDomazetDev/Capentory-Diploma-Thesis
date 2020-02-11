@@ -47,7 +47,7 @@ Eine gemeinsame Codebasis wird oftmals unter dem Begriff `cross-platform` zusamm
 Flutter ist eine relativ neue Plattform – das erste stabile Release wurde erst im Dezember 2018 veröffentlicht \cite{flutter-stable}. Außerdem verwendet Flutter die Programmiersprache `Dart`, die Java ähnelt. 
 Diese Umstände sind ein Segen und Fluch zugleich. Flutter wird in Zukunft sicherlich weiterhin an Popularität zulegen, allerdings ist die Anzahl an verfügbarer Dokumentation für das junge Flutter im Vergleich zu den anderen Optionen immer noch weitaus geringer. 
 
-Xamarin ist ebenfalls ein cross-platform Framework, das jedoch in C# geschrieben wird und älter (und damit bewährter) als Flutter ist. Weiters macht Xamarin von  der proprietären .NET-Platform Gebrauch. Infolgedessen haben alle Xamarin-Apps Zugriff auf ein umfassendes Repertoire von .NET-Libraries \cite{xamarin-details}. Da Xamarin und .NET beide zu Microsoft gehören, ist eine leichtere Azure-Integration oftmals ein Argument, das von offzielen Quellen verwendet wird. Xamarin wird - anders als die restlichen Optionen - bevorzugterweise in Visual Studio entwickelt \cite{xamarin-vs}.
+Xamarin ist ebenfalls ein cross-platform Framework, das jedoch in C# geschrieben wird und älter (und damit bewährter) als Flutter ist. Weiters macht Xamarin von der proprietären .NET-Platform Gebrauch. Infolgedessen haben alle Xamarin-Apps Zugriff auf ein umfassendes Repertoire von .NET-Libraries \cite{xamarin-details}. Da Xamarin und .NET beide zu Microsoft gehören, ist eine leichtere Azure-Integration oftmals ein Argument, das von offzielen Quellen verwendet wird. Xamarin wird - anders als die restlichen Optionen - bevorzugterweise in Visual Studio entwickelt \cite{xamarin-vs}.
 
 Native IOS wird nur der Vollständigkeit halber aufgelistet, stellte allerdings zu keinem Zeitpunkt eine wirkliche Alternative dar, weil IOS-Geräte einige Eigenschaften besitzen, die für eine Inventur nicht optimal sind (z.B. die Akkukapazität). Außerdem haben in etwa nur 20% aller Geräte \cite{ios-market-share} IOS als Betriebssystem und die Entwicklung einer IOS-App wird durch strenge Voraussetzungen äußerst unattraktiv gemacht. So kann man beispielsweise nur auf einem Apple-Gerät IOS-Apps entwickeln.
 
@@ -104,7 +104,7 @@ Als Reaktion auf eine Vielzahl von Apps, die Probleme mit God-Activites aufwiese
 
 # Designgrundlagen von MVVM
 
-MVVM steht für Model–view–viewmodel\cite{mvvm-wiki}. Wie man am Namen bereits erkennt, gilt es zwischen drei Komponenten/Ebenen zu unterscheiden \cite{mvvm-article}. 
+MVVM steht für Model–view–viewmodel \cite{mvvm-wiki}. Wie man am Namen bereits erkennt, gilt es zwischen drei Komponenten/Ebenen zu unterscheiden \cite{mvvm-article}. 
 
 #### Model 
 Model beschreibt die Ebene der Daten und wird daher oftmals auch als Datenzugriffsschicht bezeichnet. Diese Ebene beinhaltet so viel Anwendungslogik wie möglich.
@@ -117,27 +117,27 @@ Das ViewModel dient als Bindeglied zwischen dem Model und der View. Die Logik de
 
 # MVVM in Android
 
-Mit der Einführung der Architecture Components hat Google Android-Entwicklern eine Vielzahl an Libraries zur Verfügung gestellt, um MVVM auch unter Android implementieren zu können. Die konkrete Implementierung unter Android ist in der Abbildung zu finden.
+Mit der Einführung der Architecture Components hat Google Android-Entwicklern eine Vielzahl an Libraries zur Verfügung gestellt, um MVVM leichter in Android implementieren zu können \cite{mvvm-architecture-components}. Die konkrete Implementierung in Android ist in der Abbildung ersichtlich.
 
 ![MVVM in Android nach Google \cite{mvvm}](josip-pics\mvvm.png)
 
-In dem vorliegenden Fall ist unser Fragment die `View`, das Repository das `Model` und das `ViewModel` ist in Android namensgleich.
+In dem vorliegenden Fall ist unser `Fragment` die `View`, das `Repository` das `Model` und das `ViewModel` ist in Android namensgleich.
 
 ## Das Repository im Detail
 
-Wie in der Grafik veranschaulicht, ist das Repository dafür zuständig, Daten vom Server anzufordern. Im vorliegenden Fall besteht kein Grund eine Datenbank am Client zu führen. Damit fällt dieser Aspekt der Grafik - der in violetter Farbe gehalten ist - für die vorliegende Diplomarbeit weg. Die Aufgabe des Repositories ist also immer die angefragten Daten zu beschaffen. 
+Wie in der Grafik veranschaulicht, ist das Repository dafür zuständig, Daten vom Server anzufordern. Im vorliegenden Fall besteht kein Grund, eine Datenbank am Client zu führen. Damit fällt dieser Aspekt der Grafik - der in violetter Farbe gehalten ist - für die vorliegende Diplomarbeit weg. Die Aufgabe des Repositories ist es also immer Daten vom Server anzufordern. 
 
 ### JsonRequest
 
-Die Kommunikation zwischen dem Client und der App findet ausschließlich im JSON-Format statt. JSON ist ein text-basiertes kompaktes Datenaustauschformat. Android bietet Entwicklern eine Out-of-the-box Netzwerklibrary namens `Volley` an, mithilfe derer man unter anderem JSON-Anfragen verarbeiten kann \cite{volley}. Da diese für die vorliegenden Zwecke nicht komplett geeignet war, hat das Diplomarbeitsteam die gegebene Library durch den Einsatz von Vererbung und einer Wrapper-Klasse modifiziert. Die Library wurde in folgenden Punkten angepasst:
+Die Kommunikation zwischen dem Client und der App findet ausschließlich im `JSON`-Format statt. JSON ist ein text-basiertes und kompaktes Datenaustauschformat. Android bietet Entwicklern eine Out-of-the-box Netzwerklibrary namens `Volley` an, mithilfe derer man unter anderem JSON-Anfragen verarbeiten kann \cite{volley}. Da diese für die vorliegenden Zwecke nicht komplett geeignet war, hat das Diplomarbeitsteam die gegebene Library durch den Einsatz von Vererbung und einer Wrapper-Klasse modifiziert. Die Library wurde in folgenden Punkten angepasst:
 
  * Im Falle eines Fehlers wird die Anfrage wiederholt (Ausnahme: Zeitüberschreitungsfehler). Die maximale Anzahl an Wiederholungen ist limitiert. 
- * Die maximale Zeit Timeout-Dauer wurde erhöht.
- * Leere Antworten werden vom Projektteam als valide Antwort behandelt und können ohne Fehler verarbeitet werden.
+ * Die maximale Timeout-Dauer wurde erhöht.
+ * Leere Antworten werden von der App als valide Antwort behandelt und können ohne Fehler verarbeitet werden.
  * Im Header der Anfrage wird der Content-Type der Anfrage auf JSON festgelegt.
  * Im Header wird das zur Authentikation notwendige API-Token mitgeschickt. Die Authentifizierung ist über einen Parameter deaktivierbar. 
- * Im Header wird die Systemsprache des Clients als standardisierter ISO-639-Code mitgesendet. Der Server passt seine Antwort auf die verwendete Sprache an \cite{ISO-639}. Die Bezeichnung der Felder, die dem Benuter auf Gegenstandsbasis angezeigt werden, ist beispielsweise abhängig von der Systemsprache.
-* Zum Zeitpunkt der Anfrage ist nicht bekannt, ob die Antwort als JSONArray oder als JSONObject erfolgen wird. Da das Backend anhängig von der Anfrage sowohl mit einem JSONArray oder einem JSONObject antworten kann, ist der Rückgabewert am Client immer ein String. Die Umwandlung erfolgt erst im Repository. 
+ * Im Header wird die Systemsprache des Clients als standardisierter ISO-639-Code mitgesendet. Der Server passt seine Antwort auf die verwendete Sprache an \cite{ISO-639}. Die Bezeichnung der Felder, die dem Benutzer auf Gegenstandsbasis angezeigt werden, ist beispielsweise abhängig von der Systemsprache.
+* Zum Zeitpunkt der Anfrage ist nicht bekannt, ob die Antwort als JSONArray oder als JSONObject erfolgen wird. Da das Backend abhängig von der Anfrage sowohl mit einem JSONArray als auch einem JSONObject antworten kann, ist der Rückgabewert am Client immer ein String. Die Umwandlung erfolgt erst im Repository. 
 
 Diese Unterscheidung zwischen JSONArray und JSONObject ist notwendig, da Android zwei Möglichkeiten anbietet, JSON als Objekt zu speichern:
 
@@ -149,10 +149,10 @@ Direkt als JSONObject:
 ```java
 JSONObject jsonObject = new JSONObject(payload);
 ```
-Beide Optionen haben einen Konstruktor, der einen String akzeptiert (im obrigen Beispiel ist dies der String `payload`). Im folgenden Beispiel stelle man sich vor, dass das Backend folgende Antworten sendet:
+Beide Optionen haben einen Konstruktor, der einen String akzeptiert (im obigen Beispiel ist dies der String `payload`). Das Backend könnte - natürlich in Abhängigkeit von der ursprünglichen Anfrage - folgende (vereinfachte) Antworten senden:
 
 
-Dies ist ein JSONArray:
+Ein JSONArray (wenn die Anfrage beispielsweise eine Gegenstandsliste verlangt):
 ```json
 [
   {
@@ -167,7 +167,7 @@ Dies ist ein JSONArray:
 ```
 
 
-Dies ist ein JSONObject:
+Ein JSONObject (wenn die Anfrage beispielsweise einen spezifischen Gegenstand verlangt):
 ```json
 {
   "id": 1,
@@ -175,7 +175,7 @@ Dies ist ein JSONObject:
 }
 ```
 
-Wenn das Backend ein JSONArray sendet und man versucht jenes als JSONObject zu speichern, kommt es zu einem Fehler:
+Wenn das Backend ein JSONArray sendet und man versucht, jenes als JSONObject zu speichern, kommt es zu einem Fehler:
 ```java
 // Dieser Code entspricht keiner korrekten Java-Syntax! 
 // Antwort vom Backend
@@ -204,7 +204,7 @@ Eine Anfrage wird nie direkt, sondern immer über einen Wrapper ausgeführt. Der
 
 
 
-* `Context context`: Ist eine Schnittstelle die globale Information über die App-Umgebung zur Verfügung stellt \cite{context} und von Android zur Verfügung gestellt hat. Jede UI-Komponente (z.B. Textfelder, Buttons, Fragments, etc.) verfüguen über einen Context. Ein besonderer Context ist der globale Application-Context. Dieser ist einzigartig und besteht ist eine Singleton.  
+* `Context context`: Ist eine Schnittstelle, die globale Information über die App-Umgebung zur Verfügung stellt \cite{context} und von Android zur Verfügung gestellt wird. Jede UI-Komponente (z.B. Textfelder, Buttons, Fragments, etc.) verfügt über einen Context. Ein besonderer Context ist der globale Application-Context. Dieser ist einzigartig und ist ein `Singleton`.  Ein Singleton bedeutet, dass von einer Klasse nur ein (globales) Objekt besteht \cite{singleton}. 
 * `int method`: Ist die HTTP-Methode. Die App verwendet `GET`, `OPTIONS` und `POST`.
 * `String url`: Ist die Seite, die eine JSON-Antwort liefern soll.
 * `@Nullable String requestBody`: Eventuelle Parameter, die an den Server gesendet werden sollen. Dieser Paramter ist für einen `POST`-Request wichtig.
@@ -228,7 +228,7 @@ RobustJsonRequestExecutioner robustJsonRequestExecutioner =
 ```
 
 Wie man sehen kann, sind die letzten beiden Parameter funktionale Interfaces, die dazu dienen, Methoden als Parameter übergeben zu können.
-Ein Interace mit einer einzigen abstrakten Methode ist als funktionales Interface zu bezeichnen \cite{lambda}. Da Android Studio Java 8 Language Features unterstützt, verwendet die App aussschließlich Lambda-Ausdrücke \cite{java8}. Lambda-Ausdrücke sind im Wesentlichen dazu da, funktionale Interfaces in vereinfachter Schreibweise verwenden zu können. Da es nur eine einzige abstrakte Methode gibt, kann die Schreibweise simplifiziert werden, da klar ist von welcher Methode die Rede ist. Damit fallen - wie im obigen Beispiel zu sehen - redudante Informationen wie Rückgabetyp und Methodenkörper vollständig weg. Das obige Beispiel würde ohne Lambda-Ausdrücke wie folgt ausschauen:
+Ein Interface mit einer einzigen abstrakten Methode ist als funktionales Interface zu bezeichnen \cite{lambda}. Da Android Studio Java 8 Language Features unterstützt, verwendet die App mehrheitlich Lambda-Ausdrücke \cite{java8}. Lambda-Ausdrücke sind im Wesentlichen dazu da, funktionale Interfaces in vereinfachter Schreibweise verwenden zu können. Da es nur eine einzige abstrakte Methode gibt, kann die Schreibweise simplifiziert werden, weil klar ist von welcher Methode die Rede ist. Damit fallen - wie im obigen Beispiel zu sehen - redundante Informationen wie Rückgabetyp und Methodenkörper vollständig weg. Das obige Beispiel würde ohne Lambda-Ausdrücke wie folgt ausschauen:
 
 ```java
 RobustJsonRequestExecutioner robustJsonRequestExecutioner = 
@@ -249,7 +249,7 @@ RobustJsonRequestExecutioner robustJsonRequestExecutioner =
 
 robustJsonRequestExecutioner.launchRequest();
 ```
-Lambdas sind eine Option, um `Callbacks` in Java zu implementieren. Ein Callback ("Rückruffunktion") ist eine Methode die einer anderen Methdoe als Parameter übergeben werden kann. Die soeben erwähnten funktionale Interfaces sind typische Callbacks \cite{Callbacks}.
+Lambdas sind eine Option, um `Callbacks` in Java zu implementieren. Ein Callback ("Rückruffunktion") ist eine Methode, die einer anderen Methode als Parameter übergeben werden kann. Die soeben erwähnten funktionalen Interfaces sind typische Callbacks \cite{Callbacks}.
 Es gibt zwei Arten von Callbacks:
 
 * Synchrone Callbacks: Die Ausführung der übergebenen Methode erfolgt sofort
@@ -259,8 +259,8 @@ In diesem Fall wird die Methode `handleSuccess` aufgerufen, sobald der Client di
 
 ### Retrofit 
 
-`Retrofit` ist eine weitere Netzwerk-Library, die das Projektteam eingesetzt hat. Retrofit wurde nur zum Senden von Dateien eingesetzt, weil dies mit Volley nur erschwert möglich ist. Das Projektteam die von Retrofit zur Verfügung gestellten Libraries nicht wesentlich modifiziert.
-Da die Anhangfunktion das einzige Einsatzgebiet von Retrofit darstellt, nimmt Volley in der vorliegenden Diplomarbeit die weitaus wichtigere Rolle ein. Volley kann grundsätzlich alles was Retrofit kann und vice versa. Aufgrunddessen dass Volley jedoch mehr Möglichkeiten zur Zuschneidung auf einen spezifischen Use-Case hat, hat sich das Projektteam für Volley entschieden. Ein Vorteil der jedoch damit verloren geht, ist das automatische Parsing von JSON-Antworten, dass zwar in Retrofit implementiert ist, jedoch nicht in Volley. \cite{retrofit-vs-volley}
+`Retrofit` ist eine weitere Netzwerk-Library (bzw. Libraries), die das Projektteam eingesetzt hat. Retrofit wurde nur zum Senden von Dateien eingesetzt, weil dies mit Volley nur erschwert möglich ist. Das Projektteam hat die von Retrofit zur Verfügung gestellten Libraries nicht wesentlich modifiziert.
+Da die Anhangfunktion das einzige Einsatzgebiet von Retrofit darstellt, nimmt Volley in der vorliegenden Diplomarbeit die weitaus wichtigere Rolle ein. Volley kann grundsätzlich alles was Retrofit kann und vice versa. Aufgrund dessen, dass Volley jedoch mehr Möglichkeiten zur Zuschneidung auf einen spezifischen Use-Case hat, hat sich das Projektteam für Volley entschieden. Ein Vorteil der jedoch damit verloren geht, ist das automatische Parsing von JSON-Antworten, das zwar in Retrofit implementiert ist, jedoch nicht in Volley \cite{retrofit-vs-volley}.
 
 
 Das Projektteam hat bei dem einzigen Einsatz von Retrofit auf das automatische Parsing verzichtet und stattdessen die bereits bekannte Callback-Logik verwendet. 
@@ -269,11 +269,11 @@ Call<String> call = prepareCall(args);
 call.enqueue(new Callback<String>() {
     @Override
     public void onResponse(Call<String> call, Response<String> response) {
-          // TODO: Antwort verarbeiten
+        // TODO: Antwort verarbeiten
     }
     @Override
     public void onFailure(Call<String> call, Throwable t) {
-       // TODO: Fehler verarbeiten
+        // TODO: Fehler verarbeiten
     }
 });
 ```
@@ -289,82 +289,285 @@ public interface AttachmentAPI {
                          @Part("description") String description);
 }
 ```
-Dies führt zu einem besseren Überblick als bei Volley, da man pro API-Endpunkt des Backends ein Interface hat. Damit wird sofort ersichtlich, mit welchen Backend-Endpunkten ein Repository kommuniziert. 
+Dies führt zu einem besseren Überblick als bei Volley, da man pro API-Endpunkt des Backends ein Interface hat. Damit ist sofort ersichtlich, mit welchen Backend-Endpunkten ein Repository kommuniziert. 
 
 
 
-## Das ViewModel und Fragment im Detail
+## Das ViewModel und das Fragment im Detail
 
-Das ViewModel ist eine Klasse, die dafür ausgelegt ist, UI-bezogene Daten in lifecycle-aware speichert. Ein Fragment durchlebt im Laufe seines Daseins eine Vielzahl an Zuständen - man spricht von einem Lifecycle. Wenn der Benutzer zum Beispiel sein Gerät rotiert, führt dies dazu, dass der Zustand des Fragments geändert wird und das Fragments alte Zustände wieder durchleben muss - dies führt zu einer Zerstörung des aktuellen UIs des Fragments sowie sämtlicher Referenzen, die das Fragment besitzt. Eine Gerätrotierung gehört zur Kategorie der `Configuration Changes` \cite{viewmodel}. Folgende Probleme können dadurch auftreten:
+Das ViewModel ist eine Klasse, die dafür ausgelegt ist, UI-bezogene Daten lifecycle-aware zu speichern. Ein Fragment durchlebt im Laufe seines Daseins eine Vielzahl an Zuständen/Phasen - man spricht von einem `Lifecycle`. Wenn der Benutzer zum Beispiel sein Gerät rotiert, führt dies dazu, dass das Fragment \emph{zerstört} wird und das Fragment durch erneutes Durchleben alter Zustände wiederaufgebaut wird - dies führt zu einer Zerstörung des aktuellen UIs des Fragments sowie sämtlicher Referenzen, die das Fragment besitzt. Eine Gerätrotierung gehört zur Kategorie der `Configuration Changes` \cite{viewmodel}. Der Grund hierfür liegt darin, dass Android das aktuelle Layout ändert, da beispielsweise andere Layouts (XML-Files) für den Landscape-Modus zur Verfügung stehen \cite{configuration-changes}. In der Literatur wird der Begriff \emph{zerstören} verwendet, da dabei das Callback `onDestroy` in einer Activity aufgerufen wird.  
+
+Folgende Probleme können dadurch auftreten:
 
 * Die App stürzt App. Wenn eine Methode ausgeführt wird, die eine Referenz auf ein zerstörtes Objekt hat, kann dies zum Absturz der gesamten App führen.
 * Memory Leaks entstehen, da Referenzen auf zerstörte Objekte vom Gargabe Collector nicht freigegeben werden können. In Android wird die Minimierung des Speicherbedarfs der App einzig und allein vom Garbage Collector übernommen. Falls dieser Objekte nicht freigeben kann, führt dies dazu, dass die App immer mehr und mehr Arbeitsspeicher benötigt. Je nach Größe des Memory Leaks kann dies zu kleineren Lags bis zu einem Absturz der App führen.
 * Nach einem Configuration Change gehen die aktuellen Daten verloren und der Benutzer muss das Problem selbst lösen.
+* Wenn die aktuellen Daten verloren gehen, verhält sich eine App oftmals unvorhersehbar. 
+
+### ViewModel als Lösung
+
+![Zustände einer Activity im Vergleich zu den Zuständen eines ViewModels, Fragments haben einen ähnlichen Lifecycle \cite{fragment-lifecycle} \cite{viewmodel}](josip-pics\viewmodel-lifecycle.png)
+
+Bei genauerer Betrachtung der Grafik wird ersichtlich, welche Phasen eine Activity bei einer Gerätrotierung durchlebt:
+
+* Activity wird zerstört:
+    * `onPause`
+    * `onStop`
+    * `onDestroy`
+* Activity wird wieder aufgebaut:
+    * `onCreate`
+    * `onStart`
+    * `onResume`
 
 
-Wie in der Abbildung zu sehen ist, stellt ein ViewModel eine Lösung für diese Probleme dar. Ein ViewModel überlebt Configuration Changes und kann dem UI damit stets die aktuellen Daten zur Verfügung stellen. 
+Wie in der Abbildung zu sehen ist, stellt ein ViewModel eine Lösung für diese Probleme dar. Ein ViewModel ist von einem Configuration Changes nicht betroffen und kann dem UI damit stets die aktuellen Daten zur Verfügung stellen. Der gegebene Sachverhalt trifft genauso auf Fragments zu. Diese haben einen leicht veränderten Lifecycle, sind allerdings genauso von Configuration Changes betroffen wie Activities.
 
-![Zustände einer Activity im Vergleich zu den Zuständen eines ViewModels \cite{viewmodel}](josip-pics\viewmodel-lifecycle.png)
+Anmerkung: Man kann das Zerstören & Wiederaufbauen von Activities/Fragments manuell blockieren. Dies ist jedoch kein Ersatz für eine wohlüberlegte App-Architektur und führt in den meisten Fällen zu unerwünschten Nebenwirkungen, da man sich nun auch manuell um das Wechseln der Konfiguration (Layouts etc.) kümmern muss und dies weitaus komplizierter ist, als auf ViewModels zu setzen \cite{lifecycle-blocking}.
 
-Folgende Aspekte hat man dennoch zu beachten \cite{viewmodel-antipatterns}:
+
+Folgende Aspekte hat man bei der Verwendung eines ViewModels zu beachten \cite{viewmodel-antipatterns}:
 
 * ViewModel sollte bei einem Configuration Changes keinen neuen Request starten, da es bereits über die Daten verfügt. Dies lässt sich mit einer If-Anweisung beheben.
-* Referenzen zu Objekten, die an einen Lifecycle gebunden sind, ist ein absolutes NO-GO. Objekte mit Lifecycle haben ein klares Schicksal - wenn ihr Host vernichtet wird, müssen sie ebenfalls vernichtet werden. Folgendes Szenario: Ein ViewModel hat eine `TextView`-Variable. Dreht der Benutzer sein Gerät wird das aktuelle Fragment inklusive TextView vernichtet. Das ViewModel überlebt den Configuration Change und hat nun eine Referenz auf eine invalide TextView. Dies ist ein Memory Leak.
+* Referenzen zu Objekten, die an einen Lifecycle gebunden sind, sind ein absolutes NO-GO. Objekte mit Lifecycle haben ein klares Schicksal - wenn ihr Host vernichtet wird, müssen sie ebenfalls vernichtet werden. Folgendes Szenario: Ein ViewModel hat eine `TextView`-Variable. Dreht der Benutzer sein Gerät wird das aktuelle Fragment inklusive TextView vernichtet. Das ViewModel überlebt den Configuration Change und hat nun eine Referenz auf eine invalide TextView. Dies ist ein Memory Leak.
 * ViewModel überleben ein Beenden des Prozesses nicht. Wenn das BS aktuell wenig Ressourcen zur Verfügung hat, kann es sein, dass Prozesse beendet werden. Falls man diesen Sonderfall behandeln will, ist dies mit Extra-Aufwand verbunden \cite{viewmodel-process-death}.
 * ViewModels sollen nicht zu "God-ViewModels" werden. Das SoC-Prinzip ist anzuwenden.
 
 
-Wie gelangen die Daten ins UI, wenn das ViewModel keine Referenzen darauf haben kann? Die Antwort lautet `LiveData`. 
+Wie gelangen die Daten ins UI, wenn das ViewModel keine Referenzen darauf haben darf? Die Antwort lautet `LiveData`. 
 
 
 ### LiveData
 
-LiveData ist eine observierbare Container-Klasse. Observierbar heißt, dass bei Änderungen des Objektes ein Callback aufgerufen wird. LiveData ist ebenfalls lifecycle-aware. Daher wird LiveData immer nur aktive Komponenten mit Daten versorgen. Eine TextView, die bereits zerstört wurde,erhält dementsprechend auch keine Updates mehr. 
+LiveData ist eine observierbare Container-Klasse. Observierbar heißt, dass bei Änderungen des enkapsulierten Objektes ein Callback aufgerufen wird. LiveData ist ebenfalls lifecycle-aware. Daher wird LiveData immer nur aktive Komponenten mit Daten versorgen. Eine TextView, die bereits zerstört wurde, erhält dementsprechend auch keine Updates mehr. 
 
 Dieses (angepasste) offizielle Beispiel veranschaulicht die Funktionsweise sehr gut \cite{livedata}. Im Beispiel soll ein Benutzername angezeigt werden:
 
 ```java
 public class NameViewModel extends ViewModel {
 
-// LiveData-Objekt das einen String beinhaltet
-private MutableLiveData<String> currentName;
+    // LiveData-Objekt, das einen String beinhaltet
+    private MutableLiveData<String> currentName;
 
     public LiveData<String> getCurrentName() {
         if (currentName == null) {
-            currentName = new MutableLiveData<String>();
+            currentName = new MutableLiveData<>();
         }
+        // Benutzernamen bekannt geben
+        currentName.postValue("Max Mustermann");
+
         return currentName;
     }
 
-// Rest des ViewModels...
+    // Rest des ViewModels...
 }
 ```
-
-Das ViewModel stellt LiveData bereit. Im Realfall stammt LiveData ursprünglich aus dem Repository. 
+Der Unterschied zwischen `MutableLiveData` und `LiveData` besteht darin, dass letzteres nicht veränderbar ist. Mit der `postValue`-Methode kann einer MutableLiveData-Instanz, die ja als Container-Objekt dient, ein neuer Wert zugewiesen werden. Dadurch werden etwaige Callbacks aufgerufen (siehe nächster Code-Ausschnitt). Man sollte bei öffentlichen Methoden immer nur LiveData als Rückgabewert verwenden, damit auf der Ebene der View keine Modifikationen der Daten des ViewModels vorgenommen werden können. Im Realfall stammt LiveData ursprünglich aus dem Repository. 
 
 ```java
 public class NameFragment extends Fragment {
  @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, 
+    @Nullable Bundle savedInstanceState) {
         ...
 
         // Mit dieser Anweisung wird ein ViewModel erstellt
         model = new ViewModelProvider(this).get(NameViewModel.class);
 
-        model.getCurrentName().observe(getViewLifecycleOwner(), currentName -> {
-                // Diese Methode wird bei Änderugen aufgerufen, currentName ist ein String.
-                // nameTextView ist ein TextFeld, dass den aktuellen Benutzernamen anzeigt.
-                // Mit .setText kann der Anzeigename geändert werden.
-                nameTextView.setText(newName);
-        });
+        model.getCurrentName().observe(getViewLifecycleOwner(),
+         currentName -> {
+             // Diese Methode wird bei Änderungen aufgerufen.
+             // CurrentName ist ein String.
+             // nameTextView ist ein TextFeld, 
+             // das den aktuellen Benutzernamen anzeigt.
+             // Mit .setText(String) kann der angezeigte Text 
+             // geändert werden.
+             nameTextView.setText(currentName);
+         });
 }
 ```
 Hier kommt wieder die vorher angesprochene Lambda-Syntax zum Einsatz. Die Methode wird einmal beim erstmaligen Registrieren aufgerufen und wird danach bei jeder weiteren Änderung aufgerufen. Im Callback arbeitet man direkt mit dem eigentlichem Datentypen - in diesem Fall mit einem String -, da LiveData nur ein Container-Objekt ist. Im Fragment befindet sich damit relativ wenig Logik. Das Fragment hört nur auf eventuelle Änderungen und aktualisiert das UI in Abhängigkeit von den Änderungen. Das LiveData-Objekt ist an `getViewLifeycleOwner()` gebunden. Wenn der LifecycleOwner inaktiv wird, werden keine Änderungen mehr entsandt. Man könnte auch `this` als Argument übergeben (`this` wäre in diesem Fall das Fragment, das ebenfalls über einen Lifecycle verfügt). `getViewLifeycleOwner()` hat jedoch den Vorteil, dass der Observer automatisch entfernt wird, sobald der LifecycleOwner zerstört wird. 
 
-STATES....
+
+### Angepasste LiveData-Klasse
+
+Für den vorliegenden Usecase reichen jedoch die Nutzdaten allein nicht. Es sind weitere Informationen über den Status der Nutzdaten erforderlich. 
+Beispiel: Wenn eine Anfrage zehn Sekunden benötigt, um am Client anzukommen, muss dem Benutzer signalisiert werden, dass er auf das Backend zu warten hat. Das wird mit einer `ProgressBar` realisiert. Man könnte jetzt im ViewModel `LiveData<Boolean> isFetching` verwenden und im Fragment dieses LiveData-Objekt observieren. Falls der aktuelle Wert `true` ist, wird die ProgressBar angezeigt. Falls der Wert auf `false` geändert wird, werden stattdessen die nun zur Verfügung stehenden Nutzdaten angezeigt. Bei mehreren Netzwerkanfragen wird dies bald unübersichtlich, da mehrere LiveData-Objekte vonnöten sind, die aus logischer Perspektive zu einem bereits bestehenden LiveData-Objekt gehören - den Nutzdaten. Daher hat das Diplomarbeitsteam - wie von Google \cite{google-wrapper} und von einem StackOverflow-Thread \cite{so-wrapper} empfohlen - die Nutzdaten in einer Wrapper-Klasse enkapsuliert.
 
 
+```java
+public class StatusAwareData<T> {
 
-# Konkrete MVVM-Implementierung
+    // Status der Nutzdaten
+    @NonNull
+    private State status;
 
-Nun ist klar wie eine Netzwerkanfrage durchgeführt wird. Das Repository übernimmt das Verarbeiten der Antwort. Im vorliegenden Anwendungsfall hat ein Fragment immmer mindestens einen Datensatz, der für das Fragment namensgebend ist. Beispielsweise ist das `RoomsFragment` dafür verantwortlich, die Raumliste anzuzeigen. Das `RoomsRepository` ist dafür verantwortlich, die Raumliste vom Backend anzufordern und in Java-Objekte umzuwandeln. Da dies auf alle Fragments zutrifft, 
+    // Nutzdaten
+    @Nullable
+    private T data;
+
+    // Eventueller Fehler
+    @Nullable
+    private Throwable error;
+
+    ...
+
+    @NonNull
+    public State getStatus() {
+        return status;
+    }
+
+    @Nullable
+    public T getData() {
+        return data;
+    }
+
+    @Nullable
+    public Throwable getError() {
+        return error;
+    }
+
+    // Enum, das die legalen Status definiert
+    public enum State {
+        INITIALIZED,
+        SUCCESS,
+        ERROR,
+        FETCHING
+    }
+}
+```
+
+Diese Wrapper-Klasse speichert Nutzdaten eines generischen Typen. Der Status wird durch eine Finite-state machine in Form eines `Enums` implementiert.  In Android sollte man Enums vermeiden, da diese um ein Vielfaches mehr Arbeitsspeicher und persistenten Speicher benötigen als ihre Alternativen. Als Alternative kann man auf Konstanten zurückgreifen. Dieser Code-Ausschnitt stellt das einzige Enum des gesamten Projektes dar. \cite{avoid-enums}
+
+* `INITIALIZED`: Dieser Status bedeutet, dass das Objekt soeben erstellt wurde. Wird nur bei der erstmaligen Instanziierung verwendet.
+* `SUCCESS`: Dieser Status bedeutet, dass die Nutzdaten `data` bereit sind.
+* `ERROR`: Dieser Status bedeutet, dass eine Netzwerkanfrage fehlgeschlagen ist (Ob am Client oder am Server spielt keine Rolle). In diesem Fall ist die `error`-Variable gesetzt.
+* `FETCHING`: Dieser Status bedeutet, dass auf eine Netzwerkanfrage gewartet wird.
+
+Um diese Wrapper-Klasse elegant benutzen zu können, hat das Projektteam `MutableLiveData` durch Vererbung angepasst:
+
+```java
+public class StatusAwareLiveData<T> 
+    extends MutableLiveData<StatusAwareData<T>> {
+
+    public void postFetching() {
+        // Instanziiert StatusAwareData-Objekt mit FECHTING als 
+        // aktuellen Status.
+        // Setzt das StatusAwareData-Objekt anschließend 
+        // als Wert der LiveData-Instanz.
+        postValue(new StatusAwareData<T>().fetching());
+    }
+
+    public void postError(Exception exception) {
+        // Instanziiert StatusAwareData-Objekt mit ERROR als
+        // aktuellen Status.
+        // Mit der übergebenenen Exception wird die error-Variable
+        // initialisiert.
+        // Setzt das StatusAwareData-Objekt anschließend 
+        // als Wert der LiveData-Instanz.
+        postValue(new StatusAwareData<T>().error(exception));
+    }
+
+    public void postSuccess(T data) {
+        // Instanziiert StatusAwareData-Objekt mit SUCCESS als
+        // aktuellen Status.
+        // Mit dem übergebenenen Objekt wird die data-Variable
+        // initialisiert.
+        // Setzt das StatusAwareData-Objekt anschließend 
+        // als Wert der LiveData-Instanz.
+        postValue(new StatusAwareData<T>().success(data));
+    }
+
+}
+```
+
+ Damit entfällt der Bedarf selbst neue StatusAwareData-Objekte zu instanziieren, da diese bereits über die `postFetching`-, `postError`- und `postSuccess`-Methoden - mit korrektem Status - instanziiert werden. Infolgedessen ist StatusAwareData abstrahiert und im ViewModel genügt es, mit den modifizierten LiveData-Instanzen zu arbeiten. Damit ändert sich das vorherige ["Beispiel"](livedata) wie folgt:
+
+
+```java
+
+// Im ViewModel:
+
+// StatusAwareLiveData-Objekt, das einen String mit Status beinhaltet
+private StatusAwareLiveData<String> currentName;
+
+public LiveData<StatusAwareData<String>> getCurrentName() {
+    if (currentName == null) {
+        currentName = new StatusAwareLiveData<>();
+    }
+    // Benutzernamen bekannt geben, hier wird eine
+    // erfolgreiche Netzwerkanfrage simuliert.
+    currentName.postSuccess("Max Mustermann");
+       
+    return currentName;
+}
+
+
+// Im Fragment:
+
+model.getCurrentName().observe(getViewLifecycleOwner(), 
+ statusAwareData -> {
+      switch (statusAwareData.getStatus()) {
+          case SUCCESS:
+              // TODO: Nutzdaten anzeigen
+              nameTextView.setText(statusAwareData.getData());
+              break;
+          case ERROR:
+              // TODO: Fehlermeldung anzeigen
+              ...
+              break;
+          case FETCHING:
+              // TODO: Ladebalken anzeigen
+              ...
+              break;
+      }
+   });
+```
+
+
+\chapter{Konkrete MVVM-Implementierung}
+
+Im vorliegenden Anwendungsfall hat ein Fragment immmer mindestens einen Datensatz, der für das Fragment namensgebend ist. 
+Der Room-Screen (also die Anzeige mit einer DropDown zur Raumauswahl) setzt sich beispielsweise aus folgenden Komponenten zusammen: 
+
+* Der `RoomsFragment`-Klasse 
+* Der `fragment_rooms.xml`-Datei, die das UI-Layout definiert
+* Der `RoomsViewModel`-Klasse
+* Der `RoomsRepository`-Klasse
+
+Das `RoomsRepository` ist dafür verantwortlich, die Raumliste vom Backend anzufordern und in Java-Objekte umzuwandeln.
+Das `RoomsViewModel` ist dafür verantwortlich, dem Fragment LiveData-Objekte zur Verfügung zu stellen. 
+Das `RoomsFragment` ist dafür verantwortlich, dem Benutzer die Räume anzuzeigen, indem es LiveData observiert. Alternativ zeigt es Fehlermeldungen bzw. einen Ladebalken an.
+
+Bei genauerer Betrachtung wird klar, dass fast jeder Screen dieselbe Aufgabe hat:
+
+* Das Repository fordert Daten vom Backend an und wandelt die JSON-Antwort um.
+* Das ViewModel abstrahiert Logik und stellt der View LiveData zur Verfügung. 
+* Das Fragment zeigt entweder Nutzdaten, eine Fehlermeldung oder einen Ladebalken an.
+
+Hier greift das softwaretechnische Prinzip `Do not repeat yourself (DRY)` \cite{driy}. Anstatt `Boilerplate-Code` für jeden einzelnen Screen kopieren zu müssen, hat das Projektteam diese sich wiederholende Logik abstrahiert. Boilerplate-Code sind Code-Abschnitte, die sich immer wieder wiederholen \cite{boiler}. Wiederholende Logik sollte immer in eine Superklasse abstrahiert werden. Das Projektteam hat demnach drei abstrakte Klassen definiert, die die Menge an Boilerplate-Code signifikant reduzieren:
+
+* `NetworkRepository`
+* `NetworkViewModel`
+* `NetworkFragment`
+
+Alle Komponenten von Screens, die Netzwerkanforderungen durchführen, erben von diesen drei Klassen. Damit hat das Projektteam folgende Vorteile aggregiert: 
+
+* Abstrahierte Fehlerbehandlung
+* Abstrahiertes Refreshverhalten
+* Abstrahierte Ladeanzeige (durch eine `ProgressBar`)
+* Abstrahierter Netzwerkzugriff
+
+Der Refactor, der dies realisierte, war zwar zeitintensiv, hat sich jedoch mittlerweile mehr als rentiert. Das Hinzufügen von neuen Screens benötigt nur mehr einen Bruchteil des ursprünglichen Codes. Infolgedessen wird das Erweitern der App um neue Features enorm erleichtert. 
+
+
+# NetworkRepository
+
+TODO
+
+# NetworkViewModel
+
+TODO
+
+# NetworkFragment
+
+TODO
