@@ -481,7 +481,7 @@ Gegenstands- und Rauminstanzen müssen eine vom Menschen lesbare Repräsentation
 
 #### Barcode eines Gegenstandes
 
-Es muss für eine Instanz des Gegenstandsmodells ein Barcode generiert werden können. Diese Funktion wird in der Methode `item_barcode_getter()` der von `BaseStocktakeItemView` erbenden Klasse definiert. Um über den von der mobilen Applikation gescannten Barcode auf einen Gegenstand schließen zu können, müssen die Attribute `slug_url_kwarg` und `slug_field` auf den Namen eines Attributes gesetzt werden, das den Barcode eines Gegenstandes repräsentiert. Dieses Attribut muss für jeden Datensatz, der durch die `get_queryset()` Methode entsteht, vorhanden sein. In dem o.a. Beispiel wird dieses Attribut in der `get_queryset()` Methode durch `annotate()` \cite{django-doku-queriesets} hinzugefügt.
+Es muss für eine Instanz des Gegenstandsmodells ein Barcode generiert werden können. Diese Funktion wird in der Methode `item_barcode_getter()` der von `BaseStocktakeItemView` erbenden Klasse definiert. Um über den von der mobilen Applikation gescannten Barcode auf einen Gegenstand schließen zu können, müssen die Attribute `slug_url_kwarg` und `slug_field` auf den Namen eines Attributes gesetzt werden, das den Barcode eines Gegenstandes repräsentiert. Dieses Attribut muss für jeden Datensatz, der durch die `get_queryset()` Methode entsteht, vorhanden sein. In dem o.a. Beispiel wird dieses Attribut in der `get_queryset()` Methode durch `annotate()` \cite{django-doku-querysets} hinzugefügt.
 
 ### Einbindung und Erreichbarkeit der APIView-Klassen
 
