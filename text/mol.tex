@@ -22,8 +22,8 @@ entwickelte Server muss also folgende Anforderungen erfüllen:
   hohe Stabilität und Verfügbarkeit
 \end{itemize}
 
-Angesichts der Programmiersprachen, in die das Projektteam spezialisiert
-ist, stehen als Backend-Lösung vier
+Angesichts der Programmiersprachen, auf die das Projektteam
+spezialisiert ist, stehen als Backend-Lösung vier
 \emph{Frameworks}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt}
 zur öffentlichen Verfügung, zwischen denen gewählt wurde:
 
@@ -93,8 +93,8 @@ zu Alternativen wie etwa ``Flask'') u.a.:
   Schutz vor gängigen Attacken (wie
   \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem}
   oder
-  \emph{CSRF}\index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}\cite{csrf}),
-  siehe Abschnitt \href{views}{``Views''}
+  \emph{CSRF}\index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}
+  \cite{csrf}), siehe Abschnitt \href{views}{``Views''}
 \end{itemize}
 
 Zusätzlich bietet Ralph bereits einige
@@ -223,11 +223,7 @@ erreichbar, die Detailansicht einer Modellinstanz unter der \emph{URL}
 /<App-Label>/<Modell-Name>/<Modellinstanz-ID>/
 \end{verbatim}
 
-. Somit repräsentiert die \emph{URL}
-\index{URL: Addressierungsstandard im Internet} der Listenansicht
-gleichzeitig den Pfad, unter der sie definiert wurde.
-
-Die Dokumentation der Administrationsfeatures von Django ist auf der
+. Die Dokumentation der Administrationsfeatures von Django ist auf der
 offiziellen Dokumentationswebseite von Django \cite{django-doku-admin}
 zu finden.
 
@@ -279,9 +275,9 @@ Schnittstellen handelt es sich entweder um
 der Klasse \texttt{View}\footnote{die ebenfalls Superklasse der Klasse
   \texttt{ApiView} ist} \cite{django-doku-class-based-views} oder
 vereinzelte Methoden mit einem \texttt{request}\footnote{zu Deutch:
-  Anfrage; entspricht dem empfangenen Packet, meist als HTML.}
-Parameter. \cite{django-doku-views} Diese Schnittstellen werden fortan
-Views genannt.
+  Anfrage; entspricht den empfangenen Daten} Parameter.
+\cite{django-doku-views} Diese Schnittstellen werden fortan Views
+genannt.
 
 Soll ein View als Antwort auf eine Anfrage HTML-Daten liefern, so sollte
 dazu ein \emph{Template}\index{Template: zu Deutch: Vorlage, Schablone}
@@ -293,11 +289,15 @@ Django-Template-\emph{Syntax}\index{Syntax: Regelwerk, sprachliche Einheiten mit
 Input-Daten basierend dynamisch generiert werden. So stehen
 beispielsweise \texttt{if} Statements direkt in der Definition des
 Templates zur Verfügung. Die Benutzung von Templates schützt
-standardmäßig gegen gängige Attacken, wie
+standardmäßig gegen Attacken, wie
 \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem}
 oder \emph{CSRF}
 \index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}\cite{csrf}
-und gilt daher als besonders sicher.
+und gilt daher als besonders sicher. Durch das Diplomarbeitsteam wurden
+weitere Möglichkeiten zur Sicherung des Serversystems
+\cite{django-doku-security} implementiert und alle
+Sicherheitsempfehlungen der Entwickler von Django
+\cite{django-doku-security} eingehalten.
 
 Da reguläre Views nicht automatisch registriert werden, müssen sie
 manuell bekanntgegeben werden. Dies geschieht durch einen Eintrag in die
@@ -347,18 +347,18 @@ zu entnehmen. \cite{django-doku-queries}
 \section{Designgrundlagen}\label{designgrundlagen}}
 
 Designgrundlagen für Django-Entwickler sind auf der offiziellen
-Dokumentationsseite von Django abrufbar. \cite{django-doku-coding-style}
+Dokumentationsseite von Django \cite{django-doku-coding-style} abrufbar.
 Die Erweiterung von Django durch die vorliegende Diplomarbeit wurde
 anhand dieser Grundlagen entwickelt.
 
 Das Konzept des \texttt{Mixin}s wird von der Ralph-Plattform besonders
 häufig genutzt. \texttt{Mixin}s sind Klassen, die anderen von ihnen
-erbende Klassen, bestimmte Attribute und Methoden hinzufügen. Manche
+erbenden Klassen bestimmte Attribute und Methoden hinzufügen. Manche
 \texttt{Mixin}s setzen implizit voraus, dass die davon erbenden Klassen
 ebenfalls von bestimmten anderen Klassen erben. Beispiel ist die Klasse
 \texttt{AdminAbsoluteUrlMixin}, die eine Methode
 \texttt{get\_absolute\_url} zur Verfügung stellt. Diese Methode liefert
-die \emph{URL} \index{URL: Addressierungsstandard im Internet}, die zu
+die \emph{URL}\index{URL: Addressierungsstandard im Internet}, die zu
 der Detailansicht der Modellinstanz führt, die die Methode aufruft.
 Voraussetzung für das Erben einer Klasse von
 \texttt{AdminAbsoluteUrlMixin} ist daher, dass sie ebenfalls von der
@@ -377,9 +377,9 @@ wie das Erstellen der Inventuren, das Einsehen von Inventurberichten
 oder das Anwenden der aufgetretenen Änderungen.
 
 Dieses Kapitel beschreibt die grundlegende Funktionsweise der beiden
-Module. Die Bedienung der \emph{Weboberfläche}
+Module. Eine Anleitung zur Bedienung der \emph{Weboberfläche}
 \index{Weboberfläche: graphische Oberfläche für administrative Tätigkeiten, die über einen Webbrowser erreichbar ist}
-ist dem \todo{Add reference} Handbuch zum Server zu entnehmen.
+ist dem Handbuch zum Server zu entnehmen.
 
 \hypertarget{das-capentory-modul}{%
 \section{Das ``Capentory'' Modul}\label{das-capentory-modul}}
@@ -752,8 +752,8 @@ Benutzer nur zur Validierung vorgelegt. Nach einer Bestätigung des
 Benutzers werden die Daten ein weiteres Mal von Neuem generiert und
 gespeichert.
 
-Informationen über das Format einer zu importierenden Quelldatei ist dem
-\todo{Add reference} Handbuch zum Server zu entnehmen.
+Details über das Format einer zu importierenden Quelldatei sind dem
+Handbuch zum Server zu entnehmen.
 
 \hypertarget{import-aus-dem-sap-erp-system}{%
 \subsubsection{Import aus dem SAP ERP
@@ -1088,8 +1088,7 @@ von \texttt{ChangeProposalBase} und damit 4 Arten von
 \end{enumerate}
 
 Weitere Informationen über die Arten von Änderungsvorschlägen und deren
-Handhabung sind dem \todo{Add reference} Handbuch zum Server zu
-entnehmen.
+Handhabung sind dem Handbuch zum Server zu entnehmen.
 
 \hypertarget{die-client-schnittstelle}{%
 \subsection{Die Client-Schnittstelle}\label{die-client-schnittstelle}}
