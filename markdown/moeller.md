@@ -196,6 +196,16 @@ Dieses Verfahren erfüllt nicht die geforderte Bedingung nur in der Theorie. Pra
 
 Ist das `barcode_prio` Attribut eines `HTLItem` Objekts gesetzt, darf dessen Wert nicht mit jenem eines anderen `HTLItem` Objekts übereinstimmen. Standardverfahren wäre in diesem Anwendungsfall das Setzen des `unique` Parameters des Attributes auf den Wert `True`. Da dieses Verfahren ebenfalls das o.a. Problem aufwirft, muss die Logik stattdessen in die `validate_unique()` Methode aufgenommen werden. Zusätzlich darf der Wert des `barcode_prio` Attributs nicht mit dem aus den beiden Attributen `anlage` und `asset_subnumber` generierten Barcode übereinstimmen. Um diese Bedingung zu erfüllen kann nur die `validate_unique()` Methode herbeigezogen werden. 
 
+### Änderungsverlauf
+
+Besonders für das `HTLItem` Modell ist es von besonderer Wichtigkeit, ein Objekt auf den Zustand vor einer unbeabsichtigten Änderung zurücksetzen und gelöschte Objekte wiederherstellen zu können. Durch das bereits in Ralph inkludierte Paket `django-reversion` können die aktuellen Zustände von Datenbankobjekten gesichert werden, um später darauf zugreifen zu können. \cite{django-reversion-doku} Das Paket bietet die Funktion, der graphischen Administrationsoberfläche entsprechende Funktionen zur Wiederherstellung oder Zurücksetzung einzelner Objekte hinzuzufügen. 
+
+Um einen Gegenstand zu entinventarisieren, kann er gelöscht werden. Referenzen auf den gelöschten Gegenstand, die durch eine Inventur entstehen, bleiben in einem ungültigen Zustand erhalten. Der gelöschte Gegenstand kann zu einem späteren Zeitpunkt vollständig wiederhergestellt werden. Die Referenzen auf den wiederhergestellten Gegenstand werden damit wieder gültig. 
+
+### Speichern von Bildern und Anhängen
+
+Die in Ralph verfügbare Klasse `AttachmentsMixin` wird verwendet, um Instanzen der Modellklasse `HTLItem` über dessen graphische Administrationsoberfläche diverse Anhänge zuzuordnen. Ein Anhang ist eine ordinäre Datei, die auf den Server hochgeladen werden kann. Alle hochgeladenen Dateien werden vor dem Speichern anhand deren \emph{Hash-Werten}\index{Hash: Eine Funktion, die für einen Input immer einen (theoretisch) einzigartigen und gleichen Wert generiert.} verglichen. Ist eine Datei mit dem \emph{Hash-Wert}\index{Hash: Eine Funktion, die für einen Input immer einen (theoretisch) einzigartigen und gleichen Wert generiert.} einer hochgeladenen Datei bereits vorhanden, wird die Datei nicht erneut gespeichert und ein Verweis auf die vorhandene Datei wird erstellt. 
+
 ## Das HTLRoom Modell
 
 Das `HTLRoom`-Modell repräsentiert die Raumdaten der HTL Rennweg. Es sind typische Merkmale aus dem  \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System vertreten. Die Attribute `room_number`, `main_inv` und `location` werden direkt aus dem \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System übernommen. 
@@ -320,6 +330,11 @@ Die bereits erwähnten Informationen über "Subräume" der tertiären Quelle wer
 ### Import der Raumliste
 
 Die Importfunktion der Raumliste dient zur Verlinkung von interner Raumnummer (`HTLRoom`-Attribut `internal_room_number`) und der Raumnummer im \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System (`HTLRoom`-Attribut `room_number`). Es werden dadurch bestehenden `HTLRoom` Objekten eine interne Raumnummer und eine Beschreibung zugewiesen, oder gänzlich neue `HTLRoom` Objekte anhand aller erhaltenen Informationen erstellt. Der Import geschieht direkt, ohne Auslagerung von Änderungen in Änderungsvorschläge.
+
+## Datenexport
+
+Die Daten aller `HTLItem` Gegenstände, die aus dem \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System importiert wurden können unter spezieller Verarbeitung exportiert werden.  Die exportierten Daten können in das \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System importiert werden und beinhalten u.a. Raumänderungen, die durch Inventuren aufgetreten sind. Bei der Verarbeitung der zu exportierenden Daten wird eine Funktion des `reversion` Pakets \cite{django-reversion-doku} genutzt. Diese Funktion besteht darin, den Zustand eines Gegenstandes zum Zeitpunkt des letzten Imports aus dem \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System abzufragen. Es wird der Zustand zu dem angegebenen Zeitpunkt mit dem aktuellen Zustand verglichen. Anhand der erkannten Änderungen wird die Export-Datei erstellt. 
+Weitere Informationen zum Datenexport sind dem Handbuch zum Server zu entnehmen. 
 
 # Das "Stocktaking" Modul
 
@@ -459,6 +474,8 @@ class WarehouseStocktakingView(StocktakingPOSTWithCustomFieldsMixin,
 ```
 
 Die Modelle `BackOfficeAsset` und `Warehouse` sind in dem unveränderten "Ralph" System vorhanden.
+
+Die Klassen `StocktakingGETWithCustomFieldsMixin`,  `StocktakingPOSTWithCustomFieldsMixin`, `ClientAttachmentsGETMixin` und `ClientAttachmentsPOSTMixin` ermöglichen das Miteinbeziehen von \emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.} und Änhängen (siehe Abschnitt ["Speichern von Bildern und Anhängen"](#speichern-von-bildern-und-anhuxe4ngen)). Weitere Informationen zu den `Mixin`-Klassen kann der im Source-Code enthaltenen Dokumentation entnommen werden.  
 
 ### Kommunikationsformat
 
@@ -887,3 +904,9 @@ Um einen Gegenstand in einem "Subraum" (siehe Abschnitt ["Subräume"](subruxe4um
 `"subroomValidations"` können rekursiv definiert werden. In dem Beispiel aus Alternative 3 muss darauf geachtet werden, dass der Raum mit \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} 100 direkter "Subraum" des Raums mit \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} 1 ist. 
 
 Weitere Details zur Funktionsweise und Anpassung der Client-Schnittstelle ist der im Source-Code enthaltenen Dokumentation zu entnehmen. 
+
+## Pull-Request
+
+Es wurde versucht, das `Stocktaking` Modul durch einen \emph{Pull-Request}\index{Pull-Request: Das Miteinbeziehen von individuell entwickeltem Quellcode in die offizielle Quell-Version der Software} in das offizielle Ralph-System einzubinden. Durch der in den Abschnitten ["Das StocktakingRoomValidation Modell"](#das-stocktakingroomvalidation-modell) und ["Das StocktakingItem Modell"](#das-stocktakingitem-modell) behandelten `GenericForeignKey` Funktionalität \cite{django-doku-contenttypes} ist es möglich, das Stocktaking-Modul für jegliche Modellklassen zu verwenden. Es gibt keine Beschränkung auf die durch das Diplomarbeitsteam implementierten Klassen.
+
+Die erstellte Lösung wurde im Entwicklungsforum der Ralph Plattform vorgestellt \cite{ralph-forum-1} \cite{ralph-forum-2} und ein Pull-Request auf der GitHub-Plattform wurde durchgeführt. 

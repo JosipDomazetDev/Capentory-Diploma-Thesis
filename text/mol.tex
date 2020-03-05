@@ -507,6 +507,41 @@ Attributs nicht mit dem aus den beiden Attributen \texttt{anlage} und
 Bedingung zu erfüllen kann nur die \texttt{validate\_unique()} Methode
 herbeigezogen werden.
 
+\hypertarget{uxe4nderungsverlauf}{%
+\subsubsection{Änderungsverlauf}\label{uxe4nderungsverlauf}}
+
+Besonders für das \texttt{HTLItem} Modell ist es von besonderer
+Wichtigkeit, ein Objekt auf den Zustand vor einer unbeabsichtigten
+Änderung zurücksetzen und gelöschte Objekte wiederherstellen zu können.
+Durch das bereits in Ralph inkludierte Paket \texttt{django-reversion}
+können die aktuellen Zustände von Datenbankobjekten gesichert werden, um
+später darauf zugreifen zu können. \cite{django-reversion-doku} Das
+Paket bietet die Funktion, der graphischen Administrationsoberfläche
+entsprechende Funktionen zur Wiederherstellung oder Zurücksetzung
+einzelner Objekte hinzuzufügen.
+
+Um einen Gegenstand zu entinventarisieren, kann er gelöscht werden.
+Referenzen auf den gelöschten Gegenstand, die durch eine Inventur
+entstehen, bleiben in einem ungültigen Zustand erhalten. Der gelöschte
+Gegenstand kann zu einem späteren Zeitpunkt vollständig
+wiederhergestellt werden. Die Referenzen auf den wiederhergestellten
+Gegenstand werden damit wieder gültig.
+
+\hypertarget{speichern-von-bildern-und-anhuxe4ngen}{%
+\subsubsection{Speichern von Bildern und
+Anhängen}\label{speichern-von-bildern-und-anhuxe4ngen}}
+
+Die in Ralph verfügbare Klasse \texttt{AttachmentsMixin} wird verwendet,
+um Instanzen der Modellklasse \texttt{HTLItem} über dessen graphische
+Administrationsoberfläche diverse Anhänge zuzuordnen. Ein Anhang ist
+eine ordinäre Datei, die auf den Server hochgeladen werden kann. Alle
+hochgeladenen Dateien werden vor dem Speichern anhand deren
+\emph{Hash-Werten}\index{Hash: Eine Funktion, die für einen Input immer einen (theoretisch) einzigartigen und gleichen Wert generiert.}
+verglichen. Ist eine Datei mit dem
+\emph{Hash-Wert}\index{Hash: Eine Funktion, die für einen Input immer einen (theoretisch) einzigartigen und gleichen Wert generiert.}
+einer hochgeladenen Datei bereits vorhanden, wird die Datei nicht erneut
+gespeichert und ein Verweis auf die vorhandene Datei wird erstellt.
+
 \hypertarget{das-htlroom-modell}{%
 \subsection{Das HTLRoom Modell}\label{das-htlroom-modell}}
 
@@ -866,6 +901,26 @@ Objekte anhand aller erhaltenen Informationen erstellt. Der Import
 geschieht direkt, ohne Auslagerung von Änderungen in
 Änderungsvorschläge.
 
+\hypertarget{datenexport}{%
+\subsection{Datenexport}\label{datenexport}}
+
+Die Daten aller \texttt{HTLItem} Gegenstände, die aus dem \emph{SAP ERP}
+\index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+System importiert wurden können unter spezieller Verarbeitung exportiert
+werden. Die exportierten Daten können in das \emph{SAP ERP}
+\index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+System importiert werden und beinhalten u.a. Raumänderungen, die durch
+Inventuren aufgetreten sind. Bei der Verarbeitung der zu exportierenden
+Daten wird eine Funktion des \texttt{reversion} Pakets
+\cite{django-reversion-doku} genutzt. Diese Funktion besteht darin, den
+Zustand eines Gegenstandes zum Zeitpunkt des letzten Imports aus dem
+\emph{SAP ERP}
+\index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+System abzufragen. Es wird der Zustand zu dem angegebenen Zeitpunkt mit
+dem aktuellen Zustand verglichen. Anhand der erkannten Änderungen wird
+die Export-Datei erstellt. Weitere Informationen zum Datenexport sind
+dem Handbuch zum Server zu entnehmen.
+
 \hypertarget{das-stocktaking-modul}{%
 \section{Das ``Stocktaking'' Modul}\label{das-stocktaking-modul}}
 
@@ -1186,6 +1241,17 @@ als 30 Code-Zeilen erstellt.
 
 Die Modelle \texttt{BackOfficeAsset} und \texttt{Warehouse} sind in dem
 unveränderten ``Ralph'' System vorhanden.
+
+Die Klassen \texttt{StocktakingGETWithCustomFieldsMixin},
+\texttt{StocktakingPOSTWithCustomFieldsMixin},
+\texttt{ClientAttachmentsGETMixin} und
+\texttt{ClientAttachmentsPOSTMixin} ermöglichen das Miteinbeziehen von
+\emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.}
+und Änhängen (siehe Abschnitt
+\protect\hyperlink{speichern-von-bildern-und-anhuxe4ngen}{``Speichern
+von Bildern und Anhängen''}). Weitere Informationen zu den
+\texttt{Mixin}-Klassen kann der im Source-Code enthaltenen Dokumentation
+entnommen werden.
 
 \hypertarget{kommunikationsformat}{%
 \subsubsection{Kommunikationsformat}\label{kommunikationsformat}}
@@ -1914,3 +1980,21 @@ mit \emph{ID}
 Weitere Details zur Funktionsweise und Anpassung der
 Client-Schnittstelle ist der im Source-Code enthaltenen Dokumentation zu
 entnehmen.
+
+\hypertarget{pull-request}{%
+\subsection{Pull-Request}\label{pull-request}}
+
+Es wurde versucht, das \texttt{Stocktaking} Modul durch einen
+\emph{Pull-Request}\index{Pull-Request: Das Miteinbeziehen von individuell entwickeltem Quellcode in die offizielle Quell-Version der Software}
+in das offizielle Ralph-System einzubinden. Durch der in den Abschnitten
+\protect\hyperlink{das-stocktakingroomvalidation-modell}{``Das
+StocktakingRoomValidation Modell''} und
+\protect\hyperlink{das-stocktakingitem-modell}{``Das StocktakingItem
+Modell''} behandelten \texttt{GenericForeignKey} Funktionalität
+\cite{django-doku-contenttypes} ist es möglich, das Stocktaking-Modul
+für jegliche Modellklassen zu verwenden. Es gibt keine Beschränkung auf
+die durch das Diplomarbeitsteam implementierten Klassen.
+
+Die erstellte Lösung wurde im Entwicklungsforum der Ralph Plattform
+vorgestellt \cite{ralph-forum-1} \cite{ralph-forum-2} und ein
+Pull-Request auf der GitHub-Plattform wurde durchgeführt.
