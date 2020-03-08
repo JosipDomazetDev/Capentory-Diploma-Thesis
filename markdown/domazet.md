@@ -591,7 +591,7 @@ Der Sponsor dieser Diplomarbeit - Zebra - hat dem Diplomarbeitsteam einen TC56 (
 
 ## Zebra-Scan: Funktionsweise
 
-Die App kommuniziert nicht direkt mit dem Scanner. Stattdessen wickelt das Zebra-Gerät den Scan ab und sendet das Resultat als `Broadcast` aus \cite{broadcast}. Auf dem Zebra-Gerät läuft im Hintergrund immer die DataWege-Applikation. Dies ist eine App, die die Behandlung des tatsächlichen Scans abwickelt und das Ergebnis auf mehrere Arten aussendet. Beispielsweise wird das Ergebnis an die Tastatur geschickt, aber eben auch als Broadcast an das Betriebssystem. Die App regestriert sich beim Betriebssystem und hört auf den Broadcast, der den Barcode enthält und automatisch von DataWege entsandt wird. Broadcast werden durch eine String-ID unterschieden, die über DataWedge konifiguriert wird. Derartige Ansätze werden als Publish–subscribe-Model bezeichnet \cite{Publish–subscribe}. 
+Die App kommuniziert nicht direkt mit dem Scanner. Stattdessen wickelt das Zebra-Gerät den Scan ab und sendet das Resultat als `Broadcast` aus \cite{broadcast}. Auf dem Zebra-Gerät läuft im Hintergrund immer die DataWege-Applikation. Dies ist eine App, die die Behandlung des tatsächlichen Scans abwickelt und das Ergebnis auf mehrere Arten aussendet \cite{datawedge}. Beispielsweise wird das Ergebnis an die Tastatur geschickt, aber eben auch als Broadcast an das Betriebssystem. Die App regestriert sich beim Betriebssystem und hört auf den Broadcast, der den Barcode enthält und automatisch von DataWege entsandt wird. Broadcast werden durch eine String-ID unterschieden, die über DataWedge konifiguriert wird. Derartige Ansätze werden als Publish–subscribe-Model bezeichnet \cite{Publish–subscribe}. 
 
 Dies bietet folgende Vorteile:
 
