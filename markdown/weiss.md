@@ -156,33 +156,39 @@ Syntax: `sudo apt-get [Option(en)] remove PAKET1 [PAKET2]`
 
 #### NGINX
 
-NGINX ist der am Häufigsten verwendete OpenSource-Webserver unter Linux für diverse Webanwendungen. Große Unternehmen wie Cisco, Microsoft, Facebook oder auch IBM schwören auf die Verwendung dieses genialen Paketes. Unteranderem wird NGINX auch als Reverse-Proxy, HTTP-Cache und Load-Balancer verwendet. Wie genau NGINX für den Produktivbetrieb funktioniert wird im Laufe des Punktes \ref{produktivbetrieb-der-applikation} erläutert.
+NGINX ist der am Häufigsten verwendete OpenSource-Webserver unter Linux für diverse Webanwendungen. Große Unternehmen wie Cisco, Microsoft, Facebook oder auch IBM schwören auf die Verwendung dieses genialen Paketes. Unteranderem wird NGINX auch als Reverse-Proxy, HTTP-Cache und Load-Balancer verwendet. Wie genau NGINX für den Produktivbetrieb funktioniert wird im Laufe des Punktes \ref{funktionsweise-der-produktivumgebung} erläutert.
 
 Installation: `[sudo] apt-get install nginx`
 
 #### Docker
 
-Die OpenSource-Software Docker ist eine Containervirtualisierungstechnologie, die die Erstellung und den Betrieb von Linux Containern ermöglicht. Wie genau dies funktioniert, wird später unter Punkt \ref{produktivbetrieb-der-applikation} genauer beschrieben und erklärt.
+Die OpenSource-Software Docker ist eine Containervirtualisierungstechnologie, die die Erstellung und den Betrieb von Linux Containern ermöglicht. Wie genau dies funktioniert, wird später unter Punkt \ref{funktionsweise-der-produktivumgebung} genauer beschrieben und erklärt.
 
 Installation: `[sudo] apt-get install docker`
 
 #### docker-compose
 
-Jeder Linux-Benutzer hat mindestens einmal in seinem Leben etwas über das `docker-compose.yml` File gehört. Doch was ist docker-compose eigentlich? Nun, die Verwaltung und Verlinkung von mehreren Containern kann auf Dauer sehr nervenaufreibend sein. Die Lösung dieses Problems nennt sich docker-compose. Wie docker-compose jedoch genau funktioniert, wird ebenfalls wie das Grundkonzept von Docker unter Punkt \ref{produktivbetrieb-der-applikation} präziser erläutert.
+Jeder Linux-Benutzer hat mindestens einmal in seinem Leben etwas über das `docker-compose.yml` File gehört. Doch was ist docker-compose eigentlich? Nun, die Verwaltung und Verlinkung von mehreren Containern kann auf Dauer sehr nervenaufreibend sein. Die Lösung dieses Problems nennt sich docker-compose. Wie docker-compose jedoch genau funktioniert, wird ebenfalls wie das Grundkonzept von Docker unter Punkt \ref{funktionsweise-der-produktivumgebung} präziser erläutert.
 
 Installation: `[sudo] apt-get install docker-compose`
 
 #### MySQL
 
-MySQL ist ein OpenSource-Datenverwaltungssystem und die Grundlage für die meisten dynamischen Websiten. Darauf werden die Inventurdatensätze der Htl Rennweg gespeichert. Nähere Informationen finden sich Punkt \ref{produktivbetrieb-der-applikation} wieder.
+MySQL ist ein OpenSource-Datenverwaltungssystem und die Grundlage für die meisten dynamischen Websiten. Darauf werden die Inventurdatensätze der Htl Rennweg gespeichert. Nähere Informationen finden sich Punkt \ref{funktionsweise-der-produktivumgebung} wieder.
 
 Installation: `[sudo] apt-get install mysql`
 
 #### Redis
 
-Redis ist eine In-Memory-Datenbank mit einer Schlüssel-Wert-Datenstruktur (Key Value Store). Wie auch MySQL handelt es sich um eine OpenSource-Datenbank. Warum Redis ebenfalls benötigt wurde, wird ebenfalls später im Punkt \ref{produktivbetrieb-der-applikation} erklärt.
+Redis ist eine In-Memory-Datenbank mit einer Schlüssel-Wert-Datenstruktur (Key Value Store). Wie auch MySQL handelt es sich um eine OpenSource-Datenbank.
 
 Installation: `[sudo] apt-get install redis`
+
+#### Nagios
+
+Nagios ist ein Monitoring-System, mit dem sich verschiedene Geräte und auf solche laufende Dienste (oder auch Eigenschaften) überwachen lassen. Ziel ist es dabei schnell Ausfälle festzustellen und diese dem zuständigen Administrator mit zu teilen, so dass dieser dann schnell darauf reagieren kann.
+
+Installation: `[sudo] apt-get install nagios`
 
 #### virtualenv
 
@@ -217,10 +223,269 @@ Django ist ein in Python geschriebenes Webframework, auf dem unsere Serveranwend
 
 Installation: `[sudo] pip3 install Django`
 
+#### runsslserver
+
+Runsslserver ist ein Python-Paket mit dem eine Entwicklungsumgebung über https erreichbar gemacht werden kann.
+
+Installation: `[sudo] pip3 install runsslserver`
+
 ## Produktivbetrieb der Applikation
+
+Das Aufsetzen beziehungsweise die Installation der Produktivumgebung ist der wichtigste, aber auch aufwendigste, Bestandteil jeder Serverinfrastruktur. Eine Produktivumgebung soll von einer Testumgebung möglichst weit getrennt sein, damit die zu testende Software keinen Schaden für den produktiven Betrieb anrichten kann. Weiters soll durch den Produktivbetrieb der Server um einiges perfomanter sein, da dieser, im Falle der Diplomarbeit "Capentory", einen optimierten Webserver (NGINX) verwendet. 
+
+### Entwicklungsumgebung
+
+Die Entwickler des Grundservers "Ralph" haben eine eigene Entwicklungsumgebung für den Django-Server erstellt. Normalerweise findet sich in einem klassischen Python-Projekt oder einem Projekt, dass auf einem Python-Framework (wie zum Beispiel Django) basiert, ein sogenanntes "`manage.py`"-File. Hierbei handelt es sich um ein Script, dass das Management eines beliebigen Python-Projektes unterstützt. Mit dem Script ist man unter anderem in der Lage, den Webserver auf einem unspezifischen Rechner zu starten, ohne etwas Weiteres installieren zu müssen.
+
+Jedoch wurde diese Datei im Projekt von "Ralph" und daher auch von "Capentory" in eine eigene spezifische Entwicklungsumgebung umimplementiert. Der Server startet sich nach der eigenen Installation (welche ab Seite 4 im Dokument "Serverdokumentation Schritt für Schritt erklärt wird) nicht mehr mittels:
+
+    python manage.py runserver
+ 
+sondern mit:
+
+    dev_ralph runserver 0.0.0.0:8000
+
+Obwohl die Befehle dieses Serverstarts nicht wirklich ident aussehen, führen sie im Hintergrund aber die gleichen Unterbefehle aus, um eine sichere Verwendung der Entwicklungsumgebung zu gewährleisten.
+
+Da das Diplomarbeitsteam "Capentory" diesen Entwicklungsumgebung vorerst auf dem Produktivserver für Testzwecke verwendete, wurde ein eher unbekanntes Paket namens "runsslserver" für die Entwicklungsumgebung installiert und eingebaut. Zuerst musste, üblich um eine https-Verbindung einzurichten, beispielsweise mit dem Befehl
+
+    sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 
+    -keyout /ssl/nginx.key -out /ssl/cert.crt
+
+ein Zertifikat mit dem zugehörigen Schlüssel generiert werden.
+
+Kurzerklärung der Befehlsoptionen
+
+ - `-x509` Gibt an, statt eines CSR gleich ein selbstsigniertes Zertifikat auszustellen.
+ - `-nodes` Zertifikat wird nicht über ein Kennwort geschützt. Damit kann der Server ohne weitere Aktion (Eingabe des Kennworts) gestartet werden.
+ - `-days` Beschreibt die Gültigkeit des Zertifikates für 365 Tage.
+ - `-newkey rsa:2048` Generiert das Zertifikat und einen 2048-bit langen RSA Schlüssel.
+ - `-keyout` Gibt die Ausgabepfad und -datei für den Schlüssel an.
+ - `-out` Gibt die Ausgabepfad und -datei des Zertifikates an.
+
+Der Befehl "runsslserver" muss jetzt nur noch in den "Installed-Apps" des Projektes (im Falle von "Ralph" und "Capentory" befinden sich diese in der Datei "`base.py`") hinzugefügt werden.
+
+Dann kann der Server problemlos mit 
+
+    dev_ralph runsslserver 0.0.0.0:443
+
+gestartet werden.
+
+### Probleme der Produktivumgebung
+
+Der Webserver selbst kann für unsere Zwecke nicht mit Docker für eine Produktivumgebung bereitgestellt werden, da die bereits vorhandenen Dockerfiles von Ralph nur für deren Lösung entwickelt wurden (d.h. Ralph installiert deren Webserver sehr komplex wie in etwa mit einem „apt-get install ralph“ Befehl in diversen Skripten). Jedoch gibt es eine eigene Docker-Variante für die Entwicklungsumgebung die rasch mit uWSGI in eine Produktivumgebung umgewandelt werden kann.
+
+### Funktionsweise der Produktivumgebung
+
+####  Funktion von uWSGI
+
+Es wurde bereits desöfteren erklärt warum die vorhandene "Ralph-Dockerlösung" für die Zwecke von "Capentory" nicht brauchbar sind (siehe \ref{probleme-der-produktivumgebung}). Jedenfalls wurde nun die Einrichtung der Produktivumgebung mittels uWSGI erfolgreich durchgeführt. In der folgenden Grafik wird die Funktion von uWSGI genauer dargestellt.
+
+\begin{figure}[ht]
+\centering
+\includegraphics{uwsgi.png}
+\caption{Funktionsweise von uWSGI}
+\end{figure}
+
+Da die meisten Serverbenutzer alleine mit der Grafik nicht wirklich viel anfangen können, folgt nun eine Erklärung dieser:
+
+ 1. Ein beliebiger Benutzer eines Webbrowsers (zum Beispiel Google Chrome oder Mozilla Firefox) sendet einen sogenannten "Webrequest" auf den https-Port "443" (Abschnitt \ref{probleme-der-produktivumgebung}).
+ 2. Ein beliebig gewählter, optimierter Webserver (im Fall von "Capentory" NGINX) stellt Dateien wie Javascript, CSS oder auch Bilder bereit und macht diese für den Benutzer abrufbar.
+ 3. Hier wird die Kommunikation zwischen dem hochperfomanten Webserver NGINX und dem Webinterface uWSGI mit Verwendung eines klassischen Websockets veranschaulicht. (Anm.: Bei einem Websocket handelt es sich um ein auf TCP basierendes Protokoll, dass eine bidirektionale Verbindung zwischen einer Webanwendung und einem Webserver herstellt).
+ 4. Das eigentliche Interface von uWSGi ist hier zu sehen. Diese Schnittstelle sorgt für die Kommunikation des oben genannten Websockets mit dem verwendeten Python-Framework.
+ 5. Django reagiert nun auf die Anfrage des Benutzers und lässt diesem (falls dessen Zugriffsrechte darauf es erlauben) die gewünschten Daten.
+ 6. Die vom Benutzer gewünschten Daten werden (bei "Capentory") in einer MySQL-Datenbank gespeichert. 
+ 
+ Grundsätzlich kann die Grafik auch mittels
+
+    the web client <-> the web server <-> the socket <-> uwsgi <-> Django
+ 
+ als normale ASCII-Zeichenkette dargestellt werden.
+
+#### Funktion von Docker
+
+Docker wird im Projekt "Capentory" ausschließlich für die Bereitstellung der Datenbank verwendet. Der Befehl 
+
+`docker-compose -f docker/docker-compose-dev.yml up -d`
+
+ im Projektstammverzeichnis erstellt und startet die in der folgenenden Grafik zu sehenden Container, die das Datenbanksystem darstellen:
+
+\begin{figure}[ht]
+\centering
+\includegraphics{docker.png}
+\caption{Datenbanksystem mit Docker}
+\end{figure}
+
+### Erreichbarkeit mittels HTTPS
+
+Wie es sich für eine Netzwerktechnikklasse gehört, wurde auch an die Erreichbarkeit über HTTPS gedacht. NGINX wurde mit einem sogenannten Self Signed Certificate ausgestattet, um eine sichere Verbindung des Benutzers mit dem Webserver zu gewährleisten. Die Konfiguration von NGINX für den Gebrauch von uWSGI mit HTTPS ist auf Seite 9 der Serverdokumentation zu finden. Im Webbrowser "Microsoft Edge" würde der Aufruf des Servers nun wie folgt aussehen:
+
+\begin{figure}[ht]
+\centering
+\includegraphics{https.png}
+\caption{Aufruf des Servers über HTTPS}
+\end{figure}
+
+Der Zertifikatsfehler, der am Bild deutlich zu sehen ist, bedeudet jedoch nichts anderes als dass das Zertifakt des Produktivservers von "Capentory" nicht von einer offiziellen Zertifizierungsstelle signiert wurde. Da der Server aber sowieso nur im Schulnetz der HTL 3 Rennweg beziehungsweise über einen VPN-Tunnel erreichbar ist, war es nicht nötig sich an solch eine Zertifizierungsstelle zu wenden.
+
+### Verwendung einer .ini-Datei
+
+Bei einem File mit einer .ini-Endung handelt es sich um eine Initialisierungsdatei. Diese beinhaltet beispielsweise Konfigurationsmöglichen die zum Start eines bestimmten Dienstes benötigt werden. Glücklicherweise funktioniert so ein File auch wunderbar mit uWSGI. Durch die Implementierung einer ralph.ini-Datei wurden die Befehlsoptionen des `uwsgi`-Befehls ausgelagert und dieser somit für den Serverstart verkürzt.
+
+Ein kleiner Vergleich:
+
+    uwsgi --socket mysite.sock --module mysite.wsgi --chmod-socket=664 --proceses 10
+    
+    uwsgi --ini ralph.ini
+
+Beide Befehle liefern schlussendlich das gleiche Ergebnis, jedoch ist der unter Befehl (Verwendung einer .ini-Datei) um einiges kürzer und erspart somit nervernaufreibende Schreibarbeit.
+
+### Neustartverhalten mittels Service
+
+Für den Gebrauch von uWSGi gibt es einige Lösungen, um den automatischen Neustart, beispielsweise bei Eintritt eines Stromausfalls, zu gewährleisten. "Capentory" hat sich, mit der Implementierung eines eigenen "Ralph-Service", für den klassischen Linuxweg entschieden.
+
+Nach dem korrekten Erstellen der `ralph.service`-Datei kann dieser als ganz normaler Linux-Service behandelt werden.
+Mit 
+
+    systemctl enable ralph
+    systemctl start ralph
+ 
+ wird der frisch angelegte Service nun immer wenn die virtuelle Maschine gestartet wurde gestartet.
 
 ## Absicherung der virtuellen Maschine
 
-## Überwachung des Netzwerks 
+Ein weiterer wichtiger und sensibler Teil der Serverinfrastruktur ist die Absicherung der virtuellen Maschine gegen Angriffe. Da es sich im Rahmen der Diplomarbeit "Capentory" um geheime Daten der Schulinventur handelt, war es ein Anliegen der Verantwortlichen, dass mit diesen Daten verantwortungsvoll und vorsichtig umgegangen wird.
+
+### Firewall
+
+Unter Punkt \ref{topologie-des-netzwerkes} wird der Plan des Netzwerkes veranschaulicht. Die in der Mitte liegende FortiGate-Firewall stellt, wie bereits in oben genannten Punkt erwähnt, die Verfügbarkeit des Servers im Schulnetz bereit. Dadurch dass der Server nur über eine VPN-Verbindung konfiguriert werden kann, denkt man sich bestimmt, dass die virtuelle Maschine schon genug gesichert sei. Jedoch ist es sinnvoll den Server doppelt abzusichern und somit wurden auf der Linux-Maschine ebenfalls noch Firewallregeln konfiguriert.
+
+#### Erlauben einer SSH-Verbindung
+
+Die virtuelle Maschine wurde aufgrund der nicht-vorteilshaften Konsole von ProxMox immer über SSH mit einer beliebigen externen Konsole (beispielsweise Putty) konfiguriert. Dies ist wegen der FortiGate-Konfiguration nur mit VPN-Verbindung möglich. Direkt auf dem Server wurde daher eine Firewallregel für die Erlaubnis von SSH implementiert.
+
+Regel: `sudo ufw allow ssh`
+
+oder:  `sudo ufw allow 22`
+
+#### Erlauben des Datenaustausches mittels HTTP
+
+Obwohl der Webserver den Datenaustausch mit HTTPS bevorzugt, wurde auf der zweiten Ebene auch eine Regel für die HTTP-Verbindung konfiguriert.
+
+Regel: `sudo ufw allow http`
+
+oder:  `sudo ufw allow 80`
+
+#### Erlauben des Datenaustausches mittels HTTPS
+
+Für den Datenaustausch über HTTPS musste ebenso eine Regel aktiviert werden.
+
+Regel: `sudo ufw allow https`
+
+oder:  `sudo ufw allow 443`
+
+#### Verbieten aller restlichen Verbindungen
+
+Zuguterletzt müssen alle restlichen (die nicht von Administratoren gebrauchten) Verbindungen deaktiviert werden um Angriffslücken zu schließen.
+
+Regel: `ufw default deny`
+
+### Mögliche Angriffsszenarien
+
+Da der Server im Schulnetz erreichbar ist, gelten unteranderem auch die Schüler der HTL 3 Rennweg als potenzielle Angreifer. 
+
+#### Malware
+
+Bei Malware handelt es sich um Schadsoftware zudem unteranderem **Viren**, **Würmer** und **Trojaner** zählen.
+
+#### Angriffe auf Passwörter
+
+Neben dem Raten und Ausspionieren von Passwörtern ist die Brute Force Attacke weit verbreitet. Bei dieser Attacke versuchen Hacker mithilfe einer Software, die in einer schnellen Abfolge verschiedene Zeichenkombinationen ausprobiert, das Passwort zu knacken. Je einfacher das Passwort gewählt ist, umso schneller kann dieses geknackt werden.
+
+Vorbeugung von Team "Capentory": Die festgelegten Passwörter sind komplex aufgebaut und sicher in den Köpfen der Mitarbeiter gespeichert.
+
+#### Man-in-the-middle Attacken
+
+Bei der „Man in the Middle“-Attacke nistet sich ein Angreifer  zwischen den miteinander kommunizierenden Rechnern. Diese Position ermöglicht ihm, den ausgetauschten Datenverkehr zu  kontrollieren und zu manipulieren. Er kann z.B. die ausgetauschten Informationen abfangen, lesen, die Weiterleitung kappen usw. Von all dem erfährt der Empfänger aber nichts.
+
+Vorbeugung von Team "Capentory": Der Datenaustausch verläuft über HTTPS und somit verschlüsselt.
+
+#### Sniffing
+
+Unter Sniffing (Schnüffeln) wird das unberechtigte Abhören des Datenverkehrs verstanden. Dabei werden oft Passwörter, die nicht oder nur sehr schwach verschlüsselt sind, abgefangen. Andere Angreife bedienen sich dieser Methode um rausfinden zu können, welche Teilnehmer über welche Protokolle miteinander kommunizieren. Mit den so erlangten Informationen können die Angreifer dann den eigentlichen Angriff starten.
+
+Vorbeugung von Team "Capentory": Der Datenaustausch verläuft über HTTPS und somit verschlüsselt.
+
+## Überwachung des Netzwerks
+
+Sollte der Fall eintreten, dass der Server nicht mehr erreichbar ist, wurde ein eigener Monitoring-Server im Netzwerk eingehängt und installiert. Dadurch wird der Produktivserver rund um die Uhr überwacht. Weiters wird das Diplomarbeitsteam "Capentory" bei etwaigen Komplikationen per E-Mail benachrigtigt, damit das aufgetretene Problem beziehungsweise die aufgetretenen Probleme möglichst schnell behoben werden können.
+
+### Topologieänderung
+
+Im Netzwerk wurde ein zweiter Server installiert, der mit dem OpenSource-Programm "Nagios" als Monitoring-Maschine für den Produktivserver dient.
+
+\begin{figure}[ht]
+\centering
+\includegraphics{neutopo.png}
+\caption{Ergänzter Netzwerkplan}
+\end{figure}
+
+### Nagios
+
+Worum es sich bei diesem tollen Tool handelt wurde bereits unter Punkt \ref{nagios} erklärt. Nun folgt ein vertiefender Einblick in diese Monitoring-Software.
+
+#### Hosts
+
+Hosts sind bei Nagios definierte virtuelle Maschinen, die überwacht werden sollen. "Capentory" überwacht nicht nur den Produktivserver, sondern auch den aufgesetzten Nagios-Server selbst. Falls dieser Probleme aufweist, wird das Team ebenfalls per E-Mail benachrichtigt aber dazu unter Punkt \ref{notifications} mehr.
+
+Im Webbrowser sehen die zu überwachenden Hosts wie folgt aus:
+
+\begin{figure}[ht]
+\centering
+\includegraphics{hosts.png}
+\caption{Die definierten Hosts der Diplomarbeit}
+\end{figure}
+
+**Capentory** ist der Name des Hosts des Produktivservers.
+
+**Localhost** heißt der Host des Nagios-Servers.
+
+Momentan scheint alles ohne Probleme zu funktionieren. Jedoch kann sich soetwas schlagartig ändern:
+
+\begin{figure}[ht]
+\centering
+\includegraphics{dedprod.png}
+\caption{Der heruntergefahrene Produktivserver}
+\end{figure}
+
+Hier wird deutlich gemacht, dass der Produktivserver abgestürzt ist.
+
+#### Services
+
+Nagios-Services sind, wie der Name schon verrät, die einzelnen zu überwachenden Services eines Hosts. Zurzeit wird am Nagios-Server aus Testzwecken eine Menge an Services überwacht. Auf dem Produktivserver hingegen werden nur Probleme, die mit der Verbindung über Port 22 (SSH) oder Port 443 (HTTPS) zu tun haben, erfasst.
+
+So sehen die überwachten Services am Admin-Dashboard des Nagios-Servers aus:
+
+\begin{figure}[ht]
+\centering
+\includegraphics{services.png}
+\caption{Die überwachten Services}
+\end{figure}
+
+Im Moment weist kein Service der beiden Hosts ein kritisches Problem auf. Auf dem Nagios-Server ist der HTTP-Service zwar gelb markiert, hierbei handelt es sich jedoch nur um eine harmlose Warnung.
+
+Wenn auf dem Produktivserver hingegen der Webserver NGINX ausfällt sieht das Dashboard jedoch wiederum anders aus:
+
+\begin{figure}[ht]
+\centering
+\includegraphics{dednginx.png}
+\caption{Die überwachten Services}
+\end{figure}
+
+#### Notifications
+
+Zuguterletzt gibt es noch das Feature der Notifications. Falls ein Host oder ein Service der Hosts ausfällt, benachrichtigt der Nagios-Server das Diplomarbeitsteam per E-Mail über die aufgetretenen Probleme.
 
 ## Verfassen einer Serverdokumentation
+
+Im Laufe dieses Kapitels wurde der Inhalt von den für die Produktivumgebung zu erstellenden Dateien aufgelistet und Zeile für Zeile erklärt. Da nur mit diesen Dateien alleine jedoch kein Server funktionieren kann war ein weiteres großes Ziel die Erstellung einer Guideline für interessierte Benutzer, damit diese ebenfalls in der Lage sind, den Server der Diplomarbeit "Capentory" für eine Entwicklungsumgebung sowie eine Produktumgebung aufzusetzen. 
