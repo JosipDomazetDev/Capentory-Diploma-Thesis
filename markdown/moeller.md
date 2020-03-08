@@ -10,7 +10,7 @@ Die Inventur- sowie Gegenstandsdaten der HTL Rennweg sollen an einem zentralen O
 * eine Grundlage für die Kommunikation mit der Client-Applikation
 * hohe Stabilität und Verfügbarkeit
 
-Angesichts der Programmiersprachen, in die das Projektteam spezialisiert ist, stehen als  Backend-Lösung vier \emph{Frameworks}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt} zur öffentlichen Verfügung, zwischen denen gewählt wurde:
+Angesichts der Programmiersprachen, auf die das Projektteam spezialisiert ist, stehen als  Backend-Lösung vier \emph{Frameworks}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt} zur öffentlichen Verfügung, zwischen denen gewählt wurde:
 
 * Django \cite{django}
 * Pyramid \cite{pyramid}
@@ -33,7 +33,7 @@ Django bietet eine weit verbreitete Open-Source Lösung für die Entwicklung von
 Django zeichnet sich besonders durch die sog. \emph{"Batteries included"}\index{Batteries included: Das standardmäßige Vorhandensein von erwünschten bzw. gängigen \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems}, zu Deutsch: Batterien einbezogen} Mentalität aus. Das heißt, dass Django bereits die gängigsten \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems} eines Webserver-Backends standardmäßig innehat. Diese sind (im Vergleich zu Alternativen wie etwa "Flask") u.a.:
 
 * Authentifikation und Autorisierung, sowie eine damit verbundene Benutzerverwaltung
-* Schutz vor gängigen Attacken (wie \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem} oder \emph{CSRF}\index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}\cite{csrf}), siehe Abschnitt ["Views"](views)
+* Schutz vor gängigen Attacken (wie \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem} oder \emph{CSRF}\index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}} \cite{csrf}), siehe Abschnitt ["Views"](views)
 
 Zusätzlich bietet Ralph bereits einige \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems}, die die grundlegende Führung und Verwaltung eines herkömmlichen Inventars unterstützen (beispielsweise eine Suchfunktion mit automatischer Textvervollständigung). 
 
@@ -85,9 +85,7 @@ erreichbar, die Detailansicht einer Modellinstanz unter der \emph{URL} \index{UR
 ```
 /<App-Label>/<Modell-Name>/<Modellinstanz-ID>/
 ```
-. Somit repräsentiert die \emph{URL} \index{URL: Addressierungsstandard im Internet} der Listenansicht gleichzeitig den Pfad, unter der sie definiert wurde. 
-
-Die Dokumentation der Administrationsfeatures von Django ist auf der offiziellen Dokumentationswebseite von Django  \cite{django-doku-admin} zu finden.
+. Die Dokumentation der Administrationsfeatures von Django ist auf der offiziellen Dokumentationswebseite von Django  \cite{django-doku-admin} zu finden.
 
 [^ralph-admin]: Unter Ralph steht hierfür die Klasse `RalphAdmin` zur Verfügung.\cite{ralph-admin-doku}
 [^ralph-adminform]: Unter Ralph steht hierfür die Klasse `RalphAdminForm` zur Verfügung.
@@ -108,13 +106,12 @@ Um den API-Zugriff auf ein Modell zu ermöglichen werden üblicherweise eine `AP
 Schnittstellen, die keiner der beiden o.a. Kategorien zugeordnet werden können, werden in der Datei `views.py` definiert. Bei diesen \emph{generischen}\index{generisch: in einem allgemeingültigen Sinn} Schnittstellen handelt es sich entweder um \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} der Klasse `View`[^view-apiview-inheritance] \cite{django-doku-class-based-views} oder vereinzelte Methoden mit einem `request`[^request-german] Parameter. \cite{django-doku-views}
 Diese Schnittstellen werden fortan Views genannt.
 
-Soll ein View als Antwort auf eine Anfrage HTML-Daten liefern, so sollte dazu ein \emph{Template}\index{Template: zu Deutch: Vorlage, Schablone} verwendet werden. Mithilfe von Templates können Daten, die etwa durch Datenbankabfrage entstehen, zu einer HTML Antwort aufbereitet werden. Besonders ist hierbei die zusätzlich zu HTML verfügbare Django-Template-\emph{Syntax}\index{Syntax: Regelwerk, sprachliche Einheiten miteinander zu verknüpfen \cite{syntax}} \cite{django-doku-template}. Damit können HTML Elemente auf den Input-Daten basierend dynamisch generiert werden. So stehen beispielsweise `if` Statements direkt in der Definition des Templates zur Verfügung.
-Die Benutzung von Templates schützt standardmäßig gegen gängige Attacken, wie \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem} oder \emph{CSRF} \index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}\cite{csrf} und gilt daher als besonders sicher.
+Soll ein View als Antwort auf eine Anfrage HTML-Daten liefern, so sollte dazu ein \emph{Template}\index{Template: zu Deutch: Vorlage, Schablone} verwendet werden. Mithilfe von Templates können Daten, die etwa durch Datenbankabfrage entstehen, zu einer HTML Antwort aufbereitet werden. Besonders ist hierbei die zusätzlich zu HTML verfügbare Django-Template-\emph{Syntax}\index{Syntax: Regelwerk, sprachliche Einheiten miteinander zu verknüpfen \cite{syntax}} \cite{django-doku-template}. Damit können HTML Elemente auf den Input-Daten basierend dynamisch generiert werden. So stehen beispielsweise `if` Statements direkt in der Definition des Templates zur Verfügung. Die Benutzung von Templates schützt standardmäßig gegen Attacken, wie \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem} oder \emph{CSRF} \index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}\cite{csrf} und gilt daher als besonders sicher. Durch das Diplomarbeitsteam wurden weitere Möglichkeiten zur Sicherung des Serversystems \cite{django-doku-security} implementiert und alle Sicherheitsempfehlungen der Entwickler von Django \cite{django-doku-security} eingehalten.
 
 Da reguläre Views nicht automatisch registriert werden, müssen sie manuell bekanntgegeben werden. Dies geschieht durch einen Eintrag in die Variable `urlpatterns` in der Datei `urls.py`.  \cite{django-doku-urls}
 
 [^view-apiview-inheritance]: die ebenfalls Superklasse der Klasse `ApiView` ist
-[^request-german]: zu Deutch: Anfrage; entspricht dem empfangenen Packet, meist als HTML. 
+[^request-german]: zu Deutch: Anfrage; entspricht den empfangenen Daten
 
 ## Datenbankabfragen
 
@@ -145,16 +142,16 @@ Weitere Beispiele und Methoden sind der offiziellen Django-Dokumentation zu entn
 
 # Designgrundlagen
 
-Designgrundlagen für Django-Entwickler sind auf der offiziellen Dokumentationsseite von Django abrufbar. \cite{django-doku-coding-style}
+Designgrundlagen für Django-Entwickler sind auf der offiziellen Dokumentationsseite von Django \cite{django-doku-coding-style} abrufbar.
 Die Erweiterung von Django durch die vorliegende Diplomarbeit wurde anhand dieser Grundlagen entwickelt. 
 
-Das Konzept des `Mixin`s wird von der Ralph-Plattform besonders häufig genutzt. `Mixin`s sind Klassen, die anderen von ihnen erbende Klassen, bestimmte Attribute und Methoden hinzufügen. Manche `Mixin`s setzen implizit voraus, dass die davon erbenden Klassen ebenfalls von bestimmten anderen Klassen erben. Beispiel ist die Klasse `AdminAbsoluteUrlMixin`, die eine Methode `get_absolute_url` zur Verfügung stellt. Diese Methode liefert die \emph{URL} \index{URL: Addressierungsstandard im Internet}, die zu der Detailansicht der Modellinstanz führt, die die Methode aufruft. Voraussetzung für das Erben einer Klasse von `AdminAbsoluteUrlMixin` ist daher, dass sie ebenfalls von der Klasse `Model` erbt.
+Das Konzept des `Mixin`s wird von der Ralph-Plattform besonders häufig genutzt. `Mixin`s sind Klassen, die anderen von ihnen erbenden Klassen bestimmte Attribute und Methoden hinzufügen. Manche `Mixin`s setzen implizit voraus, dass die davon erbenden Klassen ebenfalls von bestimmten anderen Klassen erben. Beispiel ist die Klasse `AdminAbsoluteUrlMixin`, die eine Methode `get_absolute_url` zur Verfügung stellt. Diese Methode liefert die \emph{URL}\index{URL: Addressierungsstandard im Internet}, die zu der Detailansicht der Modellinstanz führt, die die Methode aufruft. Voraussetzung für das Erben einer Klasse von `AdminAbsoluteUrlMixin` ist daher, dass sie ebenfalls von der Klasse `Model` erbt.
 
 \chapter{Die 2 Erweiterungsmodule des Serversystems}
 
 Die vorliegende Diplomarbeit erweitert das ["Ralph"](#django-und-ralph) System um 2 Module. Dabei handelt es sich um die beiden Pakete "Capentory" und "Stocktaking". Das Paket "Capentory" behandelt die Führung der Inventardaten und wurde speziell an die Inventardaten der HTL Rennweg angepasst. Das Paket "Stocktaking" ermöglicht die Verwaltung der durch die mobile Applikation durchgeführten Inventuren. Dazu zählen Aufgaben wie das Erstellen der Inventuren, das Einsehen von Inventurberichten oder das Anwenden der aufgetretenen Änderungen.
 
-Dieses Kapitel beschreibt die grundlegende Funktionsweise der beiden Module. Die Bedienung der \emph{Weboberfläche} \index{Weboberfläche: graphische Oberfläche für administrative Tätigkeiten, die über einen Webbrowser erreichbar ist} ist dem \todo{Add reference} Handbuch zum Server zu entnehmen.
+Dieses Kapitel beschreibt die grundlegende Funktionsweise der beiden Module. Eine Anleitung zur Bedienung der \emph{Weboberfläche} \index{Weboberfläche: graphische Oberfläche für administrative Tätigkeiten, die über einen Webbrowser erreichbar ist} ist dem Handbuch zum Server zu entnehmen.
 
 # Das "Capentory" Modul
 
@@ -198,6 +195,16 @@ Dieses Verfahren erfüllt nicht die geforderte Bedingung nur in der Theorie. Pra
 [^validate-unique]: Eine Methode einer Modell-Klasse, die unter Normalzuständen immer vor dem Speichern eines Objekts des Modells aufgerufen wird. Wirft sie einen Fehler auf, kann das Objekt nicht gespeichert werden. 
 
 Ist das `barcode_prio` Attribut eines `HTLItem` Objekts gesetzt, darf dessen Wert nicht mit jenem eines anderen `HTLItem` Objekts übereinstimmen. Standardverfahren wäre in diesem Anwendungsfall das Setzen des `unique` Parameters des Attributes auf den Wert `True`. Da dieses Verfahren ebenfalls das o.a. Problem aufwirft, muss die Logik stattdessen in die `validate_unique()` Methode aufgenommen werden. Zusätzlich darf der Wert des `barcode_prio` Attributs nicht mit dem aus den beiden Attributen `anlage` und `asset_subnumber` generierten Barcode übereinstimmen. Um diese Bedingung zu erfüllen kann nur die `validate_unique()` Methode herbeigezogen werden. 
+
+### Änderungsverlauf
+
+Besonders für das `HTLItem` Modell ist es von besonderer Wichtigkeit, ein Objekt auf den Zustand vor einer unbeabsichtigten Änderung zurücksetzen und gelöschte Objekte wiederherstellen zu können. Durch das bereits in Ralph inkludierte Paket `django-reversion` können die aktuellen Zustände von Datenbankobjekten gesichert werden, um später darauf zugreifen zu können. \cite{django-reversion-doku} Das Paket bietet die Funktion, der graphischen Administrationsoberfläche entsprechende Funktionen zur Wiederherstellung oder Zurücksetzung einzelner Objekte hinzuzufügen. 
+
+Um einen Gegenstand zu entinventarisieren, kann er gelöscht werden. Referenzen auf den gelöschten Gegenstand, die durch eine Inventur entstehen, bleiben in einem ungültigen Zustand erhalten. Der gelöschte Gegenstand kann zu einem späteren Zeitpunkt vollständig wiederhergestellt werden. Die Referenzen auf den wiederhergestellten Gegenstand werden damit wieder gültig. 
+
+### Speichern von Bildern und Anhängen
+
+Die in Ralph verfügbare Klasse `AttachmentsMixin` wird verwendet, um Instanzen der Modellklasse `HTLItem` über dessen graphische Administrationsoberfläche diverse Anhänge zuzuordnen. Ein Anhang ist eine ordinäre Datei, die auf den Server hochgeladen werden kann. Alle hochgeladenen Dateien werden vor dem Speichern anhand deren \emph{Hash-Werten}\index{Hash: Eine Funktion, die für einen Input immer einen (theoretisch) einzigartigen und gleichen Wert generiert.} verglichen. Ist eine Datei mit dem \emph{Hash-Wert}\index{Hash: Eine Funktion, die für einen Input immer einen (theoretisch) einzigartigen und gleichen Wert generiert.} einer hochgeladenen Datei bereits vorhanden, wird die Datei nicht erneut gespeichert und ein Verweis auf die vorhandene Datei wird erstellt. 
 
 ## Das HTLRoom Modell
 
@@ -291,7 +298,7 @@ ALIASES_HTLITEM = {
 
 Der Datenimport wird immer zweimal durchlaufen. Zuerst werden die importierten Daten zwar generiert, aber nicht gespeichert und dem Benutzer nur zur Validierung vorgelegt. Nach einer Bestätigung des Benutzers werden die Daten ein weiteres Mal von Neuem generiert und gespeichert.
 
-Informationen über das Format einer zu importierenden Quelldatei ist dem \todo{Add reference} Handbuch zum Server zu entnehmen.
+Details über das Format einer zu importierenden Quelldatei sind dem Handbuch zum Server zu entnehmen.
 
 ### Import aus dem SAP ERP System
 
@@ -323,6 +330,11 @@ Die bereits erwähnten Informationen über "Subräume" der tertiären Quelle wer
 ### Import der Raumliste
 
 Die Importfunktion der Raumliste dient zur Verlinkung von interner Raumnummer (`HTLRoom`-Attribut `internal_room_number`) und der Raumnummer im \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System (`HTLRoom`-Attribut `room_number`). Es werden dadurch bestehenden `HTLRoom` Objekten eine interne Raumnummer und eine Beschreibung zugewiesen, oder gänzlich neue `HTLRoom` Objekte anhand aller erhaltenen Informationen erstellt. Der Import geschieht direkt, ohne Auslagerung von Änderungen in Änderungsvorschläge.
+
+## Datenexport
+
+Die Daten aller `HTLItem` Gegenstände, die aus dem \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System importiert wurden können unter spezieller Verarbeitung exportiert werden.  Die exportierten Daten können in das \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System importiert werden und beinhalten u.a. Raumänderungen, die durch Inventuren aufgetreten sind. Bei der Verarbeitung der zu exportierenden Daten wird eine Funktion des `reversion` Pakets \cite{django-reversion-doku} genutzt. Diese Funktion besteht darin, den Zustand eines Gegenstandes zum Zeitpunkt des letzten Imports aus dem \emph{SAP ERP} \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten} System abzufragen. Es wird der Zustand zu dem angegebenen Zeitpunkt mit dem aktuellen Zustand verglichen. Anhand der erkannten Änderungen wird die Export-Datei erstellt. 
+Weitere Informationen zum Datenexport sind dem Handbuch zum Server zu entnehmen. 
 
 # Das "Stocktaking" Modul
 
@@ -397,7 +409,7 @@ Als Basis für Änderungsvorschläge dient die Klasse `ChangeProposalBase`. Sie 
 3. `ItemSplitChangeProposal`
 4. `SAPExportChangeProposal`
 
-Weitere Informationen über die Arten von Änderungsvorschlägen und deren Handhabung sind dem \todo{Add reference} Handbuch zum Server zu entnehmen.
+Weitere Informationen über die Arten von Änderungsvorschlägen und deren Handhabung sind dem Handbuch zum Server zu entnehmen.
 
 ## Die Client-Schnittstelle
 
@@ -463,6 +475,8 @@ class WarehouseStocktakingView(StocktakingPOSTWithCustomFieldsMixin,
 
 Die Modelle `BackOfficeAsset` und `Warehouse` sind in dem unveränderten "Ralph" System vorhanden.
 
+Die Klassen `StocktakingGETWithCustomFieldsMixin`,  `StocktakingPOSTWithCustomFieldsMixin`, `ClientAttachmentsGETMixin` und `ClientAttachmentsPOSTMixin` ermöglichen das Miteinbeziehen von \emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.} und Änhängen (siehe Abschnitt ["Speichern von Bildern und Anhängen"](#speichern-von-bildern-und-anhuxe4ngen)). Weitere Informationen zu den `Mixin`-Klassen kann der im Source-Code enthaltenen Dokumentation entnommen werden.  
+
 ### Kommunikationsformat
 
 Die Kommunikation zwischen Server und mobilem Client erfolgt über HTTP Abfragen. Das Datenformat wurde auf das JSON-Format \cite{json-format-doku} festgelegt. Grund dafür ist die weit verbreitete Unterstützung und relativ geringe Komplexität des Formats. 
@@ -481,7 +495,7 @@ Gegenstands- und Rauminstanzen müssen eine vom Menschen lesbare Repräsentation
 
 #### Barcode eines Gegenstandes
 
-Es muss für eine Instanz des Gegenstandsmodells ein Barcode generiert werden können. Diese Funktion wird in der Methode `item_barcode_getter()` der von `BaseStocktakeItemView` erbenden Klasse definiert. Um über den von der mobilen Applikation gescannten Barcode auf einen Gegenstand schließen zu können, müssen die Attribute `slug_url_kwarg` und `slug_field` auf den Namen eines Attributes gesetzt werden, das den Barcode eines Gegenstandes repräsentiert. Dieses Attribut muss für jeden Datensatz, der durch die `get_queryset()` Methode entsteht, vorhanden sein. In dem o.a. Beispiel wird dieses Attribut in der `get_queryset()` Methode durch `annotate()` \cite{django-doku-queriesets} hinzugefügt.
+Es muss für eine Instanz des Gegenstandsmodells ein Barcode generiert werden können. Diese Funktion wird in der Methode `item_barcode_getter()` der von `BaseStocktakeItemView` erbenden Klasse definiert. Um über den von der mobilen Applikation gescannten Barcode auf einen Gegenstand schließen zu können, müssen die Attribute `slug_url_kwarg` und `slug_field` auf den Namen eines Attributes gesetzt werden, das den Barcode eines Gegenstandes repräsentiert. Dieses Attribut muss für jeden Datensatz, der durch die `get_queryset()` Methode entsteht, vorhanden sein. In dem o.a. Beispiel wird dieses Attribut in der `get_queryset()` Methode durch `annotate()` \cite{django-doku-querysets} hinzugefügt.
 
 ### Einbindung und Erreichbarkeit der APIView-Klassen
 
@@ -890,3 +904,9 @@ Um einen Gegenstand in einem "Subraum" (siehe Abschnitt ["Subräume"](subruxe4um
 `"subroomValidations"` können rekursiv definiert werden. In dem Beispiel aus Alternative 3 muss darauf geachtet werden, dass der Raum mit \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} 100 direkter "Subraum" des Raums mit \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} 1 ist. 
 
 Weitere Details zur Funktionsweise und Anpassung der Client-Schnittstelle ist der im Source-Code enthaltenen Dokumentation zu entnehmen. 
+
+## Pull-Request
+
+Es wurde versucht, das `Stocktaking` Modul durch einen \emph{Pull-Request}\index{Pull-Request: Das Miteinbeziehen von individuell entwickeltem Quellcode in die offizielle Quell-Version der Software} in das offizielle Ralph-System einzubinden. Durch der in den Abschnitten ["Das StocktakingRoomValidation Modell"](#das-stocktakingroomvalidation-modell) und ["Das StocktakingItem Modell"](#das-stocktakingitem-modell) behandelten `GenericForeignKey` Funktionalität \cite{django-doku-contenttypes} ist es möglich, das Stocktaking-Modul für jegliche Modellklassen zu verwenden. Es gibt keine Beschränkung auf die durch das Diplomarbeitsteam implementierten Klassen.
+
+Die erstellte Lösung wurde im Entwicklungsforum der Ralph Plattform vorgestellt \cite{ralph-forum-1} \cite{ralph-forum-2} und ein Pull-Request auf der GitHub-Plattform wurde durchgeführt. 
