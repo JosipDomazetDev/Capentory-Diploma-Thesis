@@ -571,3 +571,260 @@ TODO
 # NetworkFragment
 
 TODO
+
+# Das Scannen
+
+Das Scannen ist ein vitaler Aspekt dieser Diplomarbeit. Gegenstände an unserer Organisation sind mit Barcodes augestattet. Um die Produktivität maximal zu steigern, muss die App in der Lage sein, diese Barcodes zu erfassen. Wir bieten folgende Varianten zum Scannen an:
+
+* Zebra-Scan
+* Kamerascan
+* Manuelle Eingabe (für den Fall, dass ein Scan fehlschlägt)
+
+## Der Zebra-Scan
+
+Der Sponsor dieser Diplomarbeit - Zebra - hat dem Diplomarbeitsteam einen TC56 ("Touch Computer") zur Verfügung gestellt. Dieser verfügt über einige Eigenschaften, die für eine Inventur vom Vorteil sind \cite{zebra-tc56}:
+
+* Ein Akku mit über 4000 mAh ermöglicht mehrstündige Inventuren.
+* Viel Arbeitsspeicher und ein leistungsstarker Prozesser ermöglichen flüssiges App-Verhalten.
+* Dank robuster Bauart hält das Gerät auch physisch anspruchsvollere Phasen einer Inventur aus.
+* Ein in das Smartphone integrierter Barcodescanner reduziert die Scanzeiten drastisch.
+
+## Zebra-Scan: Funktionsweise
+
+Die App kommuniziert nicht direkt mit dem Scanner. Stattdessen wickelt das Zebra-Gerät den Scan ab und sendet das Resultat als `Broadcast` aus \cite{broadcast}. Auf dem Zebra-Gerät läuft im Hintergrund immer die DataWege-Applikation. Dies ist eine App, die die Behandlung des tatsächlichen Scans abwickelt und das Ergebnis auf mehrere Arten aussendet. Beispielsweise wird das Ergebnis an die Tastatur geschickt, aber eben auch als Broadcast an das Betriebssystem. Die App regestriert sich beim Betriebssystem und hört auf den Broadcast, der den Barcode enthält und automatisch von DataWege entsandt wird. Broadcast werden durch eine String-ID unterschieden, die über DataWedge konifiguriert wird. Derartige Ansätze werden als Publish–subscribe-Model bezeichnet \cite{Publish–subscribe}. 
+
+Dies bietet folgende Vorteile:
+
+* Die Hardware wird komplett abstrahiert. Die vorliegende App "sieht" den Scanner zu keinem Zeitpunkt.
+* Durch die Abstrahierung des Scanners wird die eigene Codebasis kleiner und weniger kompliziert. 
+* DataWedge wird von Zebra entwickelt. Damit hat man eine gewisse Sicherheit, dass der Scanner verlässlich funktioniert.
+
+Bei weiterer Überlegung kommt man außerdem zur Erkenntnis, dass der Broadcast nicht von DataWege stammen muss. Wenn eine beliebige andere App, einen Broadcast mit derselben ID ausschickt, wird die vorliegende App dies als Scan werten. In weiterer Folge ist es zumindest theoretisch möglich, beispielsweise einen Bluetooth-Scanner mit einem regulären Android-Gerät zu verwenden und bei einem Resultat, einen Broadcast mit derselben ID auszuschicken. Die vorliegende App würde keinen Unterschied bemerken und somit auch mit dem Bluetooth-Scanner funktionieren. Dieses Einsatzgebiet wurde vom Diplomarbeitsteam jedoch nicht getestet.
+
+### Zebra-Scan: Codeausschnitt
+
+Broadcast können in Android durch `BroadcastReceiver` ausgelsen werden. Auch hier wurde das DRY-Prinzip angewandt. Jedes Fragment, das Scanergebnisse braucht, verwendet essentiel denselben BroadcastReceiver. Daher hat das Team einen eigenen BroadcastReceiver stellt, der die gemeinsamen Eigenschaften zusammenführt. Der gesamte Code für den Zebra-Scan konnte damit relativ kompakt in eine Klasse eingebunden werden:
+
+```java
+public class ZebraBroadcastReceiver extends BroadcastReceiver {
+    ...
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        String action = intent.getAction();
+
+        // R.string.activity_intent_filter_action definiert 
+        // die konfigurierte ID des Broadcasts
+        if (action.equals(context.getResources()
+           .getString(R.string.activity_intent_filter_action))) {
+            // R.string.datawedge_intent_key_data definiert die ID des Scanergebnis selbst. 
+            // Der Scan liefert auch andere Ergebnisse, wie das Barcodeformat. 
+            // Relevant ist nur der Barcode.
+            String barcode = intent.getStringExtra(
+                context.getResources().getString(R.string.datawedge_intent_key_data));
+
+          
+            // Das Scanergebnis wird nun per 
+            // funktionalem Interface an die Fragments weitergegeben.
+            scanListener.handleZebraScan(barcode);
+        }
+    }
+
+
+    public static void registerZebraReceiver(
+                            Context context, 
+                            ZebraBroadcastReceiver zebraBroadcastReceiver, 
+                            ErrorHandler errorHandler) {
+        ...
+        IntentFilter filter = new IntentFilter();
+        filter.addCategory(Intent.CATEGORY_DEFAULT);
+        // R.string.activity_intent_filter_action definiert 
+        // die konfigurierte ID des Broadcasts
+        filter.addAction(context.getResources().getString(R.string.activity_intent_filter_action));
+        // Hier wird der BroadcastReceiver mit der ID, auf die er zu hören hat, registriert.
+        context.registerReceiver(zebraBroadcastReceiver, filter);
+    }
+
+
+    public static void unregisterZebraReceiver(
+                    Context context, 
+                    ZebraBroadcastReceiver zebraBroadcastReceiver) {
+         // Falls ein BrodcastReceiver nicht mehr gebraucht wird
+         // Sollte er immer abgemeldet werden.
+        context.unregisterReceiver(zebraBroadcastReceiver);
+    }
+}
+```
+
+
+
+
+## Der Kamerascan
+
+Für Geräte, die nicht dem Hause Zebra entstammen, bietet die App die Möglichkeit eines Kamerascans an. Im Hintergrund wird dafür die Google Mobile Vision API verwendet, die unter anderem auch Texterkennung oder Gesichtserkennung anbietet \cite{mobile-vision}. Hierbei wird ein Barcode mittels der Gerätekamera erfasst, ohne dass zuvor ein Bild gemacht werden muss. Dem Benutzer wird eine Preview angezeigt und die Kamera schließt sich, sobald ein Barcode erfasst wurde. Um die Performanz zu maximieren, hat das Diplomarbeitsteam folgende Optimierungen vorgenommen:
+
+* Die API wurde um Blitzfunktionalitäten ergänzt. Dazu wurde eine OpenSource-Variante der Library modifiziert, da die offizielle proprietäre Version keinen Blitz untersützt. Der Blitz ist über einen ToggleButton sofort deaktivierbar oder aktivierbar. Um einen Klick einzusparen, kann der Benutzer über die Einstellungen den Blitz sofort beim Start des Kamerascans aktivieren lassen. Für eine optimale Erkennung darf man den Blitz jedoch nicht direkt Richtung Barcode anvisieren, sondern sollte den Blitz entweder höher oder niedriger als den Barcode halten, um optische Reflexionen zu vermeiden. 
+* Über die Einstellungen kann der Benutzer die Barcodeformate einschränken. Dies führt ebenfalls zur schnelleren Barcodeerkennung und vermeidet zudem noch das Auftreten von false positives. Wenn der Benutzer die Kamera nicht auf den gesamten Barcode hält, kann es unter Umständen dazu kommen, dass der abgeschnitte Barcode fälschlicherweise als anderes Format interpretiert wird und der Scan daher einen Barcode liefert, der nicht existiert. Offiziell wird in der vorliegenden Organisation nur das Code_93-Format eingesetzt.
+* Interne Test haben ergeben, dass ein Aspect Ratio von 16:9 das Schnellste ist. Daher wird die Preview-Größe statisch auf 1920 zu 1080 Pixel festgelegt. Die Preview verwendet jedoch tatsächlich die Größe, die am nähesten zu 1920x1080 ist und vom Gerät unterstützt wird.
+* Falls ein Scan erfolgreich ist, wird ein Piepston abgespielt, der als akkustisches Feedback fungiert.
+
+
+### Kamerascan: Codeausschnitt
+
+Für die Scanfeatures wird bezüglich der Single-Activity-App eine Ausnahme gemacht. Da diese Screens navigationstechnisch unabhängig sind und im Vollbildmodus gestartet werden, macht es mehr Sinn, sie als Activities anstatt als Fragments zu implementieren. Die Fragments, die einen Kamerascan verwenden, können ihn bequem mit `startActivityForResult` aufrufen. Sie starten also eine neue Activity um ein Ergebnis zu erhalten:
+
+
+```java
+Intent intent = new Intent(getContext(), ScanBarcodeActivity.class);
+// 0 ist der Request Code, der die Aktivität identifiziert. 
+startActivityForResult(intent, 0);
+```
+
+Mit der Vision API erstellt man einen `BarcodeDetector` dem ein `Processor` zugewiesen wird. Falls ein Barcode erkannt wird, wird `receiveDetections` automatisch aufgerufen. Die App nimmt sich den ersten erkannten Barcode heraus, setzt ihn als Ergbenis dieser Aktivität und beendet die Aktivität.
+
+```java
+barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
+        ...
+
+        @Override
+        public void receiveDetections(Detector.Detections<Barcode> detections) {
+                ...
+                // Barcode einlesen
+                String barcode = barcodeSparseArray.valueAt(0).rawValue;
+
+                //Barcode bekanntgeben
+                Intent intent = new Intent();
+                intent.putExtra("barcode", barcode);
+                setResult(CommonStatusCodes.SUCCESS, intent);
+                finish();
+                ...
+        }
+```
+
+Das Ergebnis kann dann wiederum im Fragment wie folgt abgefangen und weiter verarbeitet werden:
+
+```java
+@Override
+public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    if (requestCode == 0) {
+        if (resultCode == CommonStatusCodes.SUCCESS) {
+            ...    
+            // Barcode einlesen
+            String barcode = data.getStringExtra("barcode");
+            // Anhand des Barcodes werden dann weitere Aktionen gesetzt
+            launchItemDetailFragmentFromBarcode(barcode);
+        }
+        ...
+}
+```
+
+## Die manuelle Eingabe
+
+Gegenstände können durch Scannen, aber auch durch manuelles Klicken auf ihre GUI-Darstellung validiert werden. Es kann durchaus Sinn machen, auf einen Scan zu verzichten, wenn:
+
+* der Scan langsam oder unmöglich ist (z.B. bei Barcodes in unerreichbarer Höhe oder beschädigten Barcodes).
+* man einen Gegenstand auch ohne Barcode indentifizieren kann.
+* man mit einer manuellen Vorgehensweise schneller ist, als mit dem Kamerascan.
+
+### Suche
+
+Die Gegenstandsliste, die dem Benutzer angezeigt wird, ist durch eine Suchleiste (`SearchBar`) filterbar. Der Benutzer kann nach Barcode und Gegenstandsbeschreibung filtern. Dadurch ergibt sich auch die Möglichkeit, eine Voice-Tastatur - insofern das Gerät eine hat - einzusetzen.
+
+### Textscan
+
+Falls der Benutzer weder Voice noch Tastatur verwenden will, kann er den Textscan verwenden. Hierbei wird per Google Mobile Vision API der aufgedruckte Text auf einem Barcode - jedoch NICHT der Barcode selbst - gescannt \cite{text-scan}. Der Scan ist für Sprachen, die ein lateinisches Schriftsystem verwenden, optimiert. Dem Benutzer wird das aktuelle Scanergebnis laufend angezeigt. Da der Out-Of-The-Box-Scan für die vorliegenden Zwecke nicht unbedingt geeignet ist, wurden folgende Modifikationen vorgenommen (Der Textscan wurde als `TextScanActivity` realisiert):
+
+* Der Scanner nimmt grundsätzlich alles was er sieht auf. Das Projektteam hat dies mit Regex-Ausdrücken kombiniert um sinnvolle Ergebnisse zu erlangen. Es gibt daher verschiedene Texterkennungsmodi:
+    * Kein Filter. Hier wird keine Regex verwendet und der Benutzer sieht den ungefilterten Text, den der Scanner erkannt hat.
+    * Alphanumerisch.
+    * Alphabetisch. 
+    * Numerisch (Barcodes).
+    * IP-Addressen. 
+Jeder Modus verwendet die Regex, die am besten für seine Kategorie geeignet ist. Die Library bietet nur geringfügige Möglichkeiten an, den Scan selbst zu beeinflussen. Man kann eine Priorität auf ein Scanergebnis setzen. Daher wird die Priorität auf ein Scanergebnis gesetzt, sobald dieses durch die aktuelle Regex ausgedrückt werden kann. Unabhängig davon werden alle Zeichen des Ergebnisses entfernt, die nicht durch die Regex erfasst wurden.
+* Die API wurde um Blitzfunktionalitäten ergänzt.
+
+Die Erkennung von Barcodes (also der Numerische Modus) hat zusätzlich folgende Optimierungen erhalten:
+
+* Gescannte Ergebnisse werden durch die Regex optimiert und gespeichert. Das Ergebnis, das zuerst dreimal vorkam, wird eingelockt. Das heißt, dass alle restlichen Scans ignoriert werden. 
+* Zeichen die häufig vom Scanner verwechselt werden (z.B. wird die Ziffer "0" häufig als Buchstabe "O" erkannt), werden durch ihr numerisches Gegenstück ersetzt. 
+* Längere Zeichenketten erhalten eine höhere Priorität und werden dem Benutzer vorzugsweise angezeigt. Damit werden abgeschnittene Ergebnisse benachteiligt. Falls ein kürzeres Ergebnis jedoch dreimal vorkommt, wird nicht mehr die längste Zeichenkette, sondern die häufigste bevorzugt und dem Benutzer angezeigt.  
+* Ergebnisse, die weniger als sieben Zeichen enthalten, werden nicht gespeichert und können damit auch nicht eingelockt werden.
+
+
+Der Benutzer kann das aktuell angezeigte Ergebnis in seine Zwischenablage kopieren und anschließend damit die Suchleiste nutzen. Die Kommunikation zwischen den restlichen Screens und dem Textscan erfolgt analog zum Kamerascan, da der Textscan aus denselben Gründen als Activity implementiert wurde. 
+
+
+
+
+# Die Inventurlogik auf der App
+
+## Die Fragments
+
+Dieses Kapitel basiert auf den Erklärungen der vorhergehenden Artikel. Eine Inventur wird auf der App durch folgenden Screens (Fragments) abgewickelt, die gleichzeitig als Phasen verstanden werden können:
+
+* `StocktakingFragment`
+* `RoomsFragment`
+* `ViewPagerFragment`
+    * `MergedItemsFragment`
+    * `ValidatedMergedItemsFragment`
+* `DetailedItemFragment`
+* `AttachmentsFragment`
+
+
+#### StocktakingFragment
+ist das Fragment, in dem der Benutzer die aktuelle Inventur auswählt. Die Inventur kann nur vom Administrator am Server angelegt werden. Außerdem wählt der Benutzer hier die Datenbanksicht ("Serializer") aus. Die App kommuniziert ausschließlich mittels REST API mit dem Server. Diese Schnittstelle kann verschiendene Quellen haben. Für eine Inventur an unserer Schule ist die "HTL"-Datenbanksicht auszuwählen. Durch das Bestätigen eines langegezogenen blauen Buttons gelangt man immer zur nächsten Inventurphase. In diesem Fall gelangt man zum `RoomsFragment`.
+
+urls
+
+hardcoed only
+
+
+#### RoomsFragment
+ist das Fragment, in dem der Benutzer den aktuellen Raum über eine DropDown auswählt. Anstatt die DropDown zu verwenden, kann er alternativ auch die Suchleiste verwenden. Als zusätzliche Alternative hat der Benutzer die Möglichkeit den Barcode eines Raumes zu scannen. Nach der Auswahl eines Raumes gelangt er zum `ViewPagerFragment`. 
+
+#### ViewPagerFragment
+ist das Fragment, das als Wrapper für das `MergedItemsFragment` und das `ValidatedMergedItemsFragment` dient. Die einzige Aufgabe dieses Fragments ist es, die zwei vorher genannten Fragments als Tabs anzuzeigen. Dies wurde mit der neuen ViewPager2-Library realisiert \cite{viewpager2}. Die Tabs kommunizieren über ein geteiltes ViewModel miteinander.
+
+
+#### MergedItemsFragment & ValidatedMergedItemsFragment
+
+sind die Fragments, die die Gegendsstandsliste eines Raumes verwalten und sie dem Benutzer anzeigen. Die Gegenstände werden einzeln validiert. Durch das Scannen des Barcodes eines Gegenstands (beziehungsweise das Klicken auf seine GUI-Repräsentation, wenn das Scannen keine Option ist) gelangt er zum `DetailedItemFragment`. `ValidatedMergedItemsFragment` erfüllt nur den Zweck, dem Benutzer bereits validierte Gegenstände anzuzeigen und ihm die Möglichkeit zu geben, validierte Gegenstände zurück zu den nicht-validierten Gegenständen in `MergedItemsFragment` zu verschieben. Daher trägt der Tab für das  `MergedItemsFragment` die Beschriftung "TODO", währenddessen der Tab für das  `ValidatedMergedItemsFragment` die Beschriftung "DONE" trägt.
+
+####  DetailedItemFragment
+ist das Fragment, das zur Validierung eines einzelnen Gegenstands dient. Der Benutzer hat hier die Möglichkeit, etwaige Eigenschaften des Gegenstandes (beispielsweise den Anzeigenamen) zu ändern. Ein Formular, dass die Felder eines Gegenstandes beinhaltet, wird einmal angefordert, und anschließend für die gesamte Lebensdauer der App gespeichert. Anhand dieses Formulares wird dann eine GUI-Repräsentation dynamisch erstellt. 
+
+Dadurch braucht man für die gesamte Validierung eines Raumes - insofern keine Sonderfälle auftreten - keine Verbindung zum Server. Der Benutzer kann die Liste an einer Lokalität mit einer guten Verbindung anfordern, den Raum mit schlechter Verbindung betreten und validieren. Anschließend kann er den Raum verlassen und seine Validierungen an den Server senden. Damit wird der Bedarf an Netzwerkanfragen in Räumen mit schlechter Netzwerkverbindung minimiert. Der Benutzer kann zusätzlich zur Validierung auch Anhänge für einen Gegenstand definieren, dazu landet er beim `AttachmentsFragment`.
+
+OPTIONS
+
+#### AttachmentsFragment
+ist das Fragment, das die Anhänge eines Gegenstandes verwaltet. Der Benutzer sieht hier die bereits vorhandenen Anhänge mit Beschriftungen und kann weitere Anhänge hinzufügen. Bilder werden direkt angezeigt. Andere Dateien werden hingegen als Hyperlink dargestellt. Der Benutzer kann diese per Browser runterladen. Zum Hochladen eigener Anhänge greift die App auf den Standard-Dateibrowser des Systems zurück. Das Outsourcen auf Webbrowser und Dateibrowser bietet den massiven Vorteil, das man sich die Entwicklung eigener Download-Manager bzw. File-Manager erspart und auf Apps setzen kann, die von namenhaften Herstellern entwickelt werden. Fast jedes System hat bereits beide Komponenten vorinstalliert, daher treten bezüglich der Verfügbarkeit keine Probleme auf. 
+
+Beim dem Hochladen von Bildern komprimiert die App jene zuvor. Die Qualität des Bildes ist einstellbar:
+
+* 100 % (keine Kompression)
+* 95 %
+* 85 %
+* 75 %
+
+Zur Kompression wird das WEBP-Format verwendet, das dem mittlerweile veralteten JPG-Standard überlegen ist \cite{webp}. Der Server speichert den gesendeten Anhang nur einmal (Dateien werden anhand von Hashes unterschieden). Wenn ein Benutzer allen PCs in einem EDV-Saal dasselbe Bild zuweist, wird es nur einmal am Server hinterlegt. Die Anzahl der Anhänge ist nicht limitiert.
+
+## Validierungslogik
+
+
+### Quickscan
+
+
+
+### Sonderfälle 
+
+#Subitems
+
+#Subrooms
+
+#Other room
+
+# New Item
+
+
+
+
