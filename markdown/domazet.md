@@ -794,6 +794,12 @@ ist das Fragment, das zur Validierung eines einzelnen Gegenstands dient. Der Ben
 
 Dadurch braucht man für die gesamte Validierung eines Raumes - insofern keine Sonderfälle auftreten - keine Verbindung zum Server. Der Benutzer kann die Liste an einer Lokalität mit einer guten Verbindung anfordern, den Raum mit schlechter Verbindung betreten und validieren. Anschließend kann er den Raum verlassen und seine Validierungen an den Server senden. Damit wird der Bedarf an Netzwerkanfragen in Räumen mit schlechter Netzwerkverbindung minimiert. Der Benutzer kann zusätzlich zur Validierung auch Anhänge für einen Gegenstand definieren, dazu landet er beim `AttachmentsFragment`.
 
+Folgende GUI-Komponenten wurden statisch eincodiert, da sie Felder repräsentieren, die unabhängig von der ausgewählten Datenbanksicht immer vorhanden sind und daher nicht dynamisch sind:
+
+* Ein read-only Textfeld für die Gegendstandsbeschreibung
+* Ein read-only Textfeld für den Barcode
+* 
+
 OPTIONS
 
 #### AttachmentsFragment
@@ -810,21 +816,50 @@ Zur Kompression wird das WEBP-Format verwendet, das dem mittlerweile veralteten 
 
 ## Validierungslogik
 
+MergedItemsFragment & DetailedItemFragment sind die Fragments, die den Großteil einer Inventur ausmachen. Der Benutzer scannt alle SAP-Barcodes, die sich in einem Raum befinden. Im Idealfall entspricht diese Menge exakt der Menge der Gegenstände, die dem Benutzer im MergedItemsFragment angezeigt wird. Im Normalfall wird dies durch etwaige Sonderfälle jedoch nicht gegeben sein. 
+
+Nach dem Scannen eines Gegenstandes werden die Felder des Gegenstandes dem Benutzer im DetailItemFragment angezeigt. In diesem Fragment hat der Benutzer zwei Buttons mit denen der Benutzer den Gegenstand validieren kann:
+
+* Grüner Button: Mit diesem Button wird signalisiert, dass sich der Gegenstand im Raum befindet und der Gegenstand wird mitsamt etwaigen Änderungen an seinen Attributen/Feldern übernommen. Dazu wird ein `ValidationEntry` erstellt. Alternativ kann der Benutzer das Klicken dieses Buttons mit dem Schütteln des Gerätes ersetzen. Die Schüttel-Sensibilität ist über die Einstellungen konfigurierbar (und auch deaktivierbar).
+* Roter Button: Mit diesem Button wird signalisiert, dass sich der Gegenstand nicht im Raum befindet. Dieser Button wird im Normalfall nie betätigt werden, da ein Gegenstand, der sich nicht in diesem Raum befindet, nicht gescannt werden kann und daher dieses Fenster nie geöffnet werden wird. Der Button hat trotzdem einen Sinn, da der Benutzer damit die "TODO"-Liste über das GUI verkleinern kann, um sich einen besseren Überblick zu verschaffen. 
+
+
+### ValidationEntry
+
+Das MergedItemsFragment verfügt über eine HashMap (`Map<MergedItem, List<ValidationEntry>>`), die alle ValidationEntries beinhaltet. Ein ValidationEntry beinhaltet sämliche Informationen, die der Server benötigt, um die Datensätze der Gegenstände entsprechend anzupassen.
+
+
+### Sendeformat
+
+TODO
 
 ### Quickscan
 
-
+Der häufigste Fall einer Inventur wird, der sein, dass ein Gegenstand im richtigen Raum ist und der Benutzer ohne weiteren Input auf den grünen Button drückt. Da dies eienen unnötigen Overhead darstellt, wurde die App um den `QuickScan`-Modus erweitert. Hierbei wird sofort nach dem Scannen ein `ValidationEntry` erstellt, ohne das zuvor das DetailedItemFragment geöffnet wird. Dieser Modus ist durch einen weiteren Button im MergedItemsFragment aktivierbar/deaktivierbar. Falls ein Sonderfall auftreten sollte, vibriert das Gerät zweimal und öffnet das  DetailedItemFragment. Damit wird gewährleistet, dass der Benutzer nicht irrtürmlich mit dem Scannen weitermacht. Er muss diesen Sonderfall händisch validieren. Haptisches Feedback ist für Sonderfälle reserviert.
 
 ### Sonderfälle 
 
-#Subitems
+Ein zentrales Thema der vorliegenden Diplomarbeit ist die Behandlung der Sonderfälle. 
 
-#Subrooms
+#### Subitems
 
-#Other room
+Falls ein Gegenstand mehrmals vorhanden sein sollte, ist der `times_found_last`-Zähler in der Antwort des Servers größer als 1. Gegenstände. Dieser Counter wird dem Benuzer in folgender Form angezeigt: [Anzahl aktuell gefunden] / [Anzahl zuletzt gefunden]. 
 
-# New Item
+Pro Subitem wird ein eigener ValidationEntry erstellt. An unserer Schule haben Subitems jedoch keinen Barcode sondern sind beispielsweise Teil eines Bundles, was dazu führt, dass Subitems auch in der Datenbank keine selbstständigen Gegenstände sind. CPs die auf Basis dieser ValidationEntries erstellt werden, werden dem echten "Parent"-Gegenstand zugeordnet und können wahlweise angewandt werden. Falls ein Gegenstand mehrmals gescannt wird, wird - nach Bestätigung durch den Benutzer - die Anzahl der aktuellen Funde erhöht und wiederum ein ValidationEntry erstellt, selbst wenn es sich bei dem Gegenstand nicht um ein Subitem handelt.
 
+#### Subrooms
+
+Subrooms sind logische Räume in einem Raum. Subrooms werden dem Benutzer im MergedItemsFragment als einklappbare Teilmenge aller Gegenstände des Raumes angezeigt. Die Subroom-Zugehörigkeit kann auf Gegenstandsbasis über eine DropDown geändert werden. Die Subroom-Zugehörigkeit wird in einem ValidationEntry immer gesetzt, auch wenn sie sich nicht geändert hat. 
+
+#### Unbekannte Gegenstände
+
+Falls ein Gegenstand gescannt wird, der sich nicht in der aktuellen Gegenstandsliste befindet, muss der Server befragt werden. Es gibt zwei mögliche Antwortsszenarien. Die ValidationEntries für diese Sonderfälle unterscheiden sich nicht von den bisherigen.
+
+##### Neuer Gegenstand
+Der Gegenstand befindet sich überhaupt nicht in der Datenbank. Im "DONE"-Tab haben solche Gegenstände eine blaue Hervorhebung.
+
+##### Gegenstand aus anderem Raum
+Der Gegenstand befindet in der Datenbank und stammt ursprünglich aus einem anderen Raum. Im "DONE"-Tab haben solche Gegenstände eine orange Hervorhebung.
 
 
 
