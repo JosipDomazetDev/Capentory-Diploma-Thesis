@@ -50,11 +50,11 @@ Neben den physischen Hardwarekomponenten wird für einen funktionierenden und le
 
 ### Linux CentOS
 
-CentOS ist eine frei verfügbare Linux Distribution, die auf [Red Hat Enterprise Linux](https://de.wikipedia.org/wiki/Red_Hat_Enterprise_Linux) aufbaut. Hinter Ubuntu und Debian ist CentOS die am dritthäufigsten verwendete Software und wird von einer offenen Gruppe von freiwilligen Entwicklern betreut, gepflegt und weiterentwickelt.
+CentOS ist eine frei verfügbare Linux Distribution, die auf Red-Hat \cite{redhat} aufbaut. Hinter Ubuntu und Debian ist CentOS die am dritthäufigsten verwendete Software und wird von einer offenen Gruppe von freiwilligen Entwicklern betreut, gepflegt und weiterentwickelt.
 
 ### Linux Ubuntu
 
-Ubuntu ist die am meist verwendete Linux-Betriebssystemsoftware für Webserver. Auf Debian basierend ist das Ziel der Entwickler, ein einfach zu installierendes und leicht zu bedienendes Betriebssystem mit aufeinander abgestimmter Software zu schaffen. Hauptsponsor des Ubuntu-Projektes ist der Software-Hersteller [Canonical](https://de.wikipedia.org/wiki/Canonical), der vom südafrikanischen Unternehmer [Mark Shuttlerworth](https://de.wikipedia.org/wiki/Mark_Shuttleworth) gegründet wurde.
+Ubuntu ist die am meist verwendete Linux-Betriebssystemsoftware für Webserver. Auf Debian basierend ist das Ziel der Entwickler, ein einfach zu installierendes und leicht zu bedienendes Betriebssystem mit aufeinander abgestimmter Software zu schaffen. Hauptsponsor des Ubuntu-Projektes ist der Software-Hersteller Canonical \cite{canonical}, der vom südafrikanischen Unternehmer Mark Shuttleworth \cite{mark} gegründet wurde.
 
 ### Vergleich und Wahl
 
@@ -85,7 +85,7 @@ Jedoch kam es beim ersten Versuch zu Problemen mit der Konfiguration der Netzwer
 Um eine funktiorierende Internetverbindung zu erstellen, durfte die Konfiguration der Schnittstellen nicht erst "später durchgeführt" werden, da mit dem Aufschub der Schnittstellen-Konfiguration das Paket "NetworkManager" nicht installiert wurde. Der "NetworkManager" ist verantwortlich für den Zugang zum Internet und der Netzwerksteuerung auf dem Linuxsystem. Und da im Nachhinein dieses Paket nicht installiert war (und aufgrund fehlender Internetverbindung nicht installiert werden konnte), half auch die fehlerfreie Interface-Konfiguration nicht, um eine Konnektivität herzustellen. Dadurch musste ein zweiter Installationsdurchgang durchgeführt werden, worauf dann alles fehlerfrei und problemlos lief.
 
 ### Konfiguration
-Im Rahmen des Laborunterrichts an der Htl Rennweg, bekamen die Schüler für diverse Unklarheiten ein sogenanntes [Cheat-Sheet](https://netzwerktechnik.htl.rennweg.at/~zai/Fachschule/NWT_Stamm_Foerderkurs/Survival_Guide_Linux_Network_Configuration.pdf) für Linux-Befehle zur Verfügung gestellt. In diesem Cheat-Sheet finden sich unteranderem Anleitungen für die Konfiguration einer Netzwerkschnittstelle auf einer CentOS/RedHat sowie Ubuntu/Debian-Distribution.
+Im Rahmen des Laborunterrichts an der Htl Rennweg, bekamen die Schüler für diverse Unklarheiten ein sogenanntes Cheat-Sheet \cite{cheat} für Linux-Befehle zur Verfügung gestellt. In diesem Cheat-Sheet finden sich unteranderem Anleitungen für die Konfiguration einer Netzwerkschnittstelle auf einer CentOS/RedHat sowie Ubuntu/Debian-Distribution.
 Den Schülern der fünften Netzwerktechnikklasse sollte diese Kurzkonfiguration jedoch schon leicht von der Hand gehen, da sie diese Woche für Woche benötigen.
 
 Eine Netzwerkkonfiguration mit statischen IPv4-Adressen für eine Ubuntu-Distribution könnte wie folgt aussehen:
@@ -114,9 +114,7 @@ Unter Abbildung 5.1 wird der Netzwerkplan veranschaulicht. Auf der linken Seite 
 \caption{Netzwerkplan}
 \end{figure}
 	
-### Testen der Konnektivität im Netzwerk
 
- 
 ## Installation der notwendigen Applikationen
 Damit die Ubuntu-Maschine für den Produktivbetrieb startbereit ist, müssen im Vorhinein noch einige wichtige Konfigurationen durchgeführt werden. Die wichtigste (Netzwerkkonfiguration) wurde soeben ausführlich erläutert doch ohne der Installation von diversen Applikationen, wäre das System nicht brauchbar.
 
@@ -285,6 +283,7 @@ Es wurde bereits desöfteren erklärt warum die vorhandene "Ralph-Dockerlösung"
 \centering
 \includegraphics{uwsgi.png}
 \caption{Funktionsweise von uWSGI}
+\cite{uwsgi}
 \end{figure}
 
 Da die meisten Serverbenutzer alleine mit der Grafik nicht wirklich viel anfangen können, folgt nun eine Erklärung dieser:

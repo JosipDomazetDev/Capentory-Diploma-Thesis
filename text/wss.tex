@@ -2,7 +2,7 @@
 \section{Technische Umsetzung:
 Infrastruktur}\label{technische-umsetzung-infrastruktur}}
 
-Um allen Kunden einen problemlosen Produktivbetrieb zu gewährleisten
+Um allen Kunden einen problemlosen Produktivbetrieb zu gewährleisten,
 muss ein physischer Server aufgesetzt werden. Auf diesem können dann
 alle Komponenten unseres Git-Repositories geklont und betriebsbereit
 installiert werden. Dafür gab es folgende Punkte zu erfüllen:
@@ -29,8 +29,9 @@ installiert werden. Dafür gab es folgende Punkte zu erfüllen:
   die Überwachung des Netzwerks
 \end{itemize}
 
-In den folgenden Kapitel wird deutlich gemacht, wie die oben angeführten
-Punkte, im Rahmen der Diplomarbeit ``Capentory'' abgearbeitet wurden.
+In den folgenden Kapiteln wird deutlich gemacht, wie die oben
+angeführten Punkte, im Rahmen der Diplomarbeit ``Capentory''
+abgearbeitet wurden.
 
 \hypertarget{anschaffung-des-servers}{%
 \subsection{Anschaffung des Servers}\label{anschaffung-des-servers}}
@@ -108,9 +109,8 @@ Htl Rennweg kennenlernen und Übungen darauf durchführen durfte:
 \hypertarget{linux-centos}{%
 \subsubsection{Linux CentOS}\label{linux-centos}}
 
-CentOS ist eine frei verfügbare Linux Distribution, die auf
-\href{https://de.wikipedia.org/wiki/Red_Hat_Enterprise_Linux}{Red Hat
-Enterprise Linux} aufbaut. Hinter Ubuntu und Debian ist CentOS die am
+CentOS ist eine frei verfügbare Linux Distribution, die auf Red-Hat
+\cite{redhat} aufbaut. Hinter Ubuntu und Debian ist CentOS die am
 dritthäufigsten verwendete Software und wird von einer offenen Gruppe
 von freiwilligen Entwicklern betreut, gepflegt und weiterentwickelt.
 
@@ -118,14 +118,12 @@ von freiwilligen Entwicklern betreut, gepflegt und weiterentwickelt.
 \subsubsection{Linux Ubuntu}\label{linux-ubuntu}}
 
 Ubuntu ist die am meist verwendete Linux-Betriebssystemsoftware für
-Webserver. Auf Debian basierend ist das Ziel der Entwickler, ein ein
-einfach zu installierendes und leicht zu bedienendes Betriebssystem mit
+Webserver. Auf Debian basierend ist das Ziel der Entwickler, ein einfach
+zu installierendes und leicht zu bedienendes Betriebssystem mit
 aufeinander abgestimmter Software zu schaffen. Hauptsponsor des
-Ubuntu-Projektes ist der Software-Hersteller
-\href{https://de.wikipedia.org/wiki/Canonical}{Canonical}, der vom
-südafrikanischen Unternehmer
-\href{https://de.wikipedia.org/wiki/Mark_Shuttleworth}{Mark
-Shuttlerworth} gegründet wurde.
+Ubuntu-Projektes ist der Software-Hersteller Canonical \cite{canonical},
+der vom südafrikanischen Unternehmer Mark Shuttleworth \cite{mark}
+gegründet wurde.
 
 \hypertarget{vergleich-und-wahl}{%
 \subsubsection{Vergleich und Wahl}\label{vergleich-und-wahl}}
@@ -201,10 +199,9 @@ und problemlos lief.
 \subsubsection{Konfiguration}\label{konfiguration}}
 
 Im Rahmen des Laborunterrichts an der Htl Rennweg, bekamen die Schüler
-für diverse Unklarheiten ein sogenanntes
-\href{https://netzwerktechnik.htl.rennweg.at/~zai/Fachschule/NWT_Stamm_Foerderkurs/Survival_Guide_Linux_Network_Configuration.pdf}{Cheat-Sheet}
-für Linux-Befehle zur Verfügung gestellt. In diesem Cheat-Sheet finden
-sich unteranderem Anleitungen für die Konfiguration einer
+für diverse Unklarheiten ein sogenanntes Cheat-Sheet \cite{cheat} für
+Linux-Befehle zur Verfügung gestellt. In diesem Cheat-Sheet finden sich
+unteranderem Anleitungen für die Konfiguration einer
 Netzwerkschnittstelle auf einer CentOS/RedHat sowie
 Ubuntu/Debian-Distribution. Den Schülern der fünften
 Netzwerktechnikklasse sollte diese Kurzkonfiguration jedoch schon leicht
@@ -251,10 +248,6 @@ später (unter Punkt ``Absicherung der virtuellen Maschine'') mehr.
 \includegraphics{topo1.png}
 \caption{Netzwerkplan}
 \end{figure}
-
-\hypertarget{testen-der-konnektivituxe4t-im-netzwerk}{%
-\subsubsection{Testen der Konnektivität im
-Netzwerk}\label{testen-der-konnektivituxe4t-im-netzwerk}}
 
 \hypertarget{installation-der-notwendigen-applikationen}{%
 \subsection{Installation der notwendigen
@@ -590,6 +583,7 @@ genauer dargestellt.
 \centering
 \includegraphics{uwsgi.png}
 \caption{Funktionsweise von uWSGI}
+\cite{uwsgi}
 \end{figure}
 
 Da die meisten Serverbenutzer alleine mit der Grafik nicht wirklich viel
