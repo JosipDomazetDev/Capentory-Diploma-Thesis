@@ -3,7 +3,7 @@
 
 Technische Umsetzung: Infrastruktur
 =============================
-Um allen Kunden einen problemlosen Produktivbetrieb zu gewährleisten muss ein physischer Server aufgesetzt werden. Auf diesem können dann alle Komponenten unseres Git-Repositories geklont und betriebsbereit installiert werden. Dafür gab es folgende Punkte zu erfüllen:
+Um allen Kunden einen problemlosen Produktivbetrieb zu gewährleisten, muss ein physischer Server aufgesetzt werden. Auf diesem können dann alle Komponenten unseres Git-Repositories geklont und betriebsbereit installiert werden. Dafür gab es folgende Punkte zu erfüllen:
 
 * das Organisieren eines Servers
 * das Aufsetzen eines Betriebssystemes
@@ -15,7 +15,7 @@ Um allen Kunden einen problemlosen Produktivbetrieb zu gewährleisten muss ein p
 * die Absicherung der Maschine
 * die Überwachung des Netzwerks
 
-In den folgenden Kapitel wird deutlich gemacht, wie die oben angeführten Punkte, im Rahmen der Diplomarbeit "Capentory" abgearbeitet wurden.
+In den folgenden Kapiteln wird deutlich gemacht, wie die oben angeführten Punkte, im Rahmen der Diplomarbeit "Capentory" abgearbeitet wurden.
 
 ## Anschaffung des Servers
 Den 5. Klassen wird, dank gesponserter Infrastruktur, im Rahmen ihrer Diplomarbeit ein Diplomarbeitscluster zur Verfügung gestellt. Damit können sich alle Diplomarbeitsteams problemlos Zugang zu ihrer eigenen virtualisierten Maschine verschaffen. 
@@ -54,7 +54,7 @@ CentOS ist eine frei verfügbare Linux Distribution, die auf [Red Hat Enterprise
 
 ### Linux Ubuntu
 
-Ubuntu ist die am meist verwendete Linux-Betriebssystemsoftware für Webserver. Auf Debian basierend ist das Ziel der Entwickler, ein ein einfach zu installierendes und leicht zu bedienendes Betriebssystem mit aufeinander abgestimmter Software zu schaffen. Hauptsponsor des Ubuntu-Projektes ist der Software-Hersteller [Canonical](https://de.wikipedia.org/wiki/Canonical), der vom südafrikanischen Unternehmer [Mark Shuttlerworth](https://de.wikipedia.org/wiki/Mark_Shuttleworth) gegründet wurde.
+Ubuntu ist die am meist verwendete Linux-Betriebssystemsoftware für Webserver. Auf Debian basierend ist das Ziel der Entwickler, ein einfach zu installierendes und leicht zu bedienendes Betriebssystem mit aufeinander abgestimmter Software zu schaffen. Hauptsponsor des Ubuntu-Projektes ist der Software-Hersteller [Canonical](https://de.wikipedia.org/wiki/Canonical), der vom südafrikanischen Unternehmer [Mark Shuttlerworth](https://de.wikipedia.org/wiki/Mark_Shuttleworth) gegründet wurde.
 
 ### Vergleich und Wahl
 

@@ -752,6 +752,8 @@ Der Benutzer kann das aktuell angezeigte Ergebnis in seine Zwischenablage kopier
 
 \chapter{Die Inventurlogik auf der App}
 
+Die genaue Bedienung der App ist dem App-Handbuch zu entnehmen. Dieses Kapitel befasst sich mit der Logik hinter einer Inventur.  
+
 # Die Modelle
 
 Um die Antworten des Servers abzubilden, wurden mehrere Modell-Klassen erstellt. Deren Konstruktur hat ein JSONObject als Parameter. Die Werte der einzelnen Attribute werden aus diesem JSONObject ausgelesen. Folgende Modell-Klassen wurden erstellt.
@@ -821,7 +823,7 @@ Zur Kompression wird das WEBP-Format verwendet, das dem mittlerweile veralteten 
 
 # Validierungslogik
 
-`MergedItemsFragment` & `DetailedItemFragment` sind die Fragments, die den Großteil einer Inventur ausmachen. Der Benutzer scannt alle SAP-Barcodes, die sich in einem Raum befinden. Im Idealfall entspricht diese Menge exakt der Menge der Gegenstände, die dem Benutzer im MergedItemsFragment angezeigt wird. Im Normalfall wird dies durch etwaige Sonderfälle jedoch nicht gegeben sein. 
+`MergedItemsFragment` & `DetailedItemFragment` sind die Fragments, die den Großteil einer Inventur ausmachen. Der Benutzer scannt alle SAP-Barcodes, die sich in einem Raum befinden. Im Idealfall entspricht diese Menge exakt der Menge der Gegenstände, die dem Benutzer im `MergedItemsFragment` angezeigt wird. Im Normalfall wird dies durch etwaige Sonderfälle jedoch nicht gegeben sein. 
 
 Nach dem Scannen eines Gegenstandes werden die Felder des Gegenstandes dem Benutzer im DetailItemFragment angezeigt. In diesem Fragment hat der Benutzer zwei Buttons, mit denen er den Gegenstand validieren kann:
 
@@ -830,7 +832,7 @@ Nach dem Scannen eines Gegenstandes werden die Felder des Gegenstandes dem Benut
 
 ## Der ValidationEntry
 
-Das MergedItemsFragment (bzw. das MergedItemsViewModel) verfügt über eine HashMap (`Map<MergedItem, List<ValidationEntry>>`), die alle ValidationEntries beinhaltet. Ein ValidationEntry beinhaltet sämtliche Informationen, die der Server benötigt, um die Datensätze eines Gengenstandes entsprechend anzupassen.
+Das `MergedItemsFragment` (bzw. das `MergedItemsViewModel`) verfügt über eine `HashMap` (`Map<MergedItem, List<ValidationEntry>>`), die alle ValidationEntries beinhaltet. Ein ValidationEntry beinhaltet sämtliche Informationen, die der Server benötigt, um die Datensätze eines Gengenstandes entsprechend anzupassen.
 Einem Gegenstand ist eine Liste an ValidationEntries zugeordnet, da Subitems eigene ValidtionEntries bekommen können (siehe ["Sonderfälle"](#sonderfuxe4lle)). 
 
 Ein ValidationEntry beinhaltet immer den Primary Key eines Gegenstandes und die Felder, die sich geändert haben. Ein ValidationEntry hat daher eine Liste an Feldern `List<Field>`. Wenn sich der Wert eines Feldes geändert hat, wird diese Liste um einen Eintrag erweitert. Da die Felder wie erwähnt dynamisch sind, wurden Java Generics eingesetzt \cite{java-generics}, um diese abbilden zu können. `Field` ist eine innere Klasse in `ValidationEntry`:
@@ -850,7 +852,7 @@ Wenn ein Raum abgeschlossen ist, werden alle ValidationEntries in einer Liste ve
 
 ## Quickscan
 
-Der häufigste Fall einer Inventur wird der sein, dass ein Gegenstand im richtigen Raum ist und der Benutzer ohne weiteren Input auf den grünen Button drückt. Da dies einen unnötigen Overhead darstellt, wurde die App um den `QuickScan`-Modus erweitert. Hierbei wird sofort nach dem Scannen ein `ValidationEntry` erstellt, ohne dass zuvor das DetailedItemFragment geöffnet wird. Dieser Modus ist durch einen weiteren Button im MergedItemsFragment aktivierbar/deaktivierbar. Falls ein Sonderfall auftreten sollte, vibriert das Gerät zweimal und öffnet das  DetailedItemFragment. Damit wird gewährleistet, dass der Benutzer nicht irrtümlich mit dem Scannen weitermacht. Er muss diesen Sonderfall händisch validieren. Haptisches Feedback ist für Sonderfälle reserviert.
+Der häufigste Fall einer Inventur wird der sein, dass ein Gegenstand im richtigen Raum ist und der Benutzer ohne weiteren Input auf den grünen Button drückt. Da dies einen unnötigen Overhead darstellt, wurde die App um den `QuickScan`-Modus erweitert. Hierbei wird sofort nach dem Scannen ein `ValidationEntry` erstellt, ohne dass zuvor das `DetailedItemFragment` geöffnet wird. Dieser Modus ist durch einen weiteren Button im `MergedItemsFragment` aktivierbar/deaktivierbar. Falls ein Sonderfall auftreten sollte, vibriert das Gerät zweimal und öffnet das  `DetailedItemFragment`. Damit wird gewährleistet, dass der Benutzer nicht irrtümlich mit dem Scannen weitermacht. Er muss diesen Sonderfall händisch validieren. Haptisches Feedback ist für Sonderfälle reserviert.
 
 ## Sonderfälle auf der App
 
@@ -860,13 +862,13 @@ Ein zentrales Thema der vorliegenden Diplomarbeit ist die Behandlung der Sonderf
 
 Falls ein Gegenstand mehrmals vorhanden sein sollte, ist der `times_found_last`-Zähler in der Antwort des Servers größer als 1 und der Gegenstand gilt als Subitem. Dieser Counter wird dem Benutzer in folgender Form angezeigt: `[Anzahl aktuell gefunden] / [Anzahl zuletzt gefunden]`. 
 
-Pro Subitem wird ein eigener ValidationEntry erstellt. An unserer Schule haben Subitems jedoch keinen Barcode sondern sind beispielsweise Teil eines Bundles, was dazu führt, dass Subitems auch in der Datenbank keine selbstständigen Gegenstände sind. CPs die auf Basis dieser ValidationEntries erstellt werden, werden dem echten "Parent"-Gegenstand zugeordnet und können wahlweise angewandt werden. Falls ein Gegenstand mehrmals gescannt wird, wird - nach Bestätigung durch den Benutzer - die Anzahl der aktuellen Funde erhöht und wiederum ein ValidationEntry erstellt, selbst wenn es sich bei dem Gegenstand aktuell nicht um ein Subitem handelt.
+Pro Subitem wird ein eigener ValidationEntry erstellt. An unserer Schule haben Subitems jedoch keinen Barcode sondern sind beispielsweise Teil eines Bundles, was dazu führt, dass Subitems auch in der Datenbank keine selbstständigen Gegenstände sind. Change Proposals (siehe ["Änderungsvorschläge"](#uxe4nderungsvorschluxe4ge)) die auf Basis dieser ValidationEntries erstellt werden, werden dem echten "Parent"-Gegenstand zugeordnet und können wahlweise angewandt werden. Falls ein Gegenstand mehrmals gescannt wird, wird - nach Bestätigung durch den Benutzer - die Anzahl der aktuellen Funde erhöht und wiederum ein ValidationEntry erstellt, selbst wenn es sich bei dem Gegenstand aktuell nicht um ein Subitem handelt.
 
 ### Subrooms
 
-Subrooms sind logische Räume in einem Raum. Subrooms werden dem Benutzer im MergedItemsFragment als einklappbare Teilmenge aller Gegenstände des Raumes angezeigt. Die Subroom-Zugehörigkeit kann auf Gegenstandsbasis über eine DropDown geändert werden. Die Subroom-Zugehörigkeit wird in einem ValidationEntry immer gesetzt, auch wenn sie sich nicht geändert hat. 
+Subrooms sind logische Räume in einem Raum. Subrooms werden dem Benutzer im `MergedItemsFragment` als einklappbare Teilmenge aller Gegenstände des Raumes angezeigt. Die Subroom-Zugehörigkeit kann auf Gegenstandsbasis über eine DropDown geändert werden. Die Subroom-Zugehörigkeit wird in einem ValidationEntry immer gesetzt, auch wenn sie sich nicht geändert hat. 
 
-Die Gegenstandsliste des MergedItemsFragment beinhaltet in Wahrheit auch die Subrooms. Dies ist notwendig, da die `RecyclerView`, die dazu genutzt wird dem Benutzer die Gegenstände anzuzeigen, keine Möglichkeit bietet, eine Hierarchie bzw. Zwischenebenen darzustellen. Daher implementieren das Room-Model und das MergedItem-Model das Interface `RecyclerViewItem` und die RecyclerView erhält eine Liste an RecyclerViewItems - dies ist ein typisch polymorpher Ansatz. Abhängig vom Typen des aktuellen Listenelements baut die RecyclerView entweder ein Gegenstandslayout oder ein Raumlayout auf. 
+Die Gegenstandsliste des `MergedItemsFragment` beinhaltet in Wahrheit auch die Subrooms. Dies ist notwendig, da die `RecyclerView`, die dazu genutzt wird dem Benutzer die Gegenstände anzuzeigen, keine Möglichkeit bietet, eine Hierarchie bzw. Zwischenebenen darzustellen. Daher implementieren das Room-Model und das MergedItem-Model das Interface `RecyclerViewItem` und die RecyclerView erhält eine Liste an RecyclerViewItems - dies ist ein typisch polymorpher Ansatz. Abhängig vom Typen des aktuellen Listenelements baut die RecyclerView entweder ein Gegenstandslayout oder ein Raumlayout auf. 
 
 ### Unbekannte Gegenstände
 

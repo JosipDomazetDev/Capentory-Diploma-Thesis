@@ -184,13 +184,13 @@ Zu den wichtigsten Attributen des `HTLItem` Modells zählen u.a.:
 
 Bezüglich der Einzigartigkeit von `HTLItem` Objekten gelten einige Bestimmungen. 
 
-Sind die Attribute `anlage`,  `asset_subnumber` und `company_code` je mit einem nichtleeren Wert befüllt, so repräsentieren sie ein `HTLItem` Objekt eindeutig. Es dürfen keine 2 `HTLItem` Objekte denselben Wert dieser Attribute haben. Um diese Bedingung erfüllen zu können muss eine eigens angepasste Validierungslogik implementiert werden. Standardverfahren wäre in diesem Anwendungsfall, die Metavariable `unique_together` \cite{django-doku-models-options} anzupassen:
+Sind die Attribute `anlage`,  `asset_subnumber` und `company_code` je mit einem nichtleeren Wert befüllt, so repräsentieren sie ein `HTLItem` Objekt eindeutig. Es dürfen keine 2 `HTLItem` Objekte denselben Wert dieser Attribute haben. Um diese Bedingung erfüllen zu können, muss eine eigens angepasste Validierungslogik implementiert werden. Standardverfahren wäre in diesem Anwendungsfall, die Metavariable `unique_together` \cite{django-doku-models-options} anzupassen:
 
 ```python
 unique_together = [["anlage",  "asset_subnumber", "company_code"]]
 ```
 
-Dieses Verfahren erfüllt nicht die geforderte Bedingung nur in der Theorie. Praktisch werden leere Werte von Attributen dieser Art nicht als `None` (Python) bzw. `null` (MySQL), sondern als Leerstrings `""` gespeichert. Um diese Werte ebenfalls von der Regel auszuschließen, muss die `validate_unique()`[^validate-unique] Methode \cite{django-doku-models-instances} überschrieben werden. 
+Dieses Verfahren erfüllt die geforderte Bedingung nur in der Theorie. Praktisch werden leere Werte von Attributen dieser Art nicht als `None` (Python) bzw. `null` (MySQL), sondern als Leerstrings `""` gespeichert. Um diese Werte ebenfalls von der Regel auszuschließen, muss die `validate_unique()`[^validate-unique] Methode \cite{django-doku-models-instances} überschrieben werden. 
 
 [^validate-unique]: Eine Methode einer Modell-Klasse, die unter Normalzuständen immer vor dem Speichern eines Objekts des Modells aufgerufen wird. Wirft sie einen Fehler auf, kann das Objekt nicht gespeichert werden. 
 
@@ -224,7 +224,7 @@ Zu den wichtigsten Attributen des `HTLRoom` Modells zählen u.a.:
 
 ### Einzigartigkeit von HTLRoom Objekten
 
-Bezüglich der Einzigertigkeit von `HTLRoom` Objekten gelten ähnliche Bestimmungen wie zu jener von `HTLItem` Objekten.
+Bezüglich der Einzigartigkeit von `HTLRoom` Objekten gelten ähnliche Bestimmungen wie zu jener von `HTLItem` Objekten.
 
 Die Attribute `room_number`, `main_inv` und `location` sind gemeinsam einzigartig. Leere Werte sind von dieser Regel ausgeschlossen. Gleichzeitig darf der Wert des `barcode_override` Attribut nicht mit dem Wert des `room_number` Attributes eines anderen `HTLRoom` Objekts übereinstimmen und vice versa.
 Beide Bedingungen müssen wie im Falle des `HTLItem` Modells durch Überschreiben der `validate_unique()`[^validate-unique] Methode \cite{django-doku-models-instances} implementiert werden.
@@ -261,7 +261,7 @@ Die beiden angeführten Funktionen werden je beim Aufkommen eines `post_save` Si
 
 Um die Gegenstands- und Raumdaten des Inventars der HTL Rennweg in das erstellte System importieren zu können, muss dessen standardmäßig verfügbare Importfunktion entsprechend erweitert werden. Dazu sind 4 spezielle Importverhalten notwendig.
 
-Implementiert wird das Importverhalten nicht innerhalb der entsprechenden Modellklasse, sondern in dessen verknüpften `ModelAdmin` Klasse. Durch das Attribut `resource_class` wird spezifiziert, durch welche Python-Klasse die Daten importiert werden. Um für ein einziges Modell mehrere `resource_class` Einträge zu setzen, müssen mehrere `ModelAdmin` Klassen für Proxy-Modelle \cite{django-doku-models} des eigentlichen Modells definiert werden. Ein Proxy-Modell eines Modells verweist auf dieselbe Tabelle in der Datenbank, kann aber programmiertechnisch als unabhängiges Modell betrachtet werden. Die Daten, die durch das Proxy-Modell ausgelesen oder eingefügt werden entsprechen exakt jenen des eigentlichen Modells.
+Implementiert wird das Importverhalten nicht innerhalb der entsprechenden Modellklasse, sondern in dessen verknüpften `ModelAdmin` Klasse. Durch das Attribut `resource_class` wird spezifiziert, durch welche Python-Klasse die Daten importiert werden. Um für ein einziges Modell mehrere `resource_class` Einträge zu setzen, müssen mehrere `ModelAdmin` Klassen für Proxy-Modelle \cite{django-doku-models} des eigentlichen Modells definiert werden. Ein Proxy-Modell eines Modells verweist auf dieselbe Tabelle in der Datenbank, kann aber programmiertechnisch als unabhängiges Modell betrachtet werden. Die Daten, die durch das Proxy-Modell ausgelesen oder eingefügt werden, entsprechen exakt jenen des eigentlichen Modells.
 
 ```python
 # Definition eines Proxy-Modells zu dem Modell "HTLItem"
@@ -365,14 +365,14 @@ Eine Inszanz des `Stocktaking` Modells repräsentiert eine Inventur.
 Zu den wichtigsten Attributen des `Stocktaking` Modells zählen u.a.:
 
 * `name`: Durch dieses Attribut kann eine Inventur benannt werden. Dieser Name erscheint auf der mobilen Applikation oder dem Inventurbericht.
-* `user`: Dieses Attribut referenziert einen Hauptverantwortlichen Benutzer einer Inventur.
+* `user`: Dieses Attribut referenziert einen hauptverantwortlichen Benutzer einer Inventur.
 * `date_started` und `time_started`: Diese Attribute sind Zeitstempel und werden automatisch auf den Zeitpunkt der Erstellung einer `Stocktaking` Instanz gesetzt. Eine Inventur beginnt zum Zeitpunkt ihrer Erstellung.
 * `date_finished` und `time_finished`: Diese Attribute sind Zeitstempel und werden gesetzt, wenn ein Administrator eine Inventur beenden möchte. Wenn beide Attribute mit einem Wert befüllt sind, werden keine über die mobile Applikation empfangene Validierungen verarbeitet. Der Zeitpunkt, der sich aus den beiden Attributen ergibt, darf nicht vor dem Zeitpunkt aus `date_started` und `time_started` liegen.
 * `neverending_stocktaking`: Wenn dieses \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann} Attribut gesetzt ist, hat der Wert der `date_finished` und `time_finished` Attribute keine Bedeutung. Es werden alle Validierungen der mobilen Applikation verarbeitet. Ob in einem Raum bereits einmal validiert wurde oder die Inventur beendet ist, wird nicht mehr überprüft. 
 
 ## Das StocktakingUserActions Modell
 
-Das `StocktakingUserActions` Modell ist die Verbindung zwischen einer Inventur und den Benutzern, die zu dieser Inventur beigetragen haben. Das Attribut `stocktaking` verlinkt je eine bestimmte `Stocktaking` Instant. Das Attribut `user` verlinkt je eine bestimmte `RalphUser` Instanz, die einem angemeldeten Benutzer entspricht. Validierungen, die ein Benutzer während einer Inventur tätigt, sind mit der entsprechenden `StocktakingUserActions` Instanz verknüpft. Pro Inventur kann es nur eine `StocktakingUserActions` Instanz für einen bestimmten Benutzer geben. Diese Bedingung wird durch die `unique_together` Metavariable \cite{django-doku-models-options} festgelegt:
+Das `StocktakingUserActions` Modell ist die Verbindung zwischen einer Inventur und den Benutzern, die zu dieser Inventur beigetragen haben. Das Attribut `stocktaking` verlinkt je eine bestimmte `Stocktaking` Instanz. Das Attribut `user` verlinkt je eine bestimmte `RalphUser` Instanz, die einem angemeldeten Benutzer entspricht. Validierungen, die ein Benutzer während einer Inventur tätigt, sind mit der entsprechenden `StocktakingUserActions` Instanz verknüpft. Pro Inventur kann es nur eine `StocktakingUserActions` Instanz für einen bestimmten Benutzer geben. Diese Bedingung wird durch die `unique_together` Metavariable \cite{django-doku-models-options} festgelegt:
 
 ```python
 unique_together = [["user", "stocktaking"]]
@@ -402,7 +402,7 @@ Zu den wichtigsten Attributen des `StocktakingItem` Modells zählen u.a.:
 
 Um während einer Inventur nicht sofort jegliche erkannte Änderungen von Gegenstandseigenschaften anwenden zu müssen, werden sie in Änderungsvorschläge ausgelagert. So kann Fehlern, die während einer Inventur entstehen können, vorgebeugt werden. Dem Benutzer der mobilen Applikation wird dadurch Vertrauenswürdigkeit entzogen. Es ist die Aufgabe eines Administrators, Änderungsvorschläge als vertrauenswürdig einzustufen und diese tatsächlich anzuwenden.
 
-Als Basis für Änderungsvorschläge dient die Klasse `ChangeProposalBase`. Sie beschreibt nicht, welche Änderung während einer Inventur festgestellt wurde. Sie erbt von der Klasse `Polymorphic`. Die Klasse `Polymorphic` ermöglicht die Vererbung von Modellklassen auf der Datenbankebene. So können alle \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} der Klassen `ChangeProposalBase` einheitlich betrachtet werden. Über die Verbindung von `StocktakingItem` zu `ChangeProposalBase` in der Abbildung \ref{fig:stocktaking_klassendiagramm} sind nicht nur alle verknüpften `ChangeProposalBase` Instanzen, sondern auch alle Instanzen der \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ChangeProposalBase`, verbunden. Eine \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ChangeProposalBase` beschreibt eine Änderung, die von einem Benutzer während einer Inventur festgestellt würde. Es sind 4  \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ChangeProposalBase` und damit 4 Arten von Änderungsvorschlägen implementiert:
+Als Basis für Änderungsvorschläge dient die Klasse `ChangeProposalBase`. Sie beschreibt nicht, welche Änderung während einer Inventur festgestellt wurde. Sie erbt von der Klasse `Polymorphic`. Die Klasse `Polymorphic` ermöglicht die Vererbung von Modellklassen auf der Datenbankebene. So können alle \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} der Klassen `ChangeProposalBase` einheitlich betrachtet werden. Über die Verbindung von `StocktakingItem` zu `ChangeProposalBase` in der Abbildung \ref{fig:stocktaking_klassendiagramm} sind nicht nur alle verknüpften `ChangeProposalBase` Instanzen, sondern auch alle Instanzen der \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ChangeProposalBase`, verbunden. Eine \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ChangeProposalBase` beschreibt eine Änderung, die von einem Benutzer während einer Inventur festgestellt würde. Es sind 4  \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ChangeProposalBase` und damit 4 Arten von Änderungsvorschlägen implementiert:
 
 1. `ValueChangeProposal`
 2. `MultipleValidationsChangeProposal`
@@ -525,7 +525,7 @@ Der mobilen Client-Applikation müssen notwendige Informationen der dynamisch er
 
 #### Verfügbare Inventuren
 
-Der mobilen Client-Applikation muss mitgeteilt werden, welche Inventuren zurzeit durchgeführt werden können. Für das Modell `Stocktaking`ist eine \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht}-Schnittstelle implementiert (siehe \autoref{intro_server} Abschnitt ["API und DRF"](api-und-drf)). Über diese Schnittstelle können durch folgende Abfrage-URL mittels eines HTTP GET-Requests \cite{rest-http-methods} alle verfügbaren Inventuren und dessen einzigartige \emph{IDs} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} abgefragt werden:
+Der mobilen Client-Applikation muss mitgeteilt werden, welche Inventuren zurzeit durchgeführt werden können. Für das Modell `Stocktaking` ist eine \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht}-Schnittstelle implementiert (siehe \autoref{intro_server} Abschnitt ["API und DRF"](api-und-drf)). Über diese Schnittstelle können durch folgende Abfrage-URL mittels eines HTTP GET-Requests \cite{rest-http-methods} alle verfügbaren Inventuren und dessen einzigartige \emph{IDs} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} abgefragt werden:
 
 ```bash
 /api/stocktaking/?date_finished__isnull=True&time_finish_isnull=True&format=json
