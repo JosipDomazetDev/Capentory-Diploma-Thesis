@@ -98,7 +98,7 @@ God-Activities gilt es dringlichst zu vermeiden, da sie folgende Nachteile mit s
 God-Activities sind ein typisches Beispiel für Spaghetticode. Es bedarf also einer wohlüberlegten und strukturierten Architektur, um diese Probleme zu unterbinden. 
 Im nächsten Kapitel wird dementsprechend die Architektur der App im Detail erklärt.
  
-\chapter{MVVM}
+\chapter{MVVM - Die App-Architektur}
 
 Als Reaktion auf eine Vielzahl von Apps, die Probleme mit God-Activites aufwiesen, hat Google Libraries veröffentlicht, die klar auf eine MVVM-Architektur abzielen \cite{mvvm}. Daher fiel die Wahl der App-Architektur auf MVVM.
 
@@ -524,7 +524,7 @@ model.getCurrentName().observe(getViewLifecycleOwner(),
 ```
 
 
-\chapter{Konkrete MVVM-Implementierung}
+## Konkrete MVVM-Implementierung
 
 Im vorliegenden Anwendungsfall hat ein Fragment immmer mindestens einen Datensatz, der für das Fragment namensgebend ist. 
 Der Room-Screen (also die Anzeige mit einer DropDown zur Raumauswahl) setzt sich beispielsweise aus folgenden Komponenten zusammen: 
@@ -544,7 +544,7 @@ Bei genauerer Betrachtung wird klar, dass fast jeder Screen dieselbe Aufgabe hat
 * Das ViewModel abstrahiert Logik und stellt der View LiveData zur Verfügung. 
 * Das Fragment zeigt entweder Nutzdaten, eine Fehlermeldung oder einen Ladebalken an.
 
-Hier greift das softwaretechnische Prinzip `Do not repeat yourself (DRY)` \cite{driy}. Anstatt `Boilerplate-Code` für jeden einzelnen Screen kopieren zu müssen, hat das Projektteam diese sich wiederholende Logik abstrahiert. Boilerplate-Code sind Code-Abschnitte, die sich immer wieder wiederholen \cite{boiler}. Wiederholende Logik sollte immer in eine Superklasse abstrahiert werden. Das Projektteam hat demnach drei abstrakte Klassen definiert, die die Menge an Boilerplate-Code signifikant reduzieren:
+Hier greift das softwaretechnische Prinzip `Do not repeat yourself (DRY)` \cite{dry}. Anstatt `Boilerplate-Code` für jeden einzelnen Screen kopieren zu müssen, hat das Projektteam diese sich wiederholende Logik abstrahiert. Boilerplate-Code sind Code-Abschnitte, die sich immer wieder wiederholen \cite{boiler}. Wiederholende Logik sollte immer in eine Superklasse abstrahiert werden. Das Projektteam hat demnach drei abstrakte Klassen definiert, die die Menge an Boilerplate-Code signifikant reduzieren:
 
 * `NetworkRepository`
 * `NetworkViewModel`
@@ -560,38 +560,26 @@ Alle Komponenten von Screens, die Netzwerkanforderungen durchführen, erben von 
 Der Refactor, der dies realisierte, war zwar zeitintensiv, hat sich jedoch mittlerweile mehr als rentiert. Das Hinzufügen von neuen Screens benötigt nur mehr einen Bruchteil des ursprünglichen Codes. Infolgedessen wird das Erweitern der App um neue Features enorm erleichtert. 
 
 
-# NetworkRepository
+\chapter{Das Scannen}
 
-TODO
-
-# NetworkViewModel
-
-TODO
-
-# NetworkFragment
-
-TODO
-
-# Das Scannen
-
-Das Scannen ist ein vitaler Aspekt dieser Diplomarbeit. Gegenstände an unserer Organisation sind mit Barcodes augestattet. Um die Produktivität maximal zu steigern, muss die App in der Lage sein, diese Barcodes zu erfassen. Wir bieten folgende Varianten zum Scannen an:
+Das Scannen ist ein vitaler Aspekt dieser Diplomarbeit. Gegenstände an unserer Organisation sind mit Barcodes ausgestattet. Um die Produktivität maximal zu steigern, muss die App in der Lage sein, diese Barcodes zu erfassen. Wir bieten folgende Varianten zum Scannen an:
 
 * Zebra-Scan
 * Kamerascan
 * Manuelle Eingabe (für den Fall, dass ein Scan fehlschlägt)
 
-## Der Zebra-Scan
+# Der Zebra-Scan
 
 Der Sponsor dieser Diplomarbeit - Zebra - hat dem Diplomarbeitsteam einen TC56 ("Touch Computer") zur Verfügung gestellt. Dieser verfügt über einige Eigenschaften, die für eine Inventur vom Vorteil sind \cite{zebra-tc56}:
 
 * Ein Akku mit über 4000 mAh ermöglicht mehrstündige Inventuren.
-* Viel Arbeitsspeicher und ein leistungsstarker Prozesser ermöglichen flüssiges App-Verhalten.
+* Viel Arbeitsspeicher und ein leistungsstarker Prozessor ermöglichen ein flüssiges App-Verhalten.
 * Dank robuster Bauart hält das Gerät auch physisch anspruchsvollere Phasen einer Inventur aus.
 * Ein in das Smartphone integrierter Barcodescanner reduziert die Scanzeiten drastisch.
 
-## Zebra-Scan: Funktionsweise
+# Zebra-Scan: Funktionsweise
 
-Die App kommuniziert nicht direkt mit dem Scanner. Stattdessen wickelt das Zebra-Gerät den Scan ab und sendet das Resultat als `Broadcast` aus \cite{broadcast}. Auf dem Zebra-Gerät läuft im Hintergrund immer die DataWege-Applikation. Dies ist eine App, die die Behandlung des tatsächlichen Scans abwickelt und das Ergebnis auf mehrere Arten aussendet \cite{datawedge}. Beispielsweise wird das Ergebnis an die Tastatur geschickt, aber eben auch als Broadcast an das Betriebssystem. Die App regestriert sich beim Betriebssystem und hört auf den Broadcast, der den Barcode enthält und automatisch von DataWege entsandt wird. Broadcast werden durch eine String-ID unterschieden, die über DataWedge konifiguriert wird. Derartige Ansätze werden als Publish–subscribe-Model bezeichnet \cite{Publish–subscribe}. 
+Die App kommuniziert nicht direkt mit dem Scanner. Stattdessen wickelt das Zebra-Gerät den Scan ab und sendet das Resultat als `Broadcast` aus \cite{broadcast}. Auf dem Zebra-Gerät läuft im Hintergrund immer die DataWege-Applikation. Dies ist eine App, die die Behandlung des tatsächlichen Scans abwickelt und das Ergebnis auf mehrere Arten aussendet \cite{datawedge}. Beispielsweise wird das Ergebnis an die Tastatur geschickt, aber eben auch als Broadcast an das Betriebssystem. Die App registriert sich beim Betriebssystem und hört auf den Broadcast, der den Barcode enthält und automatisch von DataWege entsandt wird. Broadcast werden durch eine String-ID unterschieden, die über DataWedge konfiguriert wird. Derartige Ansätze werden als Publish–subscribe-Model bezeichnet \cite{publish–subscribe}. 
 
 Dies bietet folgende Vorteile:
 
@@ -601,9 +589,9 @@ Dies bietet folgende Vorteile:
 
 Bei weiterer Überlegung kommt man außerdem zur Erkenntnis, dass der Broadcast nicht von DataWege stammen muss. Wenn eine beliebige andere App, einen Broadcast mit derselben ID ausschickt, wird die vorliegende App dies als Scan werten. In weiterer Folge ist es zumindest theoretisch möglich, beispielsweise einen Bluetooth-Scanner mit einem regulären Android-Gerät zu verwenden und bei einem Resultat, einen Broadcast mit derselben ID auszuschicken. Die vorliegende App würde keinen Unterschied bemerken und somit auch mit dem Bluetooth-Scanner funktionieren. Dieses Einsatzgebiet wurde vom Diplomarbeitsteam jedoch nicht getestet.
 
-### Zebra-Scan: Codeausschnitt
+## Zebra-Scan: Codeausschnitt
 
-Broadcast können in Android durch `BroadcastReceiver` ausgelsen werden. Auch hier wurde das DRY-Prinzip angewandt. Jedes Fragment, das Scanergebnisse braucht, verwendet essentiel denselben BroadcastReceiver. Daher hat das Team einen eigenen BroadcastReceiver stellt, der die gemeinsamen Eigenschaften zusammenführt. Der gesamte Code für den Zebra-Scan konnte damit relativ kompakt in eine Klasse eingebunden werden:
+Broadcast können in Android durch `BroadcastReceiver` ausgelsen werden. Auch hier wurde das DRY-Prinzip angewandt. Jedes Fragment, das Scanergebnisse braucht, verwendet nahezu denselben BroadcastReceiver. Daher hat das Team einen eigenen BroadcastReceiver erstellt, der die gemeinsamen Eigenschaften zusammenführt. Der gesamte Code für den Zebra-Scan konnte damit relativ kompakt in einer Klasse eingebunden werden:
 
 ```java
 public class ZebraBroadcastReceiver extends BroadcastReceiver {
@@ -616,11 +604,14 @@ public class ZebraBroadcastReceiver extends BroadcastReceiver {
         // die konfigurierte ID des Broadcasts
         if (action.equals(context.getResources()
            .getString(R.string.activity_intent_filter_action))) {
-            // R.string.datawedge_intent_key_data definiert die ID des Scanergebnis selbst. 
-            // Der Scan liefert auch andere Ergebnisse, wie das Barcodeformat. 
+            // R.string.datawedge_intent_key_data 
+            // definiert die ID des Scanergebnis selbst. 
+            // Der Scan liefert auch andere Ergebnisse, 
+            // wie z.B. das Barcodeformat. 
             // Relevant ist nur der Barcode.
             String barcode = intent.getStringExtra(
-                context.getResources().getString(R.string.datawedge_intent_key_data));
+                context.getResources()
+                .getString(R.string.datawedge_intent_key_data));
 
           
             // Das Scanergebnis wird nun per 
@@ -639,8 +630,11 @@ public class ZebraBroadcastReceiver extends BroadcastReceiver {
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         // R.string.activity_intent_filter_action definiert 
         // die konfigurierte ID des Broadcasts
-        filter.addAction(context.getResources().getString(R.string.activity_intent_filter_action));
-        // Hier wird der BroadcastReceiver mit der ID, auf die er zu hören hat, registriert.
+        filter.addAction(
+            context.getResources()
+            .getString(R.string.activity_intent_filter_action));
+        // Hier wird der BroadcastReceiver mit der ID, 
+        // auf die er zu hören hat, registriert.
         context.registerReceiver(zebraBroadcastReceiver, filter);
     }
 
@@ -658,19 +652,19 @@ public class ZebraBroadcastReceiver extends BroadcastReceiver {
 
 
 
-## Der Kamerascan
+# Der Kamerascan
 
 Für Geräte, die nicht dem Hause Zebra entstammen, bietet die App die Möglichkeit eines Kamerascans an. Im Hintergrund wird dafür die Google Mobile Vision API verwendet, die unter anderem auch Texterkennung oder Gesichtserkennung anbietet \cite{mobile-vision}. Hierbei wird ein Barcode mittels der Gerätekamera erfasst, ohne dass zuvor ein Bild gemacht werden muss. Dem Benutzer wird eine Preview angezeigt und die Kamera schließt sich, sobald ein Barcode erfasst wurde. Um die Performanz zu maximieren, hat das Diplomarbeitsteam folgende Optimierungen vorgenommen:
 
-* Die API wurde um Blitzfunktionalitäten ergänzt. Dazu wurde eine OpenSource-Variante der Library modifiziert, da die offizielle proprietäre Version keinen Blitz untersützt. Der Blitz ist über einen ToggleButton sofort deaktivierbar oder aktivierbar. Um einen Klick einzusparen, kann der Benutzer über die Einstellungen den Blitz sofort beim Start des Kamerascans aktivieren lassen. Für eine optimale Erkennung darf man den Blitz jedoch nicht direkt Richtung Barcode anvisieren, sondern sollte den Blitz entweder höher oder niedriger als den Barcode halten, um optische Reflexionen zu vermeiden. 
-* Über die Einstellungen kann der Benutzer die Barcodeformate einschränken. Dies führt ebenfalls zur schnelleren Barcodeerkennung und vermeidet zudem noch das Auftreten von false positives. Wenn der Benutzer die Kamera nicht auf den gesamten Barcode hält, kann es unter Umständen dazu kommen, dass der abgeschnitte Barcode fälschlicherweise als anderes Format interpretiert wird und der Scan daher einen Barcode liefert, der nicht existiert. Offiziell wird in der vorliegenden Organisation nur das Code_93-Format eingesetzt.
-* Interne Test haben ergeben, dass ein Aspect Ratio von 16:9 das Schnellste ist. Daher wird die Preview-Größe statisch auf 1920 zu 1080 Pixel festgelegt. Die Preview verwendet jedoch tatsächlich die Größe, die am nähesten zu 1920x1080 ist und vom Gerät unterstützt wird.
-* Falls ein Scan erfolgreich ist, wird ein Piepston abgespielt, der als akkustisches Feedback fungiert.
+* Die API wurde um Blitzfunktionalitäten ergänzt. Dazu wurde eine OpenSource-Variante der Library modifiziert, da die offizielle proprietäre Version keinen Blitz unterstützt. Der Blitz ist über einen ToggleButton sofort deaktivierbar oder aktivierbar. Um einen Klick einzusparen, kann der Benutzer über die Einstellungen den Blitz gleich beim Start des Kamerascans aktivieren lassen. Für eine optimale Erkennung darf man den Blitz jedoch nicht direkt in Richtung des Barcode anvisieren, sondern sollte den Blitz entweder höher oder niedriger als den Barcode halten, um optische Reflexionen zu vermeiden. 
+* Über die Einstellungen kann der Benutzer die Barcodeformate einschränken. Dies führt ebenfalls zur schnelleren Barcodeerkennung und vermeidet zudem noch das Auftreten von false positives. Wenn der Benutzer die Kamera nicht auf den gesamten Barcode hält, kann es unter Umständen dazu kommen, dass der abgeschnittene Barcode fälschlicherweise als anderes Format interpretiert wird und der Scan daher einen Barcode liefert, der nicht existiert. Offiziell wird in der vorliegenden Organisation nur das `Code_93`-Format eingesetzt.
+* Interne Test haben ergeben, dass ein Aspect Ratio von 16:9 das Schnellste ist. Daher wird die Preview-Größe statisch auf 1920x1080 Pixel festgelegt. Die Preview verwendet jedoch tatsächlich die Größe, die am nähesten zu 1920x1080 ist und vom Gerät unterstützt wird.
+* Falls ein Scan erfolgreich ist, wird ein Piepston abgespielt, der als akustisches Feedback fungiert.
 
 
-### Kamerascan: Codeausschnitt
+## Kamerascan: Codeausschnitt
 
-Für die Scanfeatures wird bezüglich der Single-Activity-App eine Ausnahme gemacht. Da diese Screens navigationstechnisch unabhängig sind und im Vollbildmodus gestartet werden, macht es mehr Sinn, sie als Activities anstatt als Fragments zu implementieren. Die Fragments, die einen Kamerascan verwenden, können ihn bequem mit `startActivityForResult` aufrufen. Sie starten also eine neue Activity um ein Ergebnis zu erhalten:
+Für die Scanfeatures wird bezüglich der Single-Activity-App eine Ausnahme gemacht. Da diese Screens navigationstechnisch unabhängig sind und im Vollbildmodus gestartet werden, macht es mehr Sinn, sie als Activities anstatt als Fragments zu implementieren. Die Fragments, die einen Kamerascan verwenden, können ihn mit `startActivityForResult` aufrufen. Sie starten also eine neue Activity um ein Ergebnis zu erhalten:
 
 
 ```java
@@ -679,85 +673,101 @@ Intent intent = new Intent(getContext(), ScanBarcodeActivity.class);
 startActivityForResult(intent, 0);
 ```
 
-Mit der Vision API erstellt man einen `BarcodeDetector` dem ein `Processor` zugewiesen wird. Falls ein Barcode erkannt wird, wird `receiveDetections` automatisch aufgerufen. Die App nimmt sich den ersten erkannten Barcode heraus, setzt ihn als Ergbenis dieser Aktivität und beendet die Aktivität.
+Mit der Vision API erstellt man einen `BarcodeDetector` dem ein `Processor` zugewiesen wird. Falls ein Barcode erkannt wird, wird `receiveDetections` automatisch aufgerufen. Die App nimmt sich den ersten erkannten Barcode heraus, setzt ihn als Ergebnis dieser Aktivität und beendet die Aktivität.
 
 ```java
 barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
         ...
 
-        @Override
-        public void receiveDetections(Detector.Detections<Barcode> detections) {
-                ...
-                // Barcode einlesen
-                String barcode = barcodeSparseArray.valueAt(0).rawValue;
+     @Override
+    public void receiveDetections(Detector.Detections<Barcode> detections) {
+           ...
+           // Barcode einlesen
+           String barcode = barcodeSparseArray.valueAt(0).rawValue;
 
-                //Barcode bekanntgeben
-                Intent intent = new Intent();
-                intent.putExtra("barcode", barcode);
-                setResult(CommonStatusCodes.SUCCESS, intent);
-                finish();
-                ...
-        }
+           //Barcode bekanntgeben
+           Intent intent = new Intent();
+           intent.putExtra("barcode", barcode);
+           setResult(CommonStatusCodes.SUCCESS, intent);
+           finish();
+           ...
+    }
 ```
 
 Das Ergebnis kann dann wiederum im Fragment wie folgt abgefangen und weiter verarbeitet werden:
 
 ```java
 @Override
-public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+public void onActivityResult(int requestCode, int resultCode, 
+                             @Nullable Intent data) {
     if (requestCode == 0) {
         if (resultCode == CommonStatusCodes.SUCCESS) {
             ...    
             // Barcode einlesen
             String barcode = data.getStringExtra("barcode");
-            // Anhand des Barcodes werden dann weitere Aktionen gesetzt
+            // Anhand des Barcodes werden dann 
+            // weitere Aktionen gesetzt
             launchItemDetailFragmentFromBarcode(barcode);
         }
         ...
 }
 ```
 
-## Die manuelle Eingabe
+# Die manuelle Eingabe
 
 Gegenstände können durch Scannen, aber auch durch manuelles Klicken auf ihre GUI-Darstellung validiert werden. Es kann durchaus Sinn machen, auf einen Scan zu verzichten, wenn:
 
 * der Scan langsam oder unmöglich ist (z.B. bei Barcodes in unerreichbarer Höhe oder beschädigten Barcodes).
-* man einen Gegenstand auch ohne Barcode indentifizieren kann.
+* man einen Gegenstand auch ohne Barcode identifizieren kann.
 * man mit einer manuellen Vorgehensweise schneller ist, als mit dem Kamerascan.
 
-### Suche
+## Suche
 
 Die Gegenstandsliste, die dem Benutzer angezeigt wird, ist durch eine Suchleiste (`SearchBar`) filterbar. Der Benutzer kann nach Barcode und Gegenstandsbeschreibung filtern. Dadurch ergibt sich auch die Möglichkeit, eine Voice-Tastatur - insofern das Gerät eine hat - einzusetzen.
 
-### Textscan
+## Textscan
 
 Falls der Benutzer weder Voice noch Tastatur verwenden will, kann er den Textscan verwenden. Hierbei wird per Google Mobile Vision API der aufgedruckte Text auf einem Barcode - jedoch NICHT der Barcode selbst - gescannt \cite{text-scan}. Der Scan ist für Sprachen, die ein lateinisches Schriftsystem verwenden, optimiert. Dem Benutzer wird das aktuelle Scanergebnis laufend angezeigt. Da der Out-Of-The-Box-Scan für die vorliegenden Zwecke nicht unbedingt geeignet ist, wurden folgende Modifikationen vorgenommen (Der Textscan wurde als `TextScanActivity` realisiert):
 
-* Der Scanner nimmt grundsätzlich alles was er sieht auf. Das Projektteam hat dies mit Regex-Ausdrücken kombiniert um sinnvolle Ergebnisse zu erlangen. Es gibt daher verschiedene Texterkennungsmodi:
+* Der Scanner gibt grundsätzlich alles was er sieht wieder. Das Projektteam hat dies mit Regex-Ausdrücken kombiniert um sinnvolle Ergebnisse zu erlangen. Es gibt daher verschiedene Texterkennungsmodi:
     * Kein Filter. Hier wird keine Regex verwendet und der Benutzer sieht den ungefilterten Text, den der Scanner erkannt hat.
     * Alphanumerisch.
     * Alphabetisch. 
     * Numerisch (Barcodes).
-    * IP-Addressen. 
-Jeder Modus verwendet die Regex, die am besten für seine Kategorie geeignet ist. Die Library bietet nur geringfügige Möglichkeiten an, den Scan selbst zu beeinflussen. Man kann eine Priorität auf ein Scanergebnis setzen. Daher wird die Priorität auf ein Scanergebnis gesetzt, sobald dieses durch die aktuelle Regex ausgedrückt werden kann. Unabhängig davon werden alle Zeichen des Ergebnisses entfernt, die nicht durch die Regex erfasst wurden.
+    * IP-Adressen. 
+Jeder Modus verwendet die Regex, die am besten für seine Kategorie geeignet ist. Die Library bietet nur geringfügige Möglichkeiten an, den Scan selbst zu beeinflussen. Man kann einen Fokus auf ein Scanergebnis setzen. Daher wird der Fokus auf ein Scanergebnis gesetzt, sobald dieses durch die aktuelle Regex ausgedrückt werden kann. Die API beschränkt sich allerdings nicht auf das Ergebnis, auf das der Fokus gesetzt wurde, sondern kann jederzeit den Fokus selbst wieder aufheben. Unabhängig davon werden alle Zeichen des Ergebnisses entfernt, die nicht durch die Regex erfasst wurden. 
 * Die API wurde um Blitzfunktionalitäten ergänzt.
 
 Die Erkennung von Barcodes (also der Numerische Modus) hat zusätzlich folgende Optimierungen erhalten:
 
 * Gescannte Ergebnisse werden durch die Regex optimiert und gespeichert. Das Ergebnis, das zuerst dreimal vorkam, wird eingelockt. Das heißt, dass alle restlichen Scans ignoriert werden. 
 * Zeichen die häufig vom Scanner verwechselt werden (z.B. wird die Ziffer "0" häufig als Buchstabe "O" erkannt), werden durch ihr numerisches Gegenstück ersetzt. 
-* Längere Zeichenketten erhalten eine höhere Priorität und werden dem Benutzer vorzugsweise angezeigt. Damit werden abgeschnittene Ergebnisse benachteiligt. Falls ein kürzeres Ergebnis jedoch dreimal vorkommt, wird nicht mehr die längste Zeichenkette, sondern die häufigste bevorzugt und dem Benutzer angezeigt.  
+* Längere Zeichenketten erhalten eine höhere Priorität und werden dem Benutzer vorzugsweise angezeigt. Damit werden abgeschnittene Ergebnisse benachteiligt. Falls ein kürzeres Ergebnis jedoch dreimal vorkommt, wird nicht mehr die längste Zeichenkette, sondern die häufigste bevorzugt und dem Benutzer angezeigt.
 * Ergebnisse, die weniger als sieben Zeichen enthalten, werden nicht gespeichert und können damit auch nicht eingelockt werden.
 
 
-Der Benutzer kann das aktuell angezeigte Ergebnis in seine Zwischenablage kopieren und anschließend damit die Suchleiste nutzen. Die Kommunikation zwischen den restlichen Screens und dem Textscan erfolgt analog zum Kamerascan, da der Textscan aus denselben Gründen als Activity implementiert wurde. 
+Der Benutzer kann das aktuell angezeigte Ergebnis in seine Zwischenablage kopieren und anschließend die Suchleiste nutzen. Die Kommunikation zwischen den restlichen Screens und dem Textscan erfolgt analog zum Kamerascan, da der Textscan aus denselben Gründen als Activity implementiert wurde. 
 
 
 
+\chapter{Die Inventurlogik auf der App}
 
-# Die Inventurlogik auf der App
+# Die Modelle
 
-## Die Fragments
+Um die Antworten des Servers abzubilden, wurden mehrere Modell-Klassen erstellt. Deren Konstruktur hat ein JSONObject als Parameter. Die Werte der einzelnen Attribute werden aus diesem JSONObject ausgelesen. Folgende Modell-Klassen wurden erstellt.
+
+* `SerializerEntry`: Stelt eine Datenbanksicht dar.
+* `Stocktaking`: Stellt eine Inventur dar. 
+* `Room`: Stellt einen Raum dar.
+* `MergedItem`: Stellt einen Gegenstand dar.
+* `MergedItemField`: Stellt ein dynamisches Feld dar. 
+* `Attachment`: Stellt einen Anhang dar.  
+
+## Grundsätze
+
+Eine Modell-Klasse verwaltet etwaige Statusinformationen immer selbst. So weiß beispielsweise nur ein Gegenstand selbst, dass er ursprünglich aus einem anderen Raum stammt. Dies verbessert die Lesbarkeit und Wartbarkeit des Codes massiv, da diese Informationen abstrahiert sind und nicht mehrmals an verschiendenen Stellen im Quellcode schlummern. 
+
+# Die Fragments
 
 Dieses Kapitel basiert auf den Erklärungen der vorhergehenden Artikel. Eine Inventur wird auf der App durch folgenden Screens (Fragments) abgewickelt, die gleichzeitig als Phasen verstanden werden können:
 
@@ -769,14 +779,8 @@ Dieses Kapitel basiert auf den Erklärungen der vorhergehenden Artikel. Eine Inv
 * `DetailedItemFragment`
 * `AttachmentsFragment`
 
-
 #### StocktakingFragment
-ist das Fragment, in dem der Benutzer die aktuelle Inventur auswählt. Die Inventur kann nur vom Administrator am Server angelegt werden. Außerdem wählt der Benutzer hier die Datenbanksicht ("Serializer") aus. Die App kommuniziert ausschließlich mittels REST API mit dem Server. Diese Schnittstelle kann verschiendene Quellen haben. Für eine Inventur an unserer Schule ist die "HTL"-Datenbanksicht auszuwählen. Durch das Bestätigen eines langegezogenen blauen Buttons gelangt man immer zur nächsten Inventurphase. In diesem Fall gelangt man zum `RoomsFragment`.
-
-urls
-
-hardcoed only
-
+ist das Fragment, in dem der Benutzer die aktuelle Inventur auswählt. Die Inventur kann nur vom Administrator am Server angelegt werden. Außerdem wählt der Benutzer hier die Datenbanksicht ("Serializer") aus. Die App kommuniziert ausschließlich mittels REST API mit dem Server. Diese Schnittstelle kann verschiedene Quellen haben. Für eine Inventur an unserer Schule ist die "HTL"-Datenbanksicht auszuwählen. Durch das Bestätigen eines langegezogenen blauen Buttons gelangt man immer zur nächsten Inventurphase. In diesem Fall gelangt man zum `RoomsFragment`.
 
 #### RoomsFragment
 ist das Fragment, in dem der Benutzer den aktuellen Raum über eine DropDown auswählt. Anstatt die DropDown zu verwenden, kann er alternativ auch die Suchleiste verwenden. Als zusätzliche Alternative hat der Benutzer die Möglichkeit den Barcode eines Raumes zu scannen. Nach der Auswahl eines Raumes gelangt er zum `ViewPagerFragment`. 
@@ -784,26 +788,27 @@ ist das Fragment, in dem der Benutzer den aktuellen Raum über eine DropDown aus
 #### ViewPagerFragment
 ist das Fragment, das als Wrapper für das `MergedItemsFragment` und das `ValidatedMergedItemsFragment` dient. Die einzige Aufgabe dieses Fragments ist es, die zwei vorher genannten Fragments als Tabs anzuzeigen. Dies wurde mit der neuen ViewPager2-Library realisiert \cite{viewpager2}. Die Tabs kommunizieren über ein geteiltes ViewModel miteinander.
 
-
 #### MergedItemsFragment & ValidatedMergedItemsFragment
 
-sind die Fragments, die die Gegendsstandsliste eines Raumes verwalten und sie dem Benutzer anzeigen. Die Gegenstände werden einzeln validiert. Durch das Scannen des Barcodes eines Gegenstands (beziehungsweise das Klicken auf seine GUI-Repräsentation, wenn das Scannen keine Option ist) gelangt er zum `DetailedItemFragment`. `ValidatedMergedItemsFragment` erfüllt nur den Zweck, dem Benutzer bereits validierte Gegenstände anzuzeigen und ihm die Möglichkeit zu geben, validierte Gegenstände zurück zu den nicht-validierten Gegenständen in `MergedItemsFragment` zu verschieben. Daher trägt der Tab für das  `MergedItemsFragment` die Beschriftung "TODO", währenddessen der Tab für das  `ValidatedMergedItemsFragment` die Beschriftung "DONE" trägt.
+sind die Fragments, die die Gegenstandsliste eines Raumes verwalten und sie dem Benutzer anzeigen. Die Gegenstände werden einzeln validiert. Durch das Scannen des Barcodes eines Gegenstands (beziehungsweise das Klicken auf seine GUI-Repräsentation) gelangt er zum `DetailedItemFragment`. `ValidatedMergedItemsFragment` erfüllt nur den Zweck, dem Benutzer bereits validierte Gegenstände anzuzeigen und ihm die Möglichkeit zu geben, validierte Gegenstände zurück zu den nicht-validierten Gegenständen in `MergedItemsFragment` zu verschieben. Daher trägt der Tab für das  `MergedItemsFragment` die Beschriftung "TODO", währenddessen der Tab für das  `ValidatedMergedItemsFragment` die Beschriftung "DONE" trägt.
+
+Beide Fragments verwenden eine `RecyclerView`, um dem Benutzer die Gegenstände anzuzeigen \cite{recyclerview}. Eine RecyclerView generiert pro Eintrag ein Layout, hält aber nur die aktuell angezeigten Einträge inkl. Layout im RAM.   
 
 ####  DetailedItemFragment
-ist das Fragment, das zur Validierung eines einzelnen Gegenstands dient. Der Benutzer hat hier die Möglichkeit, etwaige Eigenschaften des Gegenstandes (beispielsweise den Anzeigenamen) zu ändern. Ein Formular, dass die Felder eines Gegenstandes beinhaltet, wird einmal angefordert, und anschließend für die gesamte Lebensdauer der App gespeichert. Anhand dieses Formulares wird dann eine GUI-Repräsentation dynamisch erstellt. 
+ist das Fragment, das zur Validierung eines einzelnen Gegenstands dient. Der Benutzer hat hier die Möglichkeit, etwaige Eigenschaften des Gegenstandes (beispielsweise den Anzeigenamen) zu ändern. Ein Formular, dass die Felder eines Gegenstandes beinhaltet, wird einmal angefordert, und anschließend für die gesamte Lebensdauer der App gespeichert. Anhand dieses Formulars wird dann eine GUI-Repräsentation dynamisch erstellt. Das Formular kann `ExtraFields` beinhalten. Das sind Felder, die als nicht essentiel angesehen werden und infolgedessen standardmäßig eingeklappt sind. Dazu gehören auch benutzerdefinierte Felder - sognannte `CustomFields`. 
 
 Dadurch braucht man für die gesamte Validierung eines Raumes - insofern keine Sonderfälle auftreten - keine Verbindung zum Server. Der Benutzer kann die Liste an einer Lokalität mit einer guten Verbindung anfordern, den Raum mit schlechter Verbindung betreten und validieren. Anschließend kann er den Raum verlassen und seine Validierungen an den Server senden. Damit wird der Bedarf an Netzwerkanfragen in Räumen mit schlechter Netzwerkverbindung minimiert. Der Benutzer kann zusätzlich zur Validierung auch Anhänge für einen Gegenstand definieren, dazu landet er beim `AttachmentsFragment`.
 
-Folgende GUI-Komponenten wurden statisch eincodiert, da sie Felder repräsentieren, die unabhängig von der ausgewählten Datenbanksicht immer vorhanden sind und daher nicht dynamisch sind:
+Folgende GUI-Komponenten wurden statisch implementiert, da sie Felder repräsentieren, die unabhängig von der ausgewählten Datenbanksicht immer vorhanden sind und daher nicht dynamisch sind:
 
 * Ein read-only Textfeld für die Gegendstandsbeschreibung
 * Ein read-only Textfeld für den Barcode
-* 
+* Eine Checkbox "Erst später entscheiden"
+* Eine DropDown für Subrooms
 
-OPTIONS
 
 #### AttachmentsFragment
-ist das Fragment, das die Anhänge eines Gegenstandes verwaltet. Der Benutzer sieht hier die bereits vorhandenen Anhänge mit Beschriftungen und kann weitere Anhänge hinzufügen. Bilder werden direkt angezeigt. Andere Dateien werden hingegen als Hyperlink dargestellt. Der Benutzer kann diese per Browser runterladen. Zum Hochladen eigener Anhänge greift die App auf den Standard-Dateibrowser des Systems zurück. Das Outsourcen auf Webbrowser und Dateibrowser bietet den massiven Vorteil, das man sich die Entwicklung eigener Download-Manager bzw. File-Manager erspart und auf Apps setzen kann, die von namenhaften Herstellern entwickelt werden. Fast jedes System hat bereits beide Komponenten vorinstalliert, daher treten bezüglich der Verfügbarkeit keine Probleme auf. 
+ist das Fragment, das die Anhänge eines Gegenstandes verwaltet. Der Benutzer sieht hier die bereits vorhandenen Anhänge mit Beschriftungen und kann weitere Anhänge hinzufügen. Bilder werden direkt angezeigt. Andere Dateien werden hingegen als Hyperlink dargestellt. Der Benutzer kann diese per Browser runterladen. Zum Hochladen eigener Anhänge greift die App auf den Standard-Dateibrowser des Systems zurück. Das Outsourcen auf Webbrowser und Dateibrowser bietet den massiven Vorteil, dass man sich die Entwicklung eigener Download-Manager bzw. File-Manager erspart und auf Apps setzen kann, die von namenhaften Herstellern entwickelt werden. Fast jedes System hat bereits beide Komponenten vorinstalliert, daher treten bezüglich der Verfügbarkeit keine Probleme auf. 
 
 Beim dem Hochladen von Bildern komprimiert die App jene zuvor. Die Qualität des Bildes ist einstellbar:
 
@@ -814,46 +819,58 @@ Beim dem Hochladen von Bildern komprimiert die App jene zuvor. Die Qualität des
 
 Zur Kompression wird das WEBP-Format verwendet, das dem mittlerweile veralteten JPG-Standard überlegen ist \cite{webp}. Der Server speichert den gesendeten Anhang nur einmal (Dateien werden anhand von Hashes unterschieden). Wenn ein Benutzer allen PCs in einem EDV-Saal dasselbe Bild zuweist, wird es nur einmal am Server hinterlegt. Die Anzahl der Anhänge ist nicht limitiert.
 
-## Validierungslogik
+# Validierungslogik
 
-MergedItemsFragment & DetailedItemFragment sind die Fragments, die den Großteil einer Inventur ausmachen. Der Benutzer scannt alle SAP-Barcodes, die sich in einem Raum befinden. Im Idealfall entspricht diese Menge exakt der Menge der Gegenstände, die dem Benutzer im MergedItemsFragment angezeigt wird. Im Normalfall wird dies durch etwaige Sonderfälle jedoch nicht gegeben sein. 
+`MergedItemsFragment` & `DetailedItemFragment` sind die Fragments, die den Großteil einer Inventur ausmachen. Der Benutzer scannt alle SAP-Barcodes, die sich in einem Raum befinden. Im Idealfall entspricht diese Menge exakt der Menge der Gegenstände, die dem Benutzer im MergedItemsFragment angezeigt wird. Im Normalfall wird dies durch etwaige Sonderfälle jedoch nicht gegeben sein. 
 
-Nach dem Scannen eines Gegenstandes werden die Felder des Gegenstandes dem Benutzer im DetailItemFragment angezeigt. In diesem Fragment hat der Benutzer zwei Buttons mit denen der Benutzer den Gegenstand validieren kann:
+Nach dem Scannen eines Gegenstandes werden die Felder des Gegenstandes dem Benutzer im DetailItemFragment angezeigt. In diesem Fragment hat der Benutzer zwei Buttons, mit denen er den Gegenstand validieren kann:
 
 * Grüner Button: Mit diesem Button wird signalisiert, dass sich der Gegenstand im Raum befindet und der Gegenstand wird mitsamt etwaigen Änderungen an seinen Attributen/Feldern übernommen. Dazu wird ein `ValidationEntry` erstellt. Alternativ kann der Benutzer das Klicken dieses Buttons mit dem Schütteln des Gerätes ersetzen. Die Schüttel-Sensibilität ist über die Einstellungen konfigurierbar (und auch deaktivierbar).
 * Roter Button: Mit diesem Button wird signalisiert, dass sich der Gegenstand nicht im Raum befindet. Dieser Button wird im Normalfall nie betätigt werden, da ein Gegenstand, der sich nicht in diesem Raum befindet, nicht gescannt werden kann und daher dieses Fenster nie geöffnet werden wird. Der Button hat trotzdem einen Sinn, da der Benutzer damit die "TODO"-Liste über das GUI verkleinern kann, um sich einen besseren Überblick zu verschaffen. 
 
+## Der ValidationEntry
 
-### ValidationEntry
+Das MergedItemsFragment (bzw. das MergedItemsViewModel) verfügt über eine HashMap (`Map<MergedItem, List<ValidationEntry>>`), die alle ValidationEntries beinhaltet. Ein ValidationEntry beinhaltet sämtliche Informationen, die der Server benötigt, um die Datensätze eines Gengenstandes entsprechend anzupassen.
+Einem Gegenstand ist eine Liste an ValidationEntries zugeordnet, da Subitems eigene ValidtionEntries bekommen können (siehe ["Sonderfälle"](#sonderfuxe4lle)). 
 
-Das MergedItemsFragment verfügt über eine HashMap (`Map<MergedItem, List<ValidationEntry>>`), die alle ValidationEntries beinhaltet. Ein ValidationEntry beinhaltet sämliche Informationen, die der Server benötigt, um die Datensätze der Gegenstände entsprechend anzupassen.
+Ein ValidationEntry beinhaltet immer den Primary Key eines Gegenstandes und die Felder, die sich geändert haben. Ein ValidationEntry hat daher eine Liste an Feldern `List<Field>`. Wenn sich der Wert eines Feldes geändert hat, wird diese Liste um einen Eintrag erweitert. Da die Felder wie erwähnt dynamisch sind, wurden Java Generics eingesetzt \cite{java-generics}, um diese abbilden zu können. `Field` ist eine innere Klasse in `ValidationEntry`:
 
+```java
+public static class Field<T> {
+    private String fieldName;
+    private T fieldValue;
+    ...
+```
+
+Ein Feld besteht also immer aus einem Feldnamen und einem generischen Feldwert. Selbiges gilt für ExtraFields.
 
 ### Sendeformat
+ 
+Wenn ein Raum abgeschlossen ist, werden alle ValidationEntries in einer Liste vereint und anschließend in eine JSON-Darstellung transformiert. Dieses JSON wird dem Server gesandt und damit ist der aktuelle Raum abgeschlossen und der Benutzer kann sich den restlichen Räumen annehmen. Das POST-Format wird im Kapitel ["JSON-Schema"](json-schema) beschrieben.
 
-TODO
+## Quickscan
 
-### Quickscan
+Der häufigste Fall einer Inventur wird der sein, dass ein Gegenstand im richtigen Raum ist und der Benutzer ohne weiteren Input auf den grünen Button drückt. Da dies einen unnötigen Overhead darstellt, wurde die App um den `QuickScan`-Modus erweitert. Hierbei wird sofort nach dem Scannen ein `ValidationEntry` erstellt, ohne dass zuvor das DetailedItemFragment geöffnet wird. Dieser Modus ist durch einen weiteren Button im MergedItemsFragment aktivierbar/deaktivierbar. Falls ein Sonderfall auftreten sollte, vibriert das Gerät zweimal und öffnet das  DetailedItemFragment. Damit wird gewährleistet, dass der Benutzer nicht irrtümlich mit dem Scannen weitermacht. Er muss diesen Sonderfall händisch validieren. Haptisches Feedback ist für Sonderfälle reserviert.
 
-Der häufigste Fall einer Inventur wird, der sein, dass ein Gegenstand im richtigen Raum ist und der Benutzer ohne weiteren Input auf den grünen Button drückt. Da dies eienen unnötigen Overhead darstellt, wurde die App um den `QuickScan`-Modus erweitert. Hierbei wird sofort nach dem Scannen ein `ValidationEntry` erstellt, ohne das zuvor das DetailedItemFragment geöffnet wird. Dieser Modus ist durch einen weiteren Button im MergedItemsFragment aktivierbar/deaktivierbar. Falls ein Sonderfall auftreten sollte, vibriert das Gerät zweimal und öffnet das  DetailedItemFragment. Damit wird gewährleistet, dass der Benutzer nicht irrtürmlich mit dem Scannen weitermacht. Er muss diesen Sonderfall händisch validieren. Haptisches Feedback ist für Sonderfälle reserviert.
-
-### Sonderfälle 
+## Sonderfälle auf der App
 
 Ein zentrales Thema der vorliegenden Diplomarbeit ist die Behandlung der Sonderfälle. 
 
-#### Subitems
+### Subitems
 
-Falls ein Gegenstand mehrmals vorhanden sein sollte, ist der `times_found_last`-Zähler in der Antwort des Servers größer als 1. Gegenstände. Dieser Counter wird dem Benuzer in folgender Form angezeigt: [Anzahl aktuell gefunden] / [Anzahl zuletzt gefunden]. 
+Falls ein Gegenstand mehrmals vorhanden sein sollte, ist der `times_found_last`-Zähler in der Antwort des Servers größer als 1 und der Gegenstand gilt als Subitem. Dieser Counter wird dem Benutzer in folgender Form angezeigt: `[Anzahl aktuell gefunden] / [Anzahl zuletzt gefunden]`. 
 
-Pro Subitem wird ein eigener ValidationEntry erstellt. An unserer Schule haben Subitems jedoch keinen Barcode sondern sind beispielsweise Teil eines Bundles, was dazu führt, dass Subitems auch in der Datenbank keine selbstständigen Gegenstände sind. CPs die auf Basis dieser ValidationEntries erstellt werden, werden dem echten "Parent"-Gegenstand zugeordnet und können wahlweise angewandt werden. Falls ein Gegenstand mehrmals gescannt wird, wird - nach Bestätigung durch den Benutzer - die Anzahl der aktuellen Funde erhöht und wiederum ein ValidationEntry erstellt, selbst wenn es sich bei dem Gegenstand nicht um ein Subitem handelt.
+Pro Subitem wird ein eigener ValidationEntry erstellt. An unserer Schule haben Subitems jedoch keinen Barcode sondern sind beispielsweise Teil eines Bundles, was dazu führt, dass Subitems auch in der Datenbank keine selbstständigen Gegenstände sind. CPs die auf Basis dieser ValidationEntries erstellt werden, werden dem echten "Parent"-Gegenstand zugeordnet und können wahlweise angewandt werden. Falls ein Gegenstand mehrmals gescannt wird, wird - nach Bestätigung durch den Benutzer - die Anzahl der aktuellen Funde erhöht und wiederum ein ValidationEntry erstellt, selbst wenn es sich bei dem Gegenstand aktuell nicht um ein Subitem handelt.
 
-#### Subrooms
+### Subrooms
 
 Subrooms sind logische Räume in einem Raum. Subrooms werden dem Benutzer im MergedItemsFragment als einklappbare Teilmenge aller Gegenstände des Raumes angezeigt. Die Subroom-Zugehörigkeit kann auf Gegenstandsbasis über eine DropDown geändert werden. Die Subroom-Zugehörigkeit wird in einem ValidationEntry immer gesetzt, auch wenn sie sich nicht geändert hat. 
 
-#### Unbekannte Gegenstände
+Die Gegenstandsliste des MergedItemsFragment beinhaltet in Wahrheit auch die Subrooms. Dies ist notwendig, da die `RecyclerView`, die dazu genutzt wird dem Benutzer die Gegenstände anzuzeigen, keine Möglichkeit bietet, eine Hierarchie bzw. Zwischenebenen darzustellen. Daher implementieren das Room-Model und das MergedItem-Model das Interface `RecyclerViewItem` und die RecyclerView erhält eine Liste an RecyclerViewItems - dies ist ein typisch polymorpher Ansatz. Abhängig vom Typen des aktuellen Listenelements baut die RecyclerView entweder ein Gegenstandslayout oder ein Raumlayout auf. 
 
-Falls ein Gegenstand gescannt wird, der sich nicht in der aktuellen Gegenstandsliste befindet, muss der Server befragt werden. Es gibt zwei mögliche Antwortsszenarien. Die ValidationEntries für diese Sonderfälle unterscheiden sich nicht von den bisherigen.
+### Unbekannte Gegenstände
+
+Falls ein Gegenstand gescannt wird, der sich nicht in der aktuellen Gegenstandsliste befindet, muss der Server befragt werden. Es gibt zwei mögliche Antwortszenarien. Die ValidationEntries für diese Sonderfälle unterscheiden sich nicht von den bisherigen.
 
 ##### Neuer Gegenstand
 Der Gegenstand befindet sich überhaupt nicht in der Datenbank. Im "DONE"-Tab haben solche Gegenstände eine blaue Hervorhebung.

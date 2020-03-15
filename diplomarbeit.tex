@@ -267,23 +267,173 @@ Wien, \today
 \chapter{Ziele}
 % \renewcommand{\kapitelautor}{}  % bleibt eventuell leer (gemeinsame Arbeit)
 
-\todo{Ignore this content for now}
 
-Das erste Kapitel stellt die Ziele der DA (inkl. individuelle Ziele
-aller Mitarbeiter) dar.
+\section{Hauptziele}
 
-Mögliche Gliederung (nach \cite{leitfaden})
+\begin{enumerate}
 
-\begin{itemize}
-\item  Einleitung
-\item   Zielsetzung und Aufgabenstellung des Gesamtprojekts
-\item   individuelle Zielsetzung und Aufgabenstellung mit Terminplan der einzelnen Teammitglieder
-\item   Grundlagen und Methoden (Ist-Situation, Lösungsansätze, konkrete Vorgehensweise)
-\item   Bearbeitung der Aufgabenstellung (technische Beschreibungen, Berechnungen)
-\item   Ergebnisse (Ergebnisdarstellung, kritische Gegenüberstellung mit der Zielsetzung
- und der gewählten Vorgehensweise)
-\end{itemize}
 
+\item \textbf{Online Inventurauflistung}
+
+Eine zentrale Auflistung aller in der vorliegenden Organisation enthaltenen und registrierten Gegenstände ist per Webbrowser erreichbar und verwaltbar. Dabei kann nach Eigenschaften der Gegenstände gesucht, gefiltert und sortiert werden. Außerdem wird dabei zwischen Einträgen, die aus der primären Liste und jenen, die aus der sekundären Liste stammen, unterschieden. Einträge der beiden Quellen sind miteinander, sowie mit einem zugehörigen Raum verlinkt. 
+Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{das-capentory-modul}{"Das "Capentory" Modul"}}.
+
+\begin{enumerate}
+  \item	\textbf{Verlauf auf Gegenstandsbasis}
+
+  Ein Gegenstand verfügt in der Datenbank über eine Geschichte, die beschreibt, wie sich der Gegenstand durch die verschiedenen Inventuren verändert hat.
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{uxe4nderungsverlauf}{"Änderungsverlauf"}}.
+
+  \item	\textbf{Inventurverlauf}
+
+  Der Server speichert jede vorgenommene Inventur. Somit ist eine Ver-sionsgeschichte an Inventuren abrufbar. Falls eine Inventur gelöscht wird, wird diese nicht unmittelbar verworfen, sondern vorerst in ein Archiv verschoben.
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{das-stocktaking-modul}{"Das "Stocktaking" Modul"}}.
+  
+  \item	\textbf{Entity-Relationship-Modell}
+
+  Die Datenbankstruktur inkl. Verlaufsfunktion ist durch ein Entity-Relationship-Modell definiert. Vor der Implementierung wurde die Datenbank skizziert und vorerst auf Papier modelliert. 
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{das-stocktaking-modul}{"Das "Stocktaking" Modul"}}.
+\end{enumerate}
+
+
+
+    \item \textbf{Datenimport/-export}
+
+    Daten von vorhandenen Inventarlisten (Primär und Sekundär) sind in die Datenbank importierbar, wobei Fehler des importierten Datensatzes erkannt und angezeigt werden. Das Importformat ist dabei.csv und .xlsx. 
+    Die in der zentralen Datenbank enthaltenen Daten sind in das .csv-, sowie das .xlsx-Format exportierbar. Dabei richtet sich die Formatierung der exportierten Daten an jene der importierten Daten. 
+    Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{datenimport}{"Datenimport"}}.
+
+
+    \item \textbf{Statussystem}
+
+    Ein Statussystem zeigt Diskrepanzen (etwa Gegenstände, die nur in einer der beiden Importquellen existieren, siehe RE-M 2) zwischen durchgeführten Inventuren und den importierten Daten in Form eines speziellen Status-Feldes auf. 
+    Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{das-htlitem-modell}{"Das HTLItem Modell"}}.
+
+
+
+    \item \textbf{Infrastruktur}
+
+    Das System ist vorbereitet, aus dem Schulnetz per HTTPS erreichbar zu sein. Die nötigen Schritte zur Inbetriebnahme der vorliegenden Infrastruktur sind dokumentiert. 
+    Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{das-capentory-modul}{"Das "Capentory" Modul"}}.
+    
+    \begin{enumerate}
+      \item	\textbf{Betriebsbereiter Server}
+
+      Ein Server inkl. Betriebssystem ist betriebsbereit. Die dazu benötigten Ressourcen sind erfasst und stehen dem Serversystem – insofern hardwaretechnisch realisierbar – zur Verfügung.
+      Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{uxe4nderungsverlauf}{"Änderungsverlauf"}}.
+    
+      \item	\textbf{Applikationskonfiguration}
+
+      Der einsatzfähige Server ist mit einer Konfiguration für den Produktivbetrieb ausgestattet. Die Konnektivität innerhalb des Schulnetzes ist getestet, sofern das Netzwerk dazu fähig ist.
+      Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{das-stocktaking-modul}{"Das "Stocktaking" Modul"}}.
+      
+      \item	\textbf{Virtualisierung}
+
+      Die verschiedenen Komponenten (i.e. Datenbank, Webserver) des Servers sind containervirtualisiert.  
+      Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{das-stocktaking-modul}{"Das "Stocktaking" Modul"}}.
+
+      \item	\textbf{Server-Dokumentation}
+
+      Die Maßnahmen zur Installation und Inbetriebnahme des Gesamtsystems ist dokumentiert.
+      Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{das-stocktaking-modul}{"Das "Stocktaking" Modul"}}.
+    \end{enumerate}
+
+
+
+
+
+
+
+      \item \textbf{Inventur per Android-App}
+
+      Ein Administrator ist in der Lage mit einer mobilen Android-Applikation eine Inventur durchzuführen. Dabei scannt dieser den Barcode eines Gegenstandes oder gibt den Code manuell ein und hat dann die Möglichkeit diesen Gegenstand zu validieren. 
+      Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{die-fragments}{"Die Fragments"}}.
+      
+      \begin{enumerate}
+        \item	\textbf{Scanvarianten}
+
+        Gegenstände werden per integriertem Zebra-Scanner – insofern vorhanden – gescannt. Alternativ wird dem Benutzer die Möglichkeit angeboten, den Barcode mit der Handykamera – insofern vorhanden – zu scannen. 
+        Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{TODO}{"Der Scan"}}.
+      
+        \item	\textbf{Kommunikationsschnittstelle am Server}
+
+        Die App verfügt über die Fähigkeit, den Server anzusprechen und die benötigten Inventurinformationen zu erhalten. Zusätzlich können auch Inventurveränderungsvorschläge über diese Weise vorgenommen werden.
+        Dieses Ziel wird in folgenden Kapiteln näher erläutert: \textbf{\href{die-modelle}{"Die Modelle"}} und \textbf{\href{der-validationentry}{"Der ValidationEntry"}}.
+        
+        \item	\textbf{Inventurverhalten auf Raumbasis}
+
+        Der Benutzer arbeitet im Rahmen einer Inventur eine Liste an Räumen ab, die ihm von der mobilen Applikation angezeigt werden. Hierbei scannt und validiert er die vorhandenen Gegenstände, die ihm angezeigt werden, sowie etwaige unbekannte/unerwartete Gegenstände (denen im Anschluss entsprechende Einträge zugewiesen werden).
+        Dieses Ziel wird in folgenden Kapiteln näher erläutert:  \textbf{\href{die-fragments}{"Die Fragments"}} und \textbf{\href{sonderfuxe4lle-auf-der-app}{"Sonderfälle auf der App"}}.
+      \end{enumerate}
+
+        \item \textbf{Serversicherung}
+
+        Der Server, der die oben beschriebenen Features zur Verfügung stellt, ist selbst von verschiedenen Angriffsszenarien, die in der Schule realistischerweise stattfinden könnten, geschützt, insofern dies technisch umsetzbar ist. 
+        Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{das-htlitem-modell}{"Das HTLItem Modell"}}.
+    
+\end{enumerate}
+
+
+
+\section{Optionale Ziele}
+
+
+\begin{enumerate}
+  \item \textbf{Texterkennung}
+  Für den Fall, dass der Barcode beschädigt sein sollte, verfügt die Applikation zusätzlich über die Fähigkeit, Text zu scannen.  
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{textscan}{"Textscan"}}.
+
+
+
+
+  \item \textbf{Bilder am Server}
+  Der Server speichert Bilder zu Gegenständen.  
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{speichern-von-bildern-und-anhuxe4ngen}{"Speichern von Bildern und Anhängen"}}.
+
+
+
+  \item \textbf{Bilder in der App}
+
+  Die App zeigt Bilder, die am Server Gegenständen zugeordnet wurden, an. Außerdem kann der Benutzer per App Bilder bestimmten Gegenständen zuordnen und diese Bilder am Server hochladen.
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{attachmentsfragment}{"AttachmentsFragment"}}.
+
+
+
+
+  \item \textbf{Benutzerdefinierte Felder}
+
+  Der Server speichert auf Gegenstandsbasis benutzerdefinierte Felder, die wiederum von der App angezeigt werden können.
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{detaileditemfragment}{"DetailedItemFragment"}}.
+
+
+
+  \item \textbf{Anhänge}
+
+  Anhänge können Gegenständen zugewiesen werden. Die Speicherung erfolgt hierbei so, dass ein Anhang mehreren Gegenständen zugewiesen werden kann und somit keine Duplikate gespeichert werden müssen.
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{speichern-von-bildern-und-anhuxe4ngen}{"Speichern von Bildern und Anhängen"}}.
+
+
+
+  \item \textbf{Ralph-Pull-Request}
+
+  Es wird versucht, die entwickelte Inventurfunktion in den offiziell Ralph-Code einzuführen. 
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{pull-request}{"Pull-Request"}}.
+
+
+
+  \item \textbf{Automatische Importkorrektur}
+
+  Der Benutzer hat die Möglichkeit nach dem Import vordefinierte Änderungen anzuwenden.
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{datenimport}{"Datenimport"}}.
+
+
+
+
+  \item \textbf{Servermonitoring}
+
+  Der Server ist für Monitoring vorbereitet.
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\href{datenimport}{"Datenimport"}}.
+\end{enumerate}
 
 %\chapter{Formatierung}
 
