@@ -43,7 +43,7 @@ Da die Diplomarbeit "Capentory" jedoch Erreichbarkeit im Schulnetz verlangt, mus
 
 ## Wahl des Betriebssystems
 
-Neben den physischen Hardwarekomponenten wird für einen funktionierenden und leicht bedienbaren Server logischerweise auch ein Betriebsystem benötigt. Die erste Entscheidung, welche Art von Betriebssystem für die Diplomarbeit "Capentory" in Frage kam wurde rasch beantwortet: Linux. Weltweit basieren die meisten Server und andere Geräte auf Linux. Jedoch gibt es selbst innerhalb des OpenSource-Hersteller zwei gängige Distributionen, die das Diplomarbeitsteam während deren Schulzeit an der Htl Rennweg kennenlernen und Übungen darauf durchführen durfte:
+Neben den physischen Hardwarekomponenten wird für einen funktionierenden und leicht bedienbaren Server logischerweise auch ein Betriebsystem benötigt. Die erste Entscheidung, welche Art von Betriebssystem für die Diplomarbeit "Capentory" in Frage kam wurde rasch beantwortet: Linux. Weltweit basieren die meisten Server und andere Geräte auf Linux. Jedoch gibt es selbst innerhalb des OpenSource-Hersteller zwei gängige Distributionen, die das Diplomarbeitsteam während deren Schulzeit an der HTL Rennweg kennenlernen und Übungen darauf durchführen durfte:
 
  * Linux CentOS
  * Linux Ubuntu
@@ -85,7 +85,7 @@ Jedoch kam es beim ersten Versuch zu Problemen mit der Konfiguration der Netzwer
 Um eine funktiorierende Internetverbindung zu erstellen, durfte die Konfiguration der Schnittstellen nicht erst "später durchgeführt" werden, da mit dem Aufschub der Schnittstellen-Konfiguration das Paket "NetworkManager" nicht installiert wurde. Der "NetworkManager" ist verantwortlich für den Zugang zum Internet und der Netzwerksteuerung auf dem Linuxsystem. Und da im Nachhinein dieses Paket nicht installiert war (und aufgrund fehlender Internetverbindung nicht installiert werden konnte), half auch die fehlerfreie Interface-Konfiguration nicht, um eine Konnektivität herzustellen. Dadurch musste ein zweiter Installationsdurchgang durchgeführt werden, worauf dann alles fehlerfrei und problemlos lief.
 
 ### Konfiguration
-Im Rahmen des Laborunterrichts an der Htl Rennweg, bekamen die Schüler für diverse Unklarheiten ein sogenanntes Cheat-Sheet \cite{cheat} für Linux-Befehle zur Verfügung gestellt. In diesem Cheat-Sheet finden sich unteranderem Anleitungen für die Konfiguration einer Netzwerkschnittstelle auf einer CentOS/RedHat sowie Ubuntu/Debian-Distribution.
+Im Rahmen des Laborunterrichts an der HTL Rennweg, bekamen die Schüler für diverse Unklarheiten ein sogenanntes Cheat-Sheet \cite{cheat} für Linux-Befehle zur Verfügung gestellt. In diesem Cheat-Sheet finden sich unter anderem Anleitungen für die Konfiguration einer Netzwerkschnittstelle auf einer CentOS/RedHat sowie Ubuntu/Debian-Distribution.
 Den Schülern der fünften Netzwerktechnikklasse sollte diese Kurzkonfiguration jedoch schon leicht von der Hand gehen, da sie diese Woche für Woche benötigen.
 
 Eine Netzwerkkonfiguration mit statischen IPv4-Adressen für eine Ubuntu-Distribution könnte wie folgt aussehen:
@@ -154,7 +154,7 @@ Syntax: `sudo apt-get [Option(en)] remove PAKET1 [PAKET2]`
 
 #### NGINX
 
-NGINX ist der am Häufigsten verwendete OpenSource-Webserver unter Linux für diverse Webanwendungen. Große Unternehmen wie Cisco, Microsoft, Facebook oder auch IBM schwören auf die Verwendung dieses genialen Paketes. Unteranderem wird NGINX auch als Reverse-Proxy, HTTP-Cache und Load-Balancer verwendet. Wie genau NGINX für den Produktivbetrieb funktioniert wird im Laufe des Punktes \ref{funktionsweise-der-produktivumgebung} erläutert.
+NGINX ist der am häufigsten verwendete OpenSource-Webserver unter Linux für diverse Webanwendungen. Große Unternehmen wie Cisco, Microsoft, Facebook oder auch IBM schwören auf die Verwendung dieses genialen Paketes. Unter anderem wird NGINX auch als Reverse-Proxy, HTTP-Cache und Load-Balancer verwendet. Wie genau NGINX für den Produktivbetrieb funktioniert, wird im Laufe des Punktes \ref{funktionsweise-der-produktivumgebung} erläutert.
 
 Installation: `[sudo] apt-get install nginx`
 
@@ -172,7 +172,7 @@ Installation: `[sudo] apt-get install docker-compose`
 
 #### MySQL
 
-MySQL ist ein OpenSource-Datenverwaltungssystem und die Grundlage für die meisten dynamischen Websiten. Darauf werden die Inventurdatensätze der Htl Rennweg gespeichert. Nähere Informationen finden sich Punkt \ref{funktionsweise-der-produktivumgebung} wieder.
+MySQL ist ein OpenSource-Datenverwaltungssystem und die Grundlage für die meisten dynamischen Websiten. Darauf werden die Inventurdatensätze der HTL Rennweg gespeichert. Nähere Informationen finden sich Punkt \ref{funktionsweise-der-produktivumgebung} wieder.
 
 Installation: `[sudo] apt-get install mysql`
 
@@ -184,18 +184,18 @@ Installation: `[sudo] apt-get install redis`
 
 #### Nagios
 
-Nagios ist ein Monitoring-System, mit dem sich verschiedene Geräte und auf solche laufende Dienste (oder auch Eigenschaften) überwachen lassen. Ziel ist es dabei schnell Ausfälle festzustellen und diese dem zuständigen Administrator mit zu teilen, so dass dieser dann schnell darauf reagieren kann.
+Nagios ist ein Monitoring-System, mit dem sich verschiedene Geräte und damit laufende Dienste (oder auch Eigenschaften) überwachen lassen. Ziel ist es dabei schnell Ausfälle festzustellen und diese dem zuständigen Administrator mitzuteilen, so dass dieser dann schnell darauf reagieren kann.
 
 Installation: `[sudo] apt-get install nagios`
 
 #### virtualenv
 
-Bei virtualenv handelt es sich um ein Tool, mit dem eine isolierte Python-Umgebung erstellt werden kann. Eine solch isolierte Umgebung besitzt eine eigene Installation von diversen Services und teilt ihre libraries nicht mit anderen virtuellen Umgebungen (im optionalen Fall greifen sie auch nicht auf die global installierten libraries zu). Dies bringt vor allem den großen Vorteil, dass im Testfall virtuelle Umgebungen aufgesetzt werden können, um nicht die globalen Konfigurationen zu gefährden.
+Bei virtualenv handelt es sich um ein Tool, mit dem eine isolierte Python-Umgebung erstellt werden kann. Eine solch isolierte Umgebung besitzt eine eigene Installation von diversen Services und teilt ihre Libraries nicht mit anderen virtuellen Umgebungen (im optimalen Fall greifen sie auch nicht auf die global installierten Libraries zu). Dies bringt vor allem den großen Vorteil, dass im Testfall virtuelle Umgebungen aufgesetzt werden können, um nicht die globalen Konfigurationen zu gefährden.
 
 Installation: `[sudo] apt-get install virtualenv`
 
 #### Python
-Python ist einer der Hauptbestandteile auf dem Serversystem der Diplomarbeit "Capentory". Das Backend (=Serveranwendung) basiert wie bereits erwähnt auf dem Python-Framework "Django". Um dieses Framework auf dem System installieren zu können wird jedoch noch ein weiteres "Packaging-Tool", speziell für Python-Module, benötigt.
+Python ist einer der Hauptbestandteile auf dem Serversystem der Diplomarbeit "Capentory". Das Backend (=Serveranwendung) basiert wie bereits erwähnt auf dem Python-Framework "Django". Um dieses Framework auf dem System installieren zu können, wird jedoch noch ein weiteres "Packaging-Tool", speziell für Python-Module, benötigt.
 
 Installation: `[sudo] apt-get install python3.x`
 
@@ -217,7 +217,7 @@ Installation: `[sudo] pip3 install uwsgi`
 
 #### Django
 
-Django ist ein in Python geschriebenes Webframework, auf dem unsere Serveranwendung basiert. Genauere Informationen wurden jedoch schon unter Punkt \ref{django-und-ralph} übermittelt.
+Django ist ein in Python geschriebenes Webframework, auf dem unsere Serveranwendung basiert. Genauere Informationen wurden jedoch schon bei Punkt \ref{django-und-ralph} vermittelt.
 
 Installation: `[sudo] pip3 install Django`
 
@@ -229,7 +229,7 @@ Installation: `[sudo] pip3 install runsslserver`
 
 ## Produktivbetrieb der Applikation
 
-Das Aufsetzen beziehungsweise die Installation der Produktivumgebung ist der wichtigste, aber auch aufwendigste, Bestandteil jeder Serverinfrastruktur. Eine Produktivumgebung soll von einer Testumgebung möglichst weit getrennt sein, damit die zu testende Software keinen Schaden für den produktiven Betrieb anrichten kann. Weiters soll durch den Produktivbetrieb der Server um einiges perfomanter sein, da dieser, im Falle der Diplomarbeit "Capentory", einen optimierten Webserver (NGINX) verwendet. 
+Das Aufsetzen beziehungsweise die Installation der Produktivumgebung ist der wichtigste, aber auch aufwendigste, Bestandteil jeder Serverinfrastruktur. Eine Produktivumgebung soll von einer Testumgebung möglichst weit getrennt sein, damit die zu testende Software keinen Schaden für den produktiven Betrieb anrichten kann. Weiters soll durch den Produktivbetrieb der Server um einiges performanter sein, da dieser, im Falle der Diplomarbeit "Capentory", einen optimierten Webserver (NGINX) verwendet. 
 
 ### Entwicklungsumgebung
 
@@ -245,14 +245,14 @@ sondern mit:
 
 Obwohl die Befehle dieses Serverstarts nicht wirklich ident aussehen, führen sie im Hintergrund aber die gleichen Unterbefehle aus, um eine sichere Verwendung der Entwicklungsumgebung zu gewährleisten.
 
-Da das Diplomarbeitsteam "Capentory" diesen Entwicklungsumgebung vorerst auf dem Produktivserver für Testzwecke verwendete, wurde ein eher unbekanntes Paket namens "runsslserver" für die Entwicklungsumgebung installiert und eingebaut. Zuerst musste, üblich um eine https-Verbindung einzurichten, beispielsweise mit dem Befehl
+Da das Diplomarbeitsteam "Capentory" diese Entwicklungsumgebung vorerst auf dem Produktivserver für Testzwecke verwendete, wurde ein eher unbekanntes Paket namens "runsslserver" für die Entwicklungsumgebung installiert und eingebaut. Zuerst musste, üblich um eine https-Verbindung einzurichten, beispielsweise mit dem Befehl
 
     sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 
     -keyout /ssl/nginx.key -out /ssl/cert.crt
 
 ein Zertifikat mit dem zugehörigen Schlüssel generiert werden.
 
-Kurzerklärung der Befehlsoptionen
+Kurzerklärung der Befehlsoptionen:
 
  - `-x509` Gibt an, statt eines CSR gleich ein selbstsigniertes Zertifikat auszustellen.
  - `-nodes` Zertifikat wird nicht über ein Kennwort geschützt. Damit kann der Server ohne weitere Aktion (Eingabe des Kennworts) gestartet werden.
@@ -271,13 +271,13 @@ gestartet werden.
 
 ### Probleme der Produktivumgebung
 
-Der Webserver selbst kann für unsere Zwecke nicht mit Docker für eine Produktivumgebung bereitgestellt werden, da die bereits vorhandenen Dockerfiles von Ralph nur für deren Lösung entwickelt wurden (d.h. Ralph installiert deren Webserver sehr komplex wie in etwa mit einem „apt-get install ralph“ Befehl in diversen Skripten). Jedoch gibt es eine eigene Docker-Variante für die Entwicklungsumgebung die rasch mit uWSGI in eine Produktivumgebung umgewandelt werden kann.
+Der Webserver selbst kann für unsere Zwecke nicht mit Docker für eine Produktivumgebung bereitgestellt werden, da die bereits vorhandenen Dockerfiles von Ralph nur für deren Lösung entwickelt wurden (d.h. Ralph installiert deren Webserver per Paketverwaltung sehr komplex mit einem „apt-get install ralph“ Befehl in diversen Skripten). Jedoch gibt es eine eigene Docker-Variante für die Entwicklungsumgebung die rasch mit uWSGI in eine Produktivumgebung umgewandelt werden kann.
 
 ### Funktionsweise der Produktivumgebung
 
 ####  Funktion von uWSGI
 
-Es wurde bereits desöfteren erklärt warum die vorhandene "Ralph-Dockerlösung" für die Zwecke von "Capentory" nicht brauchbar sind (siehe \ref{probleme-der-produktivumgebung}). Jedenfalls wurde nun die Einrichtung der Produktivumgebung mittels uWSGI erfolgreich durchgeführt. In der folgenden Grafik wird die Funktion von uWSGI genauer dargestellt.
+Es wurde bereits des Öfteren erklärt warum die vorhandene "Ralph-Dockerlösung" für die Zwecke von "Capentory" nicht brauchbar sind (siehe \ref{probleme-der-produktivumgebung}). Jedenfalls wurde nun die Einrichtung der Produktivumgebung mittels uWSGI erfolgreich durchgeführt. In der folgenden Grafik wird die Funktion von uWSGI genauer dargestellt.
 
 \begin{figure}[ht]
 \centering
@@ -290,7 +290,7 @@ Da die meisten Serverbenutzer alleine mit der Grafik nicht wirklich viel anfange
 
  1. Ein beliebiger Benutzer eines Webbrowsers (zum Beispiel Google Chrome oder Mozilla Firefox) sendet einen sogenannten "Webrequest" auf den https-Port "443" (Abschnitt \ref{probleme-der-produktivumgebung}).
  2. Ein beliebig gewählter, optimierter Webserver (im Fall von "Capentory" NGINX) stellt Dateien wie Javascript, CSS oder auch Bilder bereit und macht diese für den Benutzer abrufbar.
- 3. Hier wird die Kommunikation zwischen dem hochperfomanten Webserver NGINX und dem Webinterface uWSGI mit Verwendung eines klassischen Websockets veranschaulicht. (Anm.: Bei einem Websocket handelt es sich um ein auf TCP basierendes Protokoll, dass eine bidirektionale Verbindung zwischen einer Webanwendung und einem Webserver herstellt).
+ 3. Hier wird die Kommunikation zwischen dem hochperformanten Webserver NGINX und dem Webinterface uWSGI mit Verwendung eines klassischen Websockets veranschaulicht. (Anm.: Bei einem Websocket handelt es sich um ein auf TCP basierendes Protokoll, dass eine bidirektionale Verbindung zwischen einer Webanwendung und einem Webserver herstellt).
  4. Das eigentliche Interface von uWSGi ist hier zu sehen. Diese Schnittstelle sorgt für die Kommunikation des oben genannten Websockets mit dem verwendeten Python-Framework.
  5. Django reagiert nun auf die Anfrage des Benutzers und lässt diesem (falls dessen Zugriffsrechte darauf es erlauben) die gewünschten Daten.
  6. Die vom Benutzer gewünschten Daten werden (bei "Capentory") in einer MySQL-Datenbank gespeichert. 
@@ -325,11 +325,11 @@ Wie es sich für eine Netzwerktechnikklasse gehört, wurde auch an die Erreichba
 \caption{Aufruf des Servers über HTTPS}
 \end{figure}
 
-Der Zertifikatsfehler, der am Bild deutlich zu sehen ist, bedeudet jedoch nichts anderes als dass das Zertifakt des Produktivservers von "Capentory" nicht von einer offiziellen Zertifizierungsstelle signiert wurde. Da der Server aber sowieso nur im Schulnetz der HTL 3 Rennweg beziehungsweise über einen VPN-Tunnel erreichbar ist, war es nicht nötig sich an solch eine Zertifizierungsstelle zu wenden.
+Der Zertifikatsfehler, der am Bild deutlich zu sehen ist, bedeudet jedoch nichts anderes als dass das Zertifakt des Produktivservers von "Capentory" nicht von einer offiziellen Zertifizierungsstelle signiert wurde. Da der Server aber sowieso nur im Schulnetz der HTL 3 Rennweg beziehungsweise über einen VPN-Tunnel erreichbar ist, war es nicht nötig, sich an solch eine Zertifizierungsstelle zu wenden.
 
 ### Verwendung einer .ini-Datei
 
-Bei einem File mit einer .ini-Endung handelt es sich um eine Initialisierungsdatei. Diese beinhaltet beispielsweise Konfigurationsmöglichen die zum Start eines bestimmten Dienstes benötigt werden. Glücklicherweise funktioniert so ein File auch wunderbar mit uWSGI. Durch die Implementierung einer ralph.ini-Datei wurden die Befehlsoptionen des `uwsgi`-Befehls ausgelagert und dieser somit für den Serverstart verkürzt.
+Bei einem File mit einer .ini-Endung handelt es sich um eine Initialisierungsdatei. Diese beinhaltet beispielsweise Konfigurationen die zum Start eines bestimmten Dienstes benötigt werden. Glücklicherweise funktioniert so ein File auch wunderbar mit uWSGI. Durch die Implementierung einer ralph.ini-Datei wurden die Befehlsoptionen des `uwsgi`-Befehls ausgelagert und dieser somit für den Serverstart verkürzt.
 
 Ein kleiner Vergleich:
 
@@ -353,7 +353,7 @@ Mit
 
 ## Absicherung der virtuellen Maschine
 
-Ein weiterer wichtiger und sensibler Teil der Serverinfrastruktur ist die Absicherung der virtuellen Maschine gegen Angriffe. Da es sich im Rahmen der Diplomarbeit "Capentory" um geheime Daten der Schulinventur handelt, war es ein Anliegen der Verantwortlichen, dass mit diesen Daten verantwortungsvoll und vorsichtig umgegangen wird.
+Ein weiterer wichtiger und sensibler Teil der Serverinfrastruktur ist die Absicherung der virtuellen Maschine gegen Angriffe. Da es sich im Rahmen der Diplomarbeit "Capentory" um vertrauliche Daten der Schulinventur handelt, war es ein Anliegen der Verantwortlichen, dass mit diesen Daten verantwortungsvoll und vorsichtig umgegangen wird.
 
 ### Firewall
 
@@ -385,17 +385,17 @@ oder:  `sudo ufw allow 443`
 
 #### Verbieten aller restlichen Verbindungen
 
-Zuguterletzt müssen alle restlichen (die nicht von Administratoren gebrauchten) Verbindungen deaktiviert werden um Angriffslücken zu schließen.
+Zu guter Letzt müssen alle restlichen (die nicht von Administratoren gebrauchten) Verbindungen deaktiviert werden um Angriffslücken zu schließen.
 
 Regel: `ufw default deny`
 
 ### Mögliche Angriffsszenarien
 
-Da der Server im Schulnetz erreichbar ist, gelten unteranderem auch die Schüler der HTL 3 Rennweg als potenzielle Angreifer. 
+Da der Server im Schulnetz erreichbar ist, gelten unter anderem auch die Schüler der HTL 3 Rennweg als potenzielle Angreifer. 
 
 #### Malware
 
-Bei Malware handelt es sich um Schadsoftware zudem unteranderem **Viren**, **Würmer** und **Trojaner** zählen.
+Bei Malware handelt es sich um Schadsoftware zudem unter anderem **Viren**, **Würmer** und **Trojaner** zählen.
 
 #### Angriffe auf Passwörter
 
@@ -405,7 +405,7 @@ Vorbeugung von Team "Capentory": Die festgelegten Passwörter sind komplex aufge
 
 #### Man-in-the-middle Attacken
 
-Bei der „Man in the Middle“-Attacke nistet sich ein Angreifer  zwischen den miteinander kommunizierenden Rechnern. Diese Position ermöglicht ihm, den ausgetauschten Datenverkehr zu  kontrollieren und zu manipulieren. Er kann z.B. die ausgetauschten Informationen abfangen, lesen, die Weiterleitung kappen usw. Von all dem erfährt der Empfänger aber nichts.
+Bei der „Man in the Middle“-Attacke nistet sich ein Angreifer  zwischen den miteinander kommunizierenden Rechnern. Diese Position ermöglicht ihm, den ausgetauschten Datenverkehr zu  kontrollieren und zu manipulieren. Er kann z.B. die ausgetauschten Informationen abfangen, lesen, die Weiterleitung kappen usw.. Von all dem erfährt der Empfänger aber nichts.
 
 Vorbeugung von Team "Capentory": Der Datenaustausch verläuft über HTTPS und somit verschlüsselt.
 
@@ -473,7 +473,7 @@ So sehen die überwachten Services am Admin-Dashboard des Nagios-Servers aus:
 
 Im Moment weist kein Service der beiden Hosts ein kritisches Problem auf. Auf dem Nagios-Server ist der HTTP-Service zwar gelb markiert, hierbei handelt es sich jedoch nur um eine harmlose Warnung.
 
-Wenn auf dem Produktivserver hingegen der Webserver NGINX ausfällt sieht das Dashboard jedoch wiederum anders aus:
+Wenn auf dem Produktivserver hingegen der Webserver NGINX ausfällt, sieht das Dashboard jedoch wiederum anders aus:
 
 \begin{figure}[ht]
 \centering
@@ -487,4 +487,4 @@ Zuguterletzt gibt es noch das Feature der Notifications. Falls ein Host oder ein
 
 ## Verfassen einer Serverdokumentation
 
-Im Laufe dieses Kapitels wurde der Inhalt von den für die Produktivumgebung zu erstellenden Dateien aufgelistet und Zeile für Zeile erklärt. Da nur mit diesen Dateien alleine jedoch kein Server funktionieren kann war ein weiteres großes Ziel die Erstellung einer Guideline für interessierte Benutzer, damit diese ebenfalls in der Lage sind, den Server der Diplomarbeit "Capentory" für eine Entwicklungsumgebung sowie eine Produktumgebung aufzusetzen. 
+Im Laufe dieses Kapitels wurde der Inhalt von den für die Produktivumgebung zu erstellenden Dateien aufgelistet und Zeile für Zeile erklärt. Da nur mit diesen Dateien alleine jedoch kein Server funktionieren kann, war ein weiteres großes Ziel die Erstellung einer Guideline für interessierte Benutzer, damit diese ebenfalls in der Lage sind, den Server der Diplomarbeit "Capentory" für eine Entwicklungsumgebung sowie eine Produktumgebung aufzusetzen. 
