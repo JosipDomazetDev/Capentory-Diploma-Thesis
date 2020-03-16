@@ -102,7 +102,7 @@ Als Reaktion auf eine Vielzahl von Apps, die Probleme mit God-Activites aufwiese
 
 # Designgrundlagen von MVVM
 
-MVVM steht für Model–view–viewmodel \cite{mvvm-wiki}. Wie man am Namen bereits erkennt, gilt es zwischen drei Komponenten/Ebenen zu unterscheiden \cite{mvvm-article}. 
+MVVM steht für Model–View–Viewmodel \cite{mvvm-wiki}. Wie man am Namen bereits erkennt, gilt es zwischen drei Komponenten/Ebenen zu unterscheiden \cite{mvvm-article}. 
 
 #### Model 
 Model beschreibt die Ebene der Daten und wird daher oftmals auch als Datenzugriffsschicht bezeichnet. Diese Ebene beinhaltet so viel Anwendungslogik wie möglich.
@@ -115,15 +115,19 @@ Das ViewModel dient als Bindeglied zwischen dem Model und der View. Die Logik de
 
 # MVVM in Android
 
-Mit der Einführung der Architecture Components hat Google Android-Entwicklern eine Vielzahl an Libraries zur Verfügung gestellt, um MVVM leichter in Android implementieren zu können \cite{mvvm-architecture-components}. Die konkrete Implementierung in Android ist in der Abbildung ersichtlich.
+Mit der Einführung der `Architecture Components` hat Google Android-Entwicklern eine Vielzahl an Libraries zur Verfügung gestellt, um MVVM leichter in Android implementieren zu können \cite{mvvm-architecture-components}. Die konkrete Implementierung in Android ist in Abbildung \ref{fig:mvvm} ersichtlich.
 
-![MVVM in Android nach Google \cite{mvvm}](josip-pics\mvvm.png)
+\begin{figure}
+  \includegraphics[width=\linewidth]{mvvm.png}
+  \caption{MVVM in Android nach Google \cite{mvvm}}
+  \label{fig:mvvm}
+\end{figure}
 
 In dem vorliegenden Fall ist unser `Fragment` die `View`, das `Repository` das `Model` und das `ViewModel` ist in Android namensgleich.
 
 ## Das Repository im Detail
 
-Wie in der Grafik veranschaulicht, ist das Repository dafür zuständig, Daten vom Server anzufordern. Im vorliegenden Fall besteht kein Grund, eine Datenbank am Client zu führen. Damit fällt dieser Aspekt der Grafik - der in violetter Farbe gehalten ist - für die vorliegende Diplomarbeit weg. Die Aufgabe des Repositories ist es also immer Daten vom Server anzufordern. 
+Wie in der Grafik \ref{fig:mvvm} veranschaulicht, ist das Repository dafür zuständig, Daten vom Server anzufordern. Im vorliegenden Fall besteht kein Grund, eine Datenbank am Client zu führen. Damit fällt dieser Aspekt der Grafik - der in violetter Farbe gehalten ist - für die vorliegende Diplomarbeit weg. Die Aufgabe des Repositories ist es also immer, Daten vom Server anzufordern. 
 
 ### JsonRequest
 
@@ -133,24 +137,24 @@ Die Kommunikation zwischen dem Client und der App findet ausschließlich im `JSO
  * Die maximale Timeout-Dauer wurde erhöht.
  * Leere Antworten werden von der App als valide Antwort behandelt und können ohne Fehler verarbeitet werden.
  * Im Header der Anfrage wird der Content-Type der Anfrage auf JSON festgelegt.
- * Im Header wird der zur Authentifikation notwendige API-Token mitgeschickt. Die Authentifizierung ist über einen Parameter deaktivierbar. 
+ * Im Header wird das zur Authentifikation notwendige API-Token mitgeschickt. Die Authentifizierung ist über einen Parameter deaktivierbar. 
  * Im Header wird die Systemsprache des Clients als standardisierter ISO-639-Code mitgesendet. Der Server passt seine Antwort auf die verwendete Sprache an \cite{ISO-639}. Die Bezeichnung der Felder, die dem Benutzer auf Gegenstandsbasis angezeigt werden, ist beispielsweise abhängig von der Systemsprache.
-* Zum Zeitpunkt der Anfrage ist nicht bekannt, ob die Antwort als JSONArray oder als JSONObject erfolgen wird. Da das Backend abhängig von der Anfrage sowohl mit einem JSONArray als auch einem JSONObject antworten kann, ist der Rückgabewert am Client immer ein String. Die Umwandlung erfolgt erst im Repository. 
+* Zum Zeitpunkt der Anfrage ist nicht bekannt, ob die Antwort als `JSONArray` oder als `JSONObject` erfolgen wird. Da das Backend abhängig von der Anfrage sowohl mit einem `JSONArray` als auch einem `JSONObject` antworten kann, ist der Rückgabewert am Client immer ein String. Die Umwandlung erfolgt erst im Repository. 
 
-Diese Unterscheidung zwischen JSONArray und JSONObject ist notwendig, da Android zwei Möglichkeiten anbietet, JSON als Objekt zu speichern:
+Diese Unterscheidung zwischen `JSONArray` und `JSONObject` ist notwendig, da Android zwei Möglichkeiten anbietet, JSON als Objekt zu speichern:
 
-Direkt als JSONArray:
+Direkt als `JSONArray`:
 ```java
 JSONArray jsonArray = new JSONArray(payload);
 ```
-Direkt als JSONObject:
+Direkt als `JSONObject`:
 ```java
 JSONObject jsonObject = new JSONObject(payload);
 ```
 Beide Optionen haben einen Konstruktor, der einen String akzeptiert (im obigen Beispiel ist dies der String `payload`). Das Backend könnte - natürlich in Abhängigkeit von der ursprünglichen Anfrage - folgende (vereinfachte) Antworten senden:
 
 
-Ein JSONArray (wenn die Anfrage beispielsweise eine Gegenstandsliste verlangt):
+Ein `JSONArray` (wenn die Anfrage beispielsweise eine Gegenstandsliste verlangt):
 ```json
 [
   {
@@ -165,7 +169,7 @@ Ein JSONArray (wenn die Anfrage beispielsweise eine Gegenstandsliste verlangt):
 ```
 
 
-Ein JSONObject (wenn die Anfrage beispielsweise einen spezifischen Gegenstand verlangt):
+Ein `JSONObject` (wenn die Anfrage beispielsweise einen spezifischen Gegenstand verlangt):
 ```json
 {
   "id": 1,
@@ -173,7 +177,7 @@ Ein JSONObject (wenn die Anfrage beispielsweise einen spezifischen Gegenstand ve
 }
 ```
 
-Wenn das Backend ein JSONArray sendet und man versucht, jenes als JSONObject zu speichern, kommt es zu einem Fehler:
+Wenn das Backend ein `JSONArray` sendet und man versucht, jenes als `JSONObject` zu speichern, kommt es zu einem Fehler:
 ```java
 // Dieser Code entspricht keiner korrekten Java-Syntax! 
 // Antwort vom Backend
@@ -194,7 +198,7 @@ JSONObject jsonObject = new JSONObject(payload);
 ```
 
 Aus diesem Grund kann die Umwandlung der Backend-Antwort erst im Repository erfolgen. Dies führt zu keinen Perfomance-Problemen, da die vorgefertigte Android Library den String zwar zu einem früheren Zeitpunkt aber auf dieselbe Weise umwandeln würde. Die Umwandlung eines Strings
-zu einem JSONArray oder einem JSONObject entspricht nur dem Bruchteil der Zeitdauer, die die Backend-Antwort benötigt, um am Client anzukommen. Selbst bei größeren Strings bemerkt der Benutzer daher keinerlei Unterschied. 
+zu einem `JSONArray` oder einem `JSONObject` entspricht nur dem Bruchteil der Zeitdauer, die die Backend-Antwort benötigt, um am Client anzukommen. Selbst bei größeren Strings bemerkt der Benutzer daher keinerlei Unterschied. 
 
 ### JsonRequest - Beispiel
 
@@ -250,8 +254,8 @@ robustJsonRequestExecutioner.launchRequest();
 Lambdas sind eine Option, um `Callbacks` in Java zu implementieren. Ein Callback ("Rückruffunktion") ist eine Methode, die einer anderen Methode als Parameter übergeben werden kann. Die soeben erwähnten funktionalen Interfaces sind typische Callbacks \cite{Callbacks}.
 Es gibt zwei Arten von Callbacks:
 
-* Synchrone Callbacks: Die Ausführung der übergebenen Methode erfolgt sofort
-* Asynchrone Callbacks: Die Ausführung der übergebenen Methode erfolgt zu einem späteren Zeitpunkt
+* Synchrone Callbacks: Die Ausführung der übergebenen Methode erfolgt sofort.
+* Asynchrone Callbacks: Die Ausführung der übergebenen Methode erfolgt zu einem späteren Zeitpunkt.
 
 In diesem Fall wird die Methode `handleSuccess` aufgerufen, sobald der Client die Antwort erhalten hat. Damit handelt es sich um ein asynchrones Callback.
 
@@ -293,20 +297,25 @@ Dies führt zu einem besseren Überblick als bei Volley, da man pro API-Endpunkt
 
 ## Das ViewModel und das Fragment im Detail
 
-Das ViewModel ist eine Klasse, die dafür ausgelegt ist, UI-bezogene Daten lifecycle-aware zu speichern. Ein Fragment durchlebt im Laufe seines Daseins eine Vielzahl an Zuständen/Phasen - man spricht von einem `Lifecycle`. Wenn der Benutzer zum Beispiel sein Gerät rotiert, führt dies dazu, dass das Fragment \emph{zerstört} wird und das Fragment durch erneutes Durchleben alter Zustände wiederaufgebaut wird - dies führt zu einer Zerstörung des aktuellen UIs des Fragments sowie sämtlicher Referenzen, die das Fragment besitzt. Eine Gerätrotierung gehört zur Kategorie der `Configuration Changes` \cite{viewmodel}. Der Grund hierfür liegt darin, dass Android das aktuelle Layout ändert, da beispielsweise andere Layouts (XML-Files) für den Landscape-Modus zur Verfügung stehen \cite{configuration-changes}. In der Literatur wird der Begriff \emph{zerstören} verwendet, da dabei das Callback `onDestroy` in einer Activity aufgerufen wird.  
+Das ViewModel ist eine Klasse, die dafür ausgelegt ist, UI-bezogene Daten `lifecycle-aware` zu speichern. Ein Fragment durchlebt im Laufe seines Daseins eine Vielzahl an Zuständen/Phasen - man spricht von einem `Lifecycle`. Wenn der Benutzer zum Beispiel sein Gerät rotiert, führt dies dazu, dass das Fragment \emph{zerstört} wird und das Fragment durch erneutes Durchleben alter Zustände wiederaufgebaut wird - dies führt zu einer Zerstörung des aktuellen UIs des Fragments sowie sämtlicher Referenzen, die das Fragment besitzt. Eine Gerätrotierung gehört zur Kategorie der `Configuration Changes` \cite{viewmodel}. Der Grund hierfür liegt darin, dass Android das aktuelle Layout ändert, da beispielsweise andere Layouts (XML-Files) für den Landscape-Modus zur Verfügung stehen \cite{configuration-changes}. In der Literatur wird der Begriff \emph{zerstören} verwendet, da dabei das Callback `onDestroy` in einer Activity aufgerufen wird.  
 
 Folgende Probleme können dadurch auftreten:
 
 * Die App stürzt ab, wenn eine Methode ausgeführt wird, die eine Referenz auf ein zerstörtes Objekt hat.
-* Memory Leaks entstehen, da Referenzen auf zerstörte Objekte vom Gargabe Collector nicht freigegeben werden können. In Android wird die Minimierung des Speicherbedarfs der App einzig und allein vom Garbage Collector übernommen. Falls dieser Objekte nicht freigeben kann, führt dies dazu, dass die App immer mehr und mehr Arbeitsspeicher benötigt. Je nach Größe des Memory Leaks kann dies zu kleineren Verzögerungen bis zu einem Absturz der App führen.
-* Nach einem Configuration Change gehen die aktuellen Daten verloren und der Benutzer muss das Problem selbst lösen.
+* `Memory Leaks` entstehen, da Referenzen auf zerstörte Objekte vom Gargabe Collector nicht freigegeben werden können. In Android wird die Minimierung des Speicherbedarfs der App einzig und allein vom Garbage Collector übernommen. Falls dieser Objekte nicht freigeben kann, führt dies dazu, dass die App immer mehr und mehr Arbeitsspeicher benötigt. Je nach Größe des Memory Leaks kann dies zu kleineren Verzögerungen bis zu einem Absturz der App führen.
+* Nach einem `Configuration Change` gehen die aktuellen Daten verloren und der Benutzer muss das Problem selbst lösen.
 * Wenn die aktuellen Daten verloren gehen, verhält sich eine App oftmals unvorhersehbar. 
 
 ### ViewModel als Lösung
 
-![Zustände einer Activity im Vergleich zu den Zuständen eines ViewModels, Fragments haben einen ähnlichen Lifecycle \cite{fragment-lifecycle} \cite{viewmodel}](josip-pics\viewmodel-lifecycle.png)
+\begin{figure}
+  \includegraphics[width=\linewidth]{viewmodel-lifecycle.png}
+  \caption{Zustände einer Activity im Vergleich zu den Zuständen eines ViewModels, Fragments haben einen ähnlichen Lifecycle \cite{fragment-lifecycle} \cite{viewmodel}}
+  \label{fig:vmlife}
+\end{figure}
 
-Bei genauerer Betrachtung der Grafik wird ersichtlich, welche Phasen eine Activity bei einer Gerätrotierung durchlebt:
+
+Bei genauerer Betrachtung der Grafik \ref{fig:vmlife} wird ersichtlich, welche Phasen eine Activity bei einer Gerätrotierung durchlebt:
 
 * Activity wird zerstört:
     * `onPause`
@@ -318,17 +327,17 @@ Bei genauerer Betrachtung der Grafik wird ersichtlich, welche Phasen eine Activi
     * `onResume`
 
 
-Wie in der Abbildung zu sehen ist, stellt ein ViewModel eine Lösung für diese Probleme dar. Ein ViewModel ist von einem Configuration Change nicht betroffen und kann dem UI damit stets die aktuellen Daten zur Verfügung stellen. Der gegebene Sachverhalt trifft genauso auf Fragments zu. Diese haben einen leicht veränderten Lifecycle, sind allerdings genauso von Configuration Changes betroffen wie Activities.
+Wie in der Abbildung \ref{fig:vmlife} zu sehen ist, stellt ein ViewModel eine Lösung für diese Probleme dar. Ein ViewModel ist von einem `Configuration Change` nicht betroffen und kann dem UI damit stets die aktuellen Daten zur Verfügung stellen. Der gegebene Sachverhalt trifft genauso auf Fragments zu. Diese haben einen leicht veränderten Lifecycle, sind allerdings genauso von Configuration Changes betroffen wie Activities.
 
-Anmerkung: Man kann das Zerstören & Wiederaufbauen von Activities/Fragments manuell blockieren. Dies ist jedoch kein Ersatz für eine wohlüberlegte App-Architektur und führt in den meisten Fällen zu unerwünschten Nebenwirkungen, da man sich nun auch manuell um das Wechseln der Konfiguration (Layouts etc.) kümmern muss und dies weitaus komplizierter ist, als auf ViewModels zu setzen \cite{lifecycle-blocking}.
+**Anmerkung**: Man kann das Zerstören & Wiederaufbauen von Activities/Fragments manuell blockieren. Dies ist jedoch kein Ersatz für eine wohlüberlegte App-Architektur und führt in den meisten Fällen zu unerwünschten Nebenwirkungen, da man sich nun auch manuell um das Wechseln der Konfiguration (Layouts etc.) kümmern muss und dies weitaus komplizierter ist, als auf ViewModels zu setzen \cite{lifecycle-blocking}.
 
 
 Folgende Aspekte sind bei der Verwendung eines ViewModels zu beachten \cite{viewmodel-antipatterns}:
 
-* Ein ViewModel sollte bei einem Configuration Change keinen neuen Request starten, da es bereits über die Daten verfügt. Dies lässt sich mit einer If-Anweisung beheben.
-* Referenzen zu Objekten, die an einen Lifecycle gebunden sind, sind ein absolutes NO-GO. Objekte mit Lifecycle haben ein klares Schicksal - wenn ihr Host vernichtet wird, müssen sie ebenfalls vernichtet werden. Folgendes Szenario: Ein ViewModel hat eine `TextView`-Variable. Dreht der Benutzer sein Gerät wird das aktuelle Fragment inklusive TextView vernichtet. Das ViewModel überlebt den Configuration Change und hat nun eine Referenz auf eine invalide TextView. Dies ist ein Memory Leak.
-* ViewModel überleben ein Beenden des Prozesses nicht. Wenn das BS aktuell wenig Ressourcen zur Verfügung hat, kann es sein, dass Prozesse beendet werden. Falls man diesen Sonderfall behandeln will, ist dies mit Extra-Aufwand verbunden \cite{viewmodel-process-death}.
-* ViewModels sollen nicht zu "God-ViewModels" werden. Das SoC-Prinzip ist anzuwenden.
+* Ein ViewModel sollte bei einem `Configuration Change` keinen neuen Request starten, da es bereits über die Daten verfügt. Dies lässt sich mit einer `If`-Anweisung beheben.
+* Referenzen zu Objekten, die an einen Lifecycle gebunden sind, sind ein absolutes NO-GO. Objekte mit Lifecycle haben ein klares Schicksal - wenn ihr Host vernichtet wird, müssen sie ebenfalls vernichtet werden. **Folgendes Szenario**: Ein ViewModel hat eine `TextView`-Variable (= ein Textfeld). Dreht der Benutzer sein Gerät wird das aktuelle Fragment inklusive `TextView` vernichtet. Das ViewModel überlebt den `Configuration Change` und hat nun eine Referenz auf eine invalide `TextView`. Dies ist ein `Memory Leak`.
+* ViewModel überleben ein Beenden des App-Prozesses nicht. Wenn das BS aktuell wenig Ressourcen zur Verfügung hat, kann es sein, dass Apps kurzzeitig beendet werden. Falls man diesen Sonderfall behandeln will, ist dies mit Extra-Aufwand verbunden \cite{viewmodel-process-death}.
+* ViewModels sollen nicht zu "God-ViewModels" werden. Das `SoC`-Prinzip ist anzuwenden.
 
 
 Wie gelangen die Daten ins UI, wenn das ViewModel keine Referenzen darauf haben darf? Die Antwort lautet `LiveData`. 
@@ -336,7 +345,7 @@ Wie gelangen die Daten ins UI, wenn das ViewModel keine Referenzen darauf haben 
 
 ### LiveData
 
-LiveData ist eine observierbare Container-Klasse. Observierbar heißt, dass bei Änderungen des enkapsulierten Objektes ein Callback aufgerufen wird. LiveData ist ebenfalls lifecycle-aware. Daher wird LiveData immer nur aktive Komponenten mit Daten versorgen. Eine TextView, die bereits zerstört wurde, erhält dementsprechend auch keine Updates mehr. 
+`LiveData` ist eine observierbare Container-Klasse. Observierbar heißt, dass bei Änderungen des enkapsulierten Objektes ein Callback aufgerufen wird. `LiveData` ist ebenfalls `lifecycle-aware`. Daher wird `LiveData` immer nur aktive Komponenten mit Daten versorgen. Eine `TextView`, die bereits zerstört wurde, erhält dementsprechend auch keine Updates mehr. 
 
 Dieses (angepasste) offizielle Beispiel veranschaulicht die Funktionsweise sehr gut \cite{livedata}. Im Beispiel soll ein Benutzername angezeigt werden:
 
@@ -359,7 +368,7 @@ public class NameViewModel extends ViewModel {
     // Rest des ViewModels...
 }
 ```
-Der Unterschied zwischen `MutableLiveData` und `LiveData` besteht darin, dass letzteres nicht veränderbar ist. Mit der `postValue`-Methode kann einer MutableLiveData-Instanz, die ja als Container-Objekt dient, ein neuer Wert zugewiesen werden. Dadurch werden etwaige Callbacks aufgerufen (siehe nächster Code-Ausschnitt). Man sollte bei öffentlichen Methoden immer nur LiveData als Rückgabewert verwenden, damit auf der Ebene der View keine Modifikationen der Daten des ViewModels vorgenommen werden können. Im Realfall stammt LiveData ursprünglich aus dem Repository. 
+Der Unterschied zwischen `MutableLiveData` und `LiveData` besteht darin, dass letzteres nicht veränderbar ist. Mit der `postValue`-Methode kann einer MutableLiveData-Instanz, die ja als Container-Objekt dient, ein neuer Wert zugewiesen werden. Dadurch werden etwaige Callbacks aufgerufen (siehe nächster Code-Ausschnitt). Man sollte bei öffentlichen Methoden immer nur `LiveData` als Rückgabewert verwenden, damit auf der Ebene der View keine Modifikationen der Daten des ViewModels vorgenommen werden können. Im Realfall stammt `LiveData` ursprünglich aus dem Repository. 
 
 ```java
 public class NameFragment extends Fragment {
@@ -383,7 +392,7 @@ public class NameFragment extends Fragment {
          });
 }
 ```
-Hier kommt wieder die vorher angesprochene Lambda-Syntax zum Einsatz. Die Methode wird einmal beim erstmaligen Registrieren aufgerufen und wird danach bei jeder weiteren Änderung aufgerufen. Im Callback arbeitet man direkt mit dem eigentlichem Datentypen - in diesem Fall mit einem String -, da LiveData nur ein Container-Objekt ist. Im Fragment befindet sich damit relativ wenig Logik. Das Fragment hört nur auf eventuelle Änderungen und aktualisiert das UI in Abhängigkeit von den Änderungen. Das LiveData-Objekt ist an `getViewLifeycleOwner()` gebunden. Wenn der LifecycleOwner inaktiv wird, werden keine Änderungen mehr entsandt. Man könnte auch `this` als Argument übergeben (`this` wäre in diesem Fall das Fragment, das ebenfalls über einen Lifecycle verfügt). `getViewLifeycleOwner()` hat jedoch den Vorteil, dass der Observer automatisch entfernt wird, sobald der LifecycleOwner zerstört wird. 
+Hier kommt wieder die vorher angesprochene Lambda-Syntax zum Einsatz. Die Methode wird einmal beim erstmaligen Registrieren aufgerufen und wird danach bei jeder weiteren Änderung aufgerufen. Im Callback arbeitet man direkt mit dem eigentlichem Datentypen - in diesem Fall mit einem String -, da `LiveData` nur ein Container-Objekt ist. Im Fragment befindet sich damit relativ wenig Logik. Das Fragment hört nur auf eventuelle Änderungen und aktualisiert das UI in Abhängigkeit von den Änderungen. Das LiveData-Objekt ist an `getViewLifeycleOwner()` gebunden. Wenn der `LifecycleOwner` inaktiv wird, werden keine Änderungen mehr entsandt. Man könnte auch `this` als Argument übergeben (`this` wäre in diesem Fall das Fragment, das ebenfalls über einen Lifecycle verfügt). `getViewLifeycleOwner()` hat jedoch den Vorteil, dass der Observer automatisch entfernt wird, sobald der LifecycleOwner zerstört wird. 
 
 
 ### Angepasste LiveData-Klasse
@@ -478,7 +487,7 @@ public class StatusAwareLiveData<T>
 }
 ```
 
- Damit entfällt der Bedarf, selbst neue StatusAwareData-Objekte zu instanziieren, da diese bereits über die `postFetching`-, `postError`- und `postSuccess`-Methoden - mit korrektem Status - instanziiert werden. Infolgedessen ist StatusAwareData abstrahiert und im ViewModel genügt es, mit den modifizierten LiveData-Instanzen zu arbeiten. Damit ändert sich das vorherige ["Beispiel"](livedata) wie folgt:
+ Damit entfällt der Bedarf, selbst neue StatusAwareData-Objekte zu instanziieren, da diese bereits über die `postFetching`-, `postError`- und `postSuccess`-Methoden - mit korrektem Status - instanziiert werden. Infolgedessen ist `StatusAwareData` abstrahiert und im ViewModel genügt es, mit den modifizierten LiveData-Instanzen zu arbeiten. Damit ändert sich das vorherige ["Beispiel"](livedata) wie folgt:
 
 
 ```java
@@ -524,7 +533,7 @@ model.getCurrentName().observe(getViewLifecycleOwner(),
 
 ## Konkrete MVVM-Implementierung
 
-Im vorliegenden Anwendungsfall hat ein Fragment immmer mindestens einen Datensatz, der für das Fragment namensgebend ist. 
+Im vorliegenden Anwendungsfall hat ein Fragment immer mindestens einen Datensatz, der für das Fragment namensgebend ist. 
 Der Room-Screen (also die Anzeige mit einer DropDown zur Raumauswahl) setzt sich beispielsweise aus folgenden Komponenten zusammen: 
 
 * Der `RoomsFragment`-Klasse 
@@ -534,12 +543,12 @@ Der Room-Screen (also die Anzeige mit einer DropDown zur Raumauswahl) setzt sich
 
 Das `RoomsRepository` ist dafür verantwortlich, die Raumliste vom Backend anzufordern und in Java-Objekte umzuwandeln.
 Das `RoomsViewModel` ist dafür verantwortlich, dem Fragment LiveData-Objekte zur Verfügung zu stellen. 
-Das `RoomsFragment` ist dafür verantwortlich, dem Benutzer die Räume anzuzeigen, indem es LiveData observiert. Alternativ zeigt es Fehlermeldungen bzw. einen Ladebalken an.
+Das `RoomsFragment` ist dafür verantwortlich, dem Benutzer die Räume anzuzeigen, indem es `LiveData` observiert. Alternativ zeigt es Fehlermeldungen bzw. einen Ladebalken an.
 
 Bei genauerer Betrachtung wird klar, dass fast jeder Screen dieselbe Aufgabe hat:
 
 * Das Repository fordert Daten vom Backend an und wandelt die JSON-Antwort um.
-* Das ViewModel abstrahiert Logik und stellt der View LiveData zur Verfügung. 
+* Das ViewModel abstrahiert Logik und stellt der View `LiveData` zur Verfügung. 
 * Das Fragment zeigt entweder Nutzdaten, eine Fehlermeldung oder einen Ladebalken an.
 
 Hier greift das softwaretechnische Prinzip `Do not repeat yourself (DRY)` \cite{dry}. Anstatt `Boilerplate-Code` für jeden einzelnen Screen kopieren zu müssen, hat das Projektteam diese sich wiederholende Logik abstrahiert. Boilerplate-Code sind Code-Abschnitte, die sich immer wieder wiederholen \cite{boiler}. Wiederholende Logik sollte immer in eine Superklasse abstrahiert werden. Das Projektteam hat demnach drei abstrakte Klassen definiert, die die Menge an Boilerplate-Code signifikant reduzieren:
@@ -559,6 +568,7 @@ Der Refactor, der dies realisierte, war zwar zeitintensiv, hat sich jedoch mittl
 
 
 \chapter{Das Scannen}
+\label{das_scannen}
 
 Das Scannen ist ein vitaler Aspekt dieser Diplomarbeit. Gegenstände an unserer Organisation sind mit Barcodes ausgestattet. Um die Produktivität maximal zu steigern, muss die App in der Lage sein, diese Barcodes zu erfassen. Wir bieten folgende Varianten zum Scannen an:
 
@@ -568,7 +578,7 @@ Das Scannen ist ein vitaler Aspekt dieser Diplomarbeit. Gegenstände an unserer 
 
 # Der Zebra-Scan
 
-Der Sponsor dieser Diplomarbeit - Zebra - hat dem Diplomarbeitsteam einen TC56 ("Touch Computer") zur Verfügung gestellt. Dieser verfügt über einige Eigenschaften, die für eine Inventur vom Vorteil sind \cite{zebra-tc56}:
+Der Sponsor dieser Diplomarbeit - Zebra - hat dem Diplomarbeitsteam einen `TC56` ("Touch Computer") zur Verfügung gestellt. Dieser verfügt über einige Eigenschaften, die für eine Inventur vom Vorteil sind \cite{zebra-tc56}:
 
 * Ein Akku mit über 4000 mAh ermöglicht mehrstündige Inventuren.
 * Viel Arbeitsspeicher und ein leistungsstarker Prozessor ermöglichen ein flüssiges App-Verhalten.
@@ -587,7 +597,7 @@ Dies bietet folgende Vorteile:
 * Durch die Abstrahierung des Scanners wird die eigene Codebasis kleiner und weniger kompliziert. 
 * DataWedge wird von Zebra entwickelt. Damit hat man eine gewisse Sicherheit, dass der Scanner verlässlich funktioniert.
 
-Bei weiterer Überlegung kommt man außerdem zur Erkenntnis, dass der Broadcast nicht von DataWege stammen muss. Wenn eine beliebige andere App, einen Broadcast mit derselben ID ausschickt, wird die vorliegende App dies als Scan werten. In weiterer Folge ist es zumindest theoretisch möglich, beispielsweise einen Bluetooth-Scanner mit einem regulären Android-Gerät zu verwenden und bei einem Resultat, einen Broadcast mit derselben ID auszuschicken. Die vorliegende App würde keinen Unterschied bemerken und somit auch mit dem Bluetooth-Scanner funktionieren. Dieses Einsatzgebiet wurde vom Diplomarbeitsteam jedoch nicht getestet.
+Bei weiterer Überlegung kommt man außerdem zur Erkenntnis, dass der Broadcast nicht von DataWege stammen muss. Wenn eine beliebige andere App, einen Broadcast mit derselben ID ausschickt, wird die App dies als Scan werten. In weiterer Folge ist es zumindest theoretisch möglich, beispielsweise einen Bluetooth-Scanner mit einem regulären Android-Gerät zu verwenden und bei einem Resultat, einen Broadcast mit derselben ID auszuschicken. Die App würde keinen Unterschied bemerken und somit auch mit dem Bluetooth-Scanner funktionieren. Dieses Einsatzgebiet wurde vom Diplomarbeitsteam jedoch nicht getestet.
 
 ## Zebra-Scan: Codeausschnitt
 
@@ -596,16 +606,54 @@ Broadcast können in Android durch `BroadcastReceiver` ausgelsen werden. Auch hi
 ```java
 public class ZebraBroadcastReceiver extends BroadcastReceiver {
     ...
+
+    public static void registerZebraReceiver(
+                            Context context, 
+                            ZebraBroadcastReceiver zebraBroadcastReceiver, 
+                            ErrorHandler errorHandler) {
+        ...
+        // Der BroadcastReceiver muss erstmal beim BS registriert werden.
+
+        IntentFilter filter = new IntentFilter();
+        filter.addCategory(Intent.CATEGORY_DEFAULT);
+
+        // R.string.activity_intent_filter_action definiert 
+        // die konfigurierte ID des Broadcasts.
+        filter.addAction(
+            context.getResources()
+            .getString(R.string.activity_intent_filter_action));
+
+        // Hier wird der BroadcastReceiver mit der ID, 
+        // auf die er zu hören hat, registriert.
+        context.registerReceiver(zebraBroadcastReceiver, filter);
+    }
+
+
+    public static void unregisterZebraReceiver(
+                    Context context, 
+                    ZebraBroadcastReceiver zebraBroadcastReceiver) {
+         // Falls ein BrodcastReceiver nicht mehr gebraucht wird,
+         // sollte er immer abgemeldet werden.
+
+        context.unregisterReceiver(zebraBroadcastReceiver);
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
+        // Falls ein Broadcast eintrifft, 
+        // wird diese Methode aufgerufen.
+
         String action = intent.getAction();
 
         // R.string.activity_intent_filter_action definiert 
-        // die konfigurierte ID des Broadcasts
+        // die konfigurierte ID des Broadcasts.
+        // Somit kann festgestellt werden,
+        // ob es sich um den richtigen Broadcast handelt.
         if (action.equals(context.getResources()
            .getString(R.string.activity_intent_filter_action))) {
+
             // R.string.datawedge_intent_key_data 
-            // definiert die ID des Scanergebnis selbst. 
+            // definiert die ID des Scanergebnises selbst. 
             // Der Scan liefert auch andere Ergebnisse, 
             // wie z.B. das Barcodeformat. 
             // Relevant ist nur der Barcode.
@@ -619,33 +667,6 @@ public class ZebraBroadcastReceiver extends BroadcastReceiver {
             scanListener.handleZebraScan(barcode);
         }
     }
-
-
-    public static void registerZebraReceiver(
-                            Context context, 
-                            ZebraBroadcastReceiver zebraBroadcastReceiver, 
-                            ErrorHandler errorHandler) {
-        ...
-        IntentFilter filter = new IntentFilter();
-        filter.addCategory(Intent.CATEGORY_DEFAULT);
-        // R.string.activity_intent_filter_action definiert 
-        // die konfigurierte ID des Broadcasts
-        filter.addAction(
-            context.getResources()
-            .getString(R.string.activity_intent_filter_action));
-        // Hier wird der BroadcastReceiver mit der ID, 
-        // auf die er zu hören hat, registriert.
-        context.registerReceiver(zebraBroadcastReceiver, filter);
-    }
-
-
-    public static void unregisterZebraReceiver(
-                    Context context, 
-                    ZebraBroadcastReceiver zebraBroadcastReceiver) {
-         // Falls ein BrodcastReceiver nicht mehr gebraucht wird
-         // Sollte er immer abgemeldet werden.
-        context.unregisterReceiver(zebraBroadcastReceiver);
-    }
 }
 ```
 
@@ -656,15 +677,15 @@ public class ZebraBroadcastReceiver extends BroadcastReceiver {
 
 Für Geräte, die nicht dem Hause Zebra entstammen, bietet die App die Möglichkeit eines Kamerascans an. Im Hintergrund wird dafür die Google Mobile Vision API verwendet, die unter anderem auch Texterkennung oder Gesichtserkennung anbietet \cite{mobile-vision}. Hierbei wird ein Barcode mittels der Gerätekamera erfasst, ohne dass zuvor ein Bild gemacht werden muss. Dem Benutzer wird eine Preview angezeigt und die Kamera schließt sich, sobald ein Barcode erfasst wurde. Um die Performanz zu maximieren, hat das Diplomarbeitsteam folgende Optimierungen vorgenommen:
 
-* Die API wurde um Blitzfunktionalitäten ergänzt. Dazu wurde eine OpenSource-Variante der Library modifiziert, da die offizielle proprietäre Version keinen Blitz unterstützt. Der Blitz ist über einen ToggleButton sofort deaktivierbar oder aktivierbar. Um einen Klick einzusparen, kann der Benutzer über die Einstellungen den Blitz gleich beim Start des Kamerascans aktivieren lassen. Für eine optimale Erkennung darf man den Blitz jedoch nicht direkt in Richtung des Barcode anvisieren, sondern sollte den Blitz entweder höher oder niedriger als den Barcode halten, um optische Reflexionen zu vermeiden. 
-* Über die Einstellungen kann der Benutzer die Barcodeformate einschränken. Dies führt ebenfalls zur schnelleren Barcodeerkennung und vermeidet zudem noch das Auftreten von false positives. Wenn der Benutzer die Kamera nicht auf den gesamten Barcode hält, kann es unter Umständen dazu kommen, dass der abgeschnittene Barcode fälschlicherweise als anderes Format interpretiert wird und der Scan daher einen Barcode liefert, der nicht existiert. Offiziell wird in der vorliegenden Organisation nur das `Code_93`-Format eingesetzt.
+* Die API wurde um Blitzfunktionalitäten ergänzt. Dazu wurde eine OpenSource-Variante der Library modifiziert, da die offizielle proprietäre Version keinen Blitz unterstützt. Der Blitz ist über einen `ToggleButton` sofort deaktivierbar oder aktivierbar. Um einen Klick einzusparen, kann der Benutzer über die Einstellungen den Blitz gleich beim Start des Kamerascans aktivieren lassen. Für eine optimale Erkennung darf man den Blitz jedoch nicht direkt in Richtung des Barcode anvisieren, sondern sollte den Blitz entweder höher oder niedriger als den Barcode halten, um optische Reflexionen zu vermeiden. 
+* Über die Einstellungen kann der Benutzer die Barcodeformate einschränken. Dies führt ebenfalls zur schnelleren Barcodeerkennung und vermeidet zudem noch das Auftreten von `false positives`. Wenn der Benutzer die Kamera nicht auf den gesamten Barcode hält, kann es unter Umständen dazu kommen, dass der abgeschnittene Barcode fälschlicherweise als anderes Format interpretiert wird und der Scan daher einen Barcode liefert, der nicht existiert. Offiziell wird in der vorliegenden Organisation nur das `Code_93`-Format eingesetzt.
 * Interne Test haben ergeben, dass ein Aspect Ratio von 16:9 das Schnellste ist. Daher wird die Preview-Größe statisch auf 1920x1080 Pixel festgelegt. Die Preview verwendet jedoch tatsächlich die Größe, die am nähesten zu 1920x1080 ist und vom Gerät unterstützt wird.
 * Falls ein Scan erfolgreich ist, wird ein Piepston abgespielt, der als akustisches Feedback fungiert.
 
 
 ## Kamerascan: Codeausschnitt
 
-Für die Scanfeatures wird bezüglich der Single-Activity-App eine Ausnahme gemacht. Da diese Screens navigationstechnisch unabhängig sind und im Vollbildmodus gestartet werden, macht es mehr Sinn, sie als Activities anstatt als Fragments zu implementieren. Die Fragments, die einen Kamerascan verwenden, können ihn mit `startActivityForResult` aufrufen. Sie starten also eine neue Activity um ein Ergebnis zu erhalten:
+Für die Scanfeatures wird bezüglich der Single-Activity-Architektur eine Ausnahme gemacht. Da diese Screens navigationstechnisch unabhängig sind und im Vollbildmodus gestartet werden, macht es mehr Sinn, sie als Activities anstatt als Fragments zu implementieren. Die Fragments, die einen Kamerascan verwenden, können ihn mit `startActivityForResult` aufrufen. Sie starten also eine neue Activity um ein Ergebnis zu erhalten:
 
 
 ```java
@@ -677,7 +698,6 @@ Mit der Vision API erstellt man einen `BarcodeDetector` dem ein `Processor` zuge
 
 ```java
 barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
-        ...
 
      @Override
     public void receiveDetections(Detector.Detections<Barcode> detections) {
@@ -692,6 +712,8 @@ barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
            finish();
            ...
     }
+    ...
+}
 ```
 
 Das Ergebnis kann dann wiederum im Fragment wie folgt abgefangen und weiter verarbeitet werden:
@@ -729,14 +751,15 @@ Die Gegenstandsliste, die dem Benutzer angezeigt wird, ist durch eine Suchleiste
 
 Falls der Benutzer weder Voice noch Tastatur verwenden will, kann dieser den Textscan verwenden. Hierbei wird per Google Mobile Vision API der aufgedruckte Text auf einem Barcode - jedoch NICHT der Barcode selbst - gescannt \cite{text-scan}. Der Scan ist für Sprachen, die ein lateinisches Schriftsystem verwenden, optimiert. Dem Benutzer wird das aktuelle Scanergebnis laufend angezeigt. Da der Out-Of-The-Box-Scan für die vorliegenden Zwecke nicht unbedingt geeignet ist, wurden folgende Modifikationen vorgenommen (Der Textscan wurde als `TextScanActivity` realisiert):
 
-* Der Scanner gibt grundsätzlich alles was er sieht wieder. Das Projektteam hat dies mit Regex-Ausdrücken kombiniert um sinnvolle Ergebnisse zu erlangen. Es gibt daher verschiedene Texterkennungsmodi:
+* Die API wurde um Blitzfunktionalitäten ergänzt.
+* Der Scanner gibt grundsätzlich alles was er sieht wieder. Das Projektteam hat dies mit `Regex`-Ausdrücken kombiniert um sinnvolle Ergebnisse zu erlangen. Es gibt daher verschiedene Texterkennungsmodi:
     * Kein Filter. Hier wird keine Regex verwendet und der Benutzer sieht den ungefilterten Text, den der Scanner erkannt hat.
     * Alphanumerisch.
     * Alphabetisch. 
     * Numerisch (Barcodes).
     * IP-Adressen. 
+
 Jeder Modus verwendet die Regex, die am besten für seine Kategorie geeignet ist. Die Library bietet nur geringfügige Möglichkeiten an, den Scan selbst zu beeinflussen. Man kann einen Fokus auf ein Scanergebnis setzen. Daher wird der Fokus auf ein Scanergebnis gesetzt, sobald dieses durch die aktuelle Regex ausgedrückt werden kann. Die API beschränkt sich allerdings nicht auf das Ergebnis, auf das der Fokus gesetzt wurde, sondern kann jederzeit den Fokus selbst wieder aufheben. Unabhängig davon werden alle Zeichen des Ergebnisses entfernt, die nicht durch die Regex erfasst wurden. 
-* Die API wurde um Blitzfunktionalitäten ergänzt.
 
 Die Erkennung von Barcodes (also der Numerische Modus) hat zusätzlich folgende Optimierungen erhalten:
 
@@ -746,7 +769,7 @@ Die Erkennung von Barcodes (also der Numerische Modus) hat zusätzlich folgende 
 * Ergebnisse, die weniger als sieben Zeichen enthalten, werden nicht gespeichert und können damit auch nicht eingelockt werden.
 
 
-Der Benutzer kann das aktuell angezeigte Ergebnis in seine Zwischenablage kopieren und anschließend die Suchleiste nutzen. Die Kommunikation zwischen den restlichen Screens und dem Textscan erfolgt analog zum Kamerascan, da der Textscan aus denselben Gründen als Activity implementiert wurde. 
+Der Benutzer kann das aktuell angezeigte Ergebnis in seine Zwischenablage kopieren und anschließend die Suchleiste nutzen. Die Kommunikation zwischen den Fragments und dem Textscan erfolgt analog zum Kamerascan, da der Textscan aus denselben Gründen als Activity implementiert wurde. 
 
 
 
@@ -757,9 +780,9 @@ Die genaue Bedienung der App ist dem App-Handbuch zu entnehmen. Dieses Kapitel b
 # Die Modelle
 
 Um die Antworten des Servers abzubilden, wurden mehrere Modell-Klassen erstellt. Deren 
-Konstruktoren haben je ein JSONObject als Parameter. Die Werte der einzelnen Attribute werden aus diesem JSONObject ausgelesen. Folgende Modell-Klassen wurden erstellt.
+Konstruktoren haben je ein `JSONObject` als Parameter. Die Werte der einzelnen Attribute werden aus diesem `JSONObject` ausgelesen. Folgende Modell-Klassen wurden erstellt.
 
-* `SerializerEntry`: Stelt eine Datenbanksicht dar.
+* `SerializerEntry`: Stellt eine Datenbanksicht dar.
 * `Stocktaking`: Stellt eine Inventur dar. 
 * `Room`: Stellt einen Raum dar.
 * `MergedItem`: Stellt einen Gegenstand dar.
@@ -772,7 +795,7 @@ Eine Modell-Klasse verwaltet etwaige Statusinformationen immer selbst. So weiß 
 
 # Die Fragments
 
-Dieses Kapitel basiert auf den Erklärungen der vorhergehenden Artikel. Eine Inventur wird auf der App durch folgenden Screens (Fragments) abgewickelt, die gleichzeitig als Phasen verstanden werden können:
+Dieses Kapitel basiert auf den Erklärungen der vorhergehenden Artikel. Eine Inventur wird auf der App durch folgendene Fragments abgewickelt, die gleichzeitig als Phasen verstanden werden können:
 
 * `StocktakingFragment`
 * `RoomsFragment`
@@ -783,17 +806,17 @@ Dieses Kapitel basiert auf den Erklärungen der vorhergehenden Artikel. Eine Inv
 * `AttachmentsFragment`
 
 #### StocktakingFragment
-ist das Fragment, in dem der Benutzer die aktuelle Inventur auswählt. Die Inventur kann nur vom Administrator am Server angelegt werden. Außerdem wählt der Benutzer hier die Datenbanksicht ("Serializer") aus. Die App kommuniziert ausschließlich mittels REST API mit dem Server. Diese Schnittstelle kann verschiedene Quellen haben. Für eine Inventur an unserer Schule ist die "HTL"-Datenbanksicht auszuwählen. Durch das Bestätigen eines langegezogenen blauen Buttons gelangt man immer zur nächsten Inventurphase. In diesem Fall gelangt man zum `RoomsFragment`.
+ist das Fragment, in dem der Benutzer die aktuelle Inventur auswählt. Die Inventur kann nur vom Administrator am Server angelegt werden. Außerdem wählt der Benutzer hier die Datenbanksicht ("den Serializer") aus. Die App kommuniziert ausschließlich mittels REST API mit dem Server. Diese Schnittstelle kann verschiedene Quellen haben. Für eine Inventur an unserer Schule ist die "HTL"-Datenbanksicht auszuwählen. Durch das Bestätigen eines langegezogenen blauen Buttons gelangt man immer zur nächsten Inventurphase. In diesem Fall gelangt man zum `RoomsFragment`.
 
 #### RoomsFragment
 ist das Fragment, in dem der Benutzer den aktuellen Raum über eine DropDown auswählt. Anstatt die DropDown zu verwenden, kann er alternativ auch die Suchleiste verwenden. Als zusätzliche Alternative hat der Benutzer die Möglichkeit den Barcode eines Raumes zu scannen. Nach der Auswahl eines Raumes gelangt man zum `ViewPagerFragment`. 
 
 #### ViewPagerFragment
-ist das Fragment, das als Wrapper für das `MergedItemsFragment` und das `ValidatedMergedItemsFragment` dient. Die einzige Aufgabe dieses Fragments ist es, die zwei vorher genannten Fragments als Tabs anzuzeigen. Dies wurde mit der neuen ViewPager2-Library realisiert \cite{viewpager2}. Die Tabs kommunizieren über ein geteiltes ViewModel miteinander.
+ist das Fragment, das als Wrapper für das `MergedItemsFragment` und das `ValidatedMergedItemsFragment` dient. Die einzige Aufgabe dieses Fragments ist es, die zwei vorher genannten Fragments als Tabs anzuzeigen. Dies wurde mit der neuen `ViewPager2`-Library realisiert \cite{viewpager2}. Die Tabs kommunizieren über ein geteiltes ViewModel miteinander.
 
 #### MergedItemsFragment & ValidatedMergedItemsFragment
 
-sind die Fragments, die die Gegenstandsliste eines Raumes verwalten und sie dem Benutzer anzeigen. Die Gegenstände werden einzeln validiert. Durch das Scannen des Barcodes eines Gegenstands (beziehungsweise das Klicken auf seine GUI-Repräsentation) gelangt er zum `DetailedItemFragment`. `ValidatedMergedItemsFragment` erfüllt nur den Zweck, dem Benutzer bereits validierte Gegenstände anzuzeigen und ihm die Möglichkeit zu geben, validierte Gegenstände zurück zu den nicht-validierten Gegenständen in `MergedItemsFragment` zu verschieben. Daher trägt der Tab für das  `MergedItemsFragment` die Beschriftung "TODO", währenddessen der Tab für das  `ValidatedMergedItemsFragment` die Beschriftung "DONE" trägt.
+sind die Fragments, die die Gegenstandsliste eines Raumes verwalten und sie dem Benutzer anzeigen. Die Gegenstände werden einzeln validiert. Durch das Scannen des Barcodes eines Gegenstands (beziehungsweise das Klicken auf seine GUI-Repräsentation) gelangt er zum `DetailedItemFragment`. Das `ValidatedMergedItemsFragment` erfüllt nur den Zweck, dem Benutzer bereits validierte Gegenstände anzuzeigen und ihm die Möglichkeit zu geben, validierte Gegenstände zurück zu den nicht-validierten Gegenständen in `MergedItemsFragment` zu verschieben. Daher trägt der Tab für das  `MergedItemsFragment` die Beschriftung "TODO", währenddessen der Tab für das  `ValidatedMergedItemsFragment` die Beschriftung "DONE" trägt.
 
 Beide Fragments verwenden eine `RecyclerView`, um dem Benutzer die Gegenstände anzuzeigen \cite{recyclerview}. Eine RecyclerView generiert pro Eintrag ein Layout, hält aber nur die aktuell angezeigten Einträge inkl. Layout im RAM.   
 
@@ -820,23 +843,23 @@ Beim dem Hochladen von Bildern komprimiert die App jene zuvor. Die Qualität des
 * 85 %
 * 75 %
 
-Zur Kompression wird das WEBP-Format verwendet, das dem mittlerweile veralteten JPG-Standard überlegen ist \cite{webp}. Der Server speichert den gesendeten Anhang nur einmal (Dateien werden anhand von Hashes unterschieden). Wenn ein Benutzer allen PCs in einem EDV-Saal dasselbe Bild zuweist, wird es nur einmal am Server hinterlegt. Die Anzahl der Anhänge ist nicht limitiert.
+Zur Kompression wird das `WEBP`-Format verwendet, das dem mittlerweile veralteten `JPG`-Standard überlegen ist \cite{webp}. Der Server speichert den gesendeten Anhang nur einmal (Dateien werden anhand von Hashes unterschieden). Wenn ein Benutzer allen PCs in einem EDV-Saal dasselbe Bild zuweist, wird es nur einmal am Server hinterlegt. Die Anzahl der Anhänge ist nicht limitiert.
 
 # Validierungslogik
 
 `MergedItemsFragment` & `DetailedItemFragment` sind die Fragments, die den Großteil einer Inventur ausmachen. Der Benutzer scannt alle SAP-Barcodes, die sich in einem Raum befinden. Im Idealfall entspricht diese Menge exakt der Menge der Gegenstände, die dem Benutzer im `MergedItemsFragment` angezeigt wird. Im Normalfall wird dies durch etwaige Sonderfälle jedoch nicht gegeben sein. 
 
-Nach dem Scannen eines Gegenstandes werden die Felder des Gegenstandes dem Benutzer im DetailItemFragment angezeigt. In diesem Fragment hat der Benutzer zwei Buttons, mit denen er den Gegenstand validieren kann:
+Nach dem Scannen eines Gegenstandes werden die Felder des Gegenstandes dem Benutzer im `DetailedItemFragment` angezeigt. In diesem Fragment hat der Benutzer zwei Buttons, mit denen er den Gegenstand validieren kann:
 
-* Grüner Button: Mit diesem Button wird signalisiert, dass sich der Gegenstand im Raum befindet und der Gegenstand wird mitsamt etwaigen Änderungen an seinen Attributen/Feldern übernommen. Dazu wird ein `ValidationEntry` erstellt. Alternativ kann der Benutzer das Klicken dieses Buttons mit dem Schütteln des Gerätes ersetzen. Die Schüttel-Sensibilität ist über die Einstellungen konfigurierbar (und auch deaktivierbar).
-* Roter Button: Mit diesem Button wird signalisiert, dass sich der Gegenstand nicht im Raum befindet. Dieser Button wird im Normalfall nie betätigt werden, da ein Gegenstand, der sich nicht in diesem Raum befindet, nicht gescannt werden kann und daher dieses Fenster nie geöffnet werden wird. Der Button hat trotzdem einen Sinn, da der Benutzer damit die "TODO"-Liste über das GUI verkleinern kann, um sich einen besseren Überblick zu verschaffen. 
+* **Grüner Button**: Mit diesem Button wird signalisiert, dass sich der Gegenstand im Raum befindet und der Gegenstand wird mitsamt etwaigen Änderungen an seinen Attributen/Feldern übernommen. Dazu wird ein `ValidationEntry` erstellt. Alternativ kann der Benutzer das Klicken dieses Buttons mit dem Schütteln des Gerätes ersetzen. Die Schüttel-Sensibilität ist über die Einstellungen konfigurierbar (und auch deaktivierbar).
+* **Roter Button**: Mit diesem Button wird signalisiert, dass sich der Gegenstand nicht im Raum befindet. Dieser Button wird im Normalfall nie betätigt werden, da ein Gegenstand, der sich nicht in diesem Raum befindet, nicht gescannt werden kann und daher dieses Fenster nie geöffnet werden wird. Der Button hat trotzdem einen Sinn, da der Benutzer damit die "TODO"-Liste über das GUI verkleinern kann, um sich einen besseren Überblick zu verschaffen. 
 
 ## Der ValidationEntry
 
-Das `MergedItemsFragment` (bzw. das `MergedItemsViewModel`) verfügt über eine `HashMap` (`Map<MergedItem, List<ValidationEntry>>`), die alle ValidationEntries beinhaltet. Ein ValidationEntry beinhaltet sämtliche Informationen, die der Server benötigt, um die Datensätze eines Gengenstandes entsprechend anzupassen.
-Einem Gegenstand ist eine Liste an ValidationEntries zugeordnet, da Subitems eigene ValidtionEntries bekommen können (siehe ["Sonderfälle"](#sonderfuxe4lle)). 
+Das `MergedItemsFragment` (bzw. das `MergedItemsViewModel`) verfügt über eine `HashMap` (`Map<MergedItem, List<ValidationEntry>>`), die alle `ValidationEntries` beinhaltet. Ein `ValidationEntry` beinhaltet sämtliche Informationen, die der Server benötigt, um die Datensätze eines Gengenstandes entsprechend anzupassen.
+Einem Gegenstand ist eine Liste an `ValidationEntries` zugeordnet, da Subitems eigene `ValiditionEntries` bekommen können (siehe ["Sonderfälle"](#sonderfuxe4lle)).
 
-Ein ValidationEntry beinhaltet immer den Primary Key eines Gegenstandes und die Felder, die sich geändert haben. Ein ValidationEntry hat daher eine Liste an Feldern `List<Field>`. Wenn sich der Wert eines Feldes geändert hat, wird diese Liste um einen Eintrag erweitert. Da die Felder wie erwähnt dynamisch sind, wurden Java Generics eingesetzt \cite{java-generics}, um diese abbilden zu können. `Field` ist eine innere Klasse in `ValidationEntry`:
+Ein `ValidationEntry` beinhaltet immer den Primary Key eines Gegenstandes und die Felder, die sich geändert haben. Ein `ValidationEntry` hat daher eine Liste an Feldern `List<Field>`. Wenn sich der Wert eines Feldes geändert hat, wird diese Liste um einen Eintrag erweitert. Da die Felder wie erwähnt dynamisch sind, wurden Java Generics eingesetzt \cite{java-generics}, um diese abbilden zu können. `Field` ist eine innere Klasse in `ValidationEntry`:
 
 ```java
 public static class Field<T> {
@@ -845,17 +868,16 @@ public static class Field<T> {
     ...
 ```
 
-Ein Feld besteht also immer aus einem Feldnamen und einem generischen Feldwert. Selbiges gilt für ExtraFields.
+Ein Feld besteht also immer aus einem Feldnamen und einem generischen Feldwert. Selbiges gilt für `ExtraFields`.
 
 ### Sendeformat
 
-Wenn ein Raum abgeschlossen ist, werden alle ValidationEntries in einer Liste vereint und anschließend in eine JSON-Darstellung transformiert. Dieses JSON wird dem Server gesandt und damit ist der aktuelle Raum abgeschlossen und der Benutzer kann sich den restlichen Räumen annehmen. Das POST-Format wird im Kapitel ["JSON-Schema"](json-schema) beschrieben.
-[//]: # (Achtung: Die o.a. Referenz wird nicht übersetzt!)
+Wenn ein Raum abgeschlossen ist, werden alle ValidationEntries in einer Liste vereint und anschließend in eine JSON-Darstellung transformiert. Dieses JSON wird dem Server gesandt und damit ist der aktuelle Raum abgeschlossen und der Benutzer kann sich den restlichen Räumen annehmen. Das POST-Format wird im Kapitel ["JSON-Schema"](#json-schema) beschrieben.
 
 
 ## Quickscan
 
-Der häufigste Fall einer Inventur wird jener sein, in dem ein Gegenstand im richtigen Raum ist und der Benutzer ohne weiteren Input auf den grünen Button drückt. Da dies einen unnötigen Overhead darstellt, wurde die App um den `QuickScan`-Modus erweitert. Hierbei wird sofort nach dem Scannen ein `ValidationEntry` erstellt, ohne dass zuvor das `DetailedItemFragment` geöffnet wird. Dieser Modus ist durch einen weiteren Button im `MergedItemsFragment` aktivierbar/deaktivierbar. Falls ein Sonderfall auftreten sollte, vibriert das Gerät zweimal und öffnet das  `DetailedItemFragment`. Damit wird gewährleistet, dass der Benutzer nicht irrtümlich mit dem Scannen weitermacht. Er muss diesen Sonderfall händisch validieren. Haptisches Feedback ist für Sonderfälle reserviert.
+Der häufigste Fall einer Inventur wird jener sein, in dem ein Gegenstand im richtigen Raum ist und der Benutzer ohne weiteren Input auf den grünen Button drückt. Da dies einen unnötigen Overhead darstellt, wurde die App um den `QuickScan`-Modus erweitert. Hierbei wird sofort nach dem Scannen ein `ValidationEntry` erstellt, ohne dass zuvor das `DetailedItemFragment` geöffnet wird. Dieser Modus ist durch einen Button im `MergedItemsFragment` aktivierbar/deaktivierbar. Falls ein Sonderfall auftreten sollte, vibriert das Gerät zweimal und öffnet das  `DetailedItemFragment`. Damit wird gewährleistet, dass der Benutzer nicht irrtümlich mit dem Scannen weitermacht. Er muss diesen Sonderfall händisch validieren. Haptisches Feedback ist für Sonderfälle reserviert.
 
 ## Sonderfälle auf der App
 
@@ -865,17 +887,17 @@ Ein zentrales Thema der vorliegenden Diplomarbeit ist die Behandlung der Sonderf
 
 Falls ein Gegenstand mehrmals vorhanden sein sollte, ist der `times_found_last`-Zähler in der Antwort des Servers größer als 1 und der Gegenstand gilt als Subitem. Dieser Counter wird dem Benutzer in folgender Form angezeigt: `[Anzahl aktuell gefunden] / [Anzahl zuletzt gefunden]`. 
 
-Pro Subitem wird ein eigener ValidationEntry erstellt. An unserer Schule haben Subitems jedoch keinen Barcode sondern sind beispielsweise Teil eines Bundles, was dazu führt, dass Subitems auch in der Datenbank keine selbstständigen Gegenstände sind. Change Proposals (siehe ["Änderungsvorschläge"](#uxe4nderungsvorschluxe4ge)), die auf Basis dieser ValidationEntries erstellt werden, werden dem echten "Parent"-Gegenstand zugeordnet und können wahlweise angewandt werden. Falls ein Gegenstand mehrmals gescannt wird, wird - nach Bestätigung durch den Benutzer - die Anzahl der aktuellen Funde erhöht und wiederum ein ValidationEntry erstellt, selbst wenn es sich bei dem Gegenstand aktuell nicht um ein Subitem handelt.
+Pro Subitem wird ein eigener `ValidationEntry` erstellt. An unserer Schule haben Subitems jedoch keinen Barcode sondern sind beispielsweise Teil eines Bundles, was dazu führt, dass Subitems auch in der Datenbank keine selbstständigen Gegenstände sind. `Change Proposals` (siehe ["Änderungsvorschläge"](#uxe4nderungsvorschluxe4ge)), die auf Basis dieser `ValidationEntries` erstellt werden, werden dem echten "Parent"-Gegenstand zugeordnet und können wahlweise angewandt werden. Falls ein Gegenstand mehrmals gescannt wird, wird - nach Bestätigung durch den Benutzer - die Anzahl der aktuellen Funde erhöht und wiederum einen `ValidationEntry` erstellt, selbst wenn es sich bei dem Gegenstand aktuell nicht um ein Subitem handelt.
 
 ### Subrooms
 
-Subrooms sind logische Räume in einem Raum. Subrooms werden dem Benutzer im `MergedItemsFragment` als einklappbare Teilmenge aller Gegenstände des Raumes angezeigt. Die Subroom-Zugehörigkeit kann auf Gegenstandsbasis über eine DropDown geändert werden. Die Subroom-Zugehörigkeit wird in einem ValidationEntry immer gesetzt, auch wenn sie sich nicht geändert hat. 
+Subrooms sind logische Räume in einem Raum. Subrooms werden dem Benutzer im `MergedItemsFragment` als einklappbare Teilmenge aller Gegenstände des Raumes angezeigt. Die Subroom-Zugehörigkeit kann auf Gegenstandsbasis über eine DropDown geändert werden. Die Subroom-Zugehörigkeit wird in einem `ValidationEntry` immer gesetzt, auch wenn sie sich nicht geändert hat. 
 
-Die Gegenstandsliste des `MergedItemsFragment` beinhaltet in Wahrheit auch die Subrooms. Dies ist notwendig, da die `RecyclerView`, die dazu genutzt wird dem Benutzer die Gegenstände anzuzeigen, keine Möglichkeit bietet, eine Hierarchie bzw. Zwischenebenen darzustellen. Daher implementieren das Room-Model und das MergedItem-Model das Interface `RecyclerViewItem` und die RecyclerView erhält eine Liste an RecyclerViewItems - dies ist ein typisch polymorpher Ansatz. Abhängig vom Typen des aktuellen Listenelements baut die RecyclerView entweder ein Gegenstandslayout oder ein Raumlayout auf. 
+Die Gegenstandsliste des `MergedItemsFragment` beinhaltet in Wahrheit auch die Subrooms. Dies ist notwendig, da die `RecyclerView`, die dazu genutzt wird dem Benutzer die Gegenstände anzuzeigen, keine Möglichkeit bietet, eine Hierarchie bzw. Zwischenebenen darzustellen. Daher implementieren das Room-Model und das MergedItem-Model das Interface `RecyclerViewItem` und die RecyclerView erhält eine Liste an RecyclerViewItems - dies ist ein typisch polymorpher Ansatz. Abhängig vom Typen des aktuellen Listenelements baut die RecyclerView entweder ein Gegenstandslayout oder ein Raumlayout auf. Die Anzahl der Subrooms ist weder in der Tiefe noch in der Breite limitiert.
 
 ### Unbekannte Gegenstände
 
-Falls ein Gegenstand gescannt wird, der sich nicht in der aktuellen Gegenstandsliste befindet, muss der Server befragt werden. Es gibt zwei mögliche Antwortszenarien. Die ValidationEntries für diese Sonderfälle unterscheiden sich nicht von den bisherigen.
+Falls ein Gegenstand gescannt wird, der sich nicht in der aktuellen Gegenstandsliste befindet, muss der Server befragt werden. Es gibt zwei mögliche Antwortszenarien. Die `ValidationEntries` für diese Sonderfälle unterscheiden sich nicht von den bisherigen.
 
 ##### Neuer Gegenstand
 Der Gegenstand befindet sich überhaupt nicht in der Datenbank. Im "DONE"-Tab haben solche Gegenstände eine blaue Hervorhebung.

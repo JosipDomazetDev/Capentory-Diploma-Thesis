@@ -241,7 +241,7 @@ App-Architektur auf MVVM.
 \hypertarget{designgrundlagen-von-mvvm}{%
 \section{Designgrundlagen von MVVM}\label{designgrundlagen-von-mvvm}}
 
-MVVM steht für Model--view--viewmodel \cite{mvvm-wiki}. Wie man am Namen
+MVVM steht für Model--View--Viewmodel \cite{mvvm-wiki}. Wie man am Namen
 bereits erkennt, gilt es zwischen drei Komponenten/Ebenen zu
 unterscheiden \cite{mvvm-article}.
 
@@ -267,16 +267,16 @@ Logik der View wird in diese Ebene hinaufverschoben.
 \hypertarget{mvvm-in-android}{%
 \section{MVVM in Android}\label{mvvm-in-android}}
 
-Mit der Einführung der Architecture Components hat Google
+Mit der Einführung der \texttt{Architecture\ Components} hat Google
 Android-Entwicklern eine Vielzahl an Libraries zur Verfügung gestellt,
 um MVVM leichter in Android implementieren zu können
 \cite{mvvm-architecture-components}. Die konkrete Implementierung in
-Android ist in der Abbildung ersichtlich.
+Android ist in Abbildung \ref{fig:mvvm} ersichtlich.
 
 \begin{figure}
-\centering
-\includegraphics{josip-pics/mvvm.png}
-\caption{MVVM in Android nach Google \cite{mvvm}}
+  \includegraphics[width=\linewidth]{mvvm.png}
+  \caption{MVVM in Android nach Google \cite{mvvm}}
+  \label{fig:mvvm}
 \end{figure}
 
 In dem vorliegenden Fall ist unser \texttt{Fragment} die \texttt{View},
@@ -286,12 +286,12 @@ ist in Android namensgleich.
 \hypertarget{das-repository-im-detail}{%
 \subsection{Das Repository im Detail}\label{das-repository-im-detail}}
 
-Wie in der Grafik veranschaulicht, ist das Repository dafür zuständig,
-Daten vom Server anzufordern. Im vorliegenden Fall besteht kein Grund,
-eine Datenbank am Client zu führen. Damit fällt dieser Aspekt der Grafik
-- der in violetter Farbe gehalten ist - für die vorliegende Diplomarbeit
-weg. Die Aufgabe des Repositories ist es also immer Daten vom Server
-anzufordern.
+Wie in der Grafik \ref{fig:mvvm} veranschaulicht, ist das Repository
+dafür zuständig, Daten vom Server anzufordern. Im vorliegenden Fall
+besteht kein Grund, eine Datenbank am Client zu führen. Damit fällt
+dieser Aspekt der Grafik - der in violetter Farbe gehalten ist - für die
+vorliegende Diplomarbeit weg. Die Aufgabe des Repositories ist es also
+immer, Daten vom Server anzufordern.
 
 \hypertarget{jsonrequest}{%
 \subsubsection{JsonRequest}\label{jsonrequest}}
@@ -321,7 +321,7 @@ Punkten angepasst:
   Im Header der Anfrage wird der Content-Type der Anfrage auf JSON
   festgelegt.
 \item
-  Im Header wird der zur Authentifikation notwendige API-Token
+  Im Header wird das zur Authentifikation notwendige API-Token
   mitgeschickt. Die Authentifizierung ist über einen Parameter
   deaktivierbar.
 \item
@@ -332,16 +332,18 @@ Punkten angepasst:
   abhängig von der Systemsprache.
 \item
   Zum Zeitpunkt der Anfrage ist nicht bekannt, ob die Antwort als
-  JSONArray oder als JSONObject erfolgen wird. Da das Backend abhängig
-  von der Anfrage sowohl mit einem JSONArray als auch einem JSONObject
-  antworten kann, ist der Rückgabewert am Client immer ein String. Die
-  Umwandlung erfolgt erst im Repository.
+  \texttt{JSONArray} oder als \texttt{JSONObject} erfolgen wird. Da das
+  Backend abhängig von der Anfrage sowohl mit einem \texttt{JSONArray}
+  als auch einem \texttt{JSONObject} antworten kann, ist der
+  Rückgabewert am Client immer ein String. Die Umwandlung erfolgt erst
+  im Repository.
 \end{itemize}
 
-Diese Unterscheidung zwischen JSONArray und JSONObject ist notwendig, da
-Android zwei Möglichkeiten anbietet, JSON als Objekt zu speichern:
+Diese Unterscheidung zwischen \texttt{JSONArray} und \texttt{JSONObject}
+ist notwendig, da Android zwei Möglichkeiten anbietet, JSON als Objekt
+zu speichern:
 
-Direkt als JSONArray:
+Direkt als \texttt{JSONArray}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -349,7 +351,7 @@ Direkt als JSONArray:
 \end{Highlighting}
 \end{Shaded}
 
-Direkt als JSONObject:
+Direkt als \texttt{JSONObject}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -362,8 +364,8 @@ obigen Beispiel ist dies der String \texttt{payload}). Das Backend
 könnte - natürlich in Abhängigkeit von der ursprünglichen Anfrage -
 folgende (vereinfachte) Antworten senden:
 
-Ein JSONArray (wenn die Anfrage beispielsweise eine Gegenstandsliste
-verlangt):
+Ein \texttt{JSONArray} (wenn die Anfrage beispielsweise eine
+Gegenstandsliste verlangt):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -380,8 +382,8 @@ verlangt):
 \end{Highlighting}
 \end{Shaded}
 
-Ein JSONObject (wenn die Anfrage beispielsweise einen spezifischen
-Gegenstand verlangt):
+Ein \texttt{JSONObject} (wenn die Anfrage beispielsweise einen
+spezifischen Gegenstand verlangt):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -392,12 +394,12 @@ Gegenstand verlangt):
 \end{Highlighting}
 \end{Shaded}
 
-Wenn das Backend ein JSONArray sendet und man versucht, jenes als
-JSONObject zu speichern, kommt es zu einem Fehler:
+Wenn das Backend ein \texttt{JSONArray} sendet und man versucht, jenes
+als \texttt{JSONObject} zu speichern, kommt es zu einem Fehler:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{// Dieser Code entspricht keiner korrekten Java{-}Syntax! }
+\CommentTok{// Dieser Code entspricht keiner korrekten Java-Syntax! }
 \CommentTok{// Antwort vom Backend}
 \BuiltInTok{String}\NormalTok{ payload =   }\StringTok{"[}
 \NormalTok{                        \{}
@@ -420,10 +422,10 @@ Aus diesem Grund kann die Umwandlung der Backend-Antwort erst im
 Repository erfolgen. Dies führt zu keinen Perfomance-Problemen, da die
 vorgefertigte Android Library den String zwar zu einem früheren
 Zeitpunkt aber auf dieselbe Weise umwandeln würde. Die Umwandlung eines
-Strings zu einem JSONArray oder einem JSONObject entspricht nur dem
-Bruchteil der Zeitdauer, die die Backend-Antwort benötigt, um am Client
-anzukommen. Selbst bei größeren Strings bemerkt der Benutzer daher
-keinerlei Unterschied.
+Strings zu einem \texttt{JSONArray} oder einem \texttt{JSONObject}
+entspricht nur dem Bruchteil der Zeitdauer, die die Backend-Antwort
+benötigt, um am Client anzukommen. Selbst bei größeren Strings bemerkt
+der Benutzer daher keinerlei Unterschied.
 
 \hypertarget{jsonrequest---beispiel}{%
 \subsubsection{JsonRequest - Beispiel}\label{jsonrequest---beispiel}}
@@ -465,10 +467,10 @@ Ein Request kann wie folgt ausschauen:
 \NormalTok{RobustJsonRequestExecutioner robustJsonRequestExecutioner =}
  \KeywordTok{new} \FunctionTok{RobustJsonRequestExecutioner}\NormalTok{(context, }\BuiltInTok{Request}\NormalTok{.}\FunctionTok{Method}\NormalTok{.}\FunctionTok{GET}\NormalTok{,}
   \StringTok{"https://www.beispiel.org/"}\NormalTok{, }\KeywordTok{null}\NormalTok{, }
-\NormalTok{  payload {-}> \{}
+\NormalTok{  payload -> \{}
          \CommentTok{// }\AlertTok{TODO}\CommentTok{: Antwort verarbeiten}
 \NormalTok{     \},}
-\NormalTok{  error {-}> \{}
+\NormalTok{  error -> \{}
          \CommentTok{// }\AlertTok{TODO}\CommentTok{: Fehler verarbeiten}
 \NormalTok{     \});}
      
@@ -521,10 +523,10 @@ erwähnten funktionalen Interfaces sind typische Callbacks
 \tightlist
 \item
   Synchrone Callbacks: Die Ausführung der übergebenen Methode erfolgt
-  sofort
+  sofort.
 \item
   Asynchrone Callbacks: Die Ausführung der übergebenen Methode erfolgt
-  zu einem späteren Zeitpunkt
+  zu einem späteren Zeitpunkt.
 \end{itemize}
 
 In diesem Fall wird die Methode \texttt{handleSuccess} aufgerufen,
@@ -591,12 +593,12 @@ ersichtlich, mit welchen Backend-Endpunkten ein Repository kommuniziert.
 Detail}\label{das-viewmodel-und-das-fragment-im-detail}}
 
 Das ViewModel ist eine Klasse, die dafür ausgelegt ist, UI-bezogene
-Daten lifecycle-aware zu speichern. Ein Fragment durchlebt im Laufe
-seines Daseins eine Vielzahl an Zuständen/Phasen - man spricht von einem
-\texttt{Lifecycle}. Wenn der Benutzer zum Beispiel sein Gerät rotiert,
-führt dies dazu, dass das Fragment \emph{zerstört} wird und das Fragment
-durch erneutes Durchleben alter Zustände wiederaufgebaut wird - dies
-führt zu einer Zerstörung des aktuellen UIs des Fragments sowie
+Daten \texttt{lifecycle-aware} zu speichern. Ein Fragment durchlebt im
+Laufe seines Daseins eine Vielzahl an Zuständen/Phasen - man spricht von
+einem \texttt{Lifecycle}. Wenn der Benutzer zum Beispiel sein Gerät
+rotiert, führt dies dazu, dass das Fragment \emph{zerstört} wird und das
+Fragment durch erneutes Durchleben alter Zustände wiederaufgebaut wird -
+dies führt zu einer Zerstörung des aktuellen UIs des Fragments sowie
 sämtlicher Referenzen, die das Fragment besitzt. Eine Gerätrotierung
 gehört zur Kategorie der \texttt{Configuration\ Changes}
 \cite{viewmodel}. Der Grund hierfür liegt darin, dass Android das
@@ -613,16 +615,16 @@ Folgende Probleme können dadurch auftreten:
   Die App stürzt ab, wenn eine Methode ausgeführt wird, die eine
   Referenz auf ein zerstörtes Objekt hat.
 \item
-  Memory Leaks entstehen, da Referenzen auf zerstörte Objekte vom
-  Gargabe Collector nicht freigegeben werden können. In Android wird die
-  Minimierung des Speicherbedarfs der App einzig und allein vom Garbage
-  Collector übernommen. Falls dieser Objekte nicht freigeben kann, führt
-  dies dazu, dass die App immer mehr und mehr Arbeitsspeicher benötigt.
-  Je nach Größe des Memory Leaks kann dies zu kleineren Verzögerungen
-  bis zu einem Absturz der App führen.
+  \texttt{Memory\ Leaks} entstehen, da Referenzen auf zerstörte Objekte
+  vom Gargabe Collector nicht freigegeben werden können. In Android wird
+  die Minimierung des Speicherbedarfs der App einzig und allein vom
+  Garbage Collector übernommen. Falls dieser Objekte nicht freigeben
+  kann, führt dies dazu, dass die App immer mehr und mehr
+  Arbeitsspeicher benötigt. Je nach Größe des Memory Leaks kann dies zu
+  kleineren Verzögerungen bis zu einem Absturz der App führen.
 \item
-  Nach einem Configuration Change gehen die aktuellen Daten verloren und
-  der Benutzer muss das Problem selbst lösen.
+  Nach einem \texttt{Configuration\ Change} gehen die aktuellen Daten
+  verloren und der Benutzer muss das Problem selbst lösen.
 \item
   Wenn die aktuellen Daten verloren gehen, verhält sich eine App oftmals
   unvorhersehbar.
@@ -632,15 +634,13 @@ Folgende Probleme können dadurch auftreten:
 \subsubsection{ViewModel als Lösung}\label{viewmodel-als-luxf6sung}}
 
 \begin{figure}
-\centering
-\includegraphics{josip-pics/viewmodel-lifecycle.png}
-\caption{Zustände einer Activity im Vergleich zu den Zuständen eines
-ViewModels, Fragments haben einen ähnlichen Lifecycle
-\cite{fragment-lifecycle} \cite{viewmodel}}
+  \includegraphics[width=\linewidth]{viewmodel-lifecycle.png}
+  \caption{Zustände einer Activity im Vergleich zu den Zuständen eines ViewModels, Fragments haben einen ähnlichen Lifecycle \cite{fragment-lifecycle} \cite{viewmodel}}
+  \label{fig:vmlife}
 \end{figure}
 
-Bei genauerer Betrachtung der Grafik wird ersichtlich, welche Phasen
-eine Activity bei einer Gerätrotierung durchlebt:
+Bei genauerer Betrachtung der Grafik \ref{fig:vmlife} wird ersichtlich,
+welche Phasen eine Activity bei einer Gerätrotierung durchlebt:
 
 \begin{itemize}
 \tightlist
@@ -670,14 +670,15 @@ eine Activity bei einer Gerätrotierung durchlebt:
   \end{itemize}
 \end{itemize}
 
-Wie in der Abbildung zu sehen ist, stellt ein ViewModel eine Lösung für
-diese Probleme dar. Ein ViewModel ist von einem Configuration Change
-nicht betroffen und kann dem UI damit stets die aktuellen Daten zur
-Verfügung stellen. Der gegebene Sachverhalt trifft genauso auf Fragments
-zu. Diese haben einen leicht veränderten Lifecycle, sind allerdings
-genauso von Configuration Changes betroffen wie Activities.
+Wie in der Abbildung \ref{fig:vmlife} zu sehen ist, stellt ein ViewModel
+eine Lösung für diese Probleme dar. Ein ViewModel ist von einem
+\texttt{Configuration\ Change} nicht betroffen und kann dem UI damit
+stets die aktuellen Daten zur Verfügung stellen. Der gegebene
+Sachverhalt trifft genauso auf Fragments zu. Diese haben einen leicht
+veränderten Lifecycle, sind allerdings genauso von Configuration Changes
+betroffen wie Activities.
 
-Anmerkung: Man kann das Zerstören \& Wiederaufbauen von
+\textbf{Anmerkung}: Man kann das Zerstören \& Wiederaufbauen von
 Activities/Fragments manuell blockieren. Dies ist jedoch kein Ersatz für
 eine wohlüberlegte App-Architektur und führt in den meisten Fällen zu
 unerwünschten Nebenwirkungen, da man sich nun auch manuell um das
@@ -691,26 +692,27 @@ Folgende Aspekte sind bei der Verwendung eines ViewModels zu beachten
 \begin{itemize}
 \tightlist
 \item
-  Ein ViewModel sollte bei einem Configuration Change keinen neuen
-  Request starten, da es bereits über die Daten verfügt. Dies lässt sich
-  mit einer If-Anweisung beheben.
+  Ein ViewModel sollte bei einem \texttt{Configuration\ Change} keinen
+  neuen Request starten, da es bereits über die Daten verfügt. Dies
+  lässt sich mit einer \texttt{If}-Anweisung beheben.
 \item
   Referenzen zu Objekten, die an einen Lifecycle gebunden sind, sind ein
   absolutes NO-GO. Objekte mit Lifecycle haben ein klares Schicksal -
   wenn ihr Host vernichtet wird, müssen sie ebenfalls vernichtet werden.
-  Folgendes Szenario: Ein ViewModel hat eine \texttt{TextView}-Variable.
-  Dreht der Benutzer sein Gerät wird das aktuelle Fragment inklusive
-  TextView vernichtet. Das ViewModel überlebt den Configuration Change
-  und hat nun eine Referenz auf eine invalide TextView. Dies ist ein
-  Memory Leak.
+  \textbf{Folgendes Szenario}: Ein ViewModel hat eine
+  \texttt{TextView}-Variable (= ein Textfeld). Dreht der Benutzer sein
+  Gerät wird das aktuelle Fragment inklusive \texttt{TextView}
+  vernichtet. Das ViewModel überlebt den \texttt{Configuration\ Change}
+  und hat nun eine Referenz auf eine invalide \texttt{TextView}. Dies
+  ist ein \texttt{Memory\ Leak}.
 \item
-  ViewModel überleben ein Beenden des Prozesses nicht. Wenn das BS
-  aktuell wenig Ressourcen zur Verfügung hat, kann es sein, dass
-  Prozesse beendet werden. Falls man diesen Sonderfall behandeln will,
+  ViewModel überleben ein Beenden des App-Prozesses nicht. Wenn das BS
+  aktuell wenig Ressourcen zur Verfügung hat, kann es sein, dass Apps
+  kurzzeitig beendet werden. Falls man diesen Sonderfall behandeln will,
   ist dies mit Extra-Aufwand verbunden \cite{viewmodel-process-death}.
 \item
-  ViewModels sollen nicht zu ``God-ViewModels'' werden. Das SoC-Prinzip
-  ist anzuwenden.
+  ViewModels sollen nicht zu ``God-ViewModels'' werden. Das
+  \texttt{SoC}-Prinzip ist anzuwenden.
 \end{itemize}
 
 Wie gelangen die Daten ins UI, wenn das ViewModel keine Referenzen
@@ -719,10 +721,11 @@ darauf haben darf? Die Antwort lautet \texttt{LiveData}.
 \hypertarget{livedata}{%
 \subsubsection{LiveData}\label{livedata}}
 
-LiveData ist eine observierbare Container-Klasse. Observierbar heißt,
-dass bei Änderungen des enkapsulierten Objektes ein Callback aufgerufen
-wird. LiveData ist ebenfalls lifecycle-aware. Daher wird LiveData immer
-nur aktive Komponenten mit Daten versorgen. Eine TextView, die bereits
+\texttt{LiveData} ist eine observierbare Container-Klasse. Observierbar
+heißt, dass bei Änderungen des enkapsulierten Objektes ein Callback
+aufgerufen wird. \texttt{LiveData} ist ebenfalls
+\texttt{lifecycle-aware}. Daher wird \texttt{LiveData} immer nur aktive
+Komponenten mit Daten versorgen. Eine \texttt{TextView}, die bereits
 zerstört wurde, erhält dementsprechend auch keine Updates mehr.
 
 Dieses (angepasste) offizielle Beispiel veranschaulicht die
@@ -733,7 +736,7 @@ Benutzername angezeigt werden:
 \begin{Highlighting}[]
 \KeywordTok{public} \KeywordTok{class}\NormalTok{ NameViewModel }\KeywordTok{extends}\NormalTok{ ViewModel \{}
 
-    \CommentTok{// LiveData{-}Objekt, das einen String beinhaltet}
+    \CommentTok{// LiveData-Objekt, das einen String beinhaltet}
     \KeywordTok{private}\NormalTok{ MutableLiveData<}\BuiltInTok{String}\NormalTok{> currentName;}
 
     \KeywordTok{public}\NormalTok{ LiveData<}\BuiltInTok{String}\NormalTok{> }\FunctionTok{getCurrentName}\NormalTok{() \{}
@@ -756,10 +759,10 @@ besteht darin, dass letzteres nicht veränderbar ist. Mit der
 \texttt{postValue}-Methode kann einer MutableLiveData-Instanz, die ja
 als Container-Objekt dient, ein neuer Wert zugewiesen werden. Dadurch
 werden etwaige Callbacks aufgerufen (siehe nächster Code-Ausschnitt).
-Man sollte bei öffentlichen Methoden immer nur LiveData als Rückgabewert
-verwenden, damit auf der Ebene der View keine Modifikationen der Daten
-des ViewModels vorgenommen werden können. Im Realfall stammt LiveData
-ursprünglich aus dem Repository.
+Man sollte bei öffentlichen Methoden immer nur \texttt{LiveData} als
+Rückgabewert verwenden, damit auf der Ebene der View keine
+Modifikationen der Daten des ViewModels vorgenommen werden können. Im
+Realfall stammt \texttt{LiveData} ursprünglich aus dem Repository.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -773,7 +776,7 @@ ursprünglich aus dem Repository.
 \NormalTok{        model = }\KeywordTok{new} \FunctionTok{ViewModelProvider}\NormalTok{(}\KeywordTok{this}\NormalTok{).}\FunctionTok{get}\NormalTok{(NameViewModel.}\FunctionTok{class}\NormalTok{);}
 
 \NormalTok{        model.}\FunctionTok{getCurrentName}\NormalTok{().}\FunctionTok{observe}\NormalTok{(}\FunctionTok{getViewLifecycleOwner}\NormalTok{(),}
-\NormalTok{         currentName {-}> \{}
+\NormalTok{         currentName -> \{}
              \CommentTok{// Diese Methode wird bei Änderungen aufgerufen.}
              \CommentTok{// CurrentName ist ein String.}
              \CommentTok{// nameTextView ist ein TextFeld, }
@@ -790,16 +793,16 @@ Hier kommt wieder die vorher angesprochene Lambda-Syntax zum Einsatz.
 Die Methode wird einmal beim erstmaligen Registrieren aufgerufen und
 wird danach bei jeder weiteren Änderung aufgerufen. Im Callback arbeitet
 man direkt mit dem eigentlichem Datentypen - in diesem Fall mit einem
-String -, da LiveData nur ein Container-Objekt ist. Im Fragment befindet
-sich damit relativ wenig Logik. Das Fragment hört nur auf eventuelle
-Änderungen und aktualisiert das UI in Abhängigkeit von den Änderungen.
-Das LiveData-Objekt ist an \texttt{getViewLifeycleOwner()} gebunden.
-Wenn der LifecycleOwner inaktiv wird, werden keine Änderungen mehr
-entsandt. Man könnte auch \texttt{this} als Argument übergeben
-(\texttt{this} wäre in diesem Fall das Fragment, das ebenfalls über
-einen Lifecycle verfügt). \texttt{getViewLifeycleOwner()} hat jedoch den
-Vorteil, dass der Observer automatisch entfernt wird, sobald der
-LifecycleOwner zerstört wird.
+String -, da \texttt{LiveData} nur ein Container-Objekt ist. Im Fragment
+befindet sich damit relativ wenig Logik. Das Fragment hört nur auf
+eventuelle Änderungen und aktualisiert das UI in Abhängigkeit von den
+Änderungen. Das LiveData-Objekt ist an \texttt{getViewLifeycleOwner()}
+gebunden. Wenn der \texttt{LifecycleOwner} inaktiv wird, werden keine
+Änderungen mehr entsandt. Man könnte auch \texttt{this} als Argument
+übergeben (\texttt{this} wäre in diesem Fall das Fragment, das ebenfalls
+über einen Lifecycle verfügt). \texttt{getViewLifeycleOwner()} hat
+jedoch den Vorteil, dass der Observer automatisch entfernt wird, sobald
+der LifecycleOwner zerstört wird.
 
 \hypertarget{angepasste-livedata-klasse}{%
 \subsubsection{Angepasste
@@ -901,30 +904,30 @@ Um diese Wrapper-Klasse elegant benutzen zu können, hat das Projektteam
     \KeywordTok{extends}\NormalTok{ MutableLiveData<StatusAwareData<T>> \{}
 
     \KeywordTok{public} \DataTypeTok{void} \FunctionTok{postFetching}\NormalTok{() \{}
-        \CommentTok{// Instanziiert StatusAwareData{-}Objekt mit FECHTING als }
+        \CommentTok{// Instanziiert StatusAwareData-Objekt mit FECHTING als }
         \CommentTok{// aktuellen Status.}
-        \CommentTok{// Setzt das StatusAwareData{-}Objekt anschließend }
-        \CommentTok{// als Wert der LiveData{-}Instanz.}
+        \CommentTok{// Setzt das StatusAwareData-Objekt anschließend }
+        \CommentTok{// als Wert der LiveData-Instanz.}
         \FunctionTok{postValue}\NormalTok{(}\KeywordTok{new}\NormalTok{ StatusAwareData<T>().}\FunctionTok{fetching}\NormalTok{());}
 \NormalTok{    \}}
 
     \KeywordTok{public} \DataTypeTok{void} \FunctionTok{postError}\NormalTok{(}\BuiltInTok{Exception}\NormalTok{ exception) \{}
-        \CommentTok{// Instanziiert StatusAwareData{-}Objekt mit ERROR als}
+        \CommentTok{// Instanziiert StatusAwareData-Objekt mit ERROR als}
         \CommentTok{// aktuellen Status.}
-        \CommentTok{// Mit der übergebenenen Exception wird die error{-}Variable}
+        \CommentTok{// Mit der übergebenenen Exception wird die error-Variable}
         \CommentTok{// initialisiert.}
-        \CommentTok{// Setzt das StatusAwareData{-}Objekt anschließend }
-        \CommentTok{// als Wert der LiveData{-}Instanz.}
+        \CommentTok{// Setzt das StatusAwareData-Objekt anschließend }
+        \CommentTok{// als Wert der LiveData-Instanz.}
         \FunctionTok{postValue}\NormalTok{(}\KeywordTok{new}\NormalTok{ StatusAwareData<T>().}\FunctionTok{error}\NormalTok{(exception));}
 \NormalTok{    \}}
 
     \KeywordTok{public} \DataTypeTok{void} \FunctionTok{postSuccess}\NormalTok{(T data) \{}
-        \CommentTok{// Instanziiert StatusAwareData{-}Objekt mit SUCCESS als}
+        \CommentTok{// Instanziiert StatusAwareData-Objekt mit SUCCESS als}
         \CommentTok{// aktuellen Status.}
-        \CommentTok{// Mit dem übergebenenen Objekt wird die data{-}Variable}
+        \CommentTok{// Mit dem übergebenenen Objekt wird die data-Variable}
         \CommentTok{// initialisiert.}
-        \CommentTok{// Setzt das StatusAwareData{-}Objekt anschließend }
-        \CommentTok{// als Wert der LiveData{-}Instanz.}
+        \CommentTok{// Setzt das StatusAwareData-Objekt anschließend }
+        \CommentTok{// als Wert der LiveData-Instanz.}
         \FunctionTok{postValue}\NormalTok{(}\KeywordTok{new}\NormalTok{ StatusAwareData<T>().}\FunctionTok{success}\NormalTok{(data));}
 \NormalTok{    \}}
 
@@ -935,7 +938,7 @@ Um diese Wrapper-Klasse elegant benutzen zu können, hat das Projektteam
 Damit entfällt der Bedarf, selbst neue StatusAwareData-Objekte zu
 instanziieren, da diese bereits über die \texttt{postFetching}-,
 \texttt{postError}- und \texttt{postSuccess}-Methoden - mit korrektem
-Status - instanziiert werden. Infolgedessen ist StatusAwareData
+Status - instanziiert werden. Infolgedessen ist \texttt{StatusAwareData}
 abstrahiert und im ViewModel genügt es, mit den modifizierten
 LiveData-Instanzen zu arbeiten. Damit ändert sich das vorherige
 \href{livedata}{``Beispiel''} wie folgt:
@@ -945,7 +948,7 @@ LiveData-Instanzen zu arbeiten. Damit ändert sich das vorherige
 
 \CommentTok{// Im ViewModel:}
 
-\CommentTok{// StatusAwareLiveData{-}Objekt, das einen String mit Status beinhaltet}
+\CommentTok{// StatusAwareLiveData-Objekt, das einen String mit Status beinhaltet}
 \KeywordTok{private}\NormalTok{ StatusAwareLiveData<}\BuiltInTok{String}\NormalTok{> currentName;}
 
 \KeywordTok{public}\NormalTok{ LiveData<StatusAwareData<}\BuiltInTok{String}\NormalTok{>> }\FunctionTok{getCurrentName}\NormalTok{() \{}
@@ -963,7 +966,7 @@ LiveData-Instanzen zu arbeiten. Damit ändert sich das vorherige
 \CommentTok{// Im Fragment:}
 
 \NormalTok{model.}\FunctionTok{getCurrentName}\NormalTok{().}\FunctionTok{observe}\NormalTok{(}\FunctionTok{getViewLifecycleOwner}\NormalTok{(), }
-\NormalTok{ statusAwareData {-}> \{}
+\NormalTok{ statusAwareData -> \{}
       \KeywordTok{switch}\NormalTok{ (statusAwareData.}\FunctionTok{getStatus}\NormalTok{()) \{}
           \KeywordTok{case}\NormalTok{ SUCCESS:}
               \CommentTok{// }\AlertTok{TODO}\CommentTok{: Nutzdaten anzeigen}
@@ -986,7 +989,7 @@ LiveData-Instanzen zu arbeiten. Damit ändert sich das vorherige
 \subsection{Konkrete
 MVVM-Implementierung}\label{konkrete-mvvm-implementierung}}
 
-Im vorliegenden Anwendungsfall hat ein Fragment immmer mindestens einen
+Im vorliegenden Anwendungsfall hat ein Fragment immer mindestens einen
 Datensatz, der für das Fragment namensgebend ist. Der Room-Screen (also
 die Anzeige mit einer DropDown zur Raumauswahl) setzt sich
 beispielsweise aus folgenden Komponenten zusammen:
@@ -1008,8 +1011,8 @@ Backend anzufordern und in Java-Objekte umzuwandeln. Das
 \texttt{RoomsViewModel} ist dafür verantwortlich, dem Fragment
 LiveData-Objekte zur Verfügung zu stellen. Das \texttt{RoomsFragment}
 ist dafür verantwortlich, dem Benutzer die Räume anzuzeigen, indem es
-LiveData observiert. Alternativ zeigt es Fehlermeldungen bzw. einen
-Ladebalken an.
+\texttt{LiveData} observiert. Alternativ zeigt es Fehlermeldungen bzw.
+einen Ladebalken an.
 
 Bei genauerer Betrachtung wird klar, dass fast jeder Screen dieselbe
 Aufgabe hat:
@@ -1020,8 +1023,8 @@ Aufgabe hat:
   Das Repository fordert Daten vom Backend an und wandelt die
   JSON-Antwort um.
 \item
-  Das ViewModel abstrahiert Logik und stellt der View LiveData zur
-  Verfügung.
+  Das ViewModel abstrahiert Logik und stellt der View \texttt{LiveData}
+  zur Verfügung.
 \item
   Das Fragment zeigt entweder Nutzdaten, eine Fehlermeldung oder einen
   Ladebalken an.
@@ -1069,6 +1072,7 @@ Infolgedessen wird das Erweitern der App um neue Features enorm
 erleichtert.
 
 \chapter{Das Scannen}
+\label{das_scannen}
 
 Das Scannen ist ein vitaler Aspekt dieser Diplomarbeit. Gegenstände an
 unserer Organisation sind mit Barcodes ausgestattet. Um die
@@ -1089,9 +1093,9 @@ Barcodes zu erfassen. Wir bieten folgende Varianten zum Scannen an:
 \section{Der Zebra-Scan}\label{der-zebra-scan}}
 
 Der Sponsor dieser Diplomarbeit - Zebra - hat dem Diplomarbeitsteam
-einen TC56 (``Touch Computer'') zur Verfügung gestellt. Dieser verfügt
-über einige Eigenschaften, die für eine Inventur vom Vorteil sind
-\cite{zebra-tc56}:
+einen \texttt{TC56} (``Touch Computer'') zur Verfügung gestellt. Dieser
+verfügt über einige Eigenschaften, die für eine Inventur vom Vorteil
+sind \cite{zebra-tc56}:
 
 \begin{itemize}
 \tightlist
@@ -1142,13 +1146,13 @@ Dies bietet folgende Vorteile:
 
 Bei weiterer Überlegung kommt man außerdem zur Erkenntnis, dass der
 Broadcast nicht von DataWege stammen muss. Wenn eine beliebige andere
-App, einen Broadcast mit derselben ID ausschickt, wird die vorliegende
-App dies als Scan werten. In weiterer Folge ist es zumindest theoretisch
-möglich, beispielsweise einen Bluetooth-Scanner mit einem regulären
-Android-Gerät zu verwenden und bei einem Resultat, einen Broadcast mit
-derselben ID auszuschicken. Die vorliegende App würde keinen Unterschied
-bemerken und somit auch mit dem Bluetooth-Scanner funktionieren. Dieses
-Einsatzgebiet wurde vom Diplomarbeitsteam jedoch nicht getestet.
+App, einen Broadcast mit derselben ID ausschickt, wird die App dies als
+Scan werten. In weiterer Folge ist es zumindest theoretisch möglich,
+beispielsweise einen Bluetooth-Scanner mit einem regulären Android-Gerät
+zu verwenden und bei einem Resultat, einen Broadcast mit derselben ID
+auszuschicken. Die App würde keinen Unterschied bemerken und somit auch
+mit dem Bluetooth-Scanner funktionieren. Dieses Einsatzgebiet wurde vom
+Diplomarbeitsteam jedoch nicht getestet.
 
 \hypertarget{zebra-scan-codeausschnitt}{%
 \subsection{Zebra-Scan:
@@ -1166,43 +1170,23 @@ werden:
 \begin{Highlighting}[]
 \KeywordTok{public} \KeywordTok{class}\NormalTok{ ZebraBroadcastReceiver }\KeywordTok{extends}\NormalTok{ BroadcastReceiver \{}
 \NormalTok{    ...}
-    \AttributeTok{@Override}
-    \KeywordTok{public} \DataTypeTok{void} \FunctionTok{onReceive}\NormalTok{(}\BuiltInTok{Context}\NormalTok{ context, Intent intent) \{}
-        \BuiltInTok{String}\NormalTok{ action = intent.}\FunctionTok{getAction}\NormalTok{();}
-
-        \CommentTok{// R.string.activity\_intent\_filter\_action definiert }
-        \CommentTok{// die konfigurierte ID des Broadcasts}
-        \KeywordTok{if}\NormalTok{ (action.}\FunctionTok{equals}\NormalTok{(context.}\FunctionTok{getResources}\NormalTok{()}
-\NormalTok{           .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{activity\_intent\_filter\_action}\NormalTok{))) \{}
-            \CommentTok{// R.string.datawedge\_intent\_key\_data }
-            \CommentTok{// definiert die ID des Scanergebnis selbst. }
-            \CommentTok{// Der Scan liefert auch andere Ergebnisse, }
-            \CommentTok{// wie z.B. das Barcodeformat. }
-            \CommentTok{// Relevant ist nur der Barcode.}
-            \BuiltInTok{String}\NormalTok{ barcode = intent.}\FunctionTok{getStringExtra}\NormalTok{(}
-\NormalTok{                context.}\FunctionTok{getResources}\NormalTok{()}
-\NormalTok{                .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{datawedge\_intent\_key\_data}\NormalTok{));}
-
-          
-            \CommentTok{// Das Scanergebnis wird nun per }
-            \CommentTok{// funktionalem Interface an die Fragments weitergegeben.}
-\NormalTok{            scanListener.}\FunctionTok{handleZebraScan}\NormalTok{(barcode);}
-\NormalTok{        \}}
-\NormalTok{    \}}
-
 
     \KeywordTok{public} \DataTypeTok{static} \DataTypeTok{void} \FunctionTok{registerZebraReceiver}\NormalTok{(}
                             \BuiltInTok{Context}\NormalTok{ context, }
 \NormalTok{                            ZebraBroadcastReceiver zebraBroadcastReceiver, }
                             \BuiltInTok{ErrorHandler}\NormalTok{ errorHandler) \{}
 \NormalTok{        ...}
+        \CommentTok{// Der BroadcastReceiver muss erstmal beim BS registriert werden.}
+
 \NormalTok{        IntentFilter filter = }\KeywordTok{new} \FunctionTok{IntentFilter}\NormalTok{();}
-\NormalTok{        filter.}\FunctionTok{addCategory}\NormalTok{(Intent.}\FunctionTok{CATEGORY\_DEFAULT}\NormalTok{);}
-        \CommentTok{// R.string.activity\_intent\_filter\_action definiert }
-        \CommentTok{// die konfigurierte ID des Broadcasts}
+\NormalTok{        filter.}\FunctionTok{addCategory}\NormalTok{(Intent.}\FunctionTok{CATEGORY_DEFAULT}\NormalTok{);}
+
+        \CommentTok{// R.string.activity_intent_filter_action definiert }
+        \CommentTok{// die konfigurierte ID des Broadcasts.}
 \NormalTok{        filter.}\FunctionTok{addAction}\NormalTok{(}
 \NormalTok{            context.}\FunctionTok{getResources}\NormalTok{()}
-\NormalTok{            .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{activity\_intent\_filter\_action}\NormalTok{));}
+\NormalTok{            .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{activity_intent_filter_action}\NormalTok{));}
+
         \CommentTok{// Hier wird der BroadcastReceiver mit der ID, }
         \CommentTok{// auf die er zu hören hat, registriert.}
 \NormalTok{        context.}\FunctionTok{registerReceiver}\NormalTok{(zebraBroadcastReceiver, filter);}
@@ -1212,9 +1196,40 @@ werden:
     \KeywordTok{public} \DataTypeTok{static} \DataTypeTok{void} \FunctionTok{unregisterZebraReceiver}\NormalTok{(}
                     \BuiltInTok{Context}\NormalTok{ context, }
 \NormalTok{                    ZebraBroadcastReceiver zebraBroadcastReceiver) \{}
-         \CommentTok{// Falls ein BrodcastReceiver nicht mehr gebraucht wird}
-         \CommentTok{// Sollte er immer abgemeldet werden.}
+         \CommentTok{// Falls ein BrodcastReceiver nicht mehr gebraucht wird,}
+         \CommentTok{// sollte er immer abgemeldet werden.}
+
 \NormalTok{        context.}\FunctionTok{unregisterReceiver}\NormalTok{(zebraBroadcastReceiver);}
+\NormalTok{    \}}
+
+    \AttributeTok{@Override}
+    \KeywordTok{public} \DataTypeTok{void} \FunctionTok{onReceive}\NormalTok{(}\BuiltInTok{Context}\NormalTok{ context, Intent intent) \{}
+        \CommentTok{// Falls ein Broadcast eintrifft, }
+        \CommentTok{// wird diese Methode aufgerufen.}
+
+        \BuiltInTok{String}\NormalTok{ action = intent.}\FunctionTok{getAction}\NormalTok{();}
+
+        \CommentTok{// R.string.activity_intent_filter_action definiert }
+        \CommentTok{// die konfigurierte ID des Broadcasts.}
+        \CommentTok{// Somit kann festgestellt werden,}
+        \CommentTok{// ob es sich um den richtigen Broadcast handelt.}
+        \KeywordTok{if}\NormalTok{ (action.}\FunctionTok{equals}\NormalTok{(context.}\FunctionTok{getResources}\NormalTok{()}
+\NormalTok{           .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{activity_intent_filter_action}\NormalTok{))) \{}
+
+            \CommentTok{// R.string.datawedge_intent_key_data }
+            \CommentTok{// definiert die ID des Scanergebnises selbst. }
+            \CommentTok{// Der Scan liefert auch andere Ergebnisse, }
+            \CommentTok{// wie z.B. das Barcodeformat. }
+            \CommentTok{// Relevant ist nur der Barcode.}
+            \BuiltInTok{String}\NormalTok{ barcode = intent.}\FunctionTok{getStringExtra}\NormalTok{(}
+\NormalTok{                context.}\FunctionTok{getResources}\NormalTok{()}
+\NormalTok{                .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{datawedge_intent_key_data}\NormalTok{));}
+
+          
+            \CommentTok{// Das Scanergebnis wird nun per }
+            \CommentTok{// funktionalem Interface an die Fragments weitergegeben.}
+\NormalTok{            scanListener.}\FunctionTok{handleZebraScan}\NormalTok{(barcode);}
+\NormalTok{        \}}
 \NormalTok{    \}}
 \NormalTok{\}}
 \end{Highlighting}
@@ -1239,9 +1254,9 @@ Optimierungen vorgenommen:
   Die API wurde um Blitzfunktionalitäten ergänzt. Dazu wurde eine
   OpenSource-Variante der Library modifiziert, da die offizielle
   proprietäre Version keinen Blitz unterstützt. Der Blitz ist über einen
-  ToggleButton sofort deaktivierbar oder aktivierbar. Um einen Klick
-  einzusparen, kann der Benutzer über die Einstellungen den Blitz gleich
-  beim Start des Kamerascans aktivieren lassen. Für eine optimale
+  \texttt{ToggleButton} sofort deaktivierbar oder aktivierbar. Um einen
+  Klick einzusparen, kann der Benutzer über die Einstellungen den Blitz
+  gleich beim Start des Kamerascans aktivieren lassen. Für eine optimale
   Erkennung darf man den Blitz jedoch nicht direkt in Richtung des
   Barcode anvisieren, sondern sollte den Blitz entweder höher oder
   niedriger als den Barcode halten, um optische Reflexionen zu
@@ -1249,9 +1264,9 @@ Optimierungen vorgenommen:
 \item
   Über die Einstellungen kann der Benutzer die Barcodeformate
   einschränken. Dies führt ebenfalls zur schnelleren Barcodeerkennung
-  und vermeidet zudem noch das Auftreten von false positives. Wenn der
-  Benutzer die Kamera nicht auf den gesamten Barcode hält, kann es unter
-  Umständen dazu kommen, dass der abgeschnittene Barcode
+  und vermeidet zudem noch das Auftreten von \texttt{false\ positives}.
+  Wenn der Benutzer die Kamera nicht auf den gesamten Barcode hält, kann
+  es unter Umständen dazu kommen, dass der abgeschnittene Barcode
   fälschlicherweise als anderes Format interpretiert wird und der Scan
   daher einen Barcode liefert, der nicht existiert. Offiziell wird in
   der vorliegenden Organisation nur das \texttt{Code\_93}-Format
@@ -1270,7 +1285,7 @@ Optimierungen vorgenommen:
 \subsection{Kamerascan:
 Codeausschnitt}\label{kamerascan-codeausschnitt}}
 
-Für die Scanfeatures wird bezüglich der Single-Activity-App eine
+Für die Scanfeatures wird bezüglich der Single-Activity-Architektur eine
 Ausnahme gemacht. Da diese Screens navigationstechnisch unabhängig sind
 und im Vollbildmodus gestartet werden, macht es mehr Sinn, sie als
 Activities anstatt als Fragments zu implementieren. Die Fragments, die
@@ -1295,7 +1310,6 @@ Aktivität und beendet die Aktivität.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{barcodeDetector.}\FunctionTok{setProcessor}\NormalTok{(}\KeywordTok{new}\NormalTok{ Detector.}\FunctionTok{Processor}\NormalTok{<Barcode>() \{}
-\NormalTok{        ...}
 
      \AttributeTok{@Override}
     \KeywordTok{public} \DataTypeTok{void} \FunctionTok{receiveDetections}\NormalTok{(Detector.}\FunctionTok{Detections}\NormalTok{<Barcode> detections) \{}
@@ -1310,6 +1324,8 @@ Aktivität und beendet die Aktivität.
            \FunctionTok{finish}\NormalTok{();}
 \NormalTok{           ...}
 \NormalTok{    \}}
+\NormalTok{    ...}
+\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1379,9 +1395,12 @@ Modifikationen vorgenommen (Der Textscan wurde als
 \begin{itemize}
 \tightlist
 \item
+  Die API wurde um Blitzfunktionalitäten ergänzt.
+\item
   Der Scanner gibt grundsätzlich alles was er sieht wieder. Das
-  Projektteam hat dies mit Regex-Ausdrücken kombiniert um sinnvolle
-  Ergebnisse zu erlangen. Es gibt daher verschiedene Texterkennungsmodi:
+  Projektteam hat dies mit \texttt{Regex}-Ausdrücken kombiniert um
+  sinnvolle Ergebnisse zu erlangen. Es gibt daher verschiedene
+  Texterkennungsmodi:
 
   \begin{itemize}
   \tightlist
@@ -1395,20 +1414,19 @@ Modifikationen vorgenommen (Der Textscan wurde als
   \item
     Numerisch (Barcodes).
   \item
-    IP-Adressen. Jeder Modus verwendet die Regex, die am besten für
-    seine Kategorie geeignet ist. Die Library bietet nur geringfügige
-    Möglichkeiten an, den Scan selbst zu beeinflussen. Man kann einen
-    Fokus auf ein Scanergebnis setzen. Daher wird der Fokus auf ein
-    Scanergebnis gesetzt, sobald dieses durch die aktuelle Regex
-    ausgedrückt werden kann. Die API beschränkt sich allerdings nicht
-    auf das Ergebnis, auf das der Fokus gesetzt wurde, sondern kann
-    jederzeit den Fokus selbst wieder aufheben. Unabhängig davon werden
-    alle Zeichen des Ergebnisses entfernt, die nicht durch die Regex
-    erfasst wurden.
+    IP-Adressen.
   \end{itemize}
-\item
-  Die API wurde um Blitzfunktionalitäten ergänzt.
 \end{itemize}
+
+Jeder Modus verwendet die Regex, die am besten für seine Kategorie
+geeignet ist. Die Library bietet nur geringfügige Möglichkeiten an, den
+Scan selbst zu beeinflussen. Man kann einen Fokus auf ein Scanergebnis
+setzen. Daher wird der Fokus auf ein Scanergebnis gesetzt, sobald dieses
+durch die aktuelle Regex ausgedrückt werden kann. Die API beschränkt
+sich allerdings nicht auf das Ergebnis, auf das der Fokus gesetzt wurde,
+sondern kann jederzeit den Fokus selbst wieder aufheben. Unabhängig
+davon werden alle Zeichen des Ergebnisses entfernt, die nicht durch die
+Regex erfasst wurden.
 
 Die Erkennung von Barcodes (also der Numerische Modus) hat zusätzlich
 folgende Optimierungen erhalten:
@@ -1436,9 +1454,9 @@ folgende Optimierungen erhalten:
 
 Der Benutzer kann das aktuell angezeigte Ergebnis in seine
 Zwischenablage kopieren und anschließend die Suchleiste nutzen. Die
-Kommunikation zwischen den restlichen Screens und dem Textscan erfolgt
-analog zum Kamerascan, da der Textscan aus denselben Gründen als
-Activity implementiert wurde.
+Kommunikation zwischen den Fragments und dem Textscan erfolgt analog zum
+Kamerascan, da der Textscan aus denselben Gründen als Activity
+implementiert wurde.
 
 \chapter{Die Inventurlogik auf der App}
 
@@ -1449,14 +1467,14 @@ Kapitel befasst sich mit der Logik hinter einer Inventur.
 \section{Die Modelle}\label{die-modelle}}
 
 Um die Antworten des Servers abzubilden, wurden mehrere Modell-Klassen
-erstellt. Deren Konstruktoren haben je ein JSONObject als Parameter. Die
-Werte der einzelnen Attribute werden aus diesem JSONObject ausgelesen.
-Folgende Modell-Klassen wurden erstellt.
+erstellt. Deren Konstruktoren haben je ein \texttt{JSONObject} als
+Parameter. Die Werte der einzelnen Attribute werden aus diesem
+\texttt{JSONObject} ausgelesen. Folgende Modell-Klassen wurden erstellt.
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{SerializerEntry}: Stelt eine Datenbanksicht dar.
+  \texttt{SerializerEntry}: Stellt eine Datenbanksicht dar.
 \item
   \texttt{Stocktaking}: Stellt eine Inventur dar.
 \item
@@ -1482,8 +1500,8 @@ und nicht mehrmals an verschiendenen Stellen im Quellcode schlummern.
 \section{Die Fragments}\label{die-fragments}}
 
 Dieses Kapitel basiert auf den Erklärungen der vorhergehenden Artikel.
-Eine Inventur wird auf der App durch folgenden Screens (Fragments)
-abgewickelt, die gleichzeitig als Phasen verstanden werden können:
+Eine Inventur wird auf der App durch folgendene Fragments abgewickelt,
+die gleichzeitig als Phasen verstanden werden können:
 
 \begin{itemize}
 \tightlist
@@ -1512,7 +1530,7 @@ abgewickelt, die gleichzeitig als Phasen verstanden werden können:
 
 ist das Fragment, in dem der Benutzer die aktuelle Inventur auswählt.
 Die Inventur kann nur vom Administrator am Server angelegt werden.
-Außerdem wählt der Benutzer hier die Datenbanksicht (``Serializer'')
+Außerdem wählt der Benutzer hier die Datenbanksicht (``den Serializer'')
 aus. Die App kommuniziert ausschließlich mittels REST API mit dem
 Server. Diese Schnittstelle kann verschiedene Quellen haben. Für eine
 Inventur an unserer Schule ist die ``HTL''-Datenbanksicht auszuwählen.
@@ -1535,9 +1553,9 @@ Auswahl eines Raumes gelangt man zum \texttt{ViewPagerFragment}.
 ist das Fragment, das als Wrapper für das \texttt{MergedItemsFragment}
 und das \texttt{ValidatedMergedItemsFragment} dient. Die einzige Aufgabe
 dieses Fragments ist es, die zwei vorher genannten Fragments als Tabs
-anzuzeigen. Dies wurde mit der neuen ViewPager2-Library realisiert
-\cite{viewpager2}. Die Tabs kommunizieren über ein geteiltes ViewModel
-miteinander.
+anzuzeigen. Dies wurde mit der neuen \texttt{ViewPager2}-Library
+realisiert \cite{viewpager2}. Die Tabs kommunizieren über ein geteiltes
+ViewModel miteinander.
 
 \hypertarget{mergeditemsfragment-validatedmergeditemsfragment}{%
 \paragraph{MergedItemsFragment \&
@@ -1547,7 +1565,7 @@ sind die Fragments, die die Gegenstandsliste eines Raumes verwalten und
 sie dem Benutzer anzeigen. Die Gegenstände werden einzeln validiert.
 Durch das Scannen des Barcodes eines Gegenstands (beziehungsweise das
 Klicken auf seine GUI-Repräsentation) gelangt er zum
-\texttt{DetailedItemFragment}. \texttt{ValidatedMergedItemsFragment}
+\texttt{DetailedItemFragment}. Das \texttt{ValidatedMergedItemsFragment}
 erfüllt nur den Zweck, dem Benutzer bereits validierte Gegenstände
 anzuzeigen und ihm die Möglichkeit zu geben, validierte Gegenstände
 zurück zu den nicht-validierten Gegenständen in
@@ -1631,12 +1649,12 @@ Qualität des Bildes ist einstellbar:
   75 \%
 \end{itemize}
 
-Zur Kompression wird das WEBP-Format verwendet, das dem mittlerweile
-veralteten JPG-Standard überlegen ist \cite{webp}. Der Server speichert
-den gesendeten Anhang nur einmal (Dateien werden anhand von Hashes
-unterschieden). Wenn ein Benutzer allen PCs in einem EDV-Saal dasselbe
-Bild zuweist, wird es nur einmal am Server hinterlegt. Die Anzahl der
-Anhänge ist nicht limitiert.
+Zur Kompression wird das \texttt{WEBP}-Format verwendet, das dem
+mittlerweile veralteten \texttt{JPG}-Standard überlegen ist \cite{webp}.
+Der Server speichert den gesendeten Anhang nur einmal (Dateien werden
+anhand von Hashes unterschieden). Wenn ein Benutzer allen PCs in einem
+EDV-Saal dasselbe Bild zuweist, wird es nur einmal am Server hinterlegt.
+Die Anzahl der Anhänge ist nicht limitiert.
 
 \hypertarget{validierungslogik}{%
 \section{Validierungslogik}\label{validierungslogik}}
@@ -1649,27 +1667,28 @@ im \texttt{MergedItemsFragment} angezeigt wird. Im Normalfall wird dies
 durch etwaige Sonderfälle jedoch nicht gegeben sein.
 
 Nach dem Scannen eines Gegenstandes werden die Felder des Gegenstandes
-dem Benutzer im DetailItemFragment angezeigt. In diesem Fragment hat der
-Benutzer zwei Buttons, mit denen er den Gegenstand validieren kann:
+dem Benutzer im \texttt{DetailedItemFragment} angezeigt. In diesem
+Fragment hat der Benutzer zwei Buttons, mit denen er den Gegenstand
+validieren kann:
 
 \begin{itemize}
 \tightlist
 \item
-  Grüner Button: Mit diesem Button wird signalisiert, dass sich der
-  Gegenstand im Raum befindet und der Gegenstand wird mitsamt etwaigen
-  Änderungen an seinen Attributen/Feldern übernommen. Dazu wird ein
-  \texttt{ValidationEntry} erstellt. Alternativ kann der Benutzer das
-  Klicken dieses Buttons mit dem Schütteln des Gerätes ersetzen. Die
+  \textbf{Grüner Button}: Mit diesem Button wird signalisiert, dass sich
+  der Gegenstand im Raum befindet und der Gegenstand wird mitsamt
+  etwaigen Änderungen an seinen Attributen/Feldern übernommen. Dazu wird
+  ein \texttt{ValidationEntry} erstellt. Alternativ kann der Benutzer
+  das Klicken dieses Buttons mit dem Schütteln des Gerätes ersetzen. Die
   Schüttel-Sensibilität ist über die Einstellungen konfigurierbar (und
   auch deaktivierbar).
 \item
-  Roter Button: Mit diesem Button wird signalisiert, dass sich der
-  Gegenstand nicht im Raum befindet. Dieser Button wird im Normalfall
-  nie betätigt werden, da ein Gegenstand, der sich nicht in diesem Raum
-  befindet, nicht gescannt werden kann und daher dieses Fenster nie
-  geöffnet werden wird. Der Button hat trotzdem einen Sinn, da der
-  Benutzer damit die ``TODO''-Liste über das GUI verkleinern kann, um
-  sich einen besseren Überblick zu verschaffen.
+  \textbf{Roter Button}: Mit diesem Button wird signalisiert, dass sich
+  der Gegenstand nicht im Raum befindet. Dieser Button wird im
+  Normalfall nie betätigt werden, da ein Gegenstand, der sich nicht in
+  diesem Raum befindet, nicht gescannt werden kann und daher dieses
+  Fenster nie geöffnet werden wird. Der Button hat trotzdem einen Sinn,
+  da der Benutzer damit die ``TODO''-Liste über das GUI verkleinern
+  kann, um sich einen besseren Überblick zu verschaffen.
 \end{itemize}
 
 \hypertarget{der-validationentry}{%
@@ -1678,20 +1697,22 @@ Benutzer zwei Buttons, mit denen er den Gegenstand validieren kann:
 Das \texttt{MergedItemsFragment} (bzw. das
 \texttt{MergedItemsViewModel}) verfügt über eine \texttt{HashMap}
 (\texttt{Map\textless{}MergedItem,\ List\textless{}ValidationEntry\textgreater{}\textgreater{}}),
-die alle ValidationEntries beinhaltet. Ein ValidationEntry beinhaltet
-sämtliche Informationen, die der Server benötigt, um die Datensätze
-eines Gengenstandes entsprechend anzupassen. Einem Gegenstand ist eine
-Liste an ValidationEntries zugeordnet, da Subitems eigene
-ValidtionEntries bekommen können (siehe
+die alle \texttt{ValidationEntries} beinhaltet. Ein
+\texttt{ValidationEntry} beinhaltet sämtliche Informationen, die der
+Server benötigt, um die Datensätze eines Gengenstandes entsprechend
+anzupassen. Einem Gegenstand ist eine Liste an
+\texttt{ValidationEntries} zugeordnet, da Subitems eigene
+\texttt{ValiditionEntries} bekommen können (siehe
 \protect\hyperlink{sonderfuxe4lle}{``Sonderfälle''}).
 
-Ein ValidationEntry beinhaltet immer den Primary Key eines Gegenstandes
-und die Felder, die sich geändert haben. Ein ValidationEntry hat daher
-eine Liste an Feldern \texttt{List\textless{}Field\textgreater{}}. Wenn
-sich der Wert eines Feldes geändert hat, wird diese Liste um einen
-Eintrag erweitert. Da die Felder wie erwähnt dynamisch sind, wurden Java
-Generics eingesetzt \cite{java-generics}, um diese abbilden zu können.
-\texttt{Field} ist eine innere Klasse in \texttt{ValidationEntry}:
+Ein \texttt{ValidationEntry} beinhaltet immer den Primary Key eines
+Gegenstandes und die Felder, die sich geändert haben. Ein
+\texttt{ValidationEntry} hat daher eine Liste an Feldern
+\texttt{List\textless{}Field\textgreater{}}. Wenn sich der Wert eines
+Feldes geändert hat, wird diese Liste um einen Eintrag erweitert. Da die
+Felder wie erwähnt dynamisch sind, wurden Java Generics eingesetzt
+\cite{java-generics}, um diese abbilden zu können. \texttt{Field} ist
+eine innere Klasse in \texttt{ValidationEntry}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1703,7 +1724,7 @@ Generics eingesetzt \cite{java-generics}, um diese abbilden zu können.
 \end{Shaded}
 
 Ein Feld besteht also immer aus einem Feldnamen und einem generischen
-Feldwert. Selbiges gilt für ExtraFields.
+Feldwert. Selbiges gilt für \texttt{ExtraFields}.
 
 \hypertarget{sendeformat}{%
 \subsubsection{Sendeformat}\label{sendeformat}}
@@ -1712,9 +1733,8 @@ Wenn ein Raum abgeschlossen ist, werden alle ValidationEntries in einer
 Liste vereint und anschließend in eine JSON-Darstellung transformiert.
 Dieses JSON wird dem Server gesandt und damit ist der aktuelle Raum
 abgeschlossen und der Benutzer kann sich den restlichen Räumen annehmen.
-Das POST-Format wird im Kapitel \href{json-schema}{``JSON-Schema''}
-beschrieben. \protect\hyperlink{}{//}: \# (Achtung: Die o.a. Referenz
-wird nicht übersetzt!)
+Das POST-Format wird im Kapitel
+\protect\hyperlink{json-schema}{``JSON-Schema''} beschrieben.
 
 \hypertarget{quickscan}{%
 \subsection{Quickscan}\label{quickscan}}
@@ -1725,12 +1745,12 @@ grünen Button drückt. Da dies einen unnötigen Overhead darstellt, wurde
 die App um den \texttt{QuickScan}-Modus erweitert. Hierbei wird sofort
 nach dem Scannen ein \texttt{ValidationEntry} erstellt, ohne dass zuvor
 das \texttt{DetailedItemFragment} geöffnet wird. Dieser Modus ist durch
-einen weiteren Button im \texttt{MergedItemsFragment}
-aktivierbar/deaktivierbar. Falls ein Sonderfall auftreten sollte,
-vibriert das Gerät zweimal und öffnet das \texttt{DetailedItemFragment}.
-Damit wird gewährleistet, dass der Benutzer nicht irrtümlich mit dem
-Scannen weitermacht. Er muss diesen Sonderfall händisch validieren.
-Haptisches Feedback ist für Sonderfälle reserviert.
+einen Button im \texttt{MergedItemsFragment} aktivierbar/deaktivierbar.
+Falls ein Sonderfall auftreten sollte, vibriert das Gerät zweimal und
+öffnet das \texttt{DetailedItemFragment}. Damit wird gewährleistet, dass
+der Benutzer nicht irrtümlich mit dem Scannen weitermacht. Er muss
+diesen Sonderfall händisch validieren. Haptisches Feedback ist für
+Sonderfälle reserviert.
 
 \hypertarget{sonderfuxe4lle-auf-der-app}{%
 \subsection{Sonderfälle auf der App}\label{sonderfuxe4lle-auf-der-app}}
@@ -1747,17 +1767,18 @@ Falls ein Gegenstand mehrmals vorhanden sein sollte, ist der
 in folgender Form angezeigt:
 \texttt{{[}Anzahl\ aktuell\ gefunden{]}\ /\ {[}Anzahl\ zuletzt\ gefunden{]}}.
 
-Pro Subitem wird ein eigener ValidationEntry erstellt. An unserer Schule
-haben Subitems jedoch keinen Barcode sondern sind beispielsweise Teil
-eines Bundles, was dazu führt, dass Subitems auch in der Datenbank keine
-selbstständigen Gegenstände sind. Change Proposals (siehe
+Pro Subitem wird ein eigener \texttt{ValidationEntry} erstellt. An
+unserer Schule haben Subitems jedoch keinen Barcode sondern sind
+beispielsweise Teil eines Bundles, was dazu führt, dass Subitems auch in
+der Datenbank keine selbstständigen Gegenstände sind.
+\texttt{Change\ Proposals} (siehe
 \protect\hyperlink{uxe4nderungsvorschluxe4ge}{``Änderungsvorschläge''}),
-die auf Basis dieser ValidationEntries erstellt werden, werden dem
-echten ``Parent''-Gegenstand zugeordnet und können wahlweise angewandt
-werden. Falls ein Gegenstand mehrmals gescannt wird, wird - nach
-Bestätigung durch den Benutzer - die Anzahl der aktuellen Funde erhöht
-und wiederum ein ValidationEntry erstellt, selbst wenn es sich bei dem
-Gegenstand aktuell nicht um ein Subitem handelt.
+die auf Basis dieser \texttt{ValidationEntries} erstellt werden, werden
+dem echten ``Parent''-Gegenstand zugeordnet und können wahlweise
+angewandt werden. Falls ein Gegenstand mehrmals gescannt wird, wird -
+nach Bestätigung durch den Benutzer - die Anzahl der aktuellen Funde
+erhöht und wiederum einen \texttt{ValidationEntry} erstellt, selbst wenn
+es sich bei dem Gegenstand aktuell nicht um ein Subitem handelt.
 
 \hypertarget{subrooms}{%
 \subsubsection{Subrooms}\label{subrooms}}
@@ -1766,8 +1787,8 @@ Subrooms sind logische Räume in einem Raum. Subrooms werden dem Benutzer
 im \texttt{MergedItemsFragment} als einklappbare Teilmenge aller
 Gegenstände des Raumes angezeigt. Die Subroom-Zugehörigkeit kann auf
 Gegenstandsbasis über eine DropDown geändert werden. Die
-Subroom-Zugehörigkeit wird in einem ValidationEntry immer gesetzt, auch
-wenn sie sich nicht geändert hat.
+Subroom-Zugehörigkeit wird in einem \texttt{ValidationEntry} immer
+gesetzt, auch wenn sie sich nicht geändert hat.
 
 Die Gegenstandsliste des \texttt{MergedItemsFragment} beinhaltet in
 Wahrheit auch die Subrooms. Dies ist notwendig, da die
@@ -1778,15 +1799,16 @@ MergedItem-Model das Interface \texttt{RecyclerViewItem} und die
 RecyclerView erhält eine Liste an RecyclerViewItems - dies ist ein
 typisch polymorpher Ansatz. Abhängig vom Typen des aktuellen
 Listenelements baut die RecyclerView entweder ein Gegenstandslayout oder
-ein Raumlayout auf.
+ein Raumlayout auf. Die Anzahl der Subrooms ist weder in der Tiefe noch
+in der Breite limitiert.
 
 \hypertarget{unbekannte-gegenstuxe4nde}{%
 \subsubsection{Unbekannte Gegenstände}\label{unbekannte-gegenstuxe4nde}}
 
 Falls ein Gegenstand gescannt wird, der sich nicht in der aktuellen
 Gegenstandsliste befindet, muss der Server befragt werden. Es gibt zwei
-mögliche Antwortszenarien. Die ValidationEntries für diese Sonderfälle
-unterscheiden sich nicht von den bisherigen.
+mögliche Antwortszenarien. Die \texttt{ValidationEntries} für diese
+Sonderfälle unterscheiden sich nicht von den bisherigen.
 
 \hypertarget{neuer-gegenstand}{%
 \subparagraph{Neuer Gegenstand}\label{neuer-gegenstand}}
