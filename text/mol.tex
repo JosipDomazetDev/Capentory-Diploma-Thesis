@@ -41,13 +41,70 @@ zur öffentlichen Verfügung, zwischen denen gewählt wurde:
 
 Alle genannten Alternativen sind
 \emph{Frameworks}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt}
-der Programmiersprache Python. Gewählt wurde ``Django'' aufgrund einer
-bestehenden und frei verfügbaren Inventarverwaltungsplattform ``Ralph''
-\cite{ralph}, die auf Django aufbaut und durch die vorliegende
-Diplomarbeit hinreichend erweitert wird.
+in der Programmiersprache Python. Sie wurden anhand der Faktoren
+Funktionsumfang, verfügbarer Dokumentation und Anzahl aktiver
+EntwicklerInnen verglichen. Django übertrifft alle anderen Alternativen
+in jedem dieser Punkte und gilt daher als der Standard eines solchen
+\emph{Frameworks}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt}.
+Die zu Django ähnlichste Alternative bezüglich Funktionsumfang ist
+Pyramid. Die komplexere Integration von kundenspezifischen Funktionen,
+der geringere Umfang öffentlich verfügbarer Dokumentation und die
+wesentlich geringere Anzahl aktiver Entwickler sind klare Nachteile
+gegenüber Django. Web2Py kann mittlerweile als veraltet eingestuft
+werden. Die Dokumentation entspricht nicht dem aktuellen Stand der
+Technik und die Entwicklerbasis ist größtenteils auf andere
+\emph{Frameworks}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt}
+umgestiegen. Flask fällt unter die Kategorie der Microframeworks und
+besitzt daher nur einen sehr geringen Funktionsumfang, der entweder
+durch Einsatz von Fremdsoftwarepaketen oder eigene Implementierung auf
+den benötigten Umfang gebracht werden muss. Dadurch wird eine hohe
+Anpassbarkeit und hohe Performanz versprochen, jedoch ist das
+Endresultat oft effizienter in Django implementierbar.
 
-\hypertarget{django-und-ralph}{%
-\section{Django und Ralph}\label{django-und-ralph}}
+Aufgrund des vorliegenden Vergleichs und einer bestehenden und frei
+verfügbaren Inventarverwaltungsplattform ``Ralph'' \cite{ralph}, die auf
+Django aufbaut, wurde die Alternative Django gewählt.
+
+\hypertarget{begruxfcndung-der-wahl-von-django-und-ralph}{%
+\section{Begründung der Wahl von Django und
+Ralph}\label{begruxfcndung-der-wahl-von-django-und-ralph}}
+
+Django bietet eine weit verbreitete Open-Source Lösung für die
+Entwicklung von Web-Diensten. Bekannte Webseiten, die auf Django
+basieren sind \ua{} Instagram, Mozilla, Pinterest und Open Stack.
+\cite{django-overview} Django zeichnet sich besonders durch die sog.
+\emph{"Batteries included"}\index{Batteries included: Das standardmäßige Vorhandensein von erwünschten bzw. gängigen \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems}, zu Deutsch: Batterien einbezogen}
+Mentalität aus. Das heißt, dass Django bereits die gängigsten
+\emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems}
+eines Webserver-Backends standardmäßig innehat. Diese sind (im Vergleich
+zu Alternativen wie etwa Flask) \ua{}:
+
+\begin{itemize}
+\tightlist
+\item
+  Authentifikation und Autorisierung, sowie eine damit verbundene
+  Benutzerverwaltung
+\item
+  Schutz vor gängigen Attacken (wie
+  \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem}
+  oder
+  \emph{CSRF}\index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}
+  \cite{csrf}), \siehe{views}.
+\end{itemize}
+
+Zusätzlich bietet Ralph bereits einige
+\emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems},
+die die grundlegende Führung und Verwaltung eines herkömmlichen
+Inventars unterstützen (beispielsweise eine Suchfunktion mit
+automatischer Textvervollständigung). Ralph ist daher eine angemessene
+Basis für die vorliegende Diplomarbeit.
+
+\hypertarget{kurzfassung-der-funktionsweise-von-django-und-ralph}{%
+\section{Kurzfassung der Funktionsweise von Django und
+Ralph}\label{kurzfassung-der-funktionsweise-von-django-und-ralph}}
+
+\hypertarget{einleitung}{%
+\subsection{Einleitung}\label{einleitung}}
 
 Django ist ein in der Programmiersprache Python geschriebenes
 Webserver-\emph{Framework}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt}.
@@ -70,44 +127,7 @@ Ralph an.
 
 Die vorliegende Diplomarbeit bietet eine Erweiterung des Ralph-Systems.
 
-\hypertarget{begruxfcndung-der-wahl-von-django-und-ralph}{%
-\subsection{Begründung der Wahl von Django und
-Ralph}\label{begruxfcndung-der-wahl-von-django-und-ralph}}
-
-Django bietet eine weit verbreitete Open-Source Lösung für die
-Entwicklung von Web-Diensten. Bekannte Webseiten, die auf Django
-basieren sind u.a. Instagram, Mozilla, Pinterest und Open Stack.
-\cite{django-overview} Django zeichnet sich besonders durch die sog.
-\emph{"Batteries included"}\index{Batteries included: Das standardmäßige Vorhandensein von erwünschten bzw. gängigen \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems}, zu Deutsch: Batterien einbezogen}
-Mentalität aus. Das heißt, dass Django bereits die gängigsten
-\emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems}
-eines Webserver-Backends standardmäßig innehat. Diese sind (im Vergleich
-zu Alternativen wie etwa ``Flask'') u.a.:
-
-\begin{itemize}
-\tightlist
-\item
-  Authentifikation und Autorisierung, sowie eine damit verbundene
-  Benutzerverwaltung
-\item
-  Schutz vor gängigen Attacken (wie
-  \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem}
-  oder
-  \emph{CSRF}\index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}
-  \cite{csrf}), siehe Abschnitt \href{views}{``Views''}
-\end{itemize}
-
-Zusätzlich bietet Ralph bereits einige
-\emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems},
-die die grundlegende Führung und Verwaltung eines herkömmlichen
-Inventars unterstützen (beispielsweise eine Suchfunktion mit
-automatischer Textvervollständigung).
-
-\hypertarget{kurzfassung-der-funktionsweise-von-django-und-rlaph}{%
-\section{Kurzfassung der Funktionsweise von Django und
-Rlaph}\label{kurzfassung-der-funktionsweise-von-django-und-rlaph}}
-
-Im folgenden Kapitel wird die Funktionsweise des
+In diesem Kapitel wird die Funktionsweise des
 Django-\emph{Frameworks}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt},
 sowie Ralph beschrieben. Ziel dieses Kapitels ist es, eine Wissensbasis
 für die darauffolgenden Kapitel zu schaffen.
@@ -147,9 +167,9 @@ erster Bestandteil einer \emph{URL}
 \index{URL: Addressierungsstandard im Internet} zu einer beliebigen
 graphischen Administrationsoberfläche des Pakets. Pakete werden durch
 einen Eintrag in die Variable \texttt{INSTALLED\_APPS} innerhalb der
-o.a. Einstellungsdatei registriert. Beispiele sind die beiden durch die
-vorliegende Diplomarbeit registrierten Pakete \texttt{"ralph.capentory"}
-und \texttt{"ralph.stocktaking"}
+\oa{} Einstellungsdatei registriert. Beispiele sind die beiden durch die
+vorliegende Diplomarbeit registrierten Pakete \texttt{ralph.capentory}
+und \texttt{ralph.stocktaking}
 
 Ist ein Python-Paket erfolgreich registriert, können in der Datei
 \texttt{models.py} Datenbank-Tabellen als python Klassen\footnote{erbend
@@ -267,7 +287,7 @@ Ralph-Dokumentationsseite \cite{ralph-api-doku} zu finden.
 \hypertarget{views}{%
 \subsection{Views}\label{views}}
 
-Schnittstellen, die keiner der beiden o.a. Kategorien zugeordnet werden
+Schnittstellen, die keiner der beiden \oa{} Kategorien zugeordnet werden
 können, werden in der Datei \texttt{views.py} definiert. Bei diesen
 \emph{generischen}\index{generisch: in einem allgemeingültigen Sinn}
 Schnittstellen handelt es sich entweder um
@@ -321,21 +341,21 @@ In dem folgenden Code-Auszug\footnote{entnommen aus der offiziellen
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Erstelle ein Queryset aller Entry-Objekte, }
-\CommentTok{# dessen Attribut "headline" mit "What" beginnt.}
-\NormalTok{q }\OperatorTok{=}\NormalTok{ Entry.objects.}\BuiltInTok{filter}\NormalTok{(headline__startswith}\OperatorTok{=}\StringTok{"What"}\NormalTok{)}
+\CommentTok{\# Erstelle ein Queryset aller Entry{-}Objekte, }
+\CommentTok{\# dessen Attribut "headline" mit "What" beginnt.}
+\NormalTok{q }\OperatorTok{=}\NormalTok{ Entry.objects.}\BuiltInTok{filter}\NormalTok{(headline\_\_startswith}\OperatorTok{=}\StringTok{"What"}\NormalTok{)}
 
-\CommentTok{# Filtere aus dem erstellten Queryset alle Entry-Objekte, }
-\CommentTok{# dessen Attribut "pub_date" kleiner oder gleich }
-\CommentTok{# dem aktuellen Datum ist.}
-\NormalTok{q }\OperatorTok{=}\NormalTok{ q.}\BuiltInTok{filter}\NormalTok{(pub_date__lte}\OperatorTok{=}\NormalTok{datetime.date.today())}
+\CommentTok{\# Filtere aus dem erstellten Queryset alle Entry{-}Objekte, }
+\CommentTok{\# dessen Attribut "pub\_date" kleiner oder gleich }
+\CommentTok{\# dem aktuellen Datum ist.}
+\NormalTok{q }\OperatorTok{=}\NormalTok{ q.}\BuiltInTok{filter}\NormalTok{(pub\_date\_\_lte}\OperatorTok{=}\NormalTok{datetime.date.today())}
 
-\CommentTok{# Schließe aus dem erstellten Queryset alle Entry-Objekte, }
-\CommentTok{# dessen Attribut "body_text" den Text "food" beinhaltet, aus.}
-\NormalTok{q }\OperatorTok{=}\NormalTok{ q.exclude(body_text__icontains}\OperatorTok{=}\StringTok{"food"}\NormalTok{)}
+\CommentTok{\# Schließe aus dem erstellten Queryset alle Entry{-}Objekte, }
+\CommentTok{\# dessen Attribut "body\_text" den Text "food" beinhaltet, aus.}
+\NormalTok{q }\OperatorTok{=}\NormalTok{ q.exclude(body\_text\_\_icontains}\OperatorTok{=}\StringTok{"food"}\NormalTok{)}
 
-\CommentTok{# Ausgabe des erstellten Querysets.}
-\CommentTok{# Erst hier kommt es zu der ersten Datenbankabfrage!}
+\CommentTok{\# Ausgabe des erstellten Querysets.}
+\CommentTok{\# Erst hier kommt es zu der ersten Datenbankabfrage!}
 \BuiltInTok{print}\NormalTok{(q)}
 \end{Highlighting}
 \end{Shaded}
@@ -364,10 +384,9 @@ Voraussetzung für das Erben einer Klasse von
 \texttt{AdminAbsoluteUrlMixin} ist daher, dass sie ebenfalls von der
 Klasse \texttt{Model} erbt.
 
-\chapter{Die 2 Erweiterungsmodule des Serversystems}
+\chapter{Die zwei Erweiterungsmodule des Serversystems}
 
-Die vorliegende Diplomarbeit erweitert das
-\protect\hyperlink{django-und-ralph}{``Ralph''} System um 2 Module.
+Die vorliegende Diplomarbeit erweitert das Ralph-System um 2 Module.
 Dabei handelt es sich um die beiden Pakete ``Capentory'' und
 ``Stocktaking''. Das Paket ``Capentory'' behandelt die Führung der
 Inventardaten und wurde speziell an die Inventardaten der HTL Rennweg
@@ -379,12 +398,12 @@ oder das Anwenden der aufgetretenen Änderungen.
 Dieses Kapitel beschreibt die grundlegende Funktionsweise der beiden
 Module. Eine Anleitung zur Bedienung der \emph{Weboberfläche}
 \index{Weboberfläche: graphische Oberfläche für administrative Tätigkeiten, die über einen Webbrowser erreichbar ist}
-ist dem Handbuch zum Server zu entnehmen.
+ist dem Handbuch zum Server (\siehe{chap:Anhang-1}) zu entnehmen.
 
 \hypertarget{das-capentory-modul}{%
-\section{Das ``Capentory'' Modul}\label{das-capentory-modul}}
+\section{Das Capentory-Modul}\label{das-capentory-modul}}
 
-Das ``Capentory'' Modul beherbergt 3 wichtige Modelle:
+Das Capentory-Modul beherbergt drei wichtige Modelle:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -417,7 +436,7 @@ System übernommen.
 \subsubsection{Die wichtigsten
 Attribute}\label{die-wichtigsten-attribute}}
 
-Zu den wichtigsten Attributen des \texttt{HTLItem} Modells zählen u.a.:
+Zu den wichtigsten Attributen des \texttt{HTLItem} Modells zählen:
 
 \begin{itemize}
 \tightlist
@@ -481,7 +500,7 @@ Anwendungsfall, die Metavariable \texttt{unique\_together}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{unique_together }\OperatorTok{=}\NormalTok{ [[}\StringTok{"anlage"}\NormalTok{,  }\StringTok{"asset_subnumber"}\NormalTok{, }\StringTok{"company_code"}\NormalTok{]]}
+\NormalTok{unique\_together }\OperatorTok{=}\NormalTok{ [[}\StringTok{"anlage"}\NormalTok{,  }\StringTok{"asset\_subnumber"}\NormalTok{, }\StringTok{"company\_code"}\NormalTok{]]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -489,17 +508,18 @@ Dieses Verfahren erfüllt die geforderte Bedingung nur in der Theorie.
 Praktisch werden leere Werte von Attributen dieser Art nicht als
 \texttt{None} (Python) bzw. \texttt{null} (MySQL), sondern als
 Leerstrings \texttt{""} gespeichert. Um diese Werte ebenfalls von der
-Regel auszuschließen, muss die \texttt{validate\_unique()}\footnote{Eine
-  Methode einer Modell-Klasse, die unter Normalzuständen immer vor dem
-  Speichern eines Objekts des Modells aufgerufen wird. Wirft sie einen
-  Fehler auf, kann das Objekt nicht gespeichert werden.} Methode
-\cite{django-doku-models-instances} überschrieben werden.
+Regel auszuschließen, muss die \texttt{validate\_unique()} Methode
+\cite{django-doku-models-instances} überschrieben werden. Die Methode
+wird unter Normalzuständen immer vor dem Speichern eines Objekts des
+Modells aufgerufen wird. Wirft sie einen Fehler auf, wird das Objekt
+nicht gespeichert und der Benutzer erhält eine entsprechende
+Fehlermeldung.
 
 Ist das \texttt{barcode\_prio} Attribut eines \texttt{HTLItem} Objekts
 gesetzt, darf dessen Wert nicht mit jenem eines anderen \texttt{HTLItem}
 Objekts übereinstimmen. Standardverfahren wäre in diesem Anwendungsfall
 das Setzen des \texttt{unique} Parameters des Attributes auf den Wert
-\texttt{True}. Da dieses Verfahren ebenfalls das o.a. Problem aufwirft,
+\texttt{True}. Da dieses Verfahren ebenfalls das \oa{} Problem aufwirft,
 muss die Logik stattdessen in die \texttt{validate\_unique()} Methode
 aufgenommen werden. Zusätzlich darf der Wert des \texttt{barcode\_prio}
 Attributs nicht mit dem aus den beiden Attributen \texttt{anlage} und
@@ -558,7 +578,7 @@ System übernommen.
 \subsubsection{Die wichtigsten
 Attribute}\label{die-wichtigsten-attribute-1}}
 
-Zu den wichtigsten Attributen des \texttt{HTLRoom} Modells zählen u.a.:
+Zu den wichtigsten Attributen des \texttt{HTLRoom} Modells zählen:
 
 \begin{itemize}
 \tightlist
@@ -617,11 +637,11 @@ dieser Regel ausgeschlossen. Gleichzeitig darf der Wert des
 \texttt{room\_number} Attributes eines anderen \texttt{HTLRoom} Objekts
 übereinstimmen und vice versa. Beide Bedingungen müssen wie im Falle des
 \texttt{HTLItem} Modells durch Überschreiben der
-\texttt{validate\_unique()}\footnote{Eine Methode einer Modell-Klasse,
-  die unter Normalzuständen immer vor dem Speichern eines Objekts des
-  Modells aufgerufen wird. Wirft sie einen Fehler auf, kann das Objekt
-  nicht gespeichert werden.} Methode \cite{django-doku-models-instances}
-implementiert werden.
+\texttt{validate\_unique()} Methode \cite{django-doku-models-instances}
+implementiert werden. Die Methode wird unter Normalzuständen immer vor
+dem Speichern eines Objekts des Modells aufgerufen wird. Wirft sie einen
+Fehler auf, wird das Objekt nicht gespeichert und der Benutzer erhält
+eine entsprechende Fehlermeldung.
 
 \hypertarget{subruxe4ume}{%
 \subsubsection{Subräume}\label{subruxe4ume}}
@@ -667,8 +687,7 @@ nun ein \emph{Custom-Field} namens ``Anzahl Ports''.
 
 Das für
 \emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.}
-erforderliche Mixin (siehe Abschnitt
-\href{designgrundlagen}{``Designgrundlagen''})
+erforderliche Mixin (\siehe{designgrundlagen})
 \texttt{WithCustomFieldsMixin} bietet die Funktionalität der
 \texttt{custom\_fields\_inheritance}. Sie ermöglicht das Erben von allen
 \emph{Custom-Field} Werten eines bestimmten Objekts an ein anderes.
@@ -682,13 +701,13 @@ oder \texttt{HTLItem} Objekts aufgerufen wird:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\AttributeTok{@receiver}\NormalTok{(post_save, sender}\OperatorTok{=}\NormalTok{HTLItemType)}
-\KeywordTok{def}\NormalTok{ populate_htlitem_custom_field_values(sender, instance, }\OperatorTok{**}\NormalTok{kwargs):}
-\NormalTok{    populate_inheritants_custom_field_values(instance)}
+\AttributeTok{@receiver}\NormalTok{(post\_save, sender}\OperatorTok{=}\NormalTok{HTLItemType)}
+\KeywordTok{def}\NormalTok{ populate\_htlitem\_custom\_field\_values(sender, instance, }\OperatorTok{**}\NormalTok{kwargs):}
+\NormalTok{    populate\_inheritants\_custom\_field\_values(instance)}
     
-\AttributeTok{@receiver}\NormalTok{(post_save, sender}\OperatorTok{=}\NormalTok{HTLItem)}
-\KeywordTok{def}\NormalTok{ populate_htlitemtype_custom_field_values(sender, instance, }\OperatorTok{**}\NormalTok{kwargs):}
-\NormalTok{    populate_with_parents_custom_field_values(instance)}
+\AttributeTok{@receiver}\NormalTok{(post\_save, sender}\OperatorTok{=}\NormalTok{HTLItem)}
+\KeywordTok{def}\NormalTok{ populate\_htlitemtype\_custom\_field\_values(sender, instance, }\OperatorTok{**}\NormalTok{kwargs):}
+\NormalTok{    populate\_with\_parents\_custom\_field\_values(instance)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -704,7 +723,12 @@ ist. Die Funktionen rufen jeweils eine weitere Funktion auf, welche die
 Um die Gegenstands- und Raumdaten des Inventars der HTL Rennweg in das
 erstellte System importieren zu können, muss dessen standardmäßig
 verfügbare Importfunktion entsprechend erweitert werden. Dazu sind 4
-spezielle Importverhalten notwendig.
+spezielle Importverhalten notwendig. Die Datenquellen sind das
+\emph{SAP ERP}
+\index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
+System der HTL Rennweg (\siehe{import-aus-dem-sap-erp-system}) und und
+intern von Lehrkräften und Inventarverantwortlichen geführte Listen
+(\siehe{import-aus-sekunduxe4rer-und-tertiuxe4rer-quelle}).
 
 Implementiert wird das Importverhalten nicht innerhalb der
 entsprechenden Modellklasse, sondern in dessen verknüpften
@@ -721,20 +745,20 @@ des eigentlichen Modells.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Definition eines Proxy-Modells zu dem Modell "HTLItem"}
+\CommentTok{\# Definition eines Proxy{-}Modells zu dem Modell "HTLItem"}
 \KeywordTok{class}\NormalTok{ HTLItemSecondaryImportProxy(HTLItem):}
     \KeywordTok{class}\NormalTok{ Meta:}
 \NormalTok{        proxy }\OperatorTok{=} \VariableTok{True}
 
-\CommentTok{# Diese Datenbankabfragen liefern beide dasselbe Ergebnis:}
+\CommentTok{\# Diese Datenbankabfragen liefern beide dasselbe Ergebnis:}
 \BuiltInTok{print}\NormalTok{(HTLItem.objects.}\BuiltInTok{all}\NormalTok{())}
 \BuiltInTok{print}\NormalTok{(HTLItemSecondaryImportProxy.objects.}\BuiltInTok{all}\NormalTok{())}
 
-\CommentTok{# Für das Proxy-Modell kann eine ModelAdmin-Klasse definiert werden.}
-\CommentTok{# Diese bekommt eine eigene "resource_class".}
+\CommentTok{\# Für das Proxy{-}Modell kann eine ModelAdmin{-}Klasse definiert werden.}
+\CommentTok{\# Diese bekommt eine eigene "resource\_class".}
 \AttributeTok{@register}\NormalTok{(HTLItemSecondaryImportProxy)}
 \KeywordTok{class}\NormalTok{ HTLItemSecondaryImportProxyAdmin(HTLItemSecondaryImportMixin, RalphAdmin):}
-\NormalTok{    resource_class }\OperatorTok{=}\NormalTok{ HTLItemSecodaryResource}
+\NormalTok{    resource\_class }\OperatorTok{=}\NormalTok{ HTLItemSecodaryResource}
 \end{Highlighting}
 \end{Shaded}
 
@@ -769,12 +793,12 @@ Attribut'' werden von den Zeichenketten ``Ja'' und ``Nein'' auf die
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Beispielhafte Definition von Aliases für einen Import}
-\NormalTok{ALIASES_HTLITEM }\OperatorTok{=}\NormalTok{ \{}
-    \StringTok{"field_1"}\NormalTok{: ([}\StringTok{"Erstes Attribut"}\NormalTok{], \{}
+\CommentTok{\# Beispielhafte Definition von Aliases für einen Import}
+\NormalTok{ALIASES\_HTLITEM }\OperatorTok{=}\NormalTok{ \{}
+    \StringTok{"field\_1"}\NormalTok{: ([}\StringTok{"Erstes Attribut"}\NormalTok{], \{}
 
 \NormalTok{    \}),}
-    \StringTok{"field_2"}\NormalTok{: ([}\StringTok{"Zweites Attribut"}\NormalTok{], \{}
+    \StringTok{"field\_2"}\NormalTok{: ([}\StringTok{"Zweites Attribut"}\NormalTok{], \{}
       \StringTok{"Ja"}\NormalTok{: }\VariableTok{True}\NormalTok{,}
       \StringTok{"Nein"}\NormalTok{: }\VariableTok{False}
 \NormalTok{    \}),}
@@ -788,7 +812,7 @@ Benutzers werden die Daten ein weiteres Mal von Neuem generiert und
 gespeichert.
 
 Details über das Format einer zu importierenden Quelldatei sind dem
-Handbuch zum Server zu entnehmen.
+Handbuch zum Server (\siehe{chap:Anhang-1}) zu entnehmen.
 
 \hypertarget{import-aus-dem-sap-erp-system}{%
 \subsubsection{Import aus dem SAP ERP
@@ -810,27 +834,26 @@ und ``UNr.'' aus der Quelldatei verglichen. Diese Werte werden auf die
 \texttt{HTLItem} Modellattribute \texttt{company\_code}, \texttt{anlage}
 und \texttt{asset\_subnumber} abgebildet. Zusätzlich wird auch das
 \texttt{barcode\_prio} Attribut mit dem zusammengefügten Wert der
-``Anlage'' und ``UNr.'' Felder \footnote{Diese Felder repräsentieren den
-  Barcode eines \texttt{HTLItem} Objekts.} der Quelldatei verglichen.
-Stimmt ein \texttt{HTLItem} Datensatz aus dem ``Capentory'' System mit
-einem zu importierenden Datensatz aufgrund einer der beiden verglichenen
+``Anlage'' und ``UNr.'' Felder der Quelldatei verglichen. Diese Felder
+repräsentieren den Barcode eines \texttt{HTLItem} Objekts. Stimmt ein
+\texttt{HTLItem} Datensatz aus dem ``Capentory'' System mit einem zu
+importierenden Datensatz aufgrund einer der beiden verglichenen
 Wertepaare überein, wird dieser damit assoziiert und überschrieben.
 
 Vor dem Verarbeiten der Daten des \texttt{HTLItem} Objekts werden die
 Daten des zugehörigen \texttt{HTLRoom} Objekts verarbeitet. Es wird nach
 einem existierenden \texttt{HTLRoom} Objekt mit einem übereinstimmenden
-\texttt{room\_number} Attribut\footnote{Das ``Raum'' Feld der Quelldatei
-  wird auf das \texttt{room\_number} Attribut abgebildet.} gesucht.
-Sollten mehrere \texttt{HTLRoom} Objekte übereinstimmen\footnote{Dieser
-  Fall sollte bei einem einzigen Schulstandort nicht auftreten.}, wird
-jener mit übereinstimmenden \texttt{main\_inv} und \texttt{location}
-Attributen \footnote{Die ``Hauptinven'' und ``Standort'' Felder der
-  Quelldatei werden auf die \texttt{main\_inv} und \texttt{location}
-  Attribute abgebildet.} ausgewählt. Ein gefundenes \texttt{HTLRoom}
-Objekt wird mit dem importierten \texttt{HTLItem} Objekt verknüpft.
-Sollte kein \texttt{HTLRoom} Objekt gefunden werden, wird es mit den
-entsprechenden Werten erstellt. In beiden Fällen wird das
-\texttt{is\_in\_sap}
+\texttt{room\_number} Attribut gesucht. Das ``Raum'' Feld der Quelldatei
+wird auf das \texttt{room\_number} Attribut abgebildet. Sollten mehrere
+\texttt{HTLRoom} Objekte übereinstimmen\footnote{Dieser Fall sollte bei
+  einem einzigen Schulstandort nicht auftreten.}, wird jener mit
+übereinstimmenden \texttt{main\_inv} und \texttt{location} Attributen
+ausgewählt. Die ``Hauptinven'' und ``Standort'' Felder der Quelldatei
+werden auf die \texttt{main\_inv} und \texttt{location} Attribute
+abgebildet. Ein gefundenes \texttt{HTLRoom} Objekt wird mit dem
+importierten \texttt{HTLItem} Objekt verknüpft. Sollte kein
+\texttt{HTLRoom} Objekt gefunden werden, wird es mit den entsprechenden
+Werten erstellt. In beiden Fällen wird das \texttt{is\_in\_sap}
 \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}-Attribut
 des \texttt{HTLRoom} Objekts gesetzt.
 
@@ -909,7 +932,7 @@ Die Daten aller \texttt{HTLItem} Gegenstände, die aus dem \emph{SAP ERP}
 System importiert wurden können unter spezieller Verarbeitung exportiert
 werden. Die exportierten Daten können in das \emph{SAP ERP}
 \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
-System importiert werden und beinhalten u.a. Raumänderungen, die durch
+System importiert werden und beinhalten \ua{} Raumänderungen, die durch
 Inventuren aufgetreten sind. Bei der Verarbeitung der zu exportierenden
 Daten wird eine Funktion des \texttt{reversion} Pakets
 \cite{django-reversion-doku} genutzt. Diese Funktion besteht darin, den
@@ -919,28 +942,32 @@ Zustand eines Gegenstandes zum Zeitpunkt des letzten Imports aus dem
 System abzufragen. Es wird der Zustand zu dem angegebenen Zeitpunkt mit
 dem aktuellen Zustand verglichen. Anhand der erkannten Änderungen wird
 die Export-Datei erstellt. Weitere Informationen zum Datenexport sind
-dem Handbuch zum Server zu entnehmen.
+dem Handbuch zum Server (\siehe{chap:Anhang-1}) zu entnehmen.
 
 \hypertarget{das-stocktaking-modul}{%
-\section{Das ``Stocktaking'' Modul}\label{das-stocktaking-modul}}
+\section{Das Stocktaking-Modul}\label{das-stocktaking-modul}}
 
-Das ``\emph{Stocktaking}'' \index{Stocktaking: Inventur} Modul
-ermöglicht das Erstellen und Verwalten von Inventuren. Um das
-Datenbankmodell möglichst modular und übersichtlich zu gestalten, werden
-diverse Modelle miteinander hierarchisch verknüpft. Die oberste Ebene
-der Modellhierarchie bildet das \texttt{Stocktaking} Modell. In der
-Abbildung \ref{fig:stocktaking_klassendiagramm} ist die Hierarchie in
-Form eines Klassendiagramms abgebildet. Das Klassendiagramm wurde
-mithilfe der Erweiterungen \texttt{django\_extensions} und
-\texttt{pygraphviz} erstellt. Folgendes Kommando wurde dafür aufgerufen
+Das \emph{Stocktaking}\index{Stocktaking: Inventur}-Modul ermöglicht das
+Erstellen und Verwalten von Inventuren. Durch das neuartige Konzept der
+Änderungsvorschläge wird die Verwaltung von Inventuren erheblich
+erleichtert, indem Änderungen effizient angenommen, verworfen und
+rückverfolgt werden können (\siehe{uxe4nderungsvorschluxe4ge}).
+
+Um das Datenbankmodell möglichst modular und übersichtlich zu gestalten,
+werden diverse Modelle miteinander hierarchisch verknüpft. Die oberste
+Ebene der Modellhierarchie bildet das \texttt{Stocktaking} Modell. In
+der \abb{fig:stocktaking_klassendiagramm} ist die Hierarchie in Form
+eines Klassendiagramms abgebildet. Das Klassendiagramm wurde mithilfe
+der Erweiterungen \texttt{django\_extensions} und \texttt{pygraphviz}
+erstellt. Folgendes Kommando wurde dafür aufgerufen
 \cite{django-graph-models}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ExtensionTok{dev_ralph}\NormalTok{ graph_models stocktaking \textbackslash{}}
-\NormalTok{-X ItemSplitChangeProposal,MultipleValidationsChangeProposal,}
+\ExtensionTok{dev\_ralph}\NormalTok{ graph\_models stocktaking \textbackslash{}}
+\NormalTok{{-}X ItemSplitChangeProposal,MultipleValidationsChangeProposal,}
    \ExtensionTok{ValueChangeProposal}\NormalTok{,TimeStampMixin \textbackslash{}}
-\NormalTok{-g -o stocktaking_klassendiagramm.png}
+\NormalTok{{-}g {-}o stocktaking\_klassendiagramm.png}
 \end{Highlighting}
 \end{Shaded}
 
@@ -951,7 +978,7 @@ der Option \texttt{-X} exkludiert.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{stocktaking_klassendiagramm.png}
-  \caption{Das automatisch generierte Klassendiagramm der Modelle des "Stocktaking" Moduls.}
+  \caption{Das automatisch generierte Klassendiagramm der Modelle des Stocktaking-Moduls.}
   \label{fig:stocktaking_klassendiagramm}
 \end{figure}
 
@@ -965,8 +992,7 @@ Inventur.
 \subsubsection{Die wichtigsten
 Attribute}\label{die-wichtigsten-attribute-2}}
 
-Zu den wichtigsten Attributen des \texttt{Stocktaking} Modells zählen
-u.a.:
+Zu den wichtigsten Attributen des \texttt{Stocktaking} Modells zählen:
 
 \begin{itemize}
 \tightlist
@@ -1018,7 +1044,7 @@ Metavariable \cite{django-doku-models-options} festgelegt:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{unique_together }\OperatorTok{=}\NormalTok{ [[}\StringTok{"user"}\NormalTok{, }\StringTok{"stocktaking"}\NormalTok{]]}
+\NormalTok{unique\_together }\OperatorTok{=}\NormalTok{ [[}\StringTok{"user"}\NormalTok{, }\StringTok{"stocktaking"}\NormalTok{]]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1061,7 +1087,7 @@ sind die Änderungsvorschläge einer Gegenstandsvalidierung verknüpft.
 Attribute}\label{die-wichtigsten-attribute-3}}
 
 Zu den wichtigsten Attributen des \texttt{StocktakingItem} Modells
-zählen u.a.:
+zählen:
 
 \begin{itemize}
 \tightlist
@@ -1104,10 +1130,11 @@ entspricht.
 Um während einer Inventur nicht sofort jegliche erkannte Änderungen von
 Gegenstandseigenschaften anwenden zu müssen, werden sie in
 Änderungsvorschläge ausgelagert. So kann Fehlern, die während einer
-Inventur entstehen können, vorgebeugt werden. Dem Benutzer der mobilen
-Applikation wird dadurch Vertrauenswürdigkeit entzogen. Es ist die
-Aufgabe eines Administrators, Änderungsvorschläge als vertrauenswürdig
-einzustufen und diese tatsächlich anzuwenden.
+Inventur entstehen können, vorgebeugt werden. Der Benutzer der mobilen
+Applikation ist nur damit beauftragt, die aktuellen Inventardaten aus
+dessen Sicht zu erbehen. Es ist die Aufgabe eines Administrators,
+Änderungsvorschläge als vertrauenswürdig einzustufen und diese
+tatsächlich anzuwenden.
 
 Als Basis für Änderungsvorschläge dient die Klasse
 \texttt{ChangeProposalBase}. Sie beschreibt nicht, welche Änderung
@@ -1117,9 +1144,9 @@ Vererbung von Modellklassen auf der Datenbankebene. So können alle
 \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
 der Klassen \texttt{ChangeProposalBase} einheitlich betrachtet werden.
 Über die Verbindung von \texttt{StocktakingItem} zu
-\texttt{ChangeProposalBase} in der Abbildung
-\ref{fig:stocktaking_klassendiagramm} sind nicht nur alle verknüpften
-\texttt{ChangeProposalBase} Instanzen, sondern auch alle Instanzen der
+\texttt{ChangeProposalBase} in \abb{fig:stocktaking_klassendiagramm}
+sind nicht nur alle verknüpften \texttt{ChangeProposalBase} Instanzen,
+sondern auch alle Instanzen der
 \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
 von \texttt{ChangeProposalBase}, verbunden. Eine
 \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
@@ -1143,7 +1170,8 @@ von \texttt{ChangeProposalBase} und damit 4 Arten von
 \end{enumerate}
 
 Weitere Informationen über die Arten von Änderungsvorschlägen und deren
-Handhabung sind dem Handbuch zum Server zu entnehmen.
+Handhabung sind dem Handbuch zum Server (\siehe{chap:Anhang-1}) zu
+entnehmen.
 
 \hypertarget{die-client-schnittstelle}{%
 \subsection{Die Client-Schnittstelle}\label{die-client-schnittstelle}}
@@ -1156,8 +1184,7 @@ Inventur für die Gegenstände der HTL Rennweg, durch die gegen die
 
 Um die Kommunikation zwischen Server und mobiler Client-Applikation für
 eine Art der Inventur zu ermöglichen, werden 2 \texttt{APIView} Klassen
-erstellt (siehe \autoref{intro_server} Abschnitt
-\href{views}{``Views''}):
+erstellt (\siehe{views}):
 
 \begin{itemize}
 \tightlist
@@ -1169,7 +1196,7 @@ erstellt (siehe \autoref{intro_server} Abschnitt
 
 In den
 \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
-wird u.a. definiert, um welche Gegenstands- und Raummodelle es sich bei
+wird \ua{} definiert, um welche Gegenstands- und Raummodelle es sich bei
 der Art der Inventur handelt. Die beiden vordefinierten Klassen
 \texttt{BaseStocktakeItemView} und \texttt{BaseStocktakeRoomView} wurden
 dazu konzipiert, möglichst wenig Anpassung für die Implementierung einer
@@ -1193,65 +1220,63 @@ als 30 Code-Zeilen erstellt.
 \KeywordTok{class}\NormalTok{ BackOfficeAssetStocktakingView(StocktakingGETWithCustomFieldsMixin,}
 \NormalTok{                                     ClientAttachmentsGETMixin,}
 \NormalTok{                                     BaseStocktakeItemView):}
-\NormalTok{    item_model }\OperatorTok{=}\NormalTok{ BackOfficeAsset}
-\NormalTok{    pk_url_kwarg }\OperatorTok{=} \VariableTok{None}
-\NormalTok{    slug_url_kwarg }\OperatorTok{=} \StringTok{"barcode_final"}
-\NormalTok{    slug_field }\OperatorTok{=} \StringTok{"barcode_final"}
+\NormalTok{    item\_model }\OperatorTok{=}\NormalTok{ BackOfficeAsset}
+\NormalTok{    pk\_url\_kwarg }\OperatorTok{=} \VariableTok{None}
+\NormalTok{    slug\_url\_kwarg }\OperatorTok{=} \StringTok{"barcode\_final"}
+\NormalTok{    slug\_field }\OperatorTok{=} \StringTok{"barcode\_final"}
 
-\NormalTok{    display_fields }\OperatorTok{=}\NormalTok{ (}\StringTok{"hostname"}\NormalTok{, }\StringTok{"status"}\NormalTok{, }\StringTok{"location"}\NormalTok{, }\StringTok{"price"}\NormalTok{, }\StringTok{"provider"}\NormalTok{)}
-\NormalTok{    extra_fields }\OperatorTok{=}\NormalTok{ (}
-        \StringTok{"custom_fields"}\NormalTok{, }\StringTok{"office_infrastructure"}\NormalTok{, }\StringTok{"depreciation_rate"}\NormalTok{,}
-        \StringTok{"budget_info"}\NormalTok{, }\StringTok{"property_of"}\NormalTok{, }\StringTok{"start_usage"}
+\NormalTok{    display\_fields }\OperatorTok{=}\NormalTok{ (}\StringTok{"hostname"}\NormalTok{, }\StringTok{"status"}\NormalTok{, }\StringTok{"location"}\NormalTok{, }\StringTok{"price"}\NormalTok{, }\StringTok{"provider"}\NormalTok{)}
+\NormalTok{    extra\_fields }\OperatorTok{=}\NormalTok{ (}
+        \StringTok{"custom\_fields"}\NormalTok{, }\StringTok{"office\_infrastructure"}\NormalTok{, }\StringTok{"depreciation\_rate"}\NormalTok{,}
+        \StringTok{"budget\_info"}\NormalTok{, }\StringTok{"property\_of"}\NormalTok{, }\StringTok{"start\_usage"}
 \NormalTok{    )}
-\NormalTok{    explicit_readonly_fields }\OperatorTok{=}\NormalTok{ (}\StringTok{"hostname"}\NormalTok{, }\StringTok{"price"}\NormalTok{)}
+\NormalTok{    explicit\_readonly\_fields }\OperatorTok{=}\NormalTok{ (}\StringTok{"hostname"}\NormalTok{, }\StringTok{"price"}\NormalTok{)}
 
-    \KeywordTok{def}\NormalTok{ get_queryset(}\VariableTok{self}\NormalTok{, request}\OperatorTok{=}\VariableTok{None}\NormalTok{, previous_room_validation}\OperatorTok{=}\VariableTok{None}\NormalTok{):}
-        \CommentTok{# annotate custom barcode as either "barcode" or "sn"}
-        \ControlFlowTok{return} \BuiltInTok{super}\NormalTok{(BackOfficeAssetStocktakingView, }\VariableTok{self}\NormalTok{).get_queryset(}
-\NormalTok{            request}\OperatorTok{=}\NormalTok{request, previous_room_validation}\OperatorTok{=}\NormalTok{previous_room_validation}
+    \KeywordTok{def}\NormalTok{ get\_queryset(}\VariableTok{self}\NormalTok{, request}\OperatorTok{=}\VariableTok{None}\NormalTok{, previous\_room\_validation}\OperatorTok{=}\VariableTok{None}\NormalTok{):}
+        \CommentTok{\# annotate custom barcode as either "barcode" or "sn"}
+        \ControlFlowTok{return} \BuiltInTok{super}\NormalTok{(BackOfficeAssetStocktakingView, }\VariableTok{self}\NormalTok{).get\_queryset(}
+\NormalTok{            request}\OperatorTok{=}\NormalTok{request, previous\_room\_validation}\OperatorTok{=}\NormalTok{previous\_room\_validation}
 \NormalTok{        ).annotate(}
-\NormalTok{            barcode_final}\OperatorTok{=}\NormalTok{Case(}
-\NormalTok{                When(Q(barcode__isnull}\OperatorTok{=}\VariableTok{True}\NormalTok{) }\OperatorTok{|}\NormalTok{ Q(barcode__exact}\OperatorTok{=}\StringTok{""}\NormalTok{),}
+\NormalTok{            barcode\_final}\OperatorTok{=}\NormalTok{Case(}
+\NormalTok{                When(Q(barcode\_\_isnull}\OperatorTok{=}\VariableTok{True}\NormalTok{) }\OperatorTok{|}\NormalTok{ Q(barcode\_\_exact}\OperatorTok{=}\StringTok{""}\NormalTok{),}
 \NormalTok{                     then}\OperatorTok{=}\NormalTok{(F(}\StringTok{"sn"}\NormalTok{))),}
-\NormalTok{                default}\OperatorTok{=}\NormalTok{F(}\StringTok{"barcode"}\NormalTok{), output_field}\OperatorTok{=}\NormalTok{CharField()))}
+\NormalTok{                default}\OperatorTok{=}\NormalTok{F(}\StringTok{"barcode"}\NormalTok{), output\_field}\OperatorTok{=}\NormalTok{CharField()))}
 
-    \KeywordTok{def}\NormalTok{ get_room_for_item(}\VariableTok{self}\NormalTok{, item_object):}
-        \ControlFlowTok{return} \BuiltInTok{str}\NormalTok{(item_object.warehouse)}
+    \KeywordTok{def}\NormalTok{ get\_room\_for\_item(}\VariableTok{self}\NormalTok{, item\_object):}
+        \ControlFlowTok{return} \BuiltInTok{str}\NormalTok{(item\_object.warehouse)}
 
-    \KeywordTok{def}\NormalTok{ item_display_name_getter(}\VariableTok{self}\NormalTok{, item_object):}
-        \ControlFlowTok{return} \BuiltInTok{str}\NormalTok{(item_object)}
+    \KeywordTok{def}\NormalTok{ item\_display\_name\_getter(}\VariableTok{self}\NormalTok{, item\_object):}
+        \ControlFlowTok{return} \BuiltInTok{str}\NormalTok{(item\_object)}
 
-    \KeywordTok{def}\NormalTok{ item_barcode_getter(}\VariableTok{self}\NormalTok{, item_object):}
+    \KeywordTok{def}\NormalTok{ item\_barcode\_getter(}\VariableTok{self}\NormalTok{, item\_object):}
         \ControlFlowTok{return} \BuiltInTok{str}\NormalTok{(}
-\NormalTok{            item_object.barcode_final}
+\NormalTok{            item\_object.barcode\_final}
 \NormalTok{        ) }\KeywordTok{or} \StringTok{""} \ControlFlowTok{if} \BuiltInTok{hasattr}\NormalTok{(}
-\NormalTok{            item_object, }\StringTok{"id"}
+\NormalTok{            item\_object, }\StringTok{"id"}
 \NormalTok{        ) }\ControlFlowTok{else} \StringTok{""}
 
 
 \KeywordTok{class}\NormalTok{ WarehouseStocktakingView(StocktakingPOSTWithCustomFieldsMixin,}
 \NormalTok{                               ClientAttachmentsPOSTMixin,}
 \NormalTok{                               BaseStocktakeRoomView):}
-\NormalTok{    room_model }\OperatorTok{=}\NormalTok{ Warehouse}
-\NormalTok{    item_detail_view }\OperatorTok{=}\NormalTok{ BackOfficeAssetStocktakingView()}
+\NormalTok{    room\_model }\OperatorTok{=}\NormalTok{ Warehouse}
+\NormalTok{    item\_detail\_view }\OperatorTok{=}\NormalTok{ BackOfficeAssetStocktakingView()}
 
-\NormalTok{    item_room_field_name }\OperatorTok{=} \StringTok{"warehouse"}
+\NormalTok{    item\_room\_field\_name }\OperatorTok{=} \StringTok{"warehouse"}
 \end{Highlighting}
 \end{Shaded}
 
 Die Modelle \texttt{BackOfficeAsset} und \texttt{Warehouse} sind in dem
-unveränderten ``Ralph'' System vorhanden.
+unveränderten Ralph-System vorhanden.
 
 Die Klassen \texttt{StocktakingGETWithCustomFieldsMixin},
 \texttt{StocktakingPOSTWithCustomFieldsMixin},
 \texttt{ClientAttachmentsGETMixin} und
 \texttt{ClientAttachmentsPOSTMixin} ermöglichen das Miteinbeziehen von
 \emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.}
-und Änhängen (siehe Abschnitt
-\protect\hyperlink{speichern-von-bildern-und-anhuxe4ngen}{``Speichern
-von Bildern und Anhängen''}). Weitere Informationen zu den
-\texttt{Mixin}-Klassen kann der im Source-Code enthaltenen Dokumentation
-entnommen werden.
+und Änhängen (\siehe{speichern-von-bildern-und-anhuxe4ngen}). Weitere
+Informationen zu den \texttt{Mixin}-Klassen kann der im Source-Code
+enthaltenen Dokumentation entnommen werden.
 
 \hypertarget{kommunikationsformat}{%
 \subsubsection{Kommunikationsformat}\label{kommunikationsformat}}
@@ -1280,7 +1305,7 @@ der von \texttt{BaseStocktakeItemView} erbenden Klasse durch die
 \texttt{get\_room\_for\_item()} Methode der Raum einer
 Gegenstandsinstanz als \emph{String}
 \index{String: Bezeichnung des Datentyps: Zeichenkette} zurückgegeben
-werden. Ein Implementierungsbeispiel ist in der o.a.
+werden. Ein Implementierungsbeispiel ist in der \oa{} angegebenen
 Client-Schnittstelle zu finden.
 
 \hypertarget{string-repruxe4sentation}{%
@@ -1308,9 +1333,9 @@ Attribute \texttt{slug\_url\_kwarg} und \texttt{slug\_field} auf den
 Namen eines Attributes gesetzt werden, das den Barcode eines
 Gegenstandes repräsentiert. Dieses Attribut muss für jeden Datensatz,
 der durch die \texttt{get\_queryset()} Methode entsteht, vorhanden sein.
-In dem o.a. Beispiel wird dieses Attribut in der
-\texttt{get\_queryset()} Methode durch \texttt{annotate()}
-\cite{django-doku-querysets} hinzugefügt.
+In dem in \kap{die-client-schnittstelle} angegebenen Beispiel wird
+dieses Attribut in der \texttt{get\_queryset()} Methode durch
+\texttt{annotate()} \cite{django-doku-querysets} hinzugefügt.
 
 \hypertarget{einbindung-und-erreichbarkeit-der-apiview-klassen}{%
 \subsubsection{Einbindung und Erreichbarkeit der
@@ -1331,12 +1356,12 @@ Implementierungsbeispiel bindet die oben definierten Klassen
 \begin{Highlighting}[]
 \NormalTok{urlpatterns }\OperatorTok{=}\NormalTok{ [}
 \NormalTok{    url(}
-        \VerbatimStringTok{r"^warehousesforstocktaking/(?:(?P<pk>[\textbackslash{}w/]+)/)?$"}\NormalTok{, }
-\NormalTok{        WarehouseStocktakingView.as_view(),}
+        \VerbatimStringTok{r"\^{}warehousesforstocktaking/(?:(?P<pk>[\textbackslash{}w/]+)/)?$"}\NormalTok{, }
+\NormalTok{        WarehouseStocktakingView.as\_view(),}
 \NormalTok{        name}\OperatorTok{=}\StringTok{"warehousesforstocktaking"}\NormalTok{),}
 \NormalTok{    url(}
-        \VerbatimStringTok{r"^backofficeassetsforstocktaking/(?:(?P<barcode_final>[\textbackslash{}w/]+)/)?$"}\NormalTok{, }
-\NormalTok{        BackOfficeAssetStocktakingView.as_view(),}
+        \VerbatimStringTok{r"\^{}backofficeassetsforstocktaking/(?:(?P<barcode\_final>[\textbackslash{}w/]+)/)?$"}\NormalTok{, }
+\NormalTok{        BackOfficeAssetStocktakingView.as\_view(),}
 \NormalTok{        name}\OperatorTok{=}\StringTok{"backofficeassetsforstocktaking"}\NormalTok{),}
 \NormalTok{]}
 \end{Highlighting}
@@ -1348,9 +1373,8 @@ Die Namen der Schnittstellen werden auf
 Klasse \texttt{BackOfficeAssetStocktakingView} wird definiert, dass der
 Name des Barcode-Attributes eines Gegenstandes \texttt{barcode\_final}
 lautet. Das \texttt{barcode\_final} Attribut wird in der Definition von
-\texttt{BackOfficeAssetStocktakingView} hinzugefügt (siehe auch:
-Abschnitt \href{barcode-eines-gegenstandes}{``Barcode eines
-Gegenstandes''}).
+\texttt{BackOfficeAssetStocktakingView} hinzugefügt (\sa{}
+\kap{barcode-eines-gegenstandes}).
 
 Die Klassen \texttt{BackOfficeAssetStocktakingView} und
 \texttt{WarehouseStocktakingView} sind dadurch über die \emph{URLs}
@@ -1379,8 +1403,7 @@ Der mobilen Client-Applikation muss mitgeteilt werden, welche Inventuren
 zurzeit durchgeführt werden können. Für das Modell \texttt{Stocktaking}
 ist eine
 \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht}-Schnittstelle
-implementiert (siehe \autoref{intro_server} Abschnitt
-\href{api-und-drf}{``API und DRF''}). Über diese Schnittstelle können
+implementiert (\siehe{api-und-drf}). Über diese Schnittstelle können
 durch folgende Abfrage-URL mittels eines HTTP GET-Requests
 \cite{rest-http-methods} alle verfügbaren Inventuren und dessen
 einzigartige \emph{IDs}
@@ -1389,30 +1412,29 @@ abgefragt werden:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ExtensionTok{/api/stocktaking}\NormalTok{/}\ExtensionTok{?date_finished__isnull}\NormalTok{=True}\KeywordTok{&}\VariableTok{time_finish_isnull=}\NormalTok{True}\KeywordTok{&}\VariableTok{format=}\NormalTok{json}
+\ExtensionTok{/api/stocktaking}\NormalTok{/}\ExtensionTok{?date\_finished\_\_isnull}\NormalTok{=True}\KeywordTok{\&}\VariableTok{time\_finish\_isnull=}\NormalTok{True}\KeywordTok{\&}\VariableTok{format=}\NormalTok{json}
 \end{Highlighting}
 \end{Shaded}
 
 Durch \texttt{\&format=json} wird festgelegt, dass der Server eine
 Antwort im JSON-Format \cite{json-format-doku} liefert. Die Antwort des
-Servers auf die o.a. Abfrage sieht beispielsweise wie folgt aus (Die
-Daten wurden zwecks Lesbarkeit auf die wesentlichsten Attribute
-gekürzt.):
+Servers auf die Abfrage sieht beispielsweise wie folgt aus (Die Daten
+wurden zwecks Lesbarkeit auf die wesentlichsten Attribute gekürzt.):
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \OtherTok{[}
     \FunctionTok{\{}
-        \DataTypeTok{"stocktake_id"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+        \DataTypeTok{"stocktake\_id"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
         \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"Inventur 1"}\FunctionTok{,}
         \DataTypeTok{"comment"}\FunctionTok{:} \StringTok{"Diese Inventur endet nie!"}\FunctionTok{,}
-        \DataTypeTok{"neverending_stocktaking"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+        \DataTypeTok{"neverending\_stocktaking"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
     \FunctionTok{\}}\OtherTok{,}
     \FunctionTok{\{}
-        \DataTypeTok{"stocktake_id"}\FunctionTok{:} \DecValTok{2}\FunctionTok{,}
+        \DataTypeTok{"stocktake\_id"}\FunctionTok{:} \DecValTok{2}\FunctionTok{,}
         \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"Inventur 2"}\FunctionTok{,}
         \DataTypeTok{"comment"}\FunctionTok{:} \StringTok{""}\FunctionTok{,}
-        \DataTypeTok{"neverending_stocktaking"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+        \DataTypeTok{"neverending\_stocktaking"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
     \FunctionTok{\}}
 \OtherTok{]}
 \end{Highlighting}
@@ -1420,9 +1442,8 @@ gekürzt.):
 
 Laut der Antwort des Servers sind aktuell 2 Inventuren - ``Inventur 1''
 und ``Inventur 2'' -verfügbar. Die mobile Client-Applikation benötigt
-den Wert des Attributs \texttt{"stocktake\_id"}, um bei späteren
-Abfragen festzulegen, welche Inventur von einem Benutzer ausgewählt
-wurde.
+den Wert des Attributs \texttt{stocktake\_id}, um bei späteren Abfragen
+festzulegen, welche Inventur von einem Benutzer ausgewählt wurde.
 
 \hypertarget{verfuxfcgbare-arten-der-inventur}{%
 \paragraph{Verfügbare Arten der
@@ -1446,37 +1467,37 @@ folgende Antwort im JSON-Format \cite{json-format-doku}:
     \DataTypeTok{"HTL"}\FunctionTok{:} \FunctionTok{\{}
         \DataTypeTok{"roomUrl"}\FunctionTok{:} \StringTok{"/api/htlinventoryrooms/"}\FunctionTok{,}
         \DataTypeTok{"itemUrl"}\FunctionTok{:} \StringTok{"/api/htlinventoryitems/"}\FunctionTok{,}
-        \DataTypeTok{"description"}\FunctionTok{:} \StringTok{"Inventur der HTL-Items"}
+        \DataTypeTok{"description"}\FunctionTok{:} \StringTok{"Inventur der HTL{-}Items"}
     \FunctionTok{\},}
-    \DataTypeTok{"BackOfficeAsset-Inventur"}\FunctionTok{:} \FunctionTok{\{}
+    \DataTypeTok{"BackOfficeAsset{-}Inventur"}\FunctionTok{:} \FunctionTok{\{}
         \DataTypeTok{"roomUrl"}\FunctionTok{:} \StringTok{"/api/warehousesforstocktaking/"}\FunctionTok{,}
         \DataTypeTok{"itemUrl"}\FunctionTok{:} \StringTok{"/api/backofficeassetsforstocktaking/"}\FunctionTok{,}
-        \DataTypeTok{"description"}\FunctionTok{:} \StringTok{"Demonstrations-Inventur fuer BackOfficeAssets"}
+        \DataTypeTok{"description"}\FunctionTok{:} \StringTok{"Demonstrations{-}Inventur fuer BackOfficeAssets"}
     \FunctionTok{\}}
 \FunctionTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
 Um eine Art der Inventur in diese Ausgabe miteinzubeziehen, muss in der
-Datei \texttt{api.py} des ``stocktaking'' Pakets die Variable
+Datei \texttt{api.py} des Stocktaking-Moduls die Variable
 \texttt{STOCKTAKING\_SERIALIZER\_VIEWS} entsprechend erweitert werden.
-Dazu wird der o.a. Name der Schnittstelle verwendet, wie er in der
-Variable \texttt{urlpatterns} gesetzt wurde. Die zu dem angeführten
-Beispiel gehörige \texttt{STOCKTAKING\_SERIALIZER\_VIEWS} Variable ist
-wie folgt definiert:
+Dazu wird der Name der Schnittstelle verwendet, wie er in der Variable
+\texttt{urlpatterns} gesetzt wurde. Die zu dem angeführten Beispiel
+gehörige \texttt{STOCKTAKING\_SERIALIZER\_VIEWS} Variable ist wie folgt
+definiert:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{STOCKTAKING_SERIALIZER_VIEWS }\OperatorTok{=}\NormalTok{ \{}
+\NormalTok{STOCKTAKING\_SERIALIZER\_VIEWS }\OperatorTok{=}\NormalTok{ \{}
     \StringTok{"HTL"}\NormalTok{: (}
         \StringTok{"htlinventoryrooms"}\NormalTok{, }
         \StringTok{"htlinventoryitems"}\NormalTok{, }
-        \StringTok{"Inventur der HTL-Items"}
+        \StringTok{"Inventur der HTL{-}Items"}
 \NormalTok{    ),}
-    \StringTok{"BackOfficeAsset-Inventur"}\NormalTok{: (}
+    \StringTok{"BackOfficeAsset{-}Inventur"}\NormalTok{: (}
         \StringTok{"warehousesforstocktaking"}\NormalTok{, }
         \StringTok{"backofficeassetsforstocktaking"}\NormalTok{, }
-        \StringTok{"Demonstrations-Inventur fuer BackOfficeAssets"}
+        \StringTok{"Demonstrations{-}Inventur fuer BackOfficeAssets"}
 \NormalTok{    )}
 \NormalTok{\}}
 \end{Highlighting}
@@ -1570,8 +1591,8 @@ OPTIONS-Methode}{BaseStocktakeItemView OPTIONS-Methode}}\label{basestocktakeitem
 Der \texttt{OPTIONS} Request wird von der mobilen Client-Applikation
 benötigt, um ein Formular für Gegenstandsdaten zu erstellen. Dafür
 werden die Eigenschaften eines Gegenstandes nach Relevanz in
-\texttt{"displayFields"} (hohe Priorität; wichtige Eigenschaften) und
-\texttt{"extraFields"}(niedrige Priorität; unwichtige Eigenschaften)
+\texttt{displayFields} (hohe Priorität; wichtige Eigenschaften) und
+\texttt{extraFields}(niedrige Priorität; unwichtige Eigenschaften)
 geteilt. Welche Eigenschaften welcher Kategorie zugeordnet werden ist in
 der Implementierung der \texttt{BaseStocktakeItemView}
 \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
@@ -1582,10 +1603,10 @@ beschrieben:
 \begin{itemize}
 \tightlist
 \item
-  \texttt{"verboseFieldName"}: Eine vom Menschen lesbare Beschreibung
-  der Eigenschaft.
+  \texttt{verboseFieldName}: Eine vom Menschen lesbare Beschreibung der
+  Eigenschaft.
 \item
-  \texttt{"readOnly"}: Dieses
+  \texttt{readOnly}: Dieses
   \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}
   Feld ist \texttt{true}, wenn die Eigenschaft durch Eintragen in die
   \texttt{explicit\_readonly\_fields} Variable der
@@ -1593,24 +1614,23 @@ beschrieben:
   \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
   als schreibgeschützt markiert wurde.
 \item
-  \texttt{"type"}: Dieses Feld gibt die Art der Eigenschaft an.
-  Beispiele sind \texttt{"string"}, \texttt{"boolean"},
-  \texttt{"integer"}, die jeweils eine Zeichenkette,
+  \texttt{type}: Dieses Feld gibt die Art der Eigenschaft an. Beispiele
+  sind \texttt{"string"}, \texttt{"boolean"}, \texttt{"integer"}, die
+  jeweils eine Zeichenkette,
   \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}
   oder ganzzahlige Nummer identifizieren. Besondere Eigenschaftsarten
   sind \texttt{"choice"} und\texttt{"dict"}.
 \item
-  \texttt{"choices"}: Dieses Feld ist nur angeführt, wenn das
-  \texttt{"type"} Feld den Wert \texttt{"choice"} hat. Es beinhaltet
-  eine Liste aller möglichen Werte inkl. vom Menschen lesbare
+  \texttt{choices}: Dieses Feld ist nur angeführt, wenn das
+  \texttt{type} Feld den Wert \texttt{"choice"} hat. Es beinhaltet eine
+  Liste aller möglichen Werte \inkl{} vom Menschen lesbare
   Repräsentation der Werte für die Eigenschaft.
 \item
-  \texttt{"fields"}: Dieses Feld ist nur angeführt, wenn das
-  \texttt{"type"} Feld den Wert \texttt{"dict"} hat. Es beinhaltet eine
-  Kollektion an Eigenschaften, je mit eigenen
-  \texttt{"verboseFieldName"}, \texttt{"readOnly"} und \texttt{"type"}
-  Feldern. Dadurch können Felder rekursiv verschachtelt werden. Ein
-  Beispiel ist unten angeführt.
+  \texttt{fields}: Dieses Feld ist nur angeführt, wenn das \texttt{type}
+  Feld den Wert \texttt{"dict"} hat. Es beinhaltet eine Kollektion an
+  Eigenschaften, je mit eigenen \texttt{verboseFieldName},
+  \texttt{readOnly} und \texttt{type} Feldern. Dadurch können Felder
+  rekursiv verschachtelt werden. Ein Beispiel ist unten angeführt.
 \end{itemize}
 
 \texttt{OPTIONS\ /api/htlinventoryitems/} liefert:
@@ -1619,36 +1639,26 @@ beschrieben:
 \begin{Highlighting}[]
 \FunctionTok{\{}
     \DataTypeTok{"displayFields"}\FunctionTok{:} \FunctionTok{\{}
-        \DataTypeTok{"anlagenbeschreibung_prio"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"anlagenbeschreibung\_prio"}\FunctionTok{:} \FunctionTok{\{}
             \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"interne Gegenstandsbeschreibung"}\FunctionTok{,}
             \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
             \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"string"}
         \FunctionTok{\},}
-        \DataTypeTok{"item_type"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"item\_type"}\FunctionTok{:} \FunctionTok{\{}
             \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Kategorie"}\FunctionTok{,}
             \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
             \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"choice"}\FunctionTok{,}
             \DataTypeTok{"choices"}\FunctionTok{:} \OtherTok{[}
                 \FunctionTok{\{}
                     \DataTypeTok{"value"}\FunctionTok{:} \KeywordTok{null}\FunctionTok{,}
-                    \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"--- kein Wert ---"}
+                    \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"{-}{-}{-} kein Wert {-}{-}{-}"}
                 \FunctionTok{\}}\OtherTok{,}
                 \FunctionTok{\{}
                     \DataTypeTok{"value"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
-                    \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"IT-Infrastruktur"}
+                    \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"IT{-}Infrastruktur"}
                 \FunctionTok{\}}\OtherTok{,}
                 \OtherTok{[}\ErrorTok{...}\OtherTok{]}
             \OtherTok{]}
-        \FunctionTok{\},}
-        \DataTypeTok{"comment"}\FunctionTok{:} \FunctionTok{\{}
-            \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Anmerkung"}\FunctionTok{,}
-            \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
-            \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"string"}
-        \FunctionTok{\},}
-        \DataTypeTok{"label"}\FunctionTok{:} \FunctionTok{\{}
-            \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Gegenstand benötigt ein neues Etikett"}\FunctionTok{,}
-            \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
-            \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"boolean"}
         \FunctionTok{\},}
         \ErrorTok{[...]}
     \FunctionTok{\},}
@@ -1658,47 +1668,18 @@ beschrieben:
             \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
             \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"string"}
         \FunctionTok{\},}
-        \DataTypeTok{"custom_fields"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"custom\_fields"}\FunctionTok{:} \FunctionTok{\{}
             \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Custom Fields"}\FunctionTok{,}
             \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
             \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"dict"}\FunctionTok{,}
             \DataTypeTok{"fields"}\FunctionTok{:} \FunctionTok{\{}
-                \DataTypeTok{"Beispiel-Custom-Field + Auswahl"}\FunctionTok{:} \FunctionTok{\{}
-                    \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Beispiel-Custom-Field + Auswahl"}\FunctionTok{,}
-                    \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"choice"}\FunctionTok{,}
-                    \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
-                    \DataTypeTok{"choices"}\FunctionTok{:} \OtherTok{[}
-                        \FunctionTok{\{}
-                            \DataTypeTok{"value"}\FunctionTok{:} \StringTok{"A"}\FunctionTok{,}
-                            \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"A"}
-                        \FunctionTok{\}}\OtherTok{,}
-                        \FunctionTok{\{}
-                            \DataTypeTok{"value"}\FunctionTok{:} \StringTok{"B"}\FunctionTok{,}
-                            \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"B"}
-                        \FunctionTok{\}}\OtherTok{,}
-                        \FunctionTok{\{}
-                            \DataTypeTok{"value"}\FunctionTok{:} \StringTok{"C"}\FunctionTok{,}
-                            \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"C"}
-                        \FunctionTok{\}}
-                    \OtherTok{]}
-                \FunctionTok{\},}
-                \DataTypeTok{"Beispiel-Custom-Field"}\FunctionTok{:} \FunctionTok{\{}
-                    \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Beispiel-Custom-Field"}\FunctionTok{,}
+                \DataTypeTok{"Beispiel{-}Custom{-}Field"}\FunctionTok{:} \FunctionTok{\{}
+                    \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Beispiel{-}Custom{-}Field"}\FunctionTok{,}
                     \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"string"}\FunctionTok{,}
                     \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}
                 \FunctionTok{\}}
             \FunctionTok{\}}
         \FunctionTok{\},}
-        \DataTypeTok{"sponsor"}\FunctionTok{:} \FunctionTok{\{}
-            \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Sponsor"}\FunctionTok{,}
-            \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
-            \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"string"}
-        \FunctionTok{\},}
-        \DataTypeTok{"is_in_sap"}\FunctionTok{:} \FunctionTok{\{}
-            \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Gegenstand ist in der SAP Datenbank"}\FunctionTok{,}
-            \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
-            \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"boolean"}
-        \FunctionTok{\}}
     \FunctionTok{\}}
 \FunctionTok{\}}
 \end{Highlighting}
@@ -1747,9 +1728,9 @@ Eine Abfrage über die \emph{URL}
 \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
 einer Rauminstanz\footnote{Diese ID wird etwa der Antwort auf die
   Abfrage ohne URL-Zusatz entnommen. Die entsprechende Eigenschaft ist
-  \texttt{"roomID"}} liefert die Details der angegebenen Rauminstanz
-inkl. aller Gegenstände, die sich in dem Raum befinden sollten, deren
-Eigenschaften und allen ``Subräumen'' der Rauminstanz:
+  \texttt{roomID}} liefert die Details der angegebenen Rauminstanz
+\inkl{} aller Gegenstände, die sich in dem Raum befinden sollten, deren
+Eigenschaften und allen Subräumen der Rauminstanz:
 
 \texttt{GET\ /api/htlinventoryrooms/1/?stocktaking\_id=1} liefert:
 
@@ -1763,7 +1744,7 @@ Eigenschaften und allen ``Subräumen'' der Rauminstanz:
     \DataTypeTok{"itemID"}\FunctionTok{:} \KeywordTok{null}\FunctionTok{,}
     \DataTypeTok{"subrooms"}\FunctionTok{:} \OtherTok{[]}\FunctionTok{,}
     \DataTypeTok{"items"}\FunctionTok{:} \OtherTok{[}\FunctionTok{\{}
-            \DataTypeTok{"times_found_last"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+            \DataTypeTok{"times\_found\_last"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
             \DataTypeTok{"itemID"}\FunctionTok{:} \DecValTok{2}\FunctionTok{,}
             \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"Tischlampe"}\FunctionTok{,}
             \DataTypeTok{"displayDescription"}\FunctionTok{:} \StringTok{""}\FunctionTok{,}
@@ -1791,14 +1772,14 @@ Eine Abfrage kann nur über die \emph{URL}
 \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
 einer Rauminstanz\footnote{Diese ID wird etwa der Antwort auf die
   Abfrage ohne URL-Zusatz entnommen. Die entsprechende Eigenschaft ist
-  \texttt{"roomID"}} getätigt werden. Die \emph{ID}
+  \texttt{roomID}} getätigt werden. Die \emph{ID}
 \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
 der ausgewählten Inventurinstanz muss als Teil der übermittelten Daten
-im Feld \texttt{"stocktaking"} angegeben werden. Unter dem Feld
-\texttt{"validations"} werden alle validierten Gegenstände mit
-mindestens deren \emph{ID}
+im Feld \texttt{stocktaking} angegeben werden. Unter dem Feld
+\texttt{validations} werden alle validierten Gegenstände mit mindestens
+deren \emph{ID}
 \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
-als Feld \texttt{"itemID"} angegeben. Zusätzlich können alle
+als Feld \texttt{itemID} angegeben. Zusätzlich können alle
 Gegenstandseigenschaften spezifiziert werden. Die Eigenschaften jedes
 Gegenstandes werden von der Klasse \texttt{BaseStocktakeRoomView} oder
 der davon erbenden Klasse verarbeitet und mit dem aktuell in der
@@ -1870,8 +1851,7 @@ liefert die Antwort:
 
 Um eine Gegenstandsvalidierung zur erneuten Validierung zu einem
 späteren Zeitpunkt durch einen Administrator zu markieren, kann das Feld
-\texttt{"mark\_for\_later\_validation"} auf \texttt{true} gesetzt
-werden:
+\texttt{mark\_for\_later\_validation} auf \texttt{true} gesetzt werden:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1880,7 +1860,7 @@ werden:
     \DataTypeTok{"validations"}\FunctionTok{:} \OtherTok{[}
         \FunctionTok{\{}
             \DataTypeTok{"itemID"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
-            \DataTypeTok{"mark_for_later_validation"}\FunctionTok{:} \KeywordTok{true}
+            \DataTypeTok{"mark\_for\_later\_validation"}\FunctionTok{:} \KeywordTok{true}
         \FunctionTok{\}}
     \OtherTok{]}
 \FunctionTok{\}}
@@ -1889,12 +1869,11 @@ werden:
 
 Dadurch wird die
 \emph{Boolean}\index{Boolean: Ein Wert, der nur "Wahr" oder "Falsch" sein kann}-Eigenschaft
-der erstellten \texttt{StocktakingItem} Instanz gesetzt (siehe Abschnitt
-\href{das-stocktakingitem-modell}{``Das StocktakingItem Modell''}).
+der erstellten \texttt{StocktakingItem} Instanz gesetzt
+(\siehe{das-stocktakingitem-modell}).
 
-Um einen Gegenstand in einem ``Subraum'' (siehe Abschnitt
-\href{subruxe4ume}{``Subräume''}) zu validieren, kann eine der folgenden
-3 Maßnahmen gesetzt werden:
+Um einen Gegenstand in einem Subraum (\siehe{subruxe4ume}) zu
+validieren, kann eine der folgenden 3 Maßnahmen gesetzt werden:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1911,7 +1890,7 @@ Um einen Gegenstand in einem ``Subraum'' (siehe Abschnitt
   \index{URL: Addressierungsstandard im Internet}
   \texttt{/api/htlinventoryrooms/100/}.
 \item
-  Das Setzen des \texttt{"room"} Feldes auf die \emph{ID}
+  Das Setzen des \texttt{room} Feldes auf die \emph{ID}
   \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
   des Subraums innerhalb einer Gegenstandsvalidierung. Ein Beispiel
   bietet die folgende Abfrage. Die \emph{ID}
@@ -1943,7 +1922,7 @@ Um einen Gegenstand in einem ``Subraum'' (siehe Abschnitt
 \tightlist
 \item
   Das Auslagern der Gegenstandsvalidierungen in das Feld
-  \texttt{"subroomValidations"} wie in folgendem Beispiel. Das Ergebnis
+  \texttt{subroomValidations} wie in folgendem Beispiel. Das Ergebnis
   gleicht dem Beispiel aus Alternative 2:
 \end{enumerate}
 
@@ -1969,7 +1948,7 @@ Um einen Gegenstand in einem ``Subraum'' (siehe Abschnitt
 \end{Highlighting}
 \end{Shaded}
 
-\texttt{"subroomValidations"} können rekursiv definiert werden. In dem
+\texttt{subroomValidations} können rekursiv definiert werden. In dem
 Beispiel aus Alternative 3 muss darauf geachtet werden, dass der Raum
 mit \emph{ID}
 \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells}
@@ -1986,14 +1965,13 @@ entnehmen.
 
 Es wurde versucht, das \texttt{Stocktaking} Modul durch einen
 \emph{Pull-Request}\index{Pull-Request: Das Miteinbeziehen von individuell entwickeltem Quellcode in die offizielle Quell-Version der Software}
-in das offizielle Ralph-System einzubinden. Durch der in den Abschnitten
-\protect\hyperlink{das-stocktakingroomvalidation-modell}{``Das
-StocktakingRoomValidation Modell''} und
-\protect\hyperlink{das-stocktakingitem-modell}{``Das StocktakingItem
-Modell''} behandelten \texttt{GenericForeignKey} Funktionalität
-\cite{django-doku-contenttypes} ist es möglich, das Stocktaking-Modul
-für jegliche Modellklassen zu verwenden. Es gibt keine Beschränkung auf
-die durch das Diplomarbeitsteam implementierten Klassen.
+in das offizielle Ralph-System einzubinden. Durch der in
+\kap{das-stocktakingroomvalidation-modell} und
+\kap{das-stocktakingitem-modell} behandelten \texttt{GenericForeignKey}
+Funktionalität \cite{django-doku-contenttypes} ist es möglich, das
+Stocktaking-Modul für jegliche Modellklassen zu verwenden. Es gibt keine
+Beschränkung auf die durch das Diplomarbeitsteam implementierten
+Klassen.
 
 Die erstellte Lösung wurde im Entwicklungsforum der Ralph Plattform
 vorgestellt \cite{ralph-forum-1} \cite{ralph-forum-2} und ein
