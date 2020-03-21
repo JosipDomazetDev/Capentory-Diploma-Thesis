@@ -351,9 +351,11 @@ dev_ralph graph_models stocktaking \
 Um die \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} der Klasse `ChangeProposalBase` auszublenden, wurden diese mit der Option `-X` exkludiert.
 
 \begin{figure}
-  \includegraphics[width=\linewidth]{stocktaking_klassendiagramm.png}
-  \caption{Das automatisch generierte Klassendiagramm der Modelle des Stocktaking-Moduls.}
-  \label{fig:stocktaking_klassendiagramm}
+\centering
+\includegraphics{stocktaking_klassendiagramm.png}
+\caption{Das automatisch generierte Klassendiagramm der Modelle des
+Stocktaking-Moduls.}
+\label{fig:stocktaking_klassendiagramm}
 \end{figure}
 
 
