@@ -70,6 +70,7 @@
 \usepackage[usenames,dvipsnames,table]{xcolor} % Allows the definition and use of colors. This package has to be included before tikz.
 \usepackage{nag}       % Issues warnings when best practices in writing LaTeX documents are violated.
 \usepackage{todonotes} % Provides tooltip-like todo notes.
+\usepackage{pdfpages}
 
 \usepackage{color}
 \usepackage[binary-units]{siunitx}
@@ -268,172 +269,164 @@ Wien, \today
 % \renewcommand{\kapitelautor}{}  % bleibt eventuell leer (gemeinsame Arbeit)
 
 
+\section{Die Idee}
+
+Das vorliegende Projekt soll die Schulinventur erheblich erleichtern, indem die Listenproblematik in Angriff genommen wird. Die Listen werden durch einen Server sinnvoll vereint und verwaltet. Bei einer Inventur werden ausgedruckte Listen durch eine App ersetzt, die mit dem Server kommuniziert. 
+Der Server basiert auf dem frei verfügbaren Anlagenverwaltungstool "ralph", das von der polnischen Internetauktionsplattform "Allegro" verwendet und entwickelt wird \cite{ralph}. Sowohl die App als auch der Server wurden vom Projektteam so entwickelt, dass sie mit ralph 
+
 \section{Hauptziele}
 
-\begin{enumerate}
 
+Die folgenden Ziele wurden dem offiziellen Antrag entnommen. Jedes Ziel enthält einen Verweis auf die konkrete Implementierung.
 
-\item \textbf{Online Inventurauflistung}
+\subsection*{Ziel M1: Online Inventurauflistung}
 
 Eine zentrale Auflistung aller in der vorliegenden Organisation enthaltenen und registrierten Gegenstände ist per Webbrowser erreichbar und verwaltbar. Dabei kann nach Eigenschaften der Gegenstände gesucht, gefiltert und sortiert werden. Außerdem wird dabei zwischen Einträgen, die aus der primären Liste und jenen, die aus der sekundären Liste stammen, unterschieden. Einträge der beiden Quellen sind miteinander, sowie mit einem zugehörigen Raum verlinkt. 
-Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[das-capentory-modul]{"Das "Capentory" Modul"}}.
+Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{das-capentory-modul}.
 
-\begin{enumerate}
-  \item	\textbf{Verlauf auf Gegenstandsbasis}
+  \subsubsection*{Ziel M1a: Verlauf auf Gegenstandsbasis}
 
   Ein Gegenstand verfügt in der Datenbank über eine Geschichte, die beschreibt, wie sich der Gegenstand durch die verschiedenen Inventuren verändert hat.
-  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[uxe4nderungsverlauf]{"Änderungsverlauf"}}.
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{uxe4nderungsverlauf}.
 
-  \item	\textbf{Inventurverlauf}
+  \subsubsection*{Ziel M1b: Inventurverlauf}
 
   Der Server speichert jede vorgenommene Inventur. Somit ist eine Ver-sionsgeschichte an Inventuren abrufbar. Falls eine Inventur gelöscht wird, wird diese nicht unmittelbar verworfen, sondern vorerst in ein Archiv verschoben.
-  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[das-stocktaking-modul]{"Das "Stocktaking" Modul"}}.
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{das-stocktaking-modul}.
   
-  \item	\textbf{Entity-Relationship-Modell}
+  \subsubsection*{Ziel M1c: Entity-Relationship-Modell}
 
   Die Datenbankstruktur inkl. Verlaufsfunktion ist durch ein Entity-Relationship-Modell definiert. Vor der Implementierung wurde die Datenbank skizziert und vorerst auf Papier modelliert. 
-  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[das-stocktaking-modul]{"Das "Stocktaking" Modul"}}.
-\end{enumerate}
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{das-stocktaking-modul}.
 
 
 
-    \item \textbf{Datenimport/-export}
+  \subsection*{Ziel M2: Datenimport/-export}
 
-    Daten von vorhandenen Inventarlisten (Primär und Sekundär) sind in die Datenbank importierbar, wobei Fehler des importierten Datensatzes erkannt und angezeigt werden. Das Importformat ist dabei.csv und .xlsx. 
+    Daten von vorhandenen Inventarlisten (Primär und Sekundär) sind in die Datenbank importierbar, wobei Fehler des importierten Datensatzes erkannt und angezeigt werden. Das Importformat ist dabei .csv und .xlsx. 
     Die in der zentralen Datenbank enthaltenen Daten sind in das .csv-, sowie das .xlsx-Format exportierbar. Dabei richtet sich die Formatierung der exportierten Daten an jene der importierten Daten. 
-    Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[datenimport]{"Datenimport"}}.
+    Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{datenimport}.
 
 
-    \item \textbf{Statussystem}
+    \subsection*{Ziel M3: Statussystem}
 
     Ein Statussystem zeigt Diskrepanzen (etwa Gegenstände, die nur in einer der beiden Importquellen existieren, siehe 2) zwischen durchgeführten Inventuren und den importierten Daten in Form eines speziellen Status-Feldes auf. 
-    Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[das-htlitem-modell]{"Das HTLItem Modell"}}.
+    Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{das-htlitem-modell}.
 
 
 
-    \item \textbf{Infrastruktur}
+    \subsection*{Ziel M4: Infrastruktur}
 
     Das System ist vorbereitet, aus dem Schulnetz per HTTPS erreichbar zu sein. Die nötigen Schritte zur Inbetriebnahme der vorliegenden Infrastruktur sind dokumentiert. 
-    Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[technische-umsetzung-infrastruktur]{"Technische Umsetzung: Infrastruktur"}}.
+    Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{technische-umsetzung-infrastruktur}.
     
-    \begin{enumerate}
-      \item	\textbf{Betriebsbereiter Server}
+   
+      \subsubsection*{Ziel M4a: Betriebsbereiter Server}
 
       Ein Server inkl. Betriebssystem ist betriebsbereit. Die dazu benötigten Ressourcen sind erfasst und stehen dem Serversystem – insofern hardwaretechnisch realisierbar – zur Verfügung.
-      Dieses Ziel wird in folgenden Kapiteln näher erläutert: \textbf{\hyperref[anschaffung-des-servers]{"Anschaffung des Servers"}}, \textbf{\hyperref[wahl-des-betriebsystemes]{"Wahl des Betriebsystems"}} und \textbf{\hyperref[installation-des-betriebsystemes]{"Installation des Betriebsystems"}}.
+      Dieses Ziel wird in folgenden Kapiteln näher erläutert: \plainsiehe{anschaffung-des-servers}, \plainsiehe{wahl-des-betriebsystemes} und \plainsiehe{installation-des-betriebsystemes}.
     
-      \item	\textbf{Applikationskonfiguration}
+      \subsubsection*{Ziel M4b: Applikationskonfiguration}
 
       Der einsatzfähige Server ist mit einer Konfiguration für den Produktivbetrieb ausgestattet. Die Konnektivität innerhalb des Schulnetzes ist getestet, sofern das Netzwerk dazu fähig ist.
-      Dieses Ziel wird in folgenden Kapiteln näher erläutert: \textbf{\hyperref[konfiguration-der-netzwerkschnittstellen]{"Konfiguration der Netzwerkschnittstellen"}} und \textbf{\hyperref[installation-der-notwendigen-applikationen]{"Installation der notwendigen Applikationen"}}.
+      Dieses Ziel wird in folgenden Kapiteln näher erläutert:\plainsiehe{konfiguration-der-netzwerkschnittstellen} und \plainsiehe{installation-der-notwendigen-applikationen}.
       
-      \item	\textbf{Virtualisierung}
+      \subsubsection*{Ziel M4c: Virtualisierung}
 
       Die verschiedenen Komponenten (i.e. Datenbank, Webserver) des Servers sind containervirtualisiert.  
-      Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[produktivbetrieb-der-applikation]{"Produktivbetrieb der Applikation"}}.
+      Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{produktivbetrieb-der-applikation}.
 
-      \item	\textbf{Server-Dokumentation}
+      \subsubsection*{Ziel M4d: Server-Dokumentation}
 
       Die Maßnahmen zur Installation und Inbetriebnahme des Gesamtsystems ist dokumentiert.
-      Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[verfassen-einer-serverdokumentation]{"Verfassen einer Serverdokumentation"}}.
-    \end{enumerate}
+      Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{verfassen-einer-serverdokumentation}.
 
 
-
-
-
-
-
-      \item \textbf{Inventur per Android-App}
+      \subsection*{Ziel M5: Inventur per Android-App}
 
       Ein Administrator ist in der Lage mit einer mobilen Android-Applikation eine Inventur durchzuführen. Dabei scannt dieser den Barcode eines Gegenstandes oder gibt den Code manuell ein und hat dann die Möglichkeit diesen Gegenstand zu validieren. 
-      Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[die-fragments]{"Die Fragments"}}.
+      Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{die-fragments}.
       
-      \begin{enumerate}
-        \item	\textbf{Scanvarianten}
+    
+      \subsubsection*{Ziel M5a: Scanvarianten}
 
         Gegenstände werden per integriertem Zebra-Scanner – insofern vorhanden – gescannt. Alternativ wird dem Benutzer die Möglichkeit angeboten, den Barcode mit der Handykamera – insofern vorhanden – zu scannen. 
-        Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[das_scannen]{"Das Scannen"}}.
+        Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{das_scannen}.
       
-        \item	\textbf{Kommunikationsschnittstelle am Server}
+        \subsubsection*{Ziel M5b: Kommunikationsschnittstelle am Server}
 
         Die App verfügt über die Fähigkeit, den Server anzusprechen und die benötigten Inventurinformationen zu erhalten. Zusätzlich können auch Inventurveränderungsvorschläge über diese Weise vorgenommen werden.
-        Dieses Ziel wird in folgenden Kapiteln näher erläutert: \textbf{\hyperref[die-modelle]{"Die Modelle"}} und \textbf{\hyperref[der-validationentry]{"Der ValidationEntry"}}.
+        Dieses Ziel wird in folgenden Kapiteln näher erläutert: \plainsiehe{die-modelle} und \plainsiehe{der-validationentry}.
         
-        \item	\textbf{Inventurverhalten auf Raumbasis}
+        \subsubsection*{Ziel M5c: Inventurverhalten auf Raumbasis}
 
         Der Benutzer arbeitet im Rahmen einer Inventur eine Liste an Räumen ab, die ihm von der mobilen Applikation angezeigt werden. Hierbei scannt und validiert er die vorhandenen Gegenstände, die ihm angezeigt werden, sowie etwaige unbekannte/unerwartete Gegenstände (denen im Anschluss entsprechende Einträge zugewiesen werden).
-        Dieses Ziel wird in folgenden Kapiteln näher erläutert:  \textbf{\hyperref[die-fragments]{"Die Fragments"}} und \textbf{\hyperref[sonderfuxe4lle-auf-der-app]{"Sonderfälle auf der App"}}.
-      \end{enumerate}
+        Dieses Ziel wird in folgenden Kapiteln näher erläutert: \plainsiehe{die-fragments} und \plainsiehe{sonderfuxe4lle-auf-der-app}.
+     
 
-        \item \textbf{Serversicherung}
+        \subsection*{Ziel M6: Serversicherung}
 
         Der Server, der die oben beschriebenen Features zur Verfügung stellt, ist selbst von verschiedenen Angriffsszenarien, die in der Schule realistischerweise stattfinden könnten, geschützt, insofern dies technisch umsetzbar ist. 
-        Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[absicherung-der-virtuellen-maschine]{"Absicherung der virtuellen Maschine"}}.
-    
-\end{enumerate}
-
+        Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{absicherung-der-virtuellen-maschine}.
 
 
 \section{Optionale Ziele}
 
 
-\begin{enumerate}
-  \item \textbf{Texterkennung}
+ \subsection*{Ziel O1: Texterkennung}
   Für den Fall, dass der Barcode beschädigt sein sollte, verfügt die Applikation zusätzlich über die Fähigkeit, Text zu scannen.  
-  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[textscan]{"Textscan"}}.
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{textscan}.
 
 
 
 
-  \item \textbf{Bilder am Server}
+  \subsection*{Ziel O2: Bilder am Server}
   Der Server speichert Bilder zu Gegenständen.  
-  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[speichern-von-bildern-und-anhuxe4ngen]{"Speichern von Bildern und Anhängen"}}.
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{speichern-von-bildern-und-anhuxe4ngen}.
 
 
 
-  \item \textbf{Bilder in der App}
+  \subsection*{Ziel O3: Bilder in der App}
 
   Die App zeigt Bilder, die am Server Gegenständen zugeordnet wurden, an. Außerdem kann der Benutzer per App Bilder bestimmten Gegenständen zuordnen und diese Bilder am Server hochladen.
-  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[attachmentsfragment]{"AttachmentsFragment"}}.
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{attachmentsfragment}.
 
 
 
 
-  \item \textbf{Benutzerdefinierte Felder}
+  \subsection*{Ziel O4: Benutzerdefinierte Felder}
 
   Der Server speichert auf Gegenstandsbasis benutzerdefinierte Felder, die wiederum von der App angezeigt werden können.
-  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[detaileditemfragment]{"DetailedItemFragment"}}.
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{detaileditemfragment}.
 
 
 
-  \item \textbf{Anhänge}
+  \subsection*{Ziel O5: Anhänge}
 
   Anhänge können Gegenständen zugewiesen werden. Die Speicherung erfolgt hierbei so, dass ein Anhang mehreren Gegenständen zugewiesen werden kann und somit keine Duplikate gespeichert werden müssen.
-  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[speichern-von-bildern-und-anhuxe4ngen]{"Speichern von Bildern und Anhängen"}}.
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{speichern-von-bildern-und-anhuxe4ngen}.
 
 
 
-  \item \textbf{Ralph-Pull-Request}
+  \subsection*{Ziel O6: Ralph-Pull-Request}
 
   Es wird versucht, die entwickelte Inventurfunktion in den offiziell Ralph-Code einzuführen. 
-  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[pull-request]{"Pull-Request"}}.
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{pull-request}.
 
 
 
-  \item \textbf{Automatische Importkorrektur}
+  \subsection*{Ziel O7: Automatische Importkorrektur}
 
   Der Benutzer hat die Möglichkeit nach dem Import vordefinierte Änderungen anzuwenden.
-  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[datenimport]{"Datenimport"}}.
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{datenimport}.
 
 
 
 
-  \item \textbf{Servermonitoring}
+  \subsection*{Ziel O8: Servermonitoring}
 
   Der Server ist für Monitoring vorbereitet.
-  Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[uxfcberwachung-des-netzwerks]{"Überwachung des Netzwerks"}}.
-\end{enumerate}
+  Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{uxfcberwachung-des-netzwerks}.
 
 %\chapter{Formatierung}
 
@@ -443,18 +436,15 @@ Dieses Ziel wird in folgendem Kapitel näher erläutert: \textbf{\hyperref[das-c
 %\input{text/demo_kap1.tex}
 
 % wer hat diese Kapitel geschrieben oder leer
-\renewcommand{\kapitelautor}{Autor: Josip Domazet}
 
 \input{text/dom.tex}
 
 % wer hat diese Kapitel geschrieben oder leer
-\renewcommand{\kapitelautor}{Autor: Mathias Möller}
 
 \input{text/mol.tex}
 
 % wer hat diese Kapitel geschrieben oder leer
 \chapter{Einführung in die Infrastruktur}
-\renewcommand{\kapitelautor}{Autor: Hannes Weiss}
 
 \input{text/wss.tex}
 
@@ -477,6 +467,12 @@ Die vorliegende Diplomarbeit hatte sehr vielen Stakeholder, die oftmals sehr vie
 
 
 \appendix
+\chapter{Anhang 1: Serverhandbuch\label{chap:Anhang-1}}
+
+Das Serverhandbuch erläutert die Handhabung der graphischen Oberfläche des Servers mittels Bildschirmaufnahmen und geht in die Details der produktiven Administrationsumgebung ein. Es beinhaltet allgemeine Informationen bezüglich Layout, Benutzerverwaltung Importformaten. Zusätzlich wird die Architektur der beiden Server-Module in gekürzter Form beschrieben. Das Handbuch behandelt nur praktische Aspekte und beinhaltet keinen Programmcode oder sonstige programmiertechnische Details. 
+
+\includepdf[pages=-,pagecommand={},width=\textwidth]{Handbuch_Server.pdf}
+
 
 %\chapter{Anhang 1\label{chap:Anhang-1}}
 
