@@ -58,9 +58,9 @@ Technik und die Entwicklerbasis ist größtenteils auf andere
 umgestiegen. Flask fällt unter die Kategorie der Microframeworks und
 besitzt daher nur einen sehr geringen Funktionsumfang, der entweder
 durch Einsatz von Fremdsoftwarepaketen oder eigene Implementierung auf
-den benötigten Umfang gebracht werden muss. Dadurch wird eine hohe
+das benötigte Niveau gehoben werden muss. Dadurch wird eine hohe
 Anpassbarkeit und hohe Performanz versprochen, jedoch ist das
-Endresultat oft effizienter in Django implementierbar.
+Endresultat meist in Django effizienter implementierbar.
 
 Aufgrund des vorliegenden Vergleichs und einer bestehenden und frei
 verfügbaren Inventarverwaltungsplattform ``Ralph'' \cite{ralph}, die auf
@@ -72,8 +72,8 @@ Ralph}\label{begruxfcndung-der-wahl-von-django-und-ralph}}
 
 Django bietet eine weit verbreitete Open-Source Lösung für die
 Entwicklung von Web-Diensten. Bekannte Webseiten, die auf Django
-basieren sind \ua{} Instagram, Mozilla, Pinterest und Open Stack.
-\cite{django-overview} Django zeichnet sich besonders durch die sog.
+basieren sind \ua{} Instagram, Mozilla, Pinterest und Open Stack
+\cite{django-overview}. Django zeichnet sich besonders durch die sog.
 \emph{"Batteries included"}\index{Batteries included: Das standardmäßige Vorhandensein von erwünschten bzw. gängigen \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems}, zu Deutsch: Batterien einbezogen}
 Mentalität aus. Das heißt, dass Django bereits die gängigsten
 \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems}
@@ -154,17 +154,17 @@ Folgende Datenbank-Typen werden von Django unterstützt:
 \end{itemize}
 
 Die Konfiguration der Datenbank-Verbindung geschieht unter
-Standard-Django in der Datei \texttt{settings.py} , unter Ralph in der
+Standard-Django in der Datei \texttt{settings.py} und unter Ralph in der
 jeweiligen Datei im Verzeichnis \texttt{settings}. Eine detaillierte
 Anleitung zur Verbindung mit einer Datenbank ist in der offiziellen
 Django-Dokumentation \cite{django-doku-db} zu finden.
 
 Die verschiedenen Funktionsbereiche des Servers sind in Pakete bzw.
 Module gegliedert. Jedes Paket ist ein Ordner, der verschiedene Dateien
-und Unterordner beinhalten kann. Die Dateinamen-Nomenklatur eines
-Packets ist normiert.\cite{django-file-nomenklatur} Der Name eines
-Pakets wird fortan ``App-Label'' genannt. Standardmäßig ist dieser Name
-erster Bestandteil einer \emph{URL}
+und Unterordner beinhalten kann. Die Dateinamen-Nomenklatur eines Pakets
+ist normiert \cite{django-file-nomenklatur}. Der Name eines Pakets wird
+fortan ``App-Label'' genannt. Standardmäßig ist dieser Name erster
+Bestandteil einer \emph{URL}
 \index{URL: Addressierungsstandard im Internet} zu einer beliebigen
 graphischen Administrationsoberfläche des Pakets. Pakete werden durch
 einen Eintrag in die Variable \texttt{INSTALLED\_APPS} innerhalb der
@@ -173,7 +173,7 @@ vorliegende Diplomarbeit registrierten Pakete \texttt{ralph.capentory}
 und \texttt{ralph.stocktaking}
 
 Ist ein Python-Paket erfolgreich registriert, können in der Datei
-\texttt{models.py} Datenbank-Tabellen als python Klassen\footnote{erbend
+\texttt{models.py} Datenbank-Tabellen als Python Klassen\footnote{erbend
   von der Superklasse \texttt{Model}\cite{django-doku-models}} definiert
 werden. Diese Klassen werden fortan als ``Modell'' bezeichnet.
 Tabellenattribute werden als Attribute dieser Klassen definiert und sind
@@ -185,14 +185,14 @@ jedes Modell ein Attribut \texttt{id}, welches als
 \emph{primärer Schlüssel}\index{primärer Schlüssel: engl. "primary key", abgek. "pk" - ein Attribut, das einen Datensatz eindeutig identifiziert}
 dient. Der Wert des \texttt{id} Attributs ist unter allen Instanzen
 eines Modells einzigartig. Die Anpassung dieses Attributs wird in der
-offiziellen Django-Dokumentation genauer behandelt.
-\cite{django-doku-models}
+offiziellen Django-Dokumentation genauer behandelt
+\cite{django-doku-models}.
 
 Jedes Modell benötigt eine innere Klasse \texttt{Meta}. Sie beschreibt
 die
 \emph{Metadaten}\index{Metadaten: Daten, die einen gegebenen Datensatz beschreiben, beispielsweise der Autor eines Buches}
 der Modellklasse. Dazu gehört vor allem der von Benutzern lesbare Name
-des Modells \texttt{verbose\_name}. \cite{django-doku-models-options}
+des Modells \texttt{verbose\_name} \cite{django-doku-models-options}.
 
 \hypertarget{administration-uxfcber-das-webinterface}{%
 \subsection{Administration über das
@@ -207,7 +207,7 @@ Die Listenansicht aller Datensätze eines Modells wird in der Datei
 \texttt{admin.py} als
 \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
 von \texttt{ModelAdmin}\footnote{Unter Ralph steht hierfür die Klasse
-  \texttt{RalphAdmin} zur Verfügung.\cite{ralph-admin-doku}} definiert.
+  \texttt{RalphAdmin} zur Verfügung \cite{ralph-admin-doku}.} definiert.
 Attribute dieser Klasse beeinflussen das Aussehen und die Funktionsweise
 der Weboberfläche. Durch das Setzen von \texttt{list\_display} werden
 beispielsweise die in der Liste anzuzeigenden Attribute definiert.
@@ -233,18 +233,15 @@ dem \texttt{ModelAdmin} gehört, als Parameter. Die Listenansicht einer
 registrierten \texttt{ModelAdmin} Subklasse ist standardmäßig unter der
 \emph{URL} \index{URL: Addressierungsstandard im Internet}
 
-\begin{verbatim}
-/<App-Label>/<Modell-Name>/
-\end{verbatim}
+\texttt{/\textless{}App-Label\textgreater{}/\textless{}Modell-Name\textgreater{}/}
 
-erreichbar, die Detailansicht einer Modellinstanz unter der \emph{URL}
-\index{URL: Addressierungsstandard im Internet}
+erreichbar und die Detailansicht einer Modellinstanz unter der
+\emph{URL} \index{URL: Addressierungsstandard im Internet}
 
-\begin{verbatim}
-/<App-Label>/<Modell-Name>/<Modellinstanz-ID>/
-\end{verbatim}
+\texttt{/\textless{}App-Label\textgreater{}/\textless{}Modell-Name\textgreater{}/\textless{}Modellinstanz-ID\textgreater{}/}
+.
 
-. Die Dokumentation der Administrationsfeatures von Django ist auf der
+Die Dokumentation der Administrationsfeatures von Django ist auf der
 offiziellen Dokumentationswebseite von Django \cite{django-doku-admin}
 zu finden.
 
@@ -259,15 +256,15 @@ benötigt. Eine besondere und weit verbreitete Form einer API ist eine
 \index{REST-API: Representational State Transfer \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} - eine zustandslose Schnittstelle für den Datenaustausch zwischen Clients und Servern \cite{rest-api}}
 \cite{rest-api}, die unter Django durch das integrierte
 \emph{DRF}\index{DRF: Django REST Framework - Implementierung einer \emph{REST-API}\index{REST-API: Representational State Transfer \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} - eine zustandslose Schnittstelle für den Datenaustausch zwischen Clients und Servern \cite{rest-api}} unter Django \cite{django-rest-framework}}
-implementiert wird.\cite{django-rest-framework} API Definitionen werden
+implementiert wird \cite{django-rest-framework}. API Definitionen werden
 unter Django in einem Paket in der Datei \texttt{api.py} getätigt.
 
 Um den API-Zugriff auf ein Modell zu ermöglichen werden üblicherweise
 eine \texttt{APIView}\footnote{Unter Ralph steht hierfür die Klasse
-  \texttt{RalphAPISerializer} zur Verfügung. \cite{ralph-api-doku}}
+  \texttt{RalphAPISerializer} zur Verfügung \cite{ralph-api-doku}.}
 \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
 und eine \texttt{Serializer}\footnote{Unter Ralph steht hierfür die
-  Klasse \texttt{RalphAPIViewSet} zur Verfügung. \cite{ralph-api-doku}}
+  Klasse \texttt{RalphAPIViewSet} zur Verfügung \cite{ralph-api-doku}.}
 \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
 definiert. \texttt{APIView} Klassen sind zuständig für das Abarbeiten
 von Anfragen mithilfe einer \texttt{Serializer} Klasse, die die Daten
@@ -279,8 +276,8 @@ ist die Art der \emph{Paginierung}
 \cite{django-rest-framework}\index{Paginierung: engl. pagination - Die Aufteilung von Datensätzen in diskrete Seiten \cite{django-rest-framework-pagination}}.
 Die erstellten \texttt{APIView} Klassen können dann mithilfe einer
 \texttt{Router}\footnote{Unter Ralph steht hierfür die globale
-  \texttt{RalphRouter} Instanz \texttt{router} zur Verfügung.
-  \cite{ralph-api-doku}} Instanz registriert werden. Anleitungen zur
+  \texttt{RalphRouter} Instanz \texttt{router} zur Verfügung
+  \cite{ralph-api-doku}.} Instanz registriert werden. Anleitungen zur
 Erstellung dieser API-Klassen sind auf der offiziellen Webseite des DRF
 \cite{django-rest-framework} und der offiziellen
 Ralph-Dokumentationsseite \cite{ralph-api-doku} zu finden.
@@ -296,8 +293,8 @@ Schnittstellen handelt es sich entweder um
 der Klasse \texttt{View}\footnote{die ebenfalls Superklasse der Klasse
   \texttt{ApiView} ist} \cite{django-doku-class-based-views} oder
 vereinzelte Methoden mit einem \texttt{request}\footnote{zu Deutch:
-  Anfrage; entspricht den empfangenen Daten} Parameter.
-\cite{django-doku-views} Diese Schnittstellen werden fortan Views
+  Anfrage; entspricht den empfangenen Daten} Parameter
+\cite{django-doku-views}. Diese Schnittstellen werden fortan Views
 genannt.
 
 Soll ein View als Antwort auf eine Anfrage HTML-Daten liefern, so sollte
@@ -322,8 +319,8 @@ Sicherheitsempfehlungen der Entwickler von Django
 
 Da reguläre Views nicht automatisch registriert werden, müssen sie
 manuell bekanntgegeben werden. Dies geschieht durch einen Eintrag in die
-Variable \texttt{urlpatterns} in der Datei \texttt{urls.py}.
-\cite{django-doku-urls}
+Variable \texttt{urlpatterns} in der Datei \texttt{urls.py}
+\cite{django-doku-urls}.
 
 \hypertarget{datenbankabfragen}{%
 \subsection{Datenbankabfragen}\label{datenbankabfragen}}
@@ -362,7 +359,7 @@ In dem folgenden Code-Auszug\footnote{entnommen aus der offiziellen
 \end{Shaded}
 
 Weitere Beispiele und Methoden sind der offiziellen Django-Dokumentation
-zu entnehmen. \cite{django-doku-queries}
+zu entnehmen \cite{django-doku-queries}.
 
 \hypertarget{designgrundlagen}{%
 \section{Designgrundlagen}\label{designgrundlagen}}
@@ -536,7 +533,7 @@ Wichtigkeit, ein Objekt auf den Zustand vor einer unbeabsichtigten
 Änderung zurücksetzen und gelöschte Objekte wiederherstellen zu können.
 Durch das bereits in Ralph inkludierte Paket \texttt{django-reversion}
 können die aktuellen Zustände von Datenbankobjekten gesichert werden, um
-später darauf zugreifen zu können. \cite{django-reversion-doku} Das
+später darauf zugreifen zu können \cite{django-reversion-doku}. Das
 Paket bietet die Funktion, der graphischen Administrationsoberfläche
 entsprechende Funktionen zur Wiederherstellung oder Zurücksetzung
 einzelner Objekte hinzuzufügen.
@@ -732,9 +729,9 @@ intern von Lehrkräften und Inventarverantwortlichen geführte Listen
 (\siehe{import-aus-sekunduxe4rer-und-tertiuxe4rer-quelle}).
 
 Implementiert wird das Importverhalten nicht innerhalb der
-entsprechenden Modellklasse, sondern in dessen verknüpften
+entsprechenden Modellklasse, sondern in deren verknüpften
 \texttt{ModelAdmin} Klasse. Durch das Attribut \texttt{resource\_class}
-wird spezifiziert, durch welche Python-Klasse die Daten importiert
+wird spezifiziert, mithilfe welcher Python-Klasse die Daten importiert
 werden. Um für ein einziges Modell mehrere \texttt{resource\_class}
 Einträge zu setzen, müssen mehrere \texttt{ModelAdmin} Klassen für
 Proxy-Modelle \cite{django-doku-models} des eigentlichen Modells
@@ -991,10 +988,6 @@ Stocktaking-Moduls.}
 Eine Inszanz des \texttt{Stocktaking} Modells repräsentiert eine
 Inventur.
 
-\hypertarget{die-wichtigsten-attribute-2}{%
-\subsubsection{Die wichtigsten
-Attribute}\label{die-wichtigsten-attribute-2}}
-
 Zu den wichtigsten Attributen des \texttt{Stocktaking} Modells zählen:
 
 \begin{itemize}
@@ -1084,10 +1077,6 @@ spezifiziert. Durch die Beziehungen zu den Modellen
 in welchem Raum durch welchen Benutzer im Rahmen welcher Inventur ein
 Gegenstand validiert wurde. Durch das \texttt{ChangeProposalBase} Modell
 sind die Änderungsvorschläge einer Gegenstandsvalidierung verknüpft.
-
-\hypertarget{die-wichtigsten-attribute-3}{%
-\subsubsection{Die wichtigsten
-Attribute}\label{die-wichtigsten-attribute-3}}
 
 Zu den wichtigsten Attributen des \texttt{StocktakingItem} Modells
 zählen:
@@ -1968,9 +1957,9 @@ entnehmen.
 
 Es wurde versucht, das \texttt{Stocktaking} Modul durch einen
 \emph{Pull-Request}\index{Pull-Request: Das Miteinbeziehen von individuell entwickeltem Quellcode in die offizielle Quell-Version der Software}
-in das offizielle Ralph-System einzubinden. Durch der in
+in das offizielle Ralph-System einzubinden. Durch die in
 \kap{das-stocktakingroomvalidation-modell} und
-\kap{das-stocktakingitem-modell} behandelten \texttt{GenericForeignKey}
+\kap{das-stocktakingitem-modell} behandelte \texttt{GenericForeignKey}
 Funktionalität \cite{django-doku-contenttypes} ist es möglich, das
 Stocktaking-Modul für jegliche Modellklassen zu verwenden. Es gibt keine
 Beschränkung auf die durch das Diplomarbeitsteam implementierten
