@@ -1,6 +1,6 @@
 \chapter{Einführung in die App-Architektur}
 
-Wie im vorherigen Kapitel angesprochen, ist das Ziel der Diplomarbeit, eine App zu entwickeln, mit der man in der Lage ist, eine Inventur durchzuführen. Doch wieso eine App und wieso überhaupt Android? Um diese Frage zu klären, muss man zwischen zwei Begriffen unterscheiden \cite{native-vs-web}:
+Das Ziel der Diplomarbeit ist es, eine App zu entwickeln, mit der man in der Lage ist, eine Inventur durchzuführen. Um zu verstehen, wieso sich das Projektteam für eine native App entschieden hat, muss man zwischen zwei Begriffen unterscheiden \cite{native-vs-web}:
 
 * Native App
 * Web-App
@@ -9,19 +9,15 @@ Nativ vs. Web
 =============================
 
 Unter einer nativen App versteht man eine App, die für ein bestimmtes Betriebssystem geschrieben wurde \cite{native-definition}. 
-Die Definition ist allerdings nicht ganz eindeutig, da Frameworks wie Flutter und Xamarin nativer Funktionalität sehr nahekommen, obwohl sie mehrere verschiedene Betriebssysteme unterstützten. 
 Eine Web-App hingegen basiert auf HTML und wird per Browser aufgerufen. Sie stellt nichts anderes als eine für mobile Geräte optimierte Website dar. 
-
-Am Markt zeichnet sich in letzter Zeit ein klarer Trend ab – native Apps sterben allmählich aus \cite{native-trend} und werden durch mobile Webseiten ersetzt. Das ist dadurch erklärbar, dass mobile Webseiten immer funktionsreicher werden. Mittlerweile haben Web-Apps nur noch geringfügig weniger Möglichkeiten als native Apps. Aus wirtschaftlicher Betrachtungsweise amortisieren sich Web-Apps de facto um einiges schneller und sind auch dementsprechend lukrativer. 
-
 
 # Begründung: Native App
 
-Das Projektteam hat sich dennoch für eine native App entschieden. Um diese Entscheidung nachvollziehen zu können, ist ein tieferer Einblick in den gegebenen Use-Case erforderlich.  
+Das Projektteam hat sich für eine native App entschieden. Um diese Entscheidung nachvollziehen zu können, ist ein tieferer Einblick in den gegebenen Use-Case erforderlich.  
 
 Das Ziel ist es nicht, möglichst viele Downloads im Play Store zu erzielen oder etwaige Marketingmaßnahmen zu setzen. 
 Es soll stattdessen mit den gegebenen Ressourcen eine Inventurlösung entwickelt werden, die die bestmögliche Lösung für unsere Schule darstellt. 
-Eine native App wird eine Web-App immer hinsichtlich Qualität und User Experience klar übertreffen. 
+Eine native App wird eine Web-App hinsichtlich Qualität und User Experience immer klar übertreffen. 
 Im vorliegenden Fall wäre es sicherlich möglich, eine Inventur mittels Web-App durchzuführen, allerdings würde diese vor allem in den Bereichen Performanz und Verlässlichkeit Mängel aufweisen.
 Diese zwei Bereiche stellen genau die zwei Problembereiche dar, die es mit der vorliegenden Gesamtlösung bestmöglich zu optimieren gilt. 
 Des Weiteren bieten sich native Apps ebenfalls für komplexe Projekte an, da Web-Apps aktuell noch nicht in der Lage sind, komplexe Aufgabenstellungen mit vergleichbar geringem Aufwand zu inkorporieren \cite{complex-article}. 
@@ -62,14 +58,16 @@ Die Entscheidung ist schlussendlich auf natives Android (Java) gefallen. Es mag 
 * Das Projektteam hat im Rahmen eines Praktikums bereits Erfahrungen mit nativem Java gesammelt.
 
 Aus den Projektzielen hat sich in Absprache mit den Betreuern ergeben, dass die App nicht auf jedem "Steinzeitgerät" zu funktionieren hat.
-Das minimale API-Level der App ist daher 21 - auch bekannt als Android 5.0 'Lollipop'. 
-Android 4.0 hat sehr viele nützliche Libraries hervorgebracht. So zum Beispiel die `Mobile Vision API` von Google, dank derer man in der Lage ist, Barcodes in akzeptabler Zeit mit der Kamera des Geräts zu scannen. Die Wahl ist auf 5.0 gefallen, da somit ein Puffer zur Verfügung steht und in etwa 90% aller Android-Geräte ohnehin auf 5.0 oder einer neueren Version laufen \cite{android-versions-market-share}. 
-
+Das minimale API-Level der App ist daher 21 - auch bekannt als Android 5.0 'Lollipop'.
 
 
 # Einführung zu nativem Java
 
-Um eine Basis für die folgenden Kapitel zu schaffen, werden hier die Basics der Android-Entwicklung mit nativem Java näher beschrieben. Das Layout einer App wird in XML Dateien gespeichert, während der Programmcode in der Programmiersprache Java erstellt wird.
+Um eine Basis für die folgenden Kapitel zu schaffen, werden hier die Basics der Android-Entwicklung mit nativem Java näher beschrieben. 
+
+## Grundlagen
+
+Das Layout einer App wird in XML Dateien gespeichert, während der Programmcode in der Programmiersprache Java erstellt wird.
 
 
 ## Single-Activity-App
@@ -96,13 +94,15 @@ God-Activities gilt es dringlichst zu vermeiden, da sie folgende Nachteile mit s
 God-Activities sind ein typisches Beispiel für Spaghetticode. Es bedarf also einer wohlüberlegten und strukturierten Architektur, um diese Probleme zu unterbinden. 
 Im nächsten Kapitel wird dementsprechend die Architektur der App im Detail erklärt.
 
-\chapter{MVVM - Die App-Architektur}
+\chapter{Die App-Architektur}
 
 Als Reaktion auf eine Vielzahl von Apps, die Probleme mit God-Activites aufwiesen, hat Google Libraries veröffentlicht, die klar auf eine MVVM-Architektur abzielen \cite{mvvm}. Daher fiel die Wahl der App-Architektur auf MVVM.
 
+
+
 # Designgrundlagen von MVVM
 
-MVVM steht für Model–View–Viewmodel \cite{mvvm-wiki}. Wie man am Namen bereits erkennt, gilt es zwischen drei Komponenten/Ebenen zu unterscheiden \cite{mvvm-article}. 
+MVVM steht für Model-View-Viewmodel \cite{mvvm-wiki}. Wie man am Namen bereits erkennt, gilt es zwischen drei Komponenten/Ebenen zu unterscheiden \cite{mvvm-article}. 
 
 #### Model 
 Model beschreibt die Ebene der Daten und wird daher oftmals auch als Datenzugriffsschicht bezeichnet. Diese Ebene beinhaltet so viel Anwendungslogik wie möglich.
@@ -115,19 +115,15 @@ Das ViewModel dient als Bindeglied zwischen dem Model und der View. Die Logik de
 
 # MVVM in Android
 
-Mit der Einführung der `Architecture Components` hat Google Android-Entwicklern eine Vielzahl an Libraries zur Verfügung gestellt, um MVVM leichter in Android implementieren zu können \cite{mvvm-architecture-components}. Die konkrete Implementierung in Android ist in Abbildung \ref{fig:mvvm} ersichtlich.
+Mit der Einführung der `Architecture Components` hat Google Android-Entwicklern eine Vielzahl an Libraries zur Verfügung gestellt, um MVVM leichter in Android implementieren zu können \cite{mvvm-architecture-components}. Die konkrete Implementierung in Android ist in Abbildung \abb{fig:mvvm} ersichtlich.
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{mvvm.png}
-  \caption{MVVM in Android nach Google \cite{mvvm}}
-  \label{fig:mvvm}
-\end{figure}
+![MVVM in Android nach Google \cite{mvvm} \label{fig:mvvm}](josip-pics\mvvm.png)
 
 In dem vorliegenden Fall ist unser `Fragment` die `View`, das `Repository` das `Model` und das `ViewModel` ist in Android namensgleich.
 
 ## Das Repository im Detail
 
-Wie in der Grafik \ref{fig:mvvm} veranschaulicht, ist das Repository dafür zuständig, Daten vom Server anzufordern. Im vorliegenden Fall besteht kein Grund, eine Datenbank am Client zu führen. Damit fällt dieser Aspekt der Grafik - der in violetter Farbe gehalten ist - für die vorliegende Diplomarbeit weg. Die Aufgabe des Repositories ist es also immer, Daten vom Server anzufordern. 
+Wie in der \abb{fig:mvvm} veranschaulicht, ist das Repository dafür zuständig, Daten vom Server anzufordern. Im vorliegenden Fall besteht kein Grund, eine Datenbank am Client zu führen. Damit fällt dieser Aspekt, der in der Abbildung in violetter Farbe gehalten ist, für die vorliegende Diplomarbeit weg. Die Aufgabe des Repositories ist es also immer, Daten vom Server anzufordern. 
 
 ### JsonRequest
 
@@ -206,7 +202,7 @@ Eine Anfrage wird nie direkt, sondern immer über einen Wrapper ausgeführt. Der
 
 
 
-* `Context context`: Ist eine Schnittstelle, die globale Information über die App-Umgebung zur Verfügung stellt \cite{context} und von Android zur Verfügung gestellt wird. Jede UI-Komponente (z.B. Textfelder, Buttons, Fragments, etc.) verfügt über einen Context. Ein besonderer Context ist der globale Application-Context. Dieser ist einzigartig und ist ein `Singleton`.  Ein Singleton bedeutet, dass von einer Klasse nur ein (globales) Objekt besteht \cite{singleton}. 
+* `Context context`: Ist eine Schnittstelle, die globale Information über die App-Umgebung zur Verfügung stellt \cite{context} und von Android zur Verfügung gestellt wird. Jede UI-Komponente (\zB Textfelder, Buttons, Fragments, etc.) verfügt über einen Context. Ein besonderer Context ist der globale Application-Context. Dieser ist einzigartig und ist ein `Singleton`.  Ein Singleton bedeutet, dass von einer Klasse nur ein (globales) Objekt besteht \cite{singleton}. 
 * `int method`: Ist die HTTP-Methode. Die App verwendet `GET`, `OPTIONS` und `POST`.
 * `String url`: Ist die Seite, die eine JSON-Antwort liefern soll.
 * `@Nullable String requestBody`: Eventuelle Parameter, die an den Server gesendet werden sollen. Dieser Paramter ist für einen `POST`-Request wichtig.
@@ -261,9 +257,7 @@ In diesem Fall wird die Methode `handleSuccess` aufgerufen, sobald der Client di
 
 ### Retrofit 
 
-`Retrofit` ist eine weitere Netzwerk-Library (bzw. Libraries), die das Projektteam eingesetzt hat. Retrofit wurde nur zum Senden von Dateien eingesetzt, weil dies mit Volley nur erschwert möglich ist. Das Projektteam hat die von Retrofit zur Verfügung gestellten Libraries nicht wesentlich modifiziert.
-Da die Anhangfunktion das einzige Einsatzgebiet von Retrofit darstellt, nimmt Volley in der vorliegenden Diplomarbeit die weitaus wichtigere Rolle ein. Volley bietet grundsätzlich alle Funktionen von Retrofit und vice versa. Dadurch, dass Volley jedoch bessere Möglichkeiten zur Zuschneidung auf einen spezifischen Use-Case unterstützt, hat sich das Projektteam für Volley entschieden. Ein Vorteil, der jedoch damit verloren geht, ist das automatische Parsing von JSON-Antworten, das zwar in Retrofit implementiert ist, jedoch nicht in Volley \cite{retrofit-vs-volley}.
-
+`Retrofit` ist eine weitere Netzwerk-Library (bzw. Libraries), die das Projektteam eingesetzt hat. Retrofit wurde nur zum Senden von Dateien eingesetzt, weil dies mit Volley nur erschwert möglich ist. Mit dieser Libary wurde die Anhang-Funktion realisiert.
 
 Das Projektteam hat bei dem einzigen Einsatz von Retrofit auf das automatische Parsing verzichtet und stattdessen die bereits bekannte Callback-Logik verwendet. 
 ```java
@@ -308,14 +302,10 @@ Folgende Probleme können dadurch auftreten:
 
 ### ViewModel als Lösung
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{viewmodel-lifecycle.png}
-  \caption{Zustände einer Activity im Vergleich zu den Zuständen eines ViewModels, Fragments haben einen ähnlichen Lifecycle \cite{fragment-lifecycle} \cite{viewmodel}}
-  \label{fig:vmlife}
-\end{figure}
 
+![Zustände einer Activity im Vergleich zu den Zuständen eines ViewModels, Fragments haben einen ähnlichen Lifecycle \cite{fragment-lifecycle} \cite{viewmodel} \label{fig:vmlife}](josip-pics\viewmodel-lifecycle.png)
 
-Bei genauerer Betrachtung der Grafik \ref{fig:vmlife} wird ersichtlich, welche Phasen eine Activity bei einer Gerätrotierung durchlebt:
+Bei genauerer Betrachtung der \abb{fig:vmlife} wird ersichtlich, welche Phasen eine Activity bei einer Gerätrotierung durchlebt:
 
 * Activity wird zerstört:
     * `onPause`
@@ -327,7 +317,7 @@ Bei genauerer Betrachtung der Grafik \ref{fig:vmlife} wird ersichtlich, welche P
     * `onResume`
 
 
-Wie in der Abbildung \ref{fig:vmlife} zu sehen ist, stellt ein ViewModel eine Lösung für diese Probleme dar. Ein ViewModel ist von einem `Configuration Change` nicht betroffen und kann dem UI damit stets die aktuellen Daten zur Verfügung stellen. Der gegebene Sachverhalt trifft genauso auf Fragments zu. Diese haben einen leicht veränderten Lifecycle, sind allerdings genauso von Configuration Changes betroffen wie Activities.
+Wie in der \abb{fig:vmlife} zu sehen ist, stellt ein ViewModel eine Lösung für diese Probleme dar. Ein ViewModel ist von einem `Configuration Change` nicht betroffen und kann dem UI damit stets die aktuellen Daten zur Verfügung stellen. Der gegebene Sachverhalt trifft genauso auf Fragments zu. Diese haben einen leicht veränderten Lifecycle, sind allerdings genauso von Configuration Changes betroffen wie Activities.
 
 **Anmerkung**: Man kann das Zerstören & Wiederaufbauen von Activities/Fragments manuell blockieren. Dies ist jedoch kein Ersatz für eine wohlüberlegte App-Architektur und führt in den meisten Fällen zu unerwünschten Nebenwirkungen, da man sich nun auch manuell um das Wechseln der Konfiguration (Layouts etc.) kümmern muss und dies weitaus komplizierter ist, als auf ViewModels zu setzen \cite{lifecycle-blocking}.
 
@@ -589,7 +579,6 @@ Der Sponsor dieser Diplomarbeit - Zebra - hat dem Diplomarbeitsteam einen `TC56`
 
 Die App kommuniziert nicht direkt mit dem Scanner. Stattdessen wickelt das Zebra-Gerät den Scan ab und sendet das Resultat als `Broadcast` aus \cite{broadcast}. Auf dem Zebra-Gerät läuft im Hintergrund immer die DataWege-Applikation. Dies ist eine App, die die Behandlung des tatsächlichen Scans abwickelt und das Ergebnis auf mehrere Arten aussendet \cite{datawedge}. Beispielsweise wird das Ergebnis an die Tastatur geschickt, aber eben auch als Broadcast an das Betriebssystem. Die App registriert sich beim Betriebssystem und hört auf den Broadcast, der den Barcode enthält und automatisch von DataWege entsandt wird. Broadcasts werden durch eine String-ID unterschieden, die über DataWedge konfiguriert wird. Derartige Ansätze werden als Publish–subscribe-Model bezeichnet \cite{publish–subscribe}.
 
-[//]: # (Achtung: Die o.a. Citation wird warum auch immer nicht richtig von Markdown übersetzt!)
 
 Dies bietet folgende Vorteile:
 
@@ -776,6 +765,20 @@ Der Benutzer kann das aktuell angezeigte Ergebnis in seine Zwischenablage kopier
 \chapter{Die Inventurlogik auf der App}
 
 Die genaue Bedienung der App ist dem App-Handbuch zu entnehmen. Dieses Kapitel befasst sich mit der Logik hinter einer Inventur.  
+
+# Allgemeiner Ablauf einer Inventur
+
+Eine Inventur läuft immer wie folgt ab:
+
+1. Der Benutzer wählt die Inventur aus, an der er arbeiten will.
+2. Der Benutzer wählt die Datenbanksicht aus. Dieser Schritt ist erforderlich, da die App auch mit der Ralph-Datenbanksicht kompatibel ist. An unserer Schule ist die HTL-Datenbanksicht auszuwählen.
+3. Der Benutzer begibt sich zu einem Raum und wählt ihn auf der App aus.
+4. Der Benutzer erhält die Gegenstandsliste für einen Raum. Diese Gegenstandsliste gilt es abzuarbeiten.
+5. Der Benutzer scannt die Barcodes der Gegenstände und arbeitet sie dadurch ab. Nicht aufgelistete Gegenstände werden automatisch ergänzt.
+6. Der Benutzer kann auf Gegenstandsbasis Änderungen an den Eigenschaften des Gegenstandes vornehmen.
+7. Wenn der Benutzer der Meinung ist, alle Gegenstände in diesem Raum erfasst zu haben, sendet er seine Validierungen an den Server.
+8. Damit ist der ausgewählte Raum abgeschlossen und der Benutzer kann sich dem nächsten Raum annehmen.
+
 
 # Die Modelle
 
