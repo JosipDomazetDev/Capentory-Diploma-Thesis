@@ -1286,8 +1286,7 @@ Gegenstands- und der dazugehörigen Raummodelle zu implementieren, müssen
 diese bestimmte Voraussetzungen erfüllen. Die Voraussetzungen werden in
 diesem Abschnitt beschrieben.
 
-\hypertarget{raum-gegenstand-verknuxfcpfung}{%
-\paragraph{Raum-Gegenstand-Verknüpfung}\label{raum-gegenstand-verknuxfcpfung}}
+\subsubsection*{Raum-Gegenstand-Verknüpfung}
 
 Das Gegenstandsmodell muss ein Attribut der Klasse \texttt{ForeignKey}
 besitzen, das auf das Raummodell verweist. Der Name dieses Attributs
@@ -1300,8 +1299,7 @@ Gegenstandsinstanz als \emph{String}
 werden. Ein Implementierungsbeispiel ist in der \oa{} angegebenen
 Client-Schnittstelle zu finden.
 
-\hypertarget{string-repruxe4sentation}{%
-\paragraph{String-Repräsentation}\label{string-repruxe4sentation}}
+\subsubsection*{String-Repräsentation}
 
 Gegenstands- und Rauminstanzen müssen eine vom Menschen lesbare
 Repräsentation ermöglichen. Standardmäßig wird dazu die
@@ -1312,9 +1310,7 @@ Verhalten kann durch das Überschreiben der Methoden
 \texttt{room\_display\_name\_getter()} (aus der Klasse
 \texttt{BaseStocktakeRoomView}) angepasst werden.
 
-\hypertarget{barcode-eines-gegenstandes}{%
-\paragraph{Barcode eines
-Gegenstandes}\label{barcode-eines-gegenstandes}}
+\subsubsection*{Barcode eines Gegenstandes}
 
 Es muss für eine Instanz des Gegenstandsmodells ein Barcode generiert
 werden können. Diese Funktion wird in der Methode
@@ -1388,8 +1384,7 @@ dynamisch erweiterbaren Inventuren und Inventurarten über statisch
 festgelegte \emph{URLs} \index{URL: Addressierungsstandard im Internet}
 mitgeteilt werden:
 
-\hypertarget{verfuxfcgbare-inventuren}{%
-\paragraph{Verfügbare Inventuren}\label{verfuxfcgbare-inventuren}}
+\subsubsection*{Verfügbare Inventuren}
 
 Der mobilen Client-Applikation muss mitgeteilt werden, welche Inventuren
 zurzeit durchgeführt werden können. Für das Modell \texttt{Stocktaking}
@@ -1437,9 +1432,7 @@ und ``Inventur 2'' -verfügbar. Die mobile Client-Applikation benötigt
 den Wert des Attributs \texttt{stocktake\_id}, um bei späteren Abfragen
 festzulegen, welche Inventur von einem Benutzer ausgewählt wurde.
 
-\hypertarget{verfuxfcgbare-arten-der-inventur}{%
-\paragraph{Verfügbare Arten der
-Inventur}\label{verfuxfcgbare-arten-der-inventur}}
+\subsubsection*{Verfügbare Arten der Inventur}
 
 Der mobilen Client-Applikation muss mitgeteilt werden, welche Arten der
 Inventur verfügbar sind und über welche \emph{URLs}
@@ -1515,9 +1508,7 @@ anhand mehrerer Beispiele dargestellt. Die Beispiele können zwecks
 Lesbarkeit gekürzt sein. Gekürzte Bereiche werden mit \texttt{{[}...{]}}
 markiert.
 
-\hypertarget{basestocktakeitemview-get-methode}{%
-\paragraph{\texorpdfstring{\texttt{BaseStocktakeItemView}
-GET-Methode}{BaseStocktakeItemView GET-Methode}}\label{basestocktakeitemview-get-methode}}
+\subsubsection*{`BaseStocktakeItemView` GET-Methode}
 
 Die Klasse \texttt{BaseStocktakeItemView} akzeptiert 2 unterschiedliche
 Abfragen der GET-Methode.
@@ -1576,9 +1567,7 @@ entsprechenden Barcode und dessen Eigenschaften:
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{basestocktakeitemview-options-methode}{%
-\paragraph{\texorpdfstring{\texttt{BaseStocktakeItemView}
-OPTIONS-Methode}{BaseStocktakeItemView OPTIONS-Methode}}\label{basestocktakeitemview-options-methode}}
+\subsubsection*{`BaseStocktakeItemView` OPTIONS-Methode}
 
 Der \texttt{OPTIONS} Request wird von der mobilen Client-Applikation
 benötigt, um ein Formular für Gegenstandsdaten zu erstellen. Dafür
@@ -1677,9 +1666,7 @@ beschrieben:
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{basestocktakeroomview-get-methode}{%
-\paragraph{\texorpdfstring{\texttt{BaseStocktakeRoomView}
-GET-Methode}{BaseStocktakeRoomView GET-Methode}}\label{basestocktakeroomview-get-methode}}
+\subsubsection*{`BaseStocktakeRoomView` GET-Methode}
 
 Die Klasse \texttt{BaseStocktakeRoomView} akzeptiert 2 unterschiedliche
 Abfragen der GET-Methode. Beide Abfragen benötigen die \emph{ID}
@@ -1753,9 +1740,7 @@ Eigenschaften und allen Subräumen der Rauminstanz:
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{basestocktakeroomview-post-methode}{%
-\paragraph{\texorpdfstring{\texttt{BaseStocktakeRoomView}
-POST-Methode}{BaseStocktakeRoomView POST-Methode}}\label{basestocktakeroomview-post-methode}}
+\subsubsection*{`BaseStocktakeRoomView` POST-Methode}
 
 Mit dieser Methode sendet die mobile Client-Applikation den
 aufgezeichneten Ist-Zustand der in einem Raum befindlichen Gegenstände.

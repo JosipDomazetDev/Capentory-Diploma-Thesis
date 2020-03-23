@@ -483,15 +483,15 @@ Die Kommunikation zwischen Server und mobilem Client erfolgt über HTTP Abfragen
 
 Um eine Client-Schnittstelle für die Inventarisierung bestimmter Gegenstands- und der dazugehörigen Raummodelle zu implementieren, müssen diese bestimmte Voraussetzungen erfüllen. Die Voraussetzungen werden in diesem Abschnitt beschrieben.
 
-#### Raum-Gegenstand-Verknüpfung
+\subsubsection*{Raum-Gegenstand-Verknüpfung}
 
 Das Gegenstandsmodell muss ein Attribut der Klasse `ForeignKey` besitzen, das auf das Raummodell verweist. Der Name dieses Attributs wird in der Klasse, die von `BaseStocktakeRoomView` erbt, in dem Attribut `item_room_field_name` angegeben. Zusätzlich kann in der von `BaseStocktakeItemView` erbenden Klasse durch die `get_room_for_item()` Methode der Raum einer Gegenstandsinstanz als \emph{String} \index{String: Bezeichnung des Datentyps: Zeichenkette} zurückgegeben werden. Ein Implementierungsbeispiel ist in der \oa{}  angegebenen Client-Schnittstelle zu finden. 
 
-#### String-Repräsentation
+\subsubsection*{String-Repräsentation}
 
 Gegenstands- und Rauminstanzen müssen eine vom Menschen lesbare Repräsentation ermöglichen. Standardmäßig wird dazu die `__str__()` Methode der jeweiligen Instanz aufgerufen. Das Verhalten kann durch das Überschreiben der Methoden `item_display_name_getter()` (aus der Klasse `BaseStocktakeItemView`) und `room_display_name_getter()` (aus der Klasse `BaseStocktakeRoomView`) angepasst werden.
 
-#### Barcode eines Gegenstandes
+\subsubsection*{Barcode eines Gegenstandes}
 
 Es muss für eine Instanz des Gegenstandsmodells ein Barcode generiert werden können. Diese Funktion wird in der Methode `item_barcode_getter()` der von `BaseStocktakeItemView` erbenden Klasse definiert. Um über den von der mobilen Applikation gescannten Barcode auf einen Gegenstand schließen zu können, müssen die Attribute `slug_url_kwarg` und `slug_field` auf den Namen eines Attributes gesetzt werden, das den Barcode eines Gegenstandes repräsentiert. Dieses Attribut muss für jeden Datensatz, der durch die `get_queryset()` Methode entsteht, vorhanden sein. In dem in \kap{die-client-schnittstelle} angegebenen Beispiel wird dieses Attribut in der `get_queryset()` Methode durch `annotate()` \cite{django-doku-querysets} hinzugefügt.
 
@@ -521,7 +521,7 @@ Für die Implementierung der Inventur der HTL Rennweg wurden die  \emph{URLs} \i
 
 Der mobilen Client-Applikation müssen notwendige Informationen der dynamisch erweiterbaren Inventuren und Inventurarten über statisch festgelegte \emph{URLs} \index{URL: Addressierungsstandard im Internet} mitgeteilt werden:
 
-#### Verfügbare Inventuren
+\subsubsection*{Verfügbare Inventuren}
 
 Der mobilen Client-Applikation muss mitgeteilt werden, welche Inventuren zurzeit durchgeführt werden können. Für das Modell `Stocktaking` ist eine \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht}-Schnittstelle implementiert (\siehe{api-und-drf}). Über diese Schnittstelle können durch folgende Abfrage-URL mittels eines HTTP GET-Requests \cite{rest-http-methods} alle verfügbaren Inventuren und dessen einzigartige \emph{IDs} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} abgefragt werden:
 
@@ -551,7 +551,7 @@ Laut der Antwort des Servers sind aktuell 2 Inventuren - "Inventur 1" und "Inven
 Die mobile Client-Applikation benötigt den Wert des Attributs `stocktake_id`, um bei späteren Abfragen festzulegen, welche Inventur von einem Benutzer ausgewählt wurde.
 
 
-#### Verfügbare Arten der Inventur
+\subsubsection*{Verfügbare Arten der Inventur}
 
 Der mobilen Client-Applikation muss mitgeteilt werden, welche Arten der Inventur verfügbar sind und über welche \emph{URLs} \index{URL: Addressierungsstandard im Internet} die jeweiligen `APIView` Klassen ansprechbar sind. Unter der \emph{URL} \index{URL: Addressierungsstandard im Internet} `/api/inventoryserializers/` werden je eine Beschreibung der Inventurart und die benötigten \emph{URLs} \index{URL: Addressierungsstandard im Internet} ausgegeben. Bei korrekter Implementierung der Inventurarten für die Gegenstandsmodelle `HTLItem` und `BackOfficeAsset` liefert der Server folgende Antwort im JSON-Format \cite{json-format-doku}:
 
@@ -593,7 +593,7 @@ STOCKTAKING_SERIALIZER_VIEWS = {
 
 Die Daten, die durch die implementierten `APIView` Klassen gesendet oder empfangen werden, müssen einer bestimmten Struktur folgen. In diesem Abschnitt werden die durch die Klassen akzeptierten HTTP-Methoden \cite{rest-http-methods} aufgezählt und deren JSON Schema anhand mehrerer Beispiele dargestellt. Die Beispiele können zwecks Lesbarkeit gekürzt sein. Gekürzte Bereiche werden mit `[...]` markiert.
 
-#### `BaseStocktakeItemView` GET-Methode
+\subsubsection*{`BaseStocktakeItemView` GET-Methode}
 
 Die Klasse `BaseStocktakeItemView` akzeptiert 2 unterschiedliche Abfragen der GET-Methode. 
 
@@ -640,7 +640,7 @@ Eine Abfrage über die \emph{URL} \index{URL: Addressierungsstandard im Internet
 }
 ```
 
-#### `BaseStocktakeItemView` OPTIONS-Methode
+\subsubsection*{`BaseStocktakeItemView` OPTIONS-Methode}
 
 Der `OPTIONS` Request wird von der mobilen Client-Applikation benötigt, um ein Formular für Gegenstandsdaten zu erstellen. Dafür werden die Eigenschaften eines Gegenstandes nach Relevanz in `displayFields` (hohe Priorität; wichtige Eigenschaften) und  `extraFields`(niedrige Priorität; unwichtige Eigenschaften) geteilt. Welche Eigenschaften welcher Kategorie zugeordnet werden ist in der Implementierung der `BaseStocktakeItemView` \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} durch die Variablen `display_fields` und `extra_fields` definiert. Jede Eigenschaft wird anhand folgender Kenngrößen beschrieben:
 
@@ -700,7 +700,7 @@ Der `OPTIONS` Request wird von der mobilen Client-Applikation benötigt, um ein 
 }
 ```
 
-#### `BaseStocktakeRoomView` GET-Methode
+\subsubsection*{`BaseStocktakeRoomView` GET-Methode}
 
 Die Klasse `BaseStocktakeRoomView` akzeptiert 2 unterschiedliche Abfragen der GET-Methode.  Beide Abfragen benötigen die \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} der ausgewählten Inventurinstanz als \emph{URL} \index{URL: Addressierungsstandard im Internet}-Parameter `stocktaking_id`. 
 
@@ -756,7 +756,7 @@ Eine Abfrage über die \emph{URL} \index{URL: Addressierungsstandard im Internet
 
 [^id_detail]: Diese ID wird etwa der Antwort auf die Abfrage ohne URL-Zusatz entnommen. Die entsprechende Eigenschaft ist `roomID`
 
-#### `BaseStocktakeRoomView` POST-Methode
+\subsubsection*{`BaseStocktakeRoomView` POST-Methode}
 
 Mit dieser Methode sendet die mobile Client-Applikation den aufgezeichneten Ist-Zustand der in einem Raum befindlichen Gegenstände. Eine Abfrage kann nur über die \emph{URL} \index{URL: Addressierungsstandard im Internet} mit Zusatz der \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} einer Rauminstanz[^id_detail] getätigt werden. Die \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} der ausgewählten Inventurinstanz muss als Teil der übermittelten Daten im Feld `stocktaking`  angegeben werden. Unter dem Feld `validations` werden alle validierten Gegenstände mit mindestens deren \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} als Feld `itemID` angegeben. Zusätzlich können alle Gegenstandseigenschaften spezifiziert werden. Die Eigenschaften jedes Gegenstandes werden von der Klasse `BaseStocktakeRoomView` oder der davon erbenden Klasse verarbeitet und mit dem aktuell in der Datenbank eingetragenen Wert verglichen. Bei einer Differenz wird automatisch ein Änderungsvorschlag für diesen Gegenstand erstellt. 
 
