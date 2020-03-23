@@ -434,7 +434,7 @@ Folgende Probleme können dadurch auftreten:
 
 Das ViewModel löst diese Probleme und ermöglicht dem Benutzer dadurch eine Inventur konsistent – ohne unvorhersehbares `Lifecycle`-Verhalten – durchzuführen.
 
-![Zustände einer Activity im Vergleich zu den Zuständen eines ViewModels, Fragments haben einen ähnlichen Lifecycle \cite{fragment-lifecycle} \cite{viewmodel} \label{fig:vmlife}](josip-pics\viewmodel-lifecycle.png)
+![Zustände einer Activity im Vergleich zu den Zuständen eines ViewModels, Fragments haben einen ähnlichen Lifecycle \cite{fragment-lifecycle} \cite{viewmodel} \cite{life-bild} \label{fig:vmlife}](josip-pics\viewmodel-lifecycle.png)
 
 Bei genauerer Betrachtung der \abb{fig:vmlife} wird ersichtlich, welche Phasen eine Activity bei einer Gerätrotierung durchlebt:
 
