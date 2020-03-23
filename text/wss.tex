@@ -488,17 +488,18 @@ Produktivumgebung}\label{probleme-der-produktivumgebung}}
 
 Ralph verwendet in Verbindung mit Docker einige komplexe Skripts. Mit
 diesen Skripts wird im Hintergrund das originale Ralph-Repository
-gefetched und ihre Lösung als Service installiert. Die
-Backend-Änderungen von Capentory wurden somit nicht berücksichtigt,
-obwohl deren Git-Repository auf die Ubuntu-Maschine geklont wurde. Es
-war also vollkommen irrelevant, welche Backend-Lösung auf dem Server zu
-finden war, das implementierte Dockersystem von Ralph hat immer deren
-Originallösung als Produktivumgebung mit NGINX bereitgestellt. Da das
-Austauschen deren Repository mit dem von Capentory, ein ziemlich
-schwieriger und zeitaufwendiger Prozess wäre (da das Analysieren der
-Skripts zu lange dauern würde), musste rasch eine Alternative für die
-Bereitsstellung der Produktivumgebung gesucht werden, um möglichst in
-der Zeit zu bleiben.
+gefetched und ihre Lösung als Service installiert. Dieser Service wurde
+abschließend sozusagen in einen Docker-Container verpackt und damit als
+Webanwendung gestartet. Die Backend-Änderungen von Capentory wurden
+somit nicht berücksichtigt, obwohl deren Git-Repository auf die
+Ubuntu-Maschine geklont wurde. Es war also vollkommen irrelevant, welche
+Backend-Lösung auf dem Server zu finden war, das implementierte
+Dockersystem von Ralph hat immer deren Originallösung als
+Produktivumgebung mit NGINX bereitgestellt. Da das Austauschen deren
+Repository mit dem von Capentory, ein ziemlich schwieriger und
+zeitaufwendiger Prozess wäre (da das Analysieren der Skripts zu lange
+dauern würde), musste rasch eine Alternative für die Bereitsstellung der
+Produktivumgebung gesucht werden, um möglichst in der Zeit zu bleiben.
 
 \hypertarget{alternativen}{%
 \subsubsection{Alternativen}\label{alternativen}}
