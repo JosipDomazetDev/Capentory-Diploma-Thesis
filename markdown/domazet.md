@@ -1,4 +1,4 @@
-\chapter{Einführung in die App-Architektur}
+\chapter{Einführung in die App}
 
 Das Ziel der Diplomarbeit ist es, eine App zu entwickeln, mit der man in der Lage ist, eine Inventur durchzuführen. Um zu verstehen, wieso sich das Projektteam für eine native App entschieden hat, muss man zwischen zwei Begriffen unterscheiden \cite{native-vs-web}:
 
@@ -43,7 +43,7 @@ Diese Umstände sind ein Segen und Fluch zugleich. Flutter wird in Zukunft siche
 
 Xamarin ist ebenfalls ein cross-platform Framework, das jedoch in C# geschrieben wird und älter (und damit bewährter) als Flutter ist. Weiters macht Xamarin von der proprietären .NET-Platform Gebrauch. Infolgedessen haben alle Xamarin-Apps Zugriff auf ein umfassendes Repertoire von .NET-Libraries \cite{xamarin-details}. Da Xamarin und .NET Microsoft angehören, ist eine leichtere Azure-Integration oftmals ein Argument, das von offzielen Quellen verwendet wird. Xamarin wird - anders als die restlichen Optionen - bevorzugterweise in Visual Studio entwickelt \cite{xamarin-vs}.
 
-Native IOS wird nur der Vollständigkeit halber aufgelistet, stellte allerdings zu keinem Zeitpunkt eine wirkliche Alternative dar, weil IOS-Geräte einige Eigenschaften besitzen, die für eine Inventur nicht optimal sind (z.B. die Akkukapazität). Außerdem haben in etwa nur 20% aller Geräte \cite{ios-market-share} IOS als Betriebssystem und die Entwicklung einer IOS-App wird durch strenge Voraussetzungen äußerst unattraktiv gemacht. So kann man beispielsweise nur auf einem Apple-Gerät IOS-Apps entwickeln.
+Native IOS wird nur der Vollständigkeit halber aufgelistet, stellte allerdings zu keinem Zeitpunkt eine wirkliche Alternative dar, weil IOS-Geräte einige Eigenschaften besitzen, die für eine Inventur nicht optimal sind (\zB die Akkukapazität). Außerdem haben in etwa nur 20% aller Geräte \cite{ios-market-share} IOS als Betriebssystem und die Entwicklung einer IOS-App wird durch strenge Voraussetzungen äußerst unattraktiv gemacht. So kann man beispielsweise nur auf einem Apple-Gerät IOS-Apps entwickeln.
 
 ### Begründung: Natives Android (Java)
 
@@ -54,47 +54,216 @@ Die Entscheidung ist schlussendlich auf natives Android (Java) gefallen. Es mag 
 * Natives Android hat mit großem Abstand die umfassendste Dokumentation.
 * An der Schule wird Java unterrichtet. Das macht somit eventuelle Modifikationen nach Projektabschluss durch andere Schüler viel einfacher möglich.
 * Dadurch, dass Kotlin erst seit 2019 \cite{kotlin-preference} offiziell die von Google bevorzugte Sprache ist, sind die meisten Tutorials immer noch in Java.
-* Sehr viele Unternehmen haben viele aktive Java-Entwickler. Dadurch wird die App attraktiver, da die Unternehmensmitarbeiter (von z.B. allegro) keine neue Sprache lernen müssen, um Anpassungen durchzuführen.
+* Sehr viele Unternehmen haben viele aktive Java-Entwickler. Dadurch wird die App attraktiver, da die Unternehmensmitarbeiter (von \zB allegro) keine neue Sprache lernen müssen, um Anpassungen durchzuführen.
 * Das Projektteam hat im Rahmen eines Praktikums bereits Erfahrungen mit nativem Java gesammelt.
 
 Aus den Projektzielen hat sich in Absprache mit den Betreuern ergeben, dass die App nicht auf jedem "Steinzeitgerät" zu funktionieren hat.
-Das minimale API-Level der App ist daher 21 - auch bekannt als Android 5.0 'Lollipop'.
+Das minimale API-Level der App ist daher 21 - auch bekannt als Android 5.0 "Lollipop".
 
 
 # Einführung zu nativem Java
 
 Um eine Basis für die folgenden Kapitel zu schaffen, werden hier die Basics der Android-Entwicklung mit nativem Java näher beschrieben. 
 
-## Grundlagen
+## Grundsätzliches
 
-Das Layout einer App wird in XML Dateien gespeichert, während der Programmcode in der Programmiersprache Java erstellt wird.
-
+Das Layout einer App wird in XML Dateien gespeichert, während der Programmcode in der Programmiersprache Java erstellt wird. Damit ist die Entwicklung einer Android-App objektorientiert.
 
 ## Single-Activity-App
 
 Als Einstiegspunkt in eine App dient eine sogenannte `Activity`. Eine Activity ist eine normale Java-Klasse, der durch Vererbung UI-Funktionen verliehen werden. 
 
-Bis vor kurzem war es üblich, dass eine App mehrere Activities hat. Das wird bei den Benutzern dadurch bemerkbar, dass die App z.B. bei einem Tastendruck ein weiteres Fenster öffnet, das das bisherige überdeckt. Das neue Fenster ist eine eigene Activity. Google hat sich nun offiziell für sogenannte Single-Activities ausgesprochen \cite{single-activity}. Das heißt, dass es nur eine Activity und mehrere `Fragments` gibt. Ein Fragment ist eine Teilmenge des UIs bzw. einer Activity. Anstatt jetzt beim Tastendruck eine neue Activity zu starten, wird einfach das aktuelle Fragment ausgetauscht. Dadurch, dass keine neuen Fenster geöffnet werden, ist die User Expierence (UX) um ein Vielfaches besser – die Performanz leidet nur minimal darunter. Die vorliegende App ist aus diesen Gründen ebenfalls eine Single-Activity-App.
+Bis vor kurzem war es üblich, dass eine App mehrere Activities hat. Das wird bei den Benutzern dadurch bemerkbar, dass die App \zB bei einem Tastendruck ein weiteres Fenster öffnet, das das bisherige überdeckt. Das neue Fenster ist eine eigene Activity. Google hat sich nun offiziell für sogenannte Single-Activities ausgesprochen \cite{single-activity}. Das heißt, dass es nur eine Activity und mehrere `Fragments` gibt. Ein Fragment ist eine Teilmenge des UIs bzw. einer Activity. Anstatt jetzt beim Tastendruck eine neue Activity zu starten, wird einfach das aktuelle Fragment ausgetauscht. Dadurch, dass keine neuen Fenster geöffnet werden, ist die User Expierence (UX) um ein Vielfaches besser – die Performanz leidet nur minimal darunter. Die vorliegende App ist aus diesen Gründen ebenfalls eine Single-Activity-App.
 
-## Separation of Concerns
+
+\chapter{Die Inventurlogik auf der App}
+
+Die genaue Bedienung der App ist dem App-Handbuch zu entnehmen. Dieses Kapitel befasst sich mit der Logik hinter einer Inventur.  
+
+# Allgemeiner Ablauf einer Inventur
+
+Eine Inventur läuft immer wie folgt ab:
+
+1. Der Benutzer wählt die Inventur aus, an der er arbeiten will.
+2. Der Benutzer wählt die Datenbanksicht aus. Dieser Schritt ist erforderlich, da die App auch mit der Ralph-Datenbanksicht kompatibel ist. An der Schule ist die HTL-Datenbanksicht auszuwählen.
+3. Der Benutzer begibt sich zu einem Raum und wählt ihn auf der App aus.
+4. Der Benutzer erhält die Gegenstandsliste für diesen Raum. Diese Gegenstandsliste gilt es abzuarbeiten.
+5. Der Benutzer scannt die Barcodes der Gegenstände und arbeitet sie dadurch ab. Nicht aufgelistete Gegenstände werden automatisch ergänzt.
+6. Der Benutzer kann auf Gegenstandsbasis Änderungen an den Feldern eines Gegenstandes vornehmen.
+7. Wenn der Benutzer der Meinung ist, alle Gegenstände in diesem Raum erfasst zu haben, sendet er seine Validierungen an den Server.
+8. Damit ist der ausgewählte Raum abgeschlossen und der Benutzer kann sich dem nächsten Raum annehmen.
+
+Alle Informationen, die die App bezieht, stammen vom Server. 
+
+# Die Modelle
+
+Um die Antworten des Servers abzubilden, wurden mehrere Modell-Klassen erstellt. Folgende Modell-Klassen wurden erstellt.
+
+* `SerializerEntry`: Stellt eine Datenbanksicht dar.
+* `Stocktaking`: Stellt eine Inventur dar. 
+* `Room`: Stellt einen Raum dar.
+* `MergedItem`: Stellt einen Gegenstand dar.
+* `MergedItemField`: Stellt ein dynamisches Feld dar. 
+* `Attachment`: Stellt einen Anhang dar.  
+
+## Designgrundsätze
+
+Eine Modell-Klasse verwaltet etwaige Statusinformationen immer selbst. So weiß beispielsweise nur ein Gegenstand selbst, dass er ursprünglich aus einem anderen Raum stammt. Dies verbessert die Lesbarkeit und Wartbarkeit des Codes massiv, da diese Informationen abstrahiert sind und nicht mehrmals an verschiendenen Stellen im Quellcode schlummern. 
+
+# Die Fragments
+
+Eine Inventur wird auf der App durch folgendene Fragments abgewickelt, die gleichzeitig als Phasen verstanden werden können:
+
+* `StocktakingFragment`
+* `RoomsFragment`
+* `ViewPagerFragment`
+    * `MergedItemsFragment`
+    * `ValidatedMergedItemsFragment`
+* `DetailedItemFragment`
+* `AttachmentsFragment`
+
+#### StocktakingFragment
+ist das Fragment, in dem der Benutzer die aktuelle Inventur auswählt. Die Inventur kann nur vom Administrator am Server angelegt werden. 
+
+Außerdem wählt der Benutzer hier die Datenbanksicht ("den Serializer") aus. Die App kommuniziert ausschließlich mittels REST API mit dem Server. Diese Schnittstelle kann verschiedene Quellen haben. Die Quellen sind abhängig von der ausgewählten Datenbanksicht. Durch das Bestätigen eines langegezogenen blauen Buttons gelangt man immer zur nächsten Inventurphase. In diesem Fall gelangt man zum `RoomsFragment`.
+
+#### RoomsFragment
+ist das Fragment, in dem der Benutzer den aktuellen Raum über eine DropDown auswählt. Anstatt die DropDown zu verwenden, kann er alternativ auch die Suchleiste verwenden. Als zusätzliche Alternative hat der Benutzer die Möglichkeit den Barcode eines Raumes zu scannen. Nach der Auswahl eines Raumes gelangt man zum `ViewPagerFragment`. 
+
+#### ViewPagerFragment
+ist das Fragment, das als Wrapper für das `MergedItemsFragment` und das `ValidatedMergedItemsFragment` dient. Die einzige Aufgabe dieses Fragments ist es, die zwei vorher genannten Fragments als Tabs anzuzeigen. Dies wurde mit der neuen `ViewPager2`-Library realisiert \cite{viewpager2}.
+
+#### MergedItemsFragment & ValidatedMergedItemsFragment
+
+sind die Fragments, die die Gegenstandsliste eines Raumes verwalten und sie dem Benutzer anzeigen. Das `MergedItemsFragment` zeigt dem Benutzer die noch zu validierenden Gegenstände an. Das `ValidatedMergedItemsFragment` erfüllt nur den Zweck, dem Benutzer bereits validierte Gegenstände anzuzeigen und ihm die Möglichkeit zu geben, validierte Gegenstände zurück zu den nicht-validierten Gegenständen in `MergedItemsFragment` zu verschieben. Daher trägt der Tab für das `MergedItemsFragment` die Beschriftung "TODO", währenddessen der Tab für das `ValidatedMergedItemsFragment` die Beschriftung "DONE" trägt.
+
+ Beide Fragments verwenden eine `RecyclerView`, um dem Benutzer die Gegenstände anzuzeigen \cite{recyclerview}. Eine RecyclerView generiert pro Eintrag ein Layout, hält aber nur die aktuell angezeigten Einträge inkl. Layout im RAM.
+
+Die Gegenstände werden einzeln validiert. Durch das Scannen des Barcodes eines Gegenstands (beziehungsweise durch das Klicken auf seine GUI-Repräsentation) gelangt der Benutzer zum `DetailedItemFragment`.
+
+####  DetailedItemFragment
+ist das Fragment, das zur Validierung eines einzelnen Gegenstands dient. Der Benutzer hat hier die Möglichkeit, etwaige Eigenschaften des Gegenstandes (beispielsweise den Anzeigenamen) zu ändern. Ein Formular, dass die Felder eines Gegenstandes beinhaltet, wird einmal angefordert und anschließend für die gesamte Lebensdauer der App gespeichert. Anhand dieses Formulars wird dann eine GUI-Repräsentation dynamisch erstellt.
+
+Das Formular kann `ExtraFields` beinhalten. Das sind Felder, die als nicht essentiel angesehen werden und infolgedessen standardmäßig eingeklappt sind. Dazu gehören auch benutzerdefinierte Felder - sognannte `CustomFields`. `ExtraFields` weisen ansonsten dasselbe Verhalten wie herkömmliche Felder auf. 
+
+Folgende GUI-Komponenten wurden statisch implementiert, da sie Felder repräsentieren, die unabhängig von der ausgewählten Datenbanksicht immer vorhanden sind und daher nicht dynamisch sind:
+
+* Ein read-only Textfeld für die Gegendstandsbeschreibung
+* Ein read-only Textfeld für den Barcode
+* Eine Checkbox "Erst später entscheiden" (\siehe{die-wichtigsten-attribute-3}) 
+* Eine DropDown für Subrooms (\siehe{subrooms})
+
+Man braucht für die gesamte Validierung eines Raumes - insofern keine Sonderfälle auftreten - keine Verbindung zum Server. Der Benutzer kann die Gegenstandsliste an einer Lokalität mit einer guten Verbindung anfordern, den Raum mit schlechter Verbindung betreten und alle Gegenstände validieren. Anschließend kann er den Raum verlassen und seine Validierungen an den Server senden. Damit wird der Bedarf an Netzwerkanfragen in Räumen mit schlechter Netzwerkverbindung minimiert. 
+
+
+Der Benutzer kann zusätzlich zur Validierung auch Anhänge für einen Gegenstand definieren, dazu landet er beim `AttachmentsFragment`.
+
+
+#### AttachmentsFragment
+ist das Fragment, das die Anhänge eines Gegenstandes verwaltet. Der Benutzer sieht hier die bereits vorhandenen Anhänge mit Beschriftungen und kann weitere Anhänge hinzufügen. Bilder werden direkt angezeigt. Andere Dateien werden hingegen als Hyperlink dargestellt. Der Benutzer kann diese per Browser runterladen. Zum Hochladen eigener Anhänge greift die App auf den Standard-Dateibrowser des Systems zurück. 
+
+Das Outsourcen auf Webbrowser und Dateibrowser bietet den massiven Vorteil, dass man sich die Entwicklung eigener Download-Manager bzw. File-Manager erspart und auf Apps setzen kann, die von namenhaften Herstellern entwickelt werden. Fast jedes System hat bereits beide Komponenten vorinstalliert, daher treten bezüglich der Verfügbarkeit keine Probleme auf. 
+
+Beim dem Hochladen von Bildern komprimiert die App jene zuvor. Zur Kompression wird das `WEBP`-Format verwendet, das dem mittlerweile veralteten `JPG`-Standard überlegen ist \cite{webp}. Die Qualität des Bildes ist einstellbar:
+
+* 100 % (keine Kompression)
+* 95 %
+* 85 %
+* 75 %
+
+Der Server speichert den gesendeten Anhang nur einmal (Dateien werden anhand von Hashes unterschieden). Wenn ein Benutzer allen PCs in einem EDV-Saal dasselbe Bild zuweist, wird es nur einmal am Server hinterlegt. Die Anzahl der Anhänge ist nicht limitiert.
+
+# Validierungslogik
+
+`MergedItemsFragment` & `DetailedItemFragment` sind die Fragments, die den Großteil einer Inventur ausmachen. Der Benutzer scannt alle SAP-Barcodes, die sich in einem Raum befinden. Im Idealfall entspricht diese Menge exakt der Menge der Gegenstände, die dem Benutzer im `MergedItemsFragment` angezeigt wird. Im Normalfall wird dies durch etwaige Sonderfälle jedoch nicht gegeben sein. Nach dem Scannen eines Gegenstandes werden die Felder des Gegenstandes dem Benutzer im `DetailedItemFragment` angezeigt. In diesem Fragment hat der Benutzer zwei Buttons, mit denen er den Gegenstand validieren kann:
+
+* **Grüner Button**: Mit diesem Button wird signalisiert, dass sich der Gegenstand im Raum befindet und der Gegenstand wird mitsamt etwaigen Änderungen an seinen Attributen/Feldern übernommen. Dazu wird ein `ValidationEntry` erstellt. Alternativ kann der Benutzer das Klicken dieses Buttons mit dem Schütteln des Gerätes ersetzen. Die Schüttel-Sensibilität ist über die Einstellungen konfigurierbar (und auch deaktivierbar).
+* **Roter Button**: Mit diesem Button wird signalisiert, dass sich der Gegenstand nicht im Raum befindet. Dieser Button wird im Normalfall nie betätigt werden, da ein Gegenstand, der sich nicht in diesem Raum befindet, nicht gescannt werden kann und daher dieses Fenster nie geöffnet werden wird. Der Button hat trotzdem einen Sinn, da der Benutzer damit die "TODO"-Liste über das GUI verkleinern kann, um sich einen besseren Überblick zu verschaffen. 
+
+## Der ValidationEntry
+
+Ein `ValidationEntry` beinhaltet sämtliche Informationen, die der Server benötigt, um die Datensätze eines Gengenstandes entsprechend anzupassen, und stellt eine Gegenstandsvalidierung dar. Ein `ValidationEntry` beinhaltet immer den Primary Key eines Gegenstandes und die Felder, die sich geändert haben. Ein `ValidationEntry` hat daher eine Liste an Feldern `List<Field>`. Wenn sich der Wert eines Feldes geändert hat, wird diese Liste um einen Eintrag erweitert. 
+
+Da die Felder wie erwähnt dynamisch (und dadurch generisch) sind, wurden Java Generics eingesetzt \cite{java-generics}, um diese abbilden zu können. `Field` ist eine innere Klasse in `ValidationEntry`:
+
+```java
+public static class Field<T> {
+    private String fieldName;
+    private T fieldValue;
+    ...
+```
+
+Ein Feld besteht also immer aus einem Feldnamen und einem generischen Feldwert.
+
+### Sendeformat
+
+Das `MergedItemsFragment` (bzw. das `MergedItemsViewModel` \siehe{die_app_architektur}) verfügt über eine `HashMap` (`Map<MergedItem, List<ValidationEntry>>`), die alle `ValidationEntries` beinhaltet. Einem Gegenstand ist eine Liste an `ValidationEntries` zugeordnet, da Subitems eigene `ValiditionEntries` bekommen können (\siehe{sonderfuxe4lle}).
+
+Wenn ein Raum abgeschlossen ist, werden alle `ValidationEntries` in einer Liste vereint und anschließend in eine JSON-Darstellung transformiert. Dieses JSON wird dem Server gesandt und damit ist der aktuelle Raum abgeschlossen. Der Benutzer kann sich nun den restlichen Räumen annehmen.
+
+Der Server erstellt auf Basis der gesendeten `ValidationEntries` Änderungsvorschläge - sogenannte `Change Proposals` (\siehe{uxe4nderungsvorschluxe4ge}). Das `POST`-Format wird im Kapitel ["JSON-Schema"](#json-schema) beschrieben (\siehe{json-schema}).
+
+
+## QuickScan
+
+Der häufigste Fall einer Inventur wird jener sein, dass ein Gegenstand im richtigen Raum ist und der Benutzer ohne weiteren Input auf den grünen Button drückt. Da dies einen unnötigen Overhead darstellt, wurde die App um den `QuickScan`-Modus erweitert. Hierbei wird sofort nach dem Scannen ein `ValidationEntry` erstellt, ohne dass zuvor das `DetailedItemFragment` geöffnet wird. Dieser Modus ist durch einen Button im `MergedItemsFragment` aktivierbar/deaktivierbar. 
+
+Falls ein Sonderfall auftreten sollte, vibriert das Gerät zweimal und öffnet doch das  `DetailedItemFragment`. Damit wird gewährleistet, dass der Benutzer nicht irrtümlich mit dem Scannen weitermacht. Er muss diesen Sonderfall händisch validieren. Haptisches Feedback ist für Sonderfälle reserviert.
+
+## Sonderfälle auf der App
+
+Ein zentrales Thema der vorliegenden Diplomarbeit ist die Behandlung der Sonderfälle. 
+
+### Subitems
+
+Wenn sich mehrere physische Gegenstände einen Barcode teilen, werden sie in der primären Liste lediglich durch einen einzelnen Eintrag abgebildet. Ein Eintrag des Serversystems kann also mehrere Subitems zusammenfassen.
+
+Der Server inkludiert in seiner Antwort für jeden Gegenstand einen Zähler, der die nötigen Informationen zur Behandlung dieses Sonderfalles beinhaltet. Der Zähler wird in weiterer Folge `times_found_last`-Zähler genannt. Falls ein Gegenstand aus mehreren Subitems bestehen sollte, ist der `times_found_last`-Zähler in der Antwort des Servers größer als 1. Dieser Counter wird dem Benutzer in folgender Form angezeigt: `[Anzahl aktuell gefunden] / [Anzahl zuletzt gefunden]`. 
+
+Bei der Validierung eines Subitems wird ein eigener `ValidationEntry` erstellt und die Anzahl der aktuellen Funde erhöht. `Change Proposals` (\siehe{uxe4nderungsvorschluxe4ge}), die auf Basis dieser `ValidationEntries` erstellt werden, werden dem echten "Parent"-Gegenstand zugeordnet und können wahlweise angewandt werden. 
+
+Falls ein Gegenstand mehrmals gescannt wird, wird - nach Bestätigung durch den Benutzer - die Anzahl der aktuellen Funde erhöht und wiederum einen `ValidationEntry` erstellt, selbst wenn es sich bei dem Gegenstand aktuell nicht um ein Subitem handelt.
+
+### Subrooms
+
+Subrooms sind logische Räume in einem Raum (\zB steht ein PC in einem Kasten, der wiederum in einem Raum steht). Subrooms werden dem Benutzer im `MergedItemsFragment` als einklappbare Zwischenebenen, denen Gegenstände zugeordnet sind, angezeigt. Die Subroom-Zugehörigkeit kann auf Gegenstandsbasis über eine DropDown geändert werden. Die Subroom-Zugehörigkeit wird in einem `ValidationEntry` immer gesetzt, auch wenn sie sich nicht geändert hat. 
+
+Die Gegenstandsliste des `MergedItemsFragment` beinhaltet in Wahrheit auch die Subrooms. Dies ist notwendig, da die `RecyclerView`, die dazu genutzt wird dem Benutzer die Gegenstände anzuzeigen, keine Möglichkeit bietet, eine Hierarchie bzw. Zwischenebenen darzustellen. Daher implementieren das Room-Model und das MergedItem-Model das Interface `RecyclerViewItem` und die RecyclerView erhält eine Liste an `RecyclerViewItems` - dies ist ein typisch polymorpher Ansatz. Abhängig vom Typen des aktuellen Listenelements baut die RecyclerView entweder ein Gegenstandslayout oder ein Raumlayout auf. Die Anzahl der Subrooms ist weder in der Tiefe noch in der Breite limitiert.
+
+### Unbekannte Gegenstände
+
+Falls ein Gegenstand, der sich nicht in der aktuellen Gegenstandsliste befindet, gescannt wird, muss der Server dazu befragt werden. Es gibt zwei mögliche Antwortszenarien. Die `ValidationEntries` für diese Sonderfälle unterscheiden sich nicht von den bisherigen.
+
+##### Neuer Gegenstand
+Der Gegenstand befindet sich überhaupt nicht in der Datenbank. Im "DONE"-Tab haben solche Gegenstände eine blaue Hervorhebung.
+
+##### Gegenstand aus anderem Raum
+Der Gegenstand befindet in der Datenbank und stammt ursprünglich aus einem anderen Raum. Im "DONE"-Tab haben solche Gegenstände eine orange Hervorhebung.
+
+
+
+\chapter{Die App-Architektur}
+\label{die_app_architektur}
+
+Die App muss ein verlässliches und vorhersehbares Verhalten aufweisen. Die vom Benutzer erstellten Validierungen dürfen beispielsweise nicht einfach verschwinden. Um das zu gewährleisten, ist eine durchdachte App-Architektur vonnöten. Da die App-Architektur ein sehr zeitintensiver und zentraler Aspekt der vorliegenden Diplomarbeit ist, der als Fundament für die eigentlichen Ziele dient, folgt nun eine ausführliche Erläuterung.
+
+# Separation of Concerns
 
 In Android ist es eine äußerst schlechte Idee, sämtliche Logik in einer Activity oder einem Fragment zu implementieren.
 Das softwaretechnische Prinzip `Separation of Concerns (SoC)` hat unter Android einen besonderen Stellenwert. Dieses Prinzip beschreibt im Wesentlichen, dass eine Klasse nur einer Aufgabe dienen sollte. Falls eine Klasse mehrere Aufgaben erfüllt, so muss diese auf mehrere logische Komponenten aufgeteilt werden.
-Beispiel: Eine Activity hat immer die Verantwortung, die Kommunikation zwischen UI und Benutzer abzuwickeln. Bad Practice wäre es, wenn jene Activity ebenfalls dafür verantwortlich ist, Daten von einem Server abzurufen.
+Beispiel: Eine Activity bzw. ein Fragment hat immer die Verantwortung, die Kommunikation zwischen UI und Benutzer abzuwickeln. Bad Practice wäre es, wenn eine Activity ebenfalls dafür verantwortlich ist, Daten von einem Server abzurufen.
+
 Das Prinzip verfolgt das Ziel, die `God Activity Architecture (GAA)` möglichst zu vermeiden \cite{god-activities}. 
-Eine God-Activity ist unter Android eine Activity, die die komplette Business-Logic beinhaltet und SoC in jeglicher Hinsicht widerspricht.
+Eine God-Activity ist unter Android eine Activity, die die komplette Business-Logic beinhaltet und `SoC` in jeglicher Hinsicht widerspricht.
 God-Activities gilt es dringlichst zu vermeiden, da sie folgende Nachteile mit sich bringen:
 
  * Refactoring wird kompliziert
  * Wartung und Dokumentation werden äußerst schwierig
- * Automatisiertes Testing (z.B. Unit-Testing) wird nahezu unmöglich gemacht
+ * Automatisiertes Testing (\zB Unit-Testing) wird nahezu unmöglich gemacht
  * Größere Bug-Anfälligkeit
- * Im Bezug auf Android gibt es oftmals massive Probleme mit dem `Lifecycle` einer Activity - da eine Activity und ihre Daten schnell vernichtet werden können (z.B. wenn der Benutzer sein Gerät rotiert und das Gerät den Bildschirmmodus wechselt)
+ * Im Bezug auf Android gibt es oftmals massive Probleme mit der Konsistenz einer Activity - da eine Activity und ihre Daten schnell vernichtet werden können (\zB wenn der Benutzer sein Gerät rotiert und das Gerät den Bildschirmmodus wechselt, \siehe{as-viewmodel-und-das-fragment-im-detail})
 
-God-Activities sind ein typisches Beispiel für Spaghetticode. Es bedarf also einer wohlüberlegten und strukturierten Architektur, um diese Probleme zu unterbinden. 
-Im nächsten Kapitel wird dementsprechend die Architektur der App im Detail erklärt.
-
-\chapter{Die App-Architektur}
+God-Activities sind ein typisches Beispiel für Spaghetticode.
 
 Als Reaktion auf eine Vielzahl von Apps, die Probleme mit God-Activites aufwiesen, hat Google Libraries veröffentlicht, die klar auf eine MVVM-Architektur abzielen \cite{mvvm}. Daher fiel die Wahl der App-Architektur auf MVVM.
 
@@ -117,17 +286,25 @@ Das ViewModel dient als Bindeglied zwischen dem Model und der View. Die Logik de
 
 Mit der Einführung der `Architecture Components` hat Google Android-Entwicklern eine Vielzahl an Libraries zur Verfügung gestellt, um MVVM leichter in Android implementieren zu können \cite{mvvm-architecture-components}. Die konkrete Implementierung in Android ist in Abbildung \abb{fig:mvvm} ersichtlich.
 
-![MVVM in Android nach Google \cite{mvvm} \label{fig:mvvm}](josip-pics\mvvm.png)
+![MVVM in Android nach Google \cite{mvvm} \cite{mvvm-bild} \label{fig:mvvm}](josip-pics\mvvm.png)
 
-In dem vorliegenden Fall ist unser `Fragment` die `View`, das `Repository` das `Model` und das `ViewModel` ist in Android namensgleich.
+In dem vorliegenden Fall ist unser `Fragment` die `View`, das `Repository` das `Model` und das `ViewModel` ist in Android namensgleich. MVVM ist streng hierarchisch. Wie in der Abbildung zu erkennen ist, kommuniziert jede Ebene nur mit der hierarchisch nächsten Ebene. 
 
 ## Das Repository im Detail
 
-Wie in der \abb{fig:mvvm} veranschaulicht, ist das Repository dafür zuständig, Daten vom Server anzufordern. Im vorliegenden Fall besteht kein Grund, eine Datenbank am Client zu führen. Damit fällt dieser Aspekt, der in der Abbildung in violetter Farbe gehalten ist, für die vorliegende Diplomarbeit weg. Die Aufgabe des Repositories ist es also immer, Daten vom Server anzufordern. 
+Wie in der \abb{fig:mvvm} veranschaulicht, ist das Repository alleinig dafür zuständig, Daten vom Server anzufordern. Beispielsweise wird die Gegenstandsliste für einen Raum vom Repository angefordert - und von keiner anderen Ebene. Die Kommunikation zwischen der App und dem Server findet ausschließlich im `JSON`-Format statt. JSON ist ein text-basiertes und kompaktes Datenaustauschformat \cite{json-format-doku}. 
 
-### JsonRequest
+Das Repository fordert JSON an und instanziiert anschließend anhand der Serverantwort Objekte der Modell-Klassen (\siehe{die-modelle}). Das Repository ist die einzige Ebene, die mit den rohen JSON-Antworten des Servers arbeitet. Die restlichen Ebenen arbeiten mit den abstrahierten Objekten, also \zB mit `MergedItems` oder `Rooms`.
 
-Die Kommunikation zwischen dem Client und der App findet ausschließlich im `JSON`-Format statt. JSON ist ein text-basiertes und kompaktes Datenaustauschformat. Android bietet Entwicklern eine Out-of-the-box Netzwerklibrary namens `Volley` an, mithilfe derer man unter anderem JSON-Anfragen verarbeiten kann \cite{volley}. Da diese für die vorliegenden Zwecke nicht komplett geeignet war, hat das Diplomarbeitsteam die gegebene Library durch den Einsatz von Vererbung und einer Wrapper-Klasse modifiziert. Die Library wurde in folgenden Punkten angepasst:
+
+Die Kommunikation zwischen dem Server und der App wird mit zwei Libraries abgewickelt:
+
+* Volley
+* Retrofit
+
+### JsonRequest (Volley)
+
+Android bietet Entwicklern eine Out-of-the-box Netzwerklibrary namens `Volley` an, mithilfe derer man unter anderem JSON-Anfragen verarbeiten kann \cite{volley}. Da diese für die vorliegenden Zwecke nicht komplett geeignet war, hat das Diplomarbeitsteam die gegebene Library durch den Einsatz von Vererbung und einer Wrapper-Klasse modifiziert. Die Library wurde in folgenden Punkten angepasst:
 
  * Im Falle eines Fehlers wird die Anfrage wiederholt (Ausnahme: Zeitüberschreitungsfehler). Die maximale Anzahl an Wiederholungen ist limitiert. 
  * Die maximale Timeout-Dauer wurde erhöht.
@@ -135,76 +312,24 @@ Die Kommunikation zwischen dem Client und der App findet ausschließlich im `JSO
  * Im Header der Anfrage wird der Content-Type der Anfrage auf JSON festgelegt.
  * Im Header wird das zur Authentifikation notwendige API-Token mitgeschickt. Die Authentifizierung ist über einen Parameter deaktivierbar. 
  * Im Header wird die Systemsprache des Clients als standardisierter ISO-639-Code mitgesendet. Der Server passt seine Antwort auf die verwendete Sprache an \cite{ISO-639}. Die Bezeichnung der Felder, die dem Benutzer auf Gegenstandsbasis angezeigt werden, ist beispielsweise abhängig von der Systemsprache.
-* Zum Zeitpunkt der Anfrage ist nicht bekannt, ob die Antwort als `JSONArray` oder als `JSONObject` erfolgen wird. Da das Backend abhängig von der Anfrage sowohl mit einem `JSONArray` als auch einem `JSONObject` antworten kann, ist der Rückgabewert am Client immer ein String. Die Umwandlung erfolgt erst im Repository. 
+* Zum Zeitpunkt der Anfrage ist nicht bekannt, ob die Antwort als `JSONArray` (\zB für eine Gegenstandsliste) oder als `JSONObject` (\zB für einen explizit angefragten Gegenstand) erfolgen wird. Da das Backend abhängig von der Anfrage sowohl mit einem `JSONArray` als auch einem `JSONObject` antworten kann, ist der Rückgabewert der Netzwerkanfrage immer ein String. Die Umwandlung erfolgt erst im Repository.  Dies führt zu keinen Perfomance-Problemen, da die vorgefertigte Android Library den String zwar zu einem früheren Zeitpunkt aber auf dieselbe Weise umwandeln würde. 
 
-Diese Unterscheidung zwischen `JSONArray` und `JSONObject` ist notwendig, da Android zwei Möglichkeiten anbietet, JSON als Objekt zu speichern:
+Diese Anpassungen wurden aus zwei Gründen vorgenommen:
 
-Direkt als `JSONArray`:
-```java
-JSONArray jsonArray = new JSONArray(payload);
-```
-Direkt als `JSONObject`:
-```java
-JSONObject jsonObject = new JSONObject(payload);
-```
-Beide Optionen haben einen Konstruktor, der einen String akzeptiert (im obigen Beispiel ist dies der String `payload`). Das Backend könnte - natürlich in Abhängigkeit von der ursprünglichen Anfrage - folgende (vereinfachte) Antworten senden:
+* Um eine robusture Netzwerklibrary zu erhalten, die es ermöglicht in Räumem mit Netzwerkproblemen dennoch eine Inventur durchzuführen. 
+* Um eine spätere Abstraktion der Netzwerkanfragen durchführen zu können (\siehe{konkrete-mvvm-implementierung}). 
 
 
-Ein `JSONArray` (wenn die Anfrage beispielsweise eine Gegenstandsliste verlangt):
-```json
-[
-  {
-    "id": 1,
-    "item": "PC"
-  },
-  {
-    "id": 2,
-    "item": "Schrank"
-  }
-]
-```
-
-
-Ein `JSONObject` (wenn die Anfrage beispielsweise einen spezifischen Gegenstand verlangt):
-```json
-{
-  "id": 1,
-  "item": "PC"
-}
-```
-
-Wenn das Backend ein `JSONArray` sendet und man versucht, jenes als `JSONObject` zu speichern, kommt es zu einem Fehler:
-```java
-// Dieser Code entspricht keiner korrekten Java-Syntax! 
-// Antwort vom Backend
-String payload =   "[
-                        {
-                            "id": 1,
-                            "item": "PC"
-                        },
-                        {
-                            "id": 2,
-                            "item": "Schrank"
-                        }
-                    ]";
-
-// Die Umwandlung eines JSONArray zu einem JSONObjects 
-// wirft eine Exception.
-JSONObject jsonObject = new JSONObject(payload);
-```
-
-Aus diesem Grund kann die Umwandlung der Backend-Antwort erst im Repository erfolgen. Dies führt zu keinen Perfomance-Problemen, da die vorgefertigte Android Library den String zwar zu einem früheren Zeitpunkt aber auf dieselbe Weise umwandeln würde. Die Umwandlung eines Strings
-zu einem `JSONArray` oder einem `JSONObject` entspricht nur dem Bruchteil der Zeitdauer, die die Backend-Antwort benötigt, um am Client anzukommen. Selbst bei größeren Strings bemerkt der Benutzer daher keinerlei Unterschied. 
+Sämtliche Netzwerkanfragen (die Raumliste, die Gegenstandsliste etc.) werden mit der modifizierten `Volley`-Library durchgeführt. Die einzige Ausnahme sind hierbei die Anhänge (\siehe{retrofit}). 
 
 ### JsonRequest - Beispiel
 
 Eine Anfrage wird nie direkt, sondern immer über einen Wrapper ausgeführt. Der Konstruktor ist wie folgt aufgebaut:
 
 
-
 * `Context context`: Ist eine Schnittstelle, die globale Information über die App-Umgebung zur Verfügung stellt \cite{context} und von Android zur Verfügung gestellt wird. Jede UI-Komponente (\zB Textfelder, Buttons, Fragments, etc.) verfügt über einen Context. Ein besonderer Context ist der globale Application-Context. Dieser ist einzigartig und ist ein `Singleton`.  Ein Singleton bedeutet, dass von einer Klasse nur ein (globales) Objekt besteht \cite{singleton}. 
 * `int method`: Ist die HTTP-Methode. Die App verwendet `GET`, `OPTIONS` und `POST`.
-* `String url`: Ist die Seite, die eine JSON-Antwort liefern soll.
+* `String url`: Ist die URL, die eine JSON-Antwort liefern soll.
 * `@Nullable String requestBody`: Eventuelle Parameter, die an den Server gesendet werden sollen. Dieser Paramter ist für einen `POST`-Request wichtig.
 * `NetworkSuccessHandler successHandler`: Funktionales Interface 
 * `NetworkErrorHandler errorHandler`: Funktionales Interface 
@@ -217,6 +342,7 @@ RobustJsonRequestExecutioner robustJsonRequestExecutioner =
   "https://www.beispiel.org/", null, 
   payload -> {
          // TODO: Antwort verarbeiten
+         // -> Anhand der Antwort Modell-Objekte instanziieren
      },
   error -> {
          // TODO: Fehler verarbeiten
@@ -236,6 +362,7 @@ RobustJsonRequestExecutioner robustJsonRequestExecutioner =
          @Override
          public void handleSuccess(String payload) {
              // TODO: Antwort verarbeiten
+             // -> Anhand der Antwort Modell-Objekte instanziieren
          }
      },
      new NetworkErrorHandler() {
@@ -253,19 +380,20 @@ Es gibt zwei Arten von Callbacks:
 * Synchrone Callbacks: Die Ausführung der übergebenen Methode erfolgt sofort.
 * Asynchrone Callbacks: Die Ausführung der übergebenen Methode erfolgt zu einem späteren Zeitpunkt.
 
-In diesem Fall wird die Methode `handleSuccess` aufgerufen, sobald der Client die Antwort erhalten hat. Damit handelt es sich um ein asynchrones Callback.
+In diesem Fall wird die Methode `handleSuccess` aufgerufen, sobald der Client die Antwort erhalten hat. Damit handelt es sich um ein asynchrones Callback. Callbacks werden in der App sehr häufig eingesetzt.
 
 ### Retrofit 
 
 `Retrofit` ist eine weitere Netzwerk-Library (bzw. Libraries), die das Projektteam eingesetzt hat. Retrofit wurde nur zum Senden von Dateien eingesetzt, weil dies mit Volley nur erschwert möglich ist. Mit dieser Libary wurde die Anhang-Funktion realisiert.
 
-Das Projektteam hat bei dem einzigen Einsatz von Retrofit auf das automatische Parsing verzichtet und stattdessen die bereits bekannte Callback-Logik verwendet. 
+Das Projektteam hat bei dem einzigen die bereits bekannte Callback-Logik verwendet:
 ```java
 Call<String> call = prepareCall(args);
 call.enqueue(new Callback<String>() {
     @Override
     public void onResponse(Call<String> call, Response<String> response) {
         // TODO: Antwort verarbeiten
+        // -> Anhand der Antwort Modell-Objekte instanziieren
     }
     @Override
     public void onFailure(Call<String> call, Throwable t) {
@@ -288,10 +416,12 @@ public interface AttachmentAPI {
 Dies führt zu einem besseren Überblick als bei Volley, da man pro API-Endpunkt des Backends ein Interface hat. Damit ist sofort ersichtlich, mit welchen Backend-Endpunkten ein Repository kommuniziert. 
 
 
-
 ## Das ViewModel und das Fragment im Detail
 
-Das ViewModel ist eine Klasse, die dafür ausgelegt ist, UI-bezogene Daten `lifecycle-aware` zu speichern. Ein Fragment durchlebt im Laufe seines Daseins eine Vielzahl an Zuständen/Phasen - man spricht von einem `Lifecycle`. Wenn der Benutzer zum Beispiel sein Gerät rotiert, führt dies dazu, dass das Fragment \emph{zerstört} wird und das Fragment durch erneutes Durchleben alter Zustände wiederaufgebaut wird - dies führt zu einer Zerstörung des aktuellen UIs des Fragments sowie sämtlicher Referenzen, die das Fragment besitzt. Eine Gerätrotierung gehört zur Kategorie der `Configuration Changes` \cite{viewmodel}. Der Grund hierfür liegt darin, dass Android das aktuelle Layout ändert, da beispielsweise andere Layouts (XML-Files) für den Landscape-Modus zur Verfügung stehen \cite{configuration-changes}. In der Literatur wird der Begriff \emph{zerstören} verwendet, da dabei das Callback `onDestroy` in einer Activity aufgerufen wird.  
+
+Das ViewModel ist eine Klasse, die dafür ausgelegt ist, UI-bezogene Daten `lifecycle-aware` zu speichern. Ein Fragment durchlebt im Laufe seines Daseins eine Vielzahl an Zuständen/Phasen - man spricht von einem `Lifecycle`. Wenn der Benutzer zum Beispiel sein Gerät rotiert, führt dies dazu, dass das Fragment \emph{zerstört} wird und das Fragment durch erneutes Durchleben alter Zustände wiederaufgebaut wird - dies führt zu einer Zerstörung des aktuellen UIs des Fragments sowie sämtlicher Referenzen, die das Fragment besitzt. 
+
+Eine Gerätrotierung gehört zur Kategorie der `Configuration Changes` \cite{viewmodel}. Der Grund hierfür liegt darin, dass Android das aktuelle Layout ändert, da beispielsweise andere Layouts (XML-Files) für den Landscape-Modus zur Verfügung stehen \cite{configuration-changes}. In der Literatur wird der Begriff \emph{zerstören} verwendet, da dabei das Callback `onDestroy` in einer Activity aufgerufen wird.  
 
 Folgende Probleme können dadurch auftreten:
 
@@ -302,6 +432,7 @@ Folgende Probleme können dadurch auftreten:
 
 ### ViewModel als Lösung
 
+Das ViewModel löst diese Probleme und ermöglicht dem Benutzer dadurch eine Inventur konsistent – ohne unvorhersehbares `Lifecycle`-Verhalten – durchzuführen.
 
 ![Zustände einer Activity im Vergleich zu den Zuständen eines ViewModels, Fragments haben einen ähnlichen Lifecycle \cite{fragment-lifecycle} \cite{viewmodel} \label{fig:vmlife}](josip-pics\viewmodel-lifecycle.png)
 
@@ -318,13 +449,14 @@ Bei genauerer Betrachtung der \abb{fig:vmlife} wird ersichtlich, welche Phasen e
 
 
 Wie in der \abb{fig:vmlife} zu sehen ist, stellt ein ViewModel eine Lösung für diese Probleme dar. Ein ViewModel ist von einem `Configuration Change` nicht betroffen und kann dem UI damit stets die aktuellen Daten zur Verfügung stellen. Der gegebene Sachverhalt trifft genauso auf Fragments zu. Diese haben einen leicht veränderten Lifecycle, sind allerdings genauso von Configuration Changes betroffen wie Activities.
+Das ViewModel ermöglicht es dem Benutzer also eine Inventur konsistent – ohne unvorhersehbares `Lifecycle`-Verhalten – durchzuführen.
 
 **Anmerkung**: Man kann das Zerstören & Wiederaufbauen von Activities/Fragments manuell blockieren. Dies ist jedoch kein Ersatz für eine wohlüberlegte App-Architektur und führt in den meisten Fällen zu unerwünschten Nebenwirkungen, da man sich nun auch manuell um das Wechseln der Konfiguration (Layouts etc.) kümmern muss und dies weitaus komplizierter ist, als auf ViewModels zu setzen \cite{lifecycle-blocking}.
 
 
 Folgende Aspekte sind bei der Verwendung eines ViewModels zu beachten \cite{viewmodel-antipatterns}:
 
-* Ein ViewModel sollte bei einem `Configuration Change` keinen neuen Request starten, da es bereits über die Daten verfügt. Dies lässt sich mit einer `If`-Anweisung beheben.
+* Ein ViewModel sollte bei einem `Configuration Change` keine neue Netzwerkanfrage starten, da es bereits über die Daten verfügt. Dies lässt sich mit einer `If`-Anweisung beheben.
 * Referenzen zu Objekten, die an einen Lifecycle gebunden sind, sind ein absolutes NO-GO. Objekte mit Lifecycle haben ein klares Schicksal - wenn ihr Host vernichtet wird, müssen sie ebenfalls vernichtet werden. **Folgendes Szenario**: Ein ViewModel hat eine `TextView`-Variable (= ein Textfeld). Dreht der Benutzer sein Gerät wird das aktuelle Fragment inklusive `TextView` vernichtet. Das ViewModel überlebt den `Configuration Change` und hat nun eine Referenz auf eine invalide `TextView`. Dies ist ein `Memory Leak`.
 * ViewModel überleben ein Beenden des App-Prozesses nicht. Wenn das BS aktuell wenig Ressourcen zur Verfügung hat, kann es sein, dass Apps kurzzeitig beendet werden. Falls man diesen Sonderfall behandeln will, ist dies mit Extra-Aufwand verbunden \cite{viewmodel-process-death}.
 * ViewModels sollen nicht zu "God-ViewModels" werden. Das `SoC`-Prinzip ist anzuwenden.
@@ -728,7 +860,7 @@ public void onActivityResult(int requestCode, int resultCode,
 
 Gegenstände können durch Scannen, aber auch durch manuelles Klicken auf ihre GUI-Darstellung validiert werden. Es kann durchaus Sinn machen, auf einen Scan zu verzichten, wenn:
 
-* der Scan langsam oder unmöglich ist (z.B. bei Barcodes in unerreichbarer Höhe oder beschädigten Barcodes).
+* der Scan langsam oder unmöglich ist (\zB bei Barcodes in unerreichbarer Höhe oder beschädigten Barcodes).
 * man einen Gegenstand auch ohne Barcode identifizieren kann.
 * man mit einer manuellen Vorgehensweise schneller ist, als mit dem Kamerascan.
 
@@ -753,160 +885,9 @@ Jeder Modus verwendet die Regex, die am besten für seine Kategorie geeignet ist
 Die Erkennung von Barcodes (also der Numerische Modus) hat zusätzlich folgende Optimierungen erhalten:
 
 * Gescannte Ergebnisse werden durch die Regex optimiert und gespeichert. Das Ergebnis, das zuerst dreimal vorkam, wird eingelockt. Das heißt, dass alle restlichen Scans ignoriert werden. 
-* Zeichen die häufig vom Scanner verwechselt werden (z.B. wird die Ziffer "0" häufig als Buchstabe "O" erkannt), werden durch ihr numerisches Gegenstück ersetzt. 
+* Zeichen die häufig vom Scanner verwechselt werden (\zB wird die Ziffer "0" häufig als Buchstabe "O" erkannt), werden durch ihr numerisches Gegenstück ersetzt. 
 * Längere Zeichenketten erhalten eine höhere Priorität und werden dem Benutzer vorzugsweise angezeigt. Damit werden abgeschnittene Ergebnisse benachteiligt. Falls ein kürzeres Ergebnis jedoch dreimal vorkommt, wird nicht mehr die längste Zeichenkette, sondern die häufigste bevorzugt und dem Benutzer angezeigt.
 * Ergebnisse, die weniger als sieben Zeichen enthalten, werden nicht gespeichert und können damit auch nicht eingelockt werden.
 
 
 Der Benutzer kann das aktuell angezeigte Ergebnis in seine Zwischenablage kopieren und anschließend die Suchleiste nutzen. Die Kommunikation zwischen den Fragments und dem Textscan erfolgt analog zum Kamerascan, da der Textscan aus denselben Gründen als Activity implementiert wurde. 
-
-
-
-\chapter{Die Inventurlogik auf der App}
-
-Die genaue Bedienung der App ist dem App-Handbuch zu entnehmen. Dieses Kapitel befasst sich mit der Logik hinter einer Inventur.  
-
-# Allgemeiner Ablauf einer Inventur
-
-Eine Inventur läuft immer wie folgt ab:
-
-1. Der Benutzer wählt die Inventur aus, an der er arbeiten will.
-2. Der Benutzer wählt die Datenbanksicht aus. Dieser Schritt ist erforderlich, da die App auch mit der Ralph-Datenbanksicht kompatibel ist. An unserer Schule ist die HTL-Datenbanksicht auszuwählen.
-3. Der Benutzer begibt sich zu einem Raum und wählt ihn auf der App aus.
-4. Der Benutzer erhält die Gegenstandsliste für einen Raum. Diese Gegenstandsliste gilt es abzuarbeiten.
-5. Der Benutzer scannt die Barcodes der Gegenstände und arbeitet sie dadurch ab. Nicht aufgelistete Gegenstände werden automatisch ergänzt.
-6. Der Benutzer kann auf Gegenstandsbasis Änderungen an den Eigenschaften des Gegenstandes vornehmen.
-7. Wenn der Benutzer der Meinung ist, alle Gegenstände in diesem Raum erfasst zu haben, sendet er seine Validierungen an den Server.
-8. Damit ist der ausgewählte Raum abgeschlossen und der Benutzer kann sich dem nächsten Raum annehmen.
-
-
-# Die Modelle
-
-Um die Antworten des Servers abzubilden, wurden mehrere Modell-Klassen erstellt. Deren 
-Konstruktoren haben je ein `JSONObject` als Parameter. Die Werte der einzelnen Attribute werden aus diesem `JSONObject` ausgelesen. Folgende Modell-Klassen wurden erstellt.
-
-* `SerializerEntry`: Stellt eine Datenbanksicht dar.
-* `Stocktaking`: Stellt eine Inventur dar. 
-* `Room`: Stellt einen Raum dar.
-* `MergedItem`: Stellt einen Gegenstand dar.
-* `MergedItemField`: Stellt ein dynamisches Feld dar. 
-* `Attachment`: Stellt einen Anhang dar.  
-
-## Grundsätze
-
-Eine Modell-Klasse verwaltet etwaige Statusinformationen immer selbst. So weiß beispielsweise nur ein Gegenstand selbst, dass er ursprünglich aus einem anderen Raum stammt. Dies verbessert die Lesbarkeit und Wartbarkeit des Codes massiv, da diese Informationen abstrahiert sind und nicht mehrmals an verschiendenen Stellen im Quellcode schlummern. 
-
-# Die Fragments
-
-Dieses Kapitel basiert auf den Erklärungen der vorhergehenden Artikel. Eine Inventur wird auf der App durch folgendene Fragments abgewickelt, die gleichzeitig als Phasen verstanden werden können:
-
-* `StocktakingFragment`
-* `RoomsFragment`
-* `ViewPagerFragment`
-    * `MergedItemsFragment`
-    * `ValidatedMergedItemsFragment`
-* `DetailedItemFragment`
-* `AttachmentsFragment`
-
-#### StocktakingFragment
-ist das Fragment, in dem der Benutzer die aktuelle Inventur auswählt. Die Inventur kann nur vom Administrator am Server angelegt werden. Außerdem wählt der Benutzer hier die Datenbanksicht ("den Serializer") aus. Die App kommuniziert ausschließlich mittels REST API mit dem Server. Diese Schnittstelle kann verschiedene Quellen haben. Für eine Inventur an unserer Schule ist die "HTL"-Datenbanksicht auszuwählen. Durch das Bestätigen eines langegezogenen blauen Buttons gelangt man immer zur nächsten Inventurphase. In diesem Fall gelangt man zum `RoomsFragment`.
-
-#### RoomsFragment
-ist das Fragment, in dem der Benutzer den aktuellen Raum über eine DropDown auswählt. Anstatt die DropDown zu verwenden, kann er alternativ auch die Suchleiste verwenden. Als zusätzliche Alternative hat der Benutzer die Möglichkeit den Barcode eines Raumes zu scannen. Nach der Auswahl eines Raumes gelangt man zum `ViewPagerFragment`. 
-
-#### ViewPagerFragment
-ist das Fragment, das als Wrapper für das `MergedItemsFragment` und das `ValidatedMergedItemsFragment` dient. Die einzige Aufgabe dieses Fragments ist es, die zwei vorher genannten Fragments als Tabs anzuzeigen. Dies wurde mit der neuen `ViewPager2`-Library realisiert \cite{viewpager2}. Die Tabs kommunizieren über ein geteiltes ViewModel miteinander.
-
-#### MergedItemsFragment & ValidatedMergedItemsFragment
-
-sind die Fragments, die die Gegenstandsliste eines Raumes verwalten und sie dem Benutzer anzeigen. Die Gegenstände werden einzeln validiert. Durch das Scannen des Barcodes eines Gegenstands (beziehungsweise das Klicken auf seine GUI-Repräsentation) gelangt er zum `DetailedItemFragment`. Das `ValidatedMergedItemsFragment` erfüllt nur den Zweck, dem Benutzer bereits validierte Gegenstände anzuzeigen und ihm die Möglichkeit zu geben, validierte Gegenstände zurück zu den nicht-validierten Gegenständen in `MergedItemsFragment` zu verschieben. Daher trägt der Tab für das  `MergedItemsFragment` die Beschriftung "TODO", währenddessen der Tab für das  `ValidatedMergedItemsFragment` die Beschriftung "DONE" trägt.
-
-Beide Fragments verwenden eine `RecyclerView`, um dem Benutzer die Gegenstände anzuzeigen \cite{recyclerview}. Eine RecyclerView generiert pro Eintrag ein Layout, hält aber nur die aktuell angezeigten Einträge inkl. Layout im RAM.   
-
-####  DetailedItemFragment
-ist das Fragment, das zur Validierung eines einzelnen Gegenstands dient. Der Benutzer hat hier die Möglichkeit, etwaige Eigenschaften des Gegenstandes (beispielsweise den Anzeigenamen) zu ändern. Ein Formular, dass die Felder eines Gegenstandes beinhaltet, wird einmal angefordert, und anschließend für die gesamte Lebensdauer der App gespeichert. Anhand dieses Formulars wird dann eine GUI-Repräsentation dynamisch erstellt. Das Formular kann `ExtraFields` beinhalten. Das sind Felder, die als nicht essentiel angesehen werden und infolgedessen standardmäßig eingeklappt sind. Dazu gehören auch benutzerdefinierte Felder - sognannte `CustomFields`. 
-
-Dadurch braucht man für die gesamte Validierung eines Raumes - insofern keine Sonderfälle auftreten - keine Verbindung zum Server. Der Benutzer kann die Liste an einer Lokalität mit einer guten Verbindung anfordern, den Raum mit schlechter Verbindung betreten und validieren. Anschließend kann er den Raum verlassen und seine Validierungen an den Server senden. Damit wird der Bedarf an Netzwerkanfragen in Räumen mit schlechter Netzwerkverbindung minimiert. Der Benutzer kann zusätzlich zur Validierung auch Anhänge für einen Gegenstand definieren, dazu landet er beim `AttachmentsFragment`.
-
-Folgende GUI-Komponenten wurden statisch implementiert, da sie Felder repräsentieren, die unabhängig von der ausgewählten Datenbanksicht immer vorhanden sind und daher nicht dynamisch sind:
-
-* Ein read-only Textfeld für die Gegendstandsbeschreibung
-* Ein read-only Textfeld für den Barcode
-* Eine Checkbox "Erst später entscheiden"
-* Eine DropDown für Subrooms
-
-
-#### AttachmentsFragment
-ist das Fragment, das die Anhänge eines Gegenstandes verwaltet. Der Benutzer sieht hier die bereits vorhandenen Anhänge mit Beschriftungen und kann weitere Anhänge hinzufügen. Bilder werden direkt angezeigt. Andere Dateien werden hingegen als Hyperlink dargestellt. Der Benutzer kann diese per Browser runterladen. Zum Hochladen eigener Anhänge greift die App auf den Standard-Dateibrowser des Systems zurück. Das Outsourcen auf Webbrowser und Dateibrowser bietet den massiven Vorteil, dass man sich die Entwicklung eigener Download-Manager bzw. File-Manager erspart und auf Apps setzen kann, die von namenhaften Herstellern entwickelt werden. Fast jedes System hat bereits beide Komponenten vorinstalliert, daher treten bezüglich der Verfügbarkeit keine Probleme auf. 
-
-Beim dem Hochladen von Bildern komprimiert die App jene zuvor. Die Qualität des Bildes ist einstellbar:
-
-* 100 % (keine Kompression)
-* 95 %
-* 85 %
-* 75 %
-
-Zur Kompression wird das `WEBP`-Format verwendet, das dem mittlerweile veralteten `JPG`-Standard überlegen ist \cite{webp}. Der Server speichert den gesendeten Anhang nur einmal (Dateien werden anhand von Hashes unterschieden). Wenn ein Benutzer allen PCs in einem EDV-Saal dasselbe Bild zuweist, wird es nur einmal am Server hinterlegt. Die Anzahl der Anhänge ist nicht limitiert.
-
-# Validierungslogik
-
-`MergedItemsFragment` & `DetailedItemFragment` sind die Fragments, die den Großteil einer Inventur ausmachen. Der Benutzer scannt alle SAP-Barcodes, die sich in einem Raum befinden. Im Idealfall entspricht diese Menge exakt der Menge der Gegenstände, die dem Benutzer im `MergedItemsFragment` angezeigt wird. Im Normalfall wird dies durch etwaige Sonderfälle jedoch nicht gegeben sein. 
-
-Nach dem Scannen eines Gegenstandes werden die Felder des Gegenstandes dem Benutzer im `DetailedItemFragment` angezeigt. In diesem Fragment hat der Benutzer zwei Buttons, mit denen er den Gegenstand validieren kann:
-
-* **Grüner Button**: Mit diesem Button wird signalisiert, dass sich der Gegenstand im Raum befindet und der Gegenstand wird mitsamt etwaigen Änderungen an seinen Attributen/Feldern übernommen. Dazu wird ein `ValidationEntry` erstellt. Alternativ kann der Benutzer das Klicken dieses Buttons mit dem Schütteln des Gerätes ersetzen. Die Schüttel-Sensibilität ist über die Einstellungen konfigurierbar (und auch deaktivierbar).
-* **Roter Button**: Mit diesem Button wird signalisiert, dass sich der Gegenstand nicht im Raum befindet. Dieser Button wird im Normalfall nie betätigt werden, da ein Gegenstand, der sich nicht in diesem Raum befindet, nicht gescannt werden kann und daher dieses Fenster nie geöffnet werden wird. Der Button hat trotzdem einen Sinn, da der Benutzer damit die "TODO"-Liste über das GUI verkleinern kann, um sich einen besseren Überblick zu verschaffen. 
-
-## Der ValidationEntry
-
-Das `MergedItemsFragment` (bzw. das `MergedItemsViewModel`) verfügt über eine `HashMap` (`Map<MergedItem, List<ValidationEntry>>`), die alle `ValidationEntries` beinhaltet. Ein `ValidationEntry` beinhaltet sämtliche Informationen, die der Server benötigt, um die Datensätze eines Gengenstandes entsprechend anzupassen.
-Einem Gegenstand ist eine Liste an `ValidationEntries` zugeordnet, da Subitems eigene `ValiditionEntries` bekommen können (siehe ["Sonderfälle"](#sonderfuxe4lle)).
-
-Ein `ValidationEntry` beinhaltet immer den Primary Key eines Gegenstandes und die Felder, die sich geändert haben. Ein `ValidationEntry` hat daher eine Liste an Feldern `List<Field>`. Wenn sich der Wert eines Feldes geändert hat, wird diese Liste um einen Eintrag erweitert. Da die Felder wie erwähnt dynamisch sind, wurden Java Generics eingesetzt \cite{java-generics}, um diese abbilden zu können. `Field` ist eine innere Klasse in `ValidationEntry`:
-
-```java
-public static class Field<T> {
-    private String fieldName;
-    private T fieldValue;
-    ...
-```
-
-Ein Feld besteht also immer aus einem Feldnamen und einem generischen Feldwert. Selbiges gilt für `ExtraFields`.
-
-### Sendeformat
-
-Wenn ein Raum abgeschlossen ist, werden alle ValidationEntries in einer Liste vereint und anschließend in eine JSON-Darstellung transformiert. Dieses JSON wird dem Server gesandt und damit ist der aktuelle Raum abgeschlossen und der Benutzer kann sich den restlichen Räumen annehmen. Das POST-Format wird im Kapitel ["JSON-Schema"](#json-schema) beschrieben.
-
-
-## Quickscan
-
-Der häufigste Fall einer Inventur wird jener sein, in dem ein Gegenstand im richtigen Raum ist und der Benutzer ohne weiteren Input auf den grünen Button drückt. Da dies einen unnötigen Overhead darstellt, wurde die App um den `QuickScan`-Modus erweitert. Hierbei wird sofort nach dem Scannen ein `ValidationEntry` erstellt, ohne dass zuvor das `DetailedItemFragment` geöffnet wird. Dieser Modus ist durch einen Button im `MergedItemsFragment` aktivierbar/deaktivierbar. Falls ein Sonderfall auftreten sollte, vibriert das Gerät zweimal und öffnet das  `DetailedItemFragment`. Damit wird gewährleistet, dass der Benutzer nicht irrtümlich mit dem Scannen weitermacht. Er muss diesen Sonderfall händisch validieren. Haptisches Feedback ist für Sonderfälle reserviert.
-
-## Sonderfälle auf der App
-
-Ein zentrales Thema der vorliegenden Diplomarbeit ist die Behandlung der Sonderfälle. 
-
-### Subitems
-
-Falls ein Gegenstand mehrmals vorhanden sein sollte, ist der `times_found_last`-Zähler in der Antwort des Servers größer als 1 und der Gegenstand gilt als Subitem. Dieser Counter wird dem Benutzer in folgender Form angezeigt: `[Anzahl aktuell gefunden] / [Anzahl zuletzt gefunden]`. 
-
-Pro Subitem wird ein eigener `ValidationEntry` erstellt. An unserer Schule haben Subitems jedoch keinen Barcode sondern sind beispielsweise Teil eines Bundles, was dazu führt, dass Subitems auch in der Datenbank keine selbstständigen Gegenstände sind. `Change Proposals` (siehe ["Änderungsvorschläge"](#uxe4nderungsvorschluxe4ge)), die auf Basis dieser `ValidationEntries` erstellt werden, werden dem echten "Parent"-Gegenstand zugeordnet und können wahlweise angewandt werden. Falls ein Gegenstand mehrmals gescannt wird, wird - nach Bestätigung durch den Benutzer - die Anzahl der aktuellen Funde erhöht und wiederum einen `ValidationEntry` erstellt, selbst wenn es sich bei dem Gegenstand aktuell nicht um ein Subitem handelt.
-
-### Subrooms
-
-Subrooms sind logische Räume in einem Raum. Subrooms werden dem Benutzer im `MergedItemsFragment` als einklappbare Teilmenge aller Gegenstände des Raumes angezeigt. Die Subroom-Zugehörigkeit kann auf Gegenstandsbasis über eine DropDown geändert werden. Die Subroom-Zugehörigkeit wird in einem `ValidationEntry` immer gesetzt, auch wenn sie sich nicht geändert hat. 
-
-Die Gegenstandsliste des `MergedItemsFragment` beinhaltet in Wahrheit auch die Subrooms. Dies ist notwendig, da die `RecyclerView`, die dazu genutzt wird dem Benutzer die Gegenstände anzuzeigen, keine Möglichkeit bietet, eine Hierarchie bzw. Zwischenebenen darzustellen. Daher implementieren das Room-Model und das MergedItem-Model das Interface `RecyclerViewItem` und die RecyclerView erhält eine Liste an RecyclerViewItems - dies ist ein typisch polymorpher Ansatz. Abhängig vom Typen des aktuellen Listenelements baut die RecyclerView entweder ein Gegenstandslayout oder ein Raumlayout auf. Die Anzahl der Subrooms ist weder in der Tiefe noch in der Breite limitiert.
-
-### Unbekannte Gegenstände
-
-Falls ein Gegenstand gescannt wird, der sich nicht in der aktuellen Gegenstandsliste befindet, muss der Server befragt werden. Es gibt zwei mögliche Antwortszenarien. Die `ValidationEntries` für diese Sonderfälle unterscheiden sich nicht von den bisherigen.
-
-##### Neuer Gegenstand
-Der Gegenstand befindet sich überhaupt nicht in der Datenbank. Im "DONE"-Tab haben solche Gegenstände eine blaue Hervorhebung.
-
-##### Gegenstand aus anderem Raum
-Der Gegenstand befindet in der Datenbank und stammt ursprünglich aus einem anderen Raum. Im "DONE"-Tab haben solche Gegenstände eine orange Hervorhebung.
-
-
-
