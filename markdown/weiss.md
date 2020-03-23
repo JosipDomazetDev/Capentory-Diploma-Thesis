@@ -2,6 +2,7 @@
 
 
 
+
 Technische Umsetzung: Infrastruktur
 =============================
 Um allen Kunden einen problemlosen Produktivbetrieb zu gewährleisten, muss ein physischer Server aufgesetzt werden. Auf diesem können dann alle Komponenten unseres Git-Repositories geklont und betriebsbereit installiert werden. Dafür gab es folgende Punkte zu erfüllen:
@@ -226,13 +227,30 @@ gestartet werden.
 
 ### Probleme der Produktivumgebung
 
-Ralph verwendet in Verbindung mit Docker einige komplexe Skripts. Mit diesen Skripts bezieht Ralph von Docker-Hub ihre Docker-Images und wandelt sie dann in Container um. Es wäre also ein großer Aufwand gewesen, diese Skripts für die Zwecke von "Capentory" anzupassen, daher stieg das Projektteam auf die Verwendung von uWSGI um. Jedoch gibt es eine eigene Docker-Variante für die Entwicklungsumgebung die rasch mit uWSGI in eine Produktivumgebung umgewandelt werden kann.
+Ralph verwendet in Verbindung mit Docker einige komplexe Skripts. Mit diesen Skripts wird im Hintergrund das originale Ralph-Repository gefetched und ihre Lösung als Service installiert. Die Backend-Änderungen von Capentory wurden somit nicht berücksichtigt, obwohl deren Git-Repository auf die Ubuntu-Maschine geklont wurde. Es war also vollkommen irrelevant, welche Backend-Lösung auf dem Server zu finden war, das implementierte Dockersystem von Ralph hat immer deren Originallösung als Produktivumgebung mit NGINX bereitgestellt. Da das Austauschen deren Repository mit dem von Capentory, ein ziemlich schwieriger und zeitaufwendiger Prozess wäre (da das Analysieren der Skripts zu lange dauern würde), musste rasch eine Alternative für die Bereitsstellung der Produktivumgebung gesucht werden, um möglichst in der Zeit zu bleiben.
+
+### Alternativen
+
+Unter Punkt \ref{probleme-der-produktivumgebung} wurde bereits erläutert, warum "Capentory" die Dockerlösung von Ralph nicht verwendet. Allerdings musste rasch eine Alternative für die Umsetzung des Produktivbetriebs gesucht werden, um möglichst wenig Zeit zu verlieren.
+Zwei Alternativen, die für den Produktivbetrieb in Frage kamen, wurden genauer analysiert: uWSGI sowie Gunicorn.
+
+### uWSGI vs. Gunicorn
+
+Bei beiden Alternativen handelt es sich um Schnittstellen-Spezifikationen, unteranderem für die Programmiersprache Python, die eine Schnittstelle zwischen Webservern und Webframeworks bzw. Web Application Servern festlegen, um die Portabilität von Webanwendungen auf unterschiedlichen Webservern zu fördern.
+
+Gunicorn ist ein Pre-Fork-Worker-Modell\cite{prefork}, das aus Rubys Unicorn-Projekt portiert wurde. Der Gunicorn-Server ist weitgehend kompatibel mit verschiedenen Web-Frameworks, einfach implementiert, spart Serverressourcen und ist recht schnell.
+
+Das uWSGI-Projekt zielt darauf ab, einen vollständigen Stack für den Aufbau von Hosting-Diensten zu entwickeln.
+
+### Wahl
+
+Da beide Alternativen sehr ähnlich sind, lag es an Capentory welche für die Installation der Produktivumgebung ausgewählt wird. Zuerst wurde versucht, alles mithilfe von Gunicorn aufzusetzen. Da dies jedoch mehrmalig Probleme verursachte, entschied man sich für die Verwendung von uWSGI. Nach kurzer Recherche stieß der Infrastrukturverantwortliche auf ein vielversprechendes Tutorial im Internet\cite{tutorialuwsgi}, mit dem die Installation reibungslos verlief. Die genaue Installationsanleitung wurde bereits in der Serverdokumentation niedergeschrieben. Die Funktionsweise, also wie uWSGI genau arbeitet, wird unter Punkt  \ref{funktion-von-uwsgi} anhand einer Grafik erklärt.
 
 ### Funktionsweise der Produktivumgebung
 
 ####  Funktion von uWSGI
 
-Es wurde bereits desöfteren erklärt warum die vorhandene "Ralph-Dockerlösung" für die Zwecke von "Capentory" nicht brauchbar sind (siehe \ref{probleme-der-produktivumgebung}). Jedenfalls wurde nun die Einrichtung der Produktivumgebung mittels uWSGI erfolgreich durchgeführt. In der folgenden Grafik wird die Funktion von uWSGI genauer dargestellt.
+Es wurde bereits desöfteren erklärt warum die vorhandene "Ralph-Dockerlösung" von "Capentory" nicht verwendet wird(siehe \ref{probleme-der-produktivumgebung}). Jedenfalls wurde nun die Einrichtung der Produktivumgebung mittels uWSGI erfolgreich durchgeführt. In der folgenden Grafik wird die Funktion von uWSGI genauer dargestellt.
 
 \begin{figure}[ht]
 \centering
@@ -267,6 +285,8 @@ Docker wird im Projekt "Capentory" ausschließlich für die Bereitstellung der D
 \includegraphics{docker.png}
 \caption{Datenbanksystem mit Docker}
 \end{figure}
+
+Die erstellten Container enthalten die Datenbankanwendungen, sowie deren Ressourcen und speichern, beziehungsweise stellen eine dauerhafte Verfügbarkeit der erfassten Inventurdaten bereit. 
 
 ### Erreichbarkeit mittels HTTPS
 
