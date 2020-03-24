@@ -43,7 +43,7 @@ Da die Diplomarbeit "Capentory" jedoch Erreichbarkeit im Schulnetz verlangt, mus
 
 ## Wahl des Betriebssystems
 
-Neben den physischen Hardwarekomponenten wird für einen funktionierenden und leicht bedienbaren Server logischerweise auch ein Betriebsystem benötigt. Die erste Entscheidung, welche Art von Betriebssystem für die Diplomarbeit "Capentory" in Frage kam wurde rasch beantwortet: Linux. Weltweit basieren die meisten Server und andere Geräte auf Linux. Jedoch gibt es selbst innerhalb des OpenSource-Hersteller zwei gängige Distributionen, die das Diplomarbeitsteam während deren Schulzeit an der Htl Rennweg kennenlernen und Übungen darauf durchführen durfte:
+Neben den physischen Hardwarekomponenten wird für einen funktionierenden und leicht bedienbaren Server logischerweise auch ein Betriebsystem benötigt. Die erste Entscheidung, welche Art von Betriebssystem für die Diplomarbeit "Capentory" in Frage kam wurde rasch beantwortet: Linux. Weltweit basieren die meisten Server und andere Geräte auf Linux. Jedoch gibt es selbst innerhalb des OpenSource-Hersteller zwei gängige Distributionen, die das Diplomarbeitsteam während deren Schulzeit an der HTL Rennweg kennenlernen und Übungen darauf durchführen durfte:
 
  * Linux CentOS
  * Linux Ubuntu
@@ -81,7 +81,7 @@ Jedoch kam es beim ersten Versuch zu Problemen mit der Konfiguration der Netzwer
 ## Internetkonnektivität der Maschine
 
 ### Konfiguration
-Im Rahmen des Laborunterrichts an der Htl Rennweg, bekamen die Schüler für diverse Unklarheiten ein sogenanntes Cheat-Sheet \cite{cheat} für Linux-Befehle zur Verfügung gestellt. In diesem Cheat-Sheet finden sich unteranderem Anleitungen für die Konfiguration einer Netzwerkschnittstelle auf einer CentOS/RedHat sowie Ubuntu/Debian-Distribution.
+Im Rahmen des Laborunterrichts an der HTL Rennweg, bekamen die Schüler für diverse Unklarheiten ein sogenanntes Cheat-Sheet \cite{cheat} für Linux-Befehle zur Verfügung gestellt. In diesem Cheat-Sheet finden sich unteranderem Anleitungen für die Konfiguration einer Netzwerkschnittstelle auf einer CentOS/RedHat sowie Ubuntu/Debian-Distribution.
 Den Schülern der fünften Netzwerktechnikklasse sollte diese Kurzkonfiguration jedoch schon leicht von der Hand gehen, da sie diese Woche für Woche benötigen.
 
 Eine Netzwerkkonfiguration mit statischen IPv4-Adressen für eine Ubuntu-Distribution könnte wie folgt aussehen:
@@ -92,7 +92,7 @@ In `/etc/network/interfaces`:
     iface ens32 inet static
     address 192.168.0.1
     netmask 255.255.255.0
-
+    
 
 Eine Netzwerkkonfiguration mit Verwendung eines IPv4-DHCP-Servers für eine Ubuntu-Distribution könnte wie folgt aussehen:
 
@@ -150,7 +150,7 @@ Die Verwaltung und Verlinkung von mehreren Containern kann auf Dauer sehr nerven
 
 #### MySQL
 
-MySQL ist ein OpenSource-Datenverwaltungssystem und die Grundlage für die meisten dynamischen Websiten. Darauf werden die Inventurdatensätze der Htl Rennweg gespeichert. Nähere Informationen finden sich Punkt \ref{funktionsweise-der-produktivumgebung} wieder.
+MySQL ist ein OpenSource-Datenverwaltungssystem und die Grundlage für die meisten dynamischen Websiten. Darauf werden die Inventurdatensätze der HTL Rennweg gespeichert. Nähere Informationen finden sich Punkt \ref{funktionsweise-der-produktivumgebung} wieder.
 
 #### Redis
 
@@ -170,14 +170,14 @@ Python ist einer der Hauptbestandteile auf dem Serversystem der Diplomarbeit "Ca
 #### pip
 
 Und dieses Tool nennt sich Pip. Pip ist ein rekursives Akronym für **P**ip **I**nstalls **P**ython und ist, wie bereits erwähnt, das Standardverwaltungswerkzeug für Python-Module. Die Funktion sowie Syntax kann relativ gut mit der von apt verglichen werden.
-
+ 
 #### uWSGI
 
 Das eigentliche Paket, mit dem der Produktivbetrieb schlussendlich gewährleistet wurde, nennt sich uWSGI. Speziell wurde es für die Produktivbereitstellung von Serveranwendungen (wie eben der Django-Server von Team "Capentory") entwickelt und harmoniert eindrucksvoll mit der Webserver-Software NGINX. Die grundlegende Funktionsweise von uWSGI, sowie eine Erklärung, warum schlussendlich dieses Paket und nicht Docker verwendet wurde, wird unter Punkt \ref{produktivbetrieb-der-applikation} veranschaulicht.
 
 #### Django
 
-Django ist ein in Python geschriebenes Webframework, auf dem unsere Serveranwendung basiert. Genauere Informationen wurden jedoch schon unter Punkt \ref{kurzfassung-der-funktionsweise-von-django-und-ralph} übermittelt.
+Django ist ein in Python geschriebenes Webframework, auf dem unsere Serveranwendung basiert. Genauere Informationen wurden jedoch schon unter Punkt \ref{django-und-ralph} übermittelt.
 
 #### runsslserver
 
@@ -194,7 +194,7 @@ Die Entwickler des Grundservers "Ralph" haben eine eigene Entwicklungsumgebung f
 Jedoch wurde diese Datei im Projekt von "Ralph" und daher auch von "Capentory" in eine eigene spezifische Entwicklungsumgebung umimplementiert. Der Server startet sich nach der eigenen Installation (welche ab Seite 4 im Dokument "Serverdokumentation Schritt für Schritt erklärt wird) nicht mehr mittels:
 
     python manage.py runserver
-
+ 
 sondern mit:
 
     dev_ralph runserver 0.0.0.0:8000
@@ -227,7 +227,9 @@ gestartet werden.
 
 ### Probleme der Produktivumgebung
 
-Ralph verwendet in Verbindung mit Docker einige komplexe Skripts. Mit diesen Skripts wird im Hintergrund das originale Ralph-Repository gefetched und ihre Lösung als Service installiert. Dieser Service wurde abschließend sozusagen in einen Docker-Container verpackt und damit als Webanwendung gestartet. Die Backend-Änderungen von Capentory wurden somit nicht berücksichtigt, obwohl deren Git-Repository auf die Ubuntu-Maschine geklont wurde. Es war also vollkommen irrelevant, welche Backend-Lösung auf dem Server zu finden war, das implementierte Dockersystem von Ralph hat immer deren Originallösung als Produktivumgebung mit NGINX bereitgestellt. Da das Austauschen deren Repository mit dem von Capentory, ein ziemlich schwieriger und zeitaufwendiger Prozess wäre (da das Analysieren der Skripts zu lange dauern würde), musste rasch eine Alternative für die Bereitsstellung der Produktivumgebung gesucht werden, um möglichst in der Zeit zu bleiben.
+Zu Beginn dachte Capentory, dass die Umsetzung des Django-Servers in eine Produktivumgebung nicht allzu kompliziert wäre, da von Ralph bereits Dockerfiles für den Produktivbetrieb vorlagen. Dadurch wurde zu Beginn der Arbeit versucht dieses bereits existierendes Dockersystem zu starten, jedoch war im Browser dann nicht der Capentory-Server, sondern die Basislösung von Ralph zu sehen. Der Infrastrukturverantwortliche analysierte anschließend die Docker-Dateien und musste feststellen, dass sie für die Zwecke von Capentory so tatsächlich nicht verwendet werden können. Ralph hat in Verbindung mit dem implementierten Dockersystem einige komplexe, aufeinander zugreifende Skripts verwendet. Vorweg muss gesagt werden, dass Ralph deren Serverlösung als Service anbietet und in den vorliegenden Skripts installieren sie den Ralphserver ohne den Änderungen von Capentory. Daraufhin wird aus dem Webservice ein Docker-Container erstellt und anschließend mit den anderen Docker-Komponenten hochgefahren. Dadurch war im Webbrowser beim Serverabruf, statt der gewollten Serverlösung, die falsche zu sehen. Der Fortschritt des Arbeitspaketes der Produktivumgebung war somit wieder um einiges geschrumpft und es musste schnellstmöglich eine Alternative gefunden werden, da das Umschreiben der Dockerfiles, beziehungsweise der Skripts, ein riesiger Aufwand wäre.
+
+Nach kurzer Recherche stieß er schließlich auf zwei verwendbare Alternativen, die unter Punkt \ref{alternativen} genannt und unter Punkt \ref{uwsgi-vs.-gunicorn} verglichen werden.
 
 ### Alternativen
 
@@ -265,11 +267,11 @@ Es wurde bereits desöfteren erklärt warum die vorhandene "Ralph-Dockerlösung"
  4. Das eigentliche Interface von uWSGi ist hier zu sehen. Diese Schnittstelle sorgt für die Kommunikation des oben genannten Websockets mit dem verwendeten Python-Framework.
  5. Django reagiert nun auf die Anfrage des Benutzers und lässt diesem (falls dessen Zugriffsrechte darauf es erlauben) die gewünschten Daten.
  6. Die vom Benutzer gewünschten Daten werden (bei "Capentory") in einer MySQL-Datenbank gespeichert. 
-
+ 
  Grundsätzlich kann die Grafik auch mittels
 
     the web client <-> the web server <-> the socket <-> uwsgi <-> Django
-
+ 
  als normale ASCII-Zeichenkette dargestellt werden.
 
 #### Funktion von Docker
@@ -298,7 +300,7 @@ Wie es sich für eine Netzwerktechnikklasse gehört, wurde auch an die Erreichba
 \caption{Aufruf des Servers über HTTPS}
 \end{figure}
 
-Der Zertifikatsfehler, der am Bild deutlich zu sehen ist, bedeudet jedoch nichts anderes als dass das Zertifakt des Produktivservers von "Capentory" nicht von einer offiziellen Zertifizierungsstelle signiert wurde. Da der Server aber sowieso nur im Schulnetz der HTL 3 Rennweg beziehungsweise über einen VPN-Tunnel erreichbar ist, war es nicht nötig sich an solch eine Zertifizierungsstelle zu wenden.
+Der Zertifikatsfehler, der am Bild deutlich zu sehen ist, bedeudet jedoch nichts anderes als dass das Zertifakt des Produktivservers von "Capentory" nicht von einer offiziellen Zertifizierungsstelle signiert wurde. Da der Server aber sowieso nur im Schulnetz der HTL 3 Rennweg beziehungsweise über einen VPN-Tunnel erreichbar ist, war es nicht nötig, sich an solch eine Zertifizierungsstelle zu wenden.
 
 ### Verwendung einer .ini-Datei
 
@@ -334,10 +336,10 @@ System gibt es seit 2010 und wurde ursprünglich von Lennart Poettering (Red Hat
     
     [Install]
     WantedBy=multi-user.target
-
+   
  - **Description**:  Kurzbeschreibung des Dienstes
  - **After=network.target**: Der Dienst wird gestartet, sobald eine Netzwerkverbindung besteht
- - **ExecStart**: Den auszuführenden Shell-Befehl (in diesem Fall wird der uWSGI-Server gestartet
+ - **ExecStart**: Den auszuführenden Shell-Befehl (in diesem Fall wird der uWSGI-Server gestartet)
  - **Restart und RestartSec**: Hier wird der Dienst beispielsweise bei einem unsauberen Beenden des Prozesses, einem Timeout o.ä. neugestartet. Es ist auch möglich, einen Dienst neu zu starten, wenn der Watchdog einen Fehler meldet.
  - **WantedBy=multi-user.target**: Normalbetrieb
 
@@ -348,8 +350,8 @@ Mit
 
     systemctl enable ralph
     systemctl start ralph
-
- wird der frisch angelegte Service nun immer wenn die virtuelle Maschine gestartet wurde gestartet.
+ 
+ wird der angelegte Service nun immer, wenn die virtuelle Maschine gestartet wurde, ausgeführt.
 
 ## Absicherung der virtuellen Maschine
 
@@ -405,7 +407,7 @@ Vorbeugung von Team "Capentory": Die festgelegten Passwörter sind komplex aufge
 
 #### Man-in-the-middle Attacken
 
-Bei der „Man in the Middle“-Attacke nistet sich ein Angreifer  zwischen den miteinander kommunizierenden Rechnern. Diese Position ermöglicht ihm, den ausgetauschten Datenverkehr zu  kontrollieren und zu manipulieren. Er kann z.B. die ausgetauschten Informationen abfangen, lesen, die Weiterleitung kappen usw. Von all dem erfährt der Empfänger aber nichts.
+Bei der „Man in the Middle“-Attacke nistet sich ein Angreifer  zwischen den miteinander kommunizierenden Rechnern. Diese Position ermöglicht ihm, den ausgetauschten Datenverkehr zu  kontrollieren und zu manipulieren. Er kann \zb die ausgetauschten Informationen abfangen, lesen, die Weiterleitung kappen usw. Von all dem erfährt der Empfänger aber nichts.
 
 Vorbeugung von Team "Capentory": Der Datenaustausch verläuft über HTTPS und somit verschlüsselt.
 
@@ -487,4 +489,4 @@ Zuguterletzt gibt es noch das Feature der Notifications. Falls ein Host oder ein
 
 ## Verfassen einer Serverdokumentation
 
-Im Laufe dieses Kapitels wurde der Inhalt von den für die Produktivumgebung zu erstellenden Dateien aufgelistet und Zeile für Zeile erklärt. Da nur mit diesen Dateien alleine jedoch kein Server funktionieren kann war ein weiteres großes Ziel die Erstellung einer Guideline für interessierte Benutzer, damit diese ebenfalls in der Lage sind, den Server der Diplomarbeit "Capentory" für eine Entwicklungsumgebung sowie eine Produktumgebung aufzusetzen. 
+Im Laufe dieses Kapitels wurde der Inhalt von den für die Produktivumgebung zu erstellenden Dateien aufgelistet und Zeile für Zeile erklärt. Da nur mit diesen Dateien alleine jedoch kein Server funktionieren kann, war ein weiteres großes Ziel die Erstellung einer Guideline für Benutzer, damit diese ebenfalls in der Lage sind, den Server der Diplomarbeit "Capentory" für eine Entwicklungsumgebung sowie eine Produktumgebung aufzusetzen. 
