@@ -38,7 +38,7 @@ FortiClient ermöglicht es, eines VPN-Konnektivität anhand von IPsec oder SSL z
 
 Da die Diplomarbeit "Capentory" jedoch Erreichbarkeit im Schulnetz verlangt, muss die Maschine in einem Ausmaß abgesichert werden, damit sie ohne Bedenken in das Schulnetz gehängt werden kann. Dafür müssen folgende Punkte gewährleistet sein:
 
-* Konfiguration beider Firewalls (siehe Punkt \ref{absicherung-der-virtuellen-maschine})
+* Konfiguration beider Firewalls \siehe{absicherung-der-virtuellen-maschine}
 * Wohlüberlegte Passwörter und Zugriffsrechte
 
 ## Wahl des Betriebssystems
@@ -75,7 +75,7 @@ Aus den angeführten Punkten entschied sich "Capentory" klarerweise das Betriebs
 
 ## Installation des Betriebsystemes
 
-Wie bereits unter Punkt Anschaffung des Servers (siehe \ref{anschaffung-des-servers}) erwähnt, wird uns von der Schule ein eigener Servercluster mit virtuellen Maschinen zur Verfügung gestellt. Durch die ProxMox-Umgebung und diversen Tools, ging die Installation der Ubuntu-Distribution rasch von der Hand. In der Virtualisierungsumgebung der Schule musste nur ein vorhandenes Linux-Ubuntu 18.04 ISO-File gemountet und anschließend eine gewöhnliche Betriebsysteminstallation für Ubuntu durchgeführt werden. 
+Wie bereits unter Punkt Anschaffung des Servers \siehe{anschaffung-des-servers} erwähnt, wird uns von der Schule ein eigener Servercluster mit virtuellen Maschinen zur Verfügung gestellt. Durch die ProxMox-Umgebung und diversen Tools, ging die Installation der Ubuntu-Distribution rasch von der Hand. In der Virtualisierungsumgebung der Schule musste nur ein vorhandenes Linux-Ubuntu 18.04 ISO-File gemountet und anschließend eine gewöhnliche Betriebsysteminstallation für Ubuntu durchgeführt werden. 
 Jedoch kam es beim ersten Versuch zu Problemen mit der Konfiguration der Netzwerkschnittstellen, die im nächsten Punkt genauer erläutert werden.
 
 ## Internetkonnektivität der Maschine
@@ -138,19 +138,19 @@ Mit apt-get remove werden nicht mehr benötigte Pakete von einem Ubuntu-System v
 
 #### NGINX
 
-NGINX ist einer der am Häufigsten verwendeten OpenSource-Webserver unter Linux für diverse Webanwendungen. Große Unternehmen wie Cisco, Microsoft, Facebook oder auch IBM verwenden diesen Webserver für deren Zwecke. Unteranderem wird NGINX auch als Reverse-Proxy, HTTP-Cache und Load-Balancer verwendet. Wie genau NGINX für den Produktivbetrieb funktioniert wird im Laufe des Punktes \ref{funktionsweise-der-produktivumgebung} erläutert.
+NGINX ist einer der am Häufigsten verwendeten OpenSource-Webserver unter Linux für diverse Webanwendungen. Große Unternehmen wie Cisco, Microsoft, Facebook oder auch IBM verwenden diesen Webserver für deren Zwecke. Unteranderem wird NGINX auch als Reverse-Proxy, HTTP-Cache und Load-Balancer verwendet. Wie genau NGINX für den Produktivbetrieb funktioniert wird in einem eigenen Punkt \siehe{funktionsweise-der-produktivumgebung} erläutert.
 
 #### Docker
 
-Docker ist eine frei verwendbare Software, die die Erstellung und den Betrieb von Linux Containern ermöglicht. Wie genau dies funktioniert, wird später unter Punkt \ref{funktionsweise-der-produktivumgebung} genauer beschrieben und erklärt.
+Docker ist eine frei verwendbare Software, die die Erstellung und den Betrieb von Linux Containern ermöglicht. Wie genau dies funktioniert, wird später etwas später \siehe{funktionsweise-der-produktivumgebung} genauer beschrieben und erklärt.
 
 #### docker-compose
 
-Die Verwaltung und Verlinkung von mehreren Containern kann auf Dauer sehr nervenaufreibend sein. Die Lösung dieses Problems nennt sich docker-compose. Wie docker-compose jedoch genau funktioniert, wird ebenfalls wie das Grundkonzept von Docker unter Punkt \ref{funktionsweise-der-produktivumgebung} präziser erläutert.
+Die Verwaltung und Verlinkung von mehreren Containern kann auf Dauer sehr nervenaufreibend sein. Die Lösung dieses Problems nennt sich docker-compose. Wie docker-compose jedoch genau funktioniert, wird ebenfalls wie das Grundkonzept von Docker \siehe{funktionsweise-der-produktivumgebung} präziser erläutert.
 
 #### MySQL
 
-MySQL ist ein OpenSource-Datenverwaltungssystem und die Grundlage für die meisten dynamischen Websiten. Darauf werden die Inventurdatensätze der HTL Rennweg gespeichert. Nähere Informationen finden sich Punkt \ref{funktionsweise-der-produktivumgebung} wieder.
+MySQL ist ein OpenSource-Datenverwaltungssystem und die Grundlage für die meisten dynamischen Websiten. Darauf werden die Inventurdatensätze der HTL Rennweg gespeichert. Nähere Informationen finden sich ebenfalls während der Erklärung der Funktionsweise des Produktivbetriebes \siehe{funktionsweise-der-produktivumgebung} wieder.
 
 #### Redis
 
@@ -173,11 +173,11 @@ Und dieses Tool nennt sich Pip. Pip ist ein rekursives Akronym für **P**ip **I*
  
 #### uWSGI
 
-Das eigentliche Paket, mit dem der Produktivbetrieb schlussendlich gewährleistet wurde, nennt sich uWSGI. Speziell wurde es für die Produktivbereitstellung von Serveranwendungen (wie eben der Django-Server von Team "Capentory") entwickelt und harmoniert eindrucksvoll mit der Webserver-Software NGINX. Die grundlegende Funktionsweise von uWSGI, sowie eine Erklärung, warum schlussendlich dieses Paket und nicht Docker verwendet wurde, wird unter Punkt \ref{produktivbetrieb-der-applikation} veranschaulicht.
+Das eigentliche Paket, mit dem der Produktivbetrieb schlussendlich gewährleistet wurde, nennt sich uWSGI. Speziell wurde es für die Produktivbereitstellung von Serveranwendungen (wie eben der Django-Server von Team "Capentory") entwickelt und harmoniert eindrucksvoll mit der Webserver-Software NGINX. Die grundlegende Funktionsweise von uWSGI, sowie eine Erklärung, warum schlussendlich diese Software und nicht Docker verwendet wurde, wird in einem eigenen Teil \siehe{probleme-der-produktivumgebung} veranschaulicht.
 
 #### Django
 
-Django ist ein in Python geschriebenes Webframework, auf dem unsere Serveranwendung basiert. Genauere Informationen wurden jedoch schon unter Punkt \ref{django-und-ralph} übermittelt.
+Django ist ein in Python geschriebenes Webframework, auf dem unsere Serveranwendung basiert. Genauere Informationen wurden jedoch schon übermittelt. \siehe{kurzfassung-der-funktionsweise-von-django-und-ralph}
 
 #### runsslserver
 
@@ -229,11 +229,11 @@ gestartet werden.
 
 Zu Beginn dachte Capentory, dass die Umsetzung des Django-Servers in eine Produktivumgebung nicht allzu kompliziert wäre, da von Ralph bereits Dockerfiles für den Produktivbetrieb vorlagen. Dadurch wurde zu Beginn der Arbeit versucht dieses bereits existierendes Dockersystem zu starten, jedoch war im Browser dann nicht der Capentory-Server, sondern die Basislösung von Ralph zu sehen. Der Infrastrukturverantwortliche analysierte anschließend die Docker-Dateien und musste feststellen, dass sie für die Zwecke von Capentory so tatsächlich nicht verwendet werden können. Ralph hat in Verbindung mit dem implementierten Dockersystem einige komplexe, aufeinander zugreifende Skripts verwendet. Vorweg muss gesagt werden, dass Ralph deren Serverlösung als Service anbietet und in den vorliegenden Skripts installieren sie den Ralphserver ohne den Änderungen von Capentory. Daraufhin wird aus dem Webservice ein Docker-Container erstellt und anschließend mit den anderen Docker-Komponenten hochgefahren. Dadurch war im Webbrowser beim Serverabruf, statt der gewollten Serverlösung, die falsche zu sehen. Der Fortschritt des Arbeitspaketes der Produktivumgebung war somit wieder um einiges geschrumpft und es musste schnellstmöglich eine Alternative gefunden werden, da das Umschreiben der Dockerfiles, beziehungsweise der Skripts, ein riesiger Aufwand wäre.
 
-Nach kurzer Recherche stieß er schließlich auf zwei verwendbare Alternativen, die unter Punkt \ref{alternativen} genannt und unter Punkt \ref{uwsgi-vs.-gunicorn} verglichen werden.
+Nach kurzer Recherche stieß man schließlich auf zwei verwendbare Alternativen, nachfolgend genannt und verglichen werden.
 
 ### Alternativen
 
-Unter Punkt \ref{probleme-der-produktivumgebung} wurde bereits erläutert, warum "Capentory" die Dockerlösung von Ralph nicht verwendet. Allerdings musste rasch eine Alternative für die Umsetzung des Produktivbetriebs gesucht werden, um möglichst wenig Zeit zu verlieren.
+Es  wurde bereits erläutert, warum "Capentory" die Dockerlösung von Ralph nicht verwendet. \siehe{probleme-der-produktivumgebung} Allerdings musste rasch eine Alternative für die Umsetzung des Produktivbetriebs gesucht werden, um möglichst wenig Zeit zu verlieren.
 Zwei Alternativen, die für den Produktivbetrieb in Frage kamen, wurden genauer analysiert: uWSGI sowie Gunicorn.
 
 ### uWSGI vs. Gunicorn
@@ -246,13 +246,13 @@ Das uWSGI-Projekt zielt darauf ab, einen vollständigen Stack für den Aufbau vo
 
 ### Wahl
 
-Da beide Alternativen sehr ähnlich sind, lag es an Capentory welche für die Installation der Produktivumgebung ausgewählt wird. Zuerst wurde versucht, alles mithilfe von Gunicorn aufzusetzen. Da dies jedoch mehrmalig Probleme verursachte, entschied man sich für die Verwendung von uWSGI. Nach kurzer Recherche stieß der Infrastrukturverantwortliche auf ein vielversprechendes Tutorial im Internet\cite{tutorialuwsgi}, mit dem die Installation reibungslos verlief. Die genaue Installationsanleitung wurde bereits in der Serverdokumentation niedergeschrieben. Die Funktionsweise, also wie uWSGI genau arbeitet, wird unter Punkt  \ref{funktion-von-uwsgi} anhand einer Grafik erklärt.
+Da beide Alternativen sehr ähnlich sind, lag es an Capentory welche für die Installation der Produktivumgebung ausgewählt wird. Zuerst wurde versucht, alles mithilfe von Gunicorn aufzusetzen. Da dies jedoch mehrmalig Probleme verursachte, entschied man sich für die Verwendung von uWSGI. Nach kurzer Recherche stieß der Infrastrukturverantwortliche auf ein vielversprechendes Tutorial im Internet\cite{tutorialuwsgi}, mit dem die Installation reibungslos verlief. Die genaue Installationsanleitung wurde bereits in der Serverdokumentation niedergeschrieben. Die Funktionsweise, also wie uWSGI genau arbeitet, wirdnachfolgend \siehe{funktion-von-uwsgi} anhand einer Grafik erklärt.
 
 ### Funktionsweise der Produktivumgebung
 
 ####  Funktion von uWSGI
 
-Es wurde bereits desöfteren erklärt warum die vorhandene "Ralph-Dockerlösung" von "Capentory" nicht verwendet wird(siehe \ref{probleme-der-produktivumgebung}). Jedenfalls wurde nun die Einrichtung der Produktivumgebung mittels uWSGI erfolgreich durchgeführt. In der folgenden Grafik wird die Funktion von uWSGI genauer dargestellt.
+Es wurde bereits desöfteren erklärt warum die vorhandene "Ralph-Dockerlösung" von "Capentory" nicht verwendet wird \siehe{probleme-der-produktivumgebung}. Jedenfalls wurde nun die Einrichtung der Produktivumgebung mittels uWSGI erfolgreich durchgeführt. In der folgenden Grafik wird die Funktion von uWSGI genauer dargestellt.
 
 \begin{figure}[ht]
 \centering
@@ -261,7 +261,7 @@ Es wurde bereits desöfteren erklärt warum die vorhandene "Ralph-Dockerlösung"
 \cite{uwsgi}
 \end{figure}
 
- 1. Ein beliebiger Benutzer eines Webbrowsers (zum Beispiel Google Chrome oder Mozilla Firefox) sendet einen sogenannten "Webrequest" auf den https-Port "443" (Abschnitt \ref{probleme-der-produktivumgebung}).
+ 1. Ein beliebiger Benutzer eines Webbrowsers (zum Beispiel Google Chrome oder Mozilla Firefox) sendet einen sogenannten "Webrequest" auf den https-Port "443" \siehe{probleme-der-produktivumgebung}.
  2. Ein beliebig gewählter, optimierter Webserver (im Fall von "Capentory" NGINX) stellt Dateien wie Javascript, CSS oder auch Bilder bereit und macht diese für den Benutzer abrufbar.
  3. Hier wird die Kommunikation zwischen dem hochperfomanten Webserver NGINX und dem Webinterface uWSGI mit Verwendung eines klassischen Websockets veranschaulicht. (Anm.: Bei einem Websocket handelt es sich um ein auf TCP basierendes Protokoll, dass eine bidirektionale Verbindung zwischen einer Webanwendung und einem Webserver herstellt).
  4. Das eigentliche Interface von uWSGi ist hier zu sehen. Diese Schnittstelle sorgt für die Kommunikation des oben genannten Websockets mit dem verwendeten Python-Framework.
@@ -359,7 +359,7 @@ Ein weiterer wichtiger und sensibler Teil der Serverinfrastruktur ist die Absich
 
 ### Firewall
 
-Unter Punkt \ref{topologie-des-netzwerkes} wird der Plan des Netzwerkes veranschaulicht. Die in der Mitte liegende FortiGate-Firewall stellt, wie bereits in oben genannten Punkt erwähnt, die Verfügbarkeit des Servers im Schulnetz bereit. Dadurch dass der Server nur über eine VPN-Verbindung konfiguriert werden kann, denkt man sich bestimmt, dass die virtuelle Maschine schon genug gesichert sei. Jedoch ist es sinnvoll den Server doppelt abzusichern und somit wurden auf der Linux-Maschine ebenfalls noch Firewallregeln konfiguriert.
+Weiter oben \siehe{topologie-des-netzwerkes} wird der Plan des Netzwerkes veranschaulicht. Die in der Mitte liegende FortiGate-Firewall stellt, wie bereits in oben genannten Punkt erwähnt, die Verfügbarkeit des Servers im Schulnetz bereit. Dadurch dass der Server nur über eine VPN-Verbindung konfiguriert werden kann, denkt man sich bestimmt, dass die virtuelle Maschine schon genug gesichert sei. Jedoch ist es sinnvoll den Server doppelt abzusichern und somit wurden auf der Linux-Maschine ebenfalls noch Firewallregeln konfiguriert.
 
 #### Erlauben einer SSH-Verbindung
 
@@ -407,7 +407,7 @@ Vorbeugung von Team "Capentory": Die festgelegten Passwörter sind komplex aufge
 
 #### Man-in-the-middle Attacken
 
-Bei der „Man in the Middle“-Attacke nistet sich ein Angreifer  zwischen den miteinander kommunizierenden Rechnern. Diese Position ermöglicht ihm, den ausgetauschten Datenverkehr zu  kontrollieren und zu manipulieren. Er kann \zb die ausgetauschten Informationen abfangen, lesen, die Weiterleitung kappen usw. Von all dem erfährt der Empfänger aber nichts.
+Bei der „Man in the Middle“-Attacke nistet sich ein Angreifer  zwischen den miteinander kommunizierenden Rechnern. Diese Position ermöglicht ihm, den ausgetauschten Datenverkehr zu  kontrollieren und zu manipulieren. Er kann \zB die ausgetauschten Informationen abfangen, lesen, die Weiterleitung kappen usw. Von all dem erfährt der Empfänger aber nichts.
 
 Vorbeugung von Team "Capentory": Der Datenaustausch verläuft über HTTPS und somit verschlüsselt.
 
@@ -433,11 +433,11 @@ Im Netzwerk wurde ein zweiter Server installiert, der mit dem OpenSource-Program
 
 ### Nagios
 
-Worum es sich bei diesem tollen Tool handelt wurde bereits unter Punkt \ref{nagios} erklärt. Nun folgt ein vertiefender Einblick in diese Monitoring-Software.
+Worum es sich bei diesem tollen Tool handelt wurde bereits bei den installierten Paketen \siehe{nagios} erklärt. Nun folgt ein vertiefender Einblick in diese Monitoring-Software.
 
 #### Hosts
 
-Hosts sind bei Nagios definierte virtuelle Maschinen, die überwacht werden sollen. "Capentory" überwacht nicht nur den Produktivserver, sondern auch den aufgesetzten Nagios-Server selbst. Falls dieser Probleme aufweist, wird das Team ebenfalls per E-Mail benachrichtigt aber dazu unter Punkt \ref{notifications} mehr.
+Hosts sind bei Nagios definierte virtuelle Maschinen, die überwacht werden sollen. "Capentory" überwacht nicht nur den Produktivserver, sondern auch den aufgesetzten Nagios-Server selbst. Falls dieser Probleme aufweist, wird das Team ebenfalls per E-Mail benachrichtigt aber dies wird in einem eigenen Punkt \siehe{notifications} näher erläutert.
 
 Im Webbrowser sehen die zu überwachenden Hosts wie folgt aus:
 

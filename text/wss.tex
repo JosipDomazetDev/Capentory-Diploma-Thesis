@@ -76,8 +76,8 @@ folgende Punkte gewährleistet sein:
 \begin{itemize}
 \tightlist
 \item
-  Konfiguration beider Firewalls (siehe Punkt
-  \ref{absicherung-der-virtuellen-maschine})
+  Konfiguration beider Firewalls
+  \siehe{absicherung-der-virtuellen-maschine}
 \item
   Wohlüberlegte Passwörter und Zugriffsrechte
 \end{itemize}
@@ -161,8 +161,8 @@ und erklärt.
 \subsection{Installation des
 Betriebsystemes}\label{installation-des-betriebsystemes}}
 
-Wie bereits unter Punkt Anschaffung des Servers (siehe
-\ref{anschaffung-des-servers}) erwähnt, wird uns von der Schule ein
+Wie bereits unter Punkt Anschaffung des Servers
+\siehe{anschaffung-des-servers} erwähnt, wird uns von der Schule ein
 eigener Servercluster mit virtuellen Maschinen zur Verfügung gestellt.
 Durch die ProxMox-Umgebung und diversen Tools, ging die Installation der
 Ubuntu-Distribution rasch von der Hand. In der Virtualisierungsumgebung
@@ -289,15 +289,15 @@ Linux für diverse Webanwendungen. Große Unternehmen wie Cisco,
 Microsoft, Facebook oder auch IBM verwenden diesen Webserver für deren
 Zwecke. Unteranderem wird NGINX auch als Reverse-Proxy, HTTP-Cache und
 Load-Balancer verwendet. Wie genau NGINX für den Produktivbetrieb
-funktioniert wird im Laufe des Punktes
-\ref{funktionsweise-der-produktivumgebung} erläutert.
+funktioniert wird in einem eigenen Punkt
+\siehe{funktionsweise-der-produktivumgebung} erläutert.
 
 \hypertarget{docker}{%
 \paragraph{Docker}\label{docker}}
 
 Docker ist eine frei verwendbare Software, die die Erstellung und den
 Betrieb von Linux Containern ermöglicht. Wie genau dies funktioniert,
-wird später unter Punkt \ref{funktionsweise-der-produktivumgebung}
+wird später etwas später \siehe{funktionsweise-der-produktivumgebung}
 genauer beschrieben und erklärt.
 
 \hypertarget{docker-compose}{%
@@ -306,16 +306,17 @@ genauer beschrieben und erklärt.
 Die Verwaltung und Verlinkung von mehreren Containern kann auf Dauer
 sehr nervenaufreibend sein. Die Lösung dieses Problems nennt sich
 docker-compose. Wie docker-compose jedoch genau funktioniert, wird
-ebenfalls wie das Grundkonzept von Docker unter Punkt
-\ref{funktionsweise-der-produktivumgebung} präziser erläutert.
+ebenfalls wie das Grundkonzept von Docker
+\siehe{funktionsweise-der-produktivumgebung} präziser erläutert.
 
 \hypertarget{mysql}{%
 \paragraph{MySQL}\label{mysql}}
 
 MySQL ist ein OpenSource-Datenverwaltungssystem und die Grundlage für
 die meisten dynamischen Websiten. Darauf werden die Inventurdatensätze
-der HTL Rennweg gespeichert. Nähere Informationen finden sich Punkt
-\ref{funktionsweise-der-produktivumgebung} wieder.
+der HTL Rennweg gespeichert. Nähere Informationen finden sich ebenfalls
+während der Erklärung der Funktionsweise des Produktivbetriebes
+\siehe{funktionsweise-der-produktivumgebung} wieder.
 
 \hypertarget{redis}{%
 \paragraph{Redis}\label{redis}}
@@ -371,15 +372,15 @@ Produktivbereitstellung von Serveranwendungen (wie eben der
 Django-Server von Team ``Capentory'') entwickelt und harmoniert
 eindrucksvoll mit der Webserver-Software NGINX. Die grundlegende
 Funktionsweise von uWSGI, sowie eine Erklärung, warum schlussendlich
-dieses Paket und nicht Docker verwendet wurde, wird unter Punkt
-\ref{produktivbetrieb-der-applikation} veranschaulicht.
+diese Software und nicht Docker verwendet wurde, wird in einem eigenen
+Teil \siehe{probleme-der-produktivumgebung} veranschaulicht.
 
 \hypertarget{django}{%
 \paragraph{Django}\label{django}}
 
 Django ist ein in Python geschriebenes Webframework, auf dem unsere
 Serveranwendung basiert. Genauere Informationen wurden jedoch schon
-unter Punkt \ref{django-und-ralph} übermittelt.
+übermittelt. \siehe{kurzfassung-der-funktionsweise-von-django-und-ralph}
 
 \hypertarget{runsslserver}{%
 \paragraph{runsslserver}\label{runsslserver}}
@@ -507,19 +508,18 @@ einiges geschrumpft und es musste schnellstmöglich eine Alternative
 gefunden werden, da das Umschreiben der Dockerfiles, beziehungsweise der
 Skripts, ein riesiger Aufwand wäre.
 
-Nach kurzer Recherche stieß er schließlich auf zwei verwendbare
-Alternativen, die unter Punkt \ref{alternativen} genannt und unter Punkt
-\ref{uwsgi-vs.-gunicorn} verglichen werden.
+Nach kurzer Recherche stieß man schließlich auf zwei verwendbare
+Alternativen, nachfolgend genannt und verglichen werden.
 
 \hypertarget{alternativen}{%
 \subsubsection{Alternativen}\label{alternativen}}
 
-Unter Punkt \ref{probleme-der-produktivumgebung} wurde bereits
-erläutert, warum ``Capentory'' die Dockerlösung von Ralph nicht
-verwendet. Allerdings musste rasch eine Alternative für die Umsetzung
-des Produktivbetriebs gesucht werden, um möglichst wenig Zeit zu
-verlieren. Zwei Alternativen, die für den Produktivbetrieb in Frage
-kamen, wurden genauer analysiert: uWSGI sowie Gunicorn.
+Es wurde bereits erläutert, warum ``Capentory'' die Dockerlösung von
+Ralph nicht verwendet. \siehe{probleme-der-produktivumgebung} Allerdings
+musste rasch eine Alternative für die Umsetzung des Produktivbetriebs
+gesucht werden, um möglichst wenig Zeit zu verlieren. Zwei Alternativen,
+die für den Produktivbetrieb in Frage kamen, wurden genauer analysiert:
+uWSGI sowie Gunicorn.
 
 \hypertarget{uwsgi-vs.-gunicorn}{%
 \subsubsection{uWSGI vs.~Gunicorn}\label{uwsgi-vs.-gunicorn}}
@@ -550,7 +550,7 @@ auf ein vielversprechendes Tutorial im Internet\cite{tutorialuwsgi}, mit
 dem die Installation reibungslos verlief. Die genaue
 Installationsanleitung wurde bereits in der Serverdokumentation
 niedergeschrieben. Die Funktionsweise, also wie uWSGI genau arbeitet,
-wird unter Punkt \ref{funktion-von-uwsgi} anhand einer Grafik erklärt.
+wirdnachfolgend \siehe{funktion-von-uwsgi} anhand einer Grafik erklärt.
 
 \hypertarget{funktionsweise-der-produktivumgebung}{%
 \subsubsection{Funktionsweise der
@@ -560,8 +560,8 @@ Produktivumgebung}\label{funktionsweise-der-produktivumgebung}}
 \paragraph{Funktion von uWSGI}\label{funktion-von-uwsgi}}
 
 Es wurde bereits desöfteren erklärt warum die vorhandene
-``Ralph-Dockerlösung'' von ``Capentory'' nicht verwendet wird(siehe
-\ref{probleme-der-produktivumgebung}). Jedenfalls wurde nun die
+``Ralph-Dockerlösung'' von ``Capentory'' nicht verwendet wird
+\siehe{probleme-der-produktivumgebung}. Jedenfalls wurde nun die
 Einrichtung der Produktivumgebung mittels uWSGI erfolgreich
 durchgeführt. In der folgenden Grafik wird die Funktion von uWSGI
 genauer dargestellt.
@@ -579,7 +579,7 @@ genauer dargestellt.
 \item
   Ein beliebiger Benutzer eines Webbrowsers (zum Beispiel Google Chrome
   oder Mozilla Firefox) sendet einen sogenannten ``Webrequest'' auf den
-  https-Port ``443'' (Abschnitt \ref{probleme-der-produktivumgebung}).
+  https-Port ``443'' \siehe{probleme-der-produktivumgebung}.
 \item
   Ein beliebig gewählter, optimierter Webserver (im Fall von
   ``Capentory'' NGINX) stellt Dateien wie Javascript, CSS oder auch
@@ -768,10 +768,10 @@ verantwortungsvoll und vorsichtig umgegangen wird.
 \hypertarget{firewall}{%
 \subsubsection{Firewall}\label{firewall}}
 
-Unter Punkt \ref{topologie-des-netzwerkes} wird der Plan des Netzwerkes
-veranschaulicht. Die in der Mitte liegende FortiGate-Firewall stellt,
-wie bereits in oben genannten Punkt erwähnt, die Verfügbarkeit des
-Servers im Schulnetz bereit. Dadurch dass der Server nur über eine
+Weiter oben \siehe{topologie-des-netzwerkes} wird der Plan des
+Netzwerkes veranschaulicht. Die in der Mitte liegende FortiGate-Firewall
+stellt, wie bereits in oben genannten Punkt erwähnt, die Verfügbarkeit
+des Servers im Schulnetz bereit. Dadurch dass der Server nur über eine
 VPN-Verbindung konfiguriert werden kann, denkt man sich bestimmt, dass
 die virtuelle Maschine schon genug gesichert sei. Jedoch ist es sinnvoll
 den Server doppelt abzusichern und somit wurden auf der Linux-Maschine
@@ -856,7 +856,7 @@ Attacken}\label{man-in-the-middle-attacken}}
 Bei der „Man in the Middle``-Attacke nistet sich ein Angreifer zwischen
 den miteinander kommunizierenden Rechnern. Diese Position ermöglicht
 ihm, den ausgetauschten Datenverkehr zu kontrollieren und zu
-manipulieren. Er kann \zb die ausgetauschten Informationen abfangen,
+manipulieren. Er kann \zB die ausgetauschten Informationen abfangen,
 lesen, die Weiterleitung kappen usw. Von all dem erfährt der Empfänger
 aber nichts.
 
@@ -905,9 +905,9 @@ Produktivserver dient.
 \hypertarget{nagios-1}{%
 \subsubsection{Nagios}\label{nagios-1}}
 
-Worum es sich bei diesem tollen Tool handelt wurde bereits unter Punkt
-\ref{nagios} erklärt. Nun folgt ein vertiefender Einblick in diese
-Monitoring-Software.
+Worum es sich bei diesem tollen Tool handelt wurde bereits bei den
+installierten Paketen \siehe{nagios} erklärt. Nun folgt ein vertiefender
+Einblick in diese Monitoring-Software.
 
 \hypertarget{hosts}{%
 \paragraph{Hosts}\label{hosts}}
@@ -916,7 +916,8 @@ Hosts sind bei Nagios definierte virtuelle Maschinen, die überwacht
 werden sollen. ``Capentory'' überwacht nicht nur den Produktivserver,
 sondern auch den aufgesetzten Nagios-Server selbst. Falls dieser
 Probleme aufweist, wird das Team ebenfalls per E-Mail benachrichtigt
-aber dazu unter Punkt \ref{notifications} mehr.
+aber dies wird in einem eigenen Punkt \siehe{notifications} näher
+erläutert.
 
 Im Webbrowser sehen die zu überwachenden Hosts wie folgt aus:
 
