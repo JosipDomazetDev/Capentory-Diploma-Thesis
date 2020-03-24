@@ -179,6 +179,7 @@ besser -- die Performanz leidet nur minimal darunter. Die vorliegende
 App ist aus diesen Gründen ebenfalls eine Single-Activity-App.
 
 \chapter{Die Inventurlogik auf der App}
+\label{inventurlogik_auf_der_app}
 
 Die genaue Bedienung der App ist dem App-Handbuch zu entnehmen. Dieses
 Kapitel befasst sich mit der Logik hinter einer Inventur.
@@ -651,7 +652,7 @@ zu vermeiden, da sie folgende Nachteile mit sich bringen:
   Konsistenz einer Activity -- da eine Activity und ihre Daten schnell
   vernichtet werden können (\zB wenn der Benutzer sein Gerät rotiert und
   das Gerät den Bildschirmmodus wechselt,
-  \siehe{as-viewmodel-und-das-fragment-im-detail})
+  \siehe{das-fragment-und-das-viewmodel-im-detail})
 \end{itemize}
 
 God-Activities sind ein typisches Beispiel für Spaghetticode.
@@ -839,11 +840,11 @@ Ein Request kann wie folgt ausschauen:
 \NormalTok{RobustJsonRequestExecutioner robustJsonRequestExecutioner =}
  \KeywordTok{new} \FunctionTok{RobustJsonRequestExecutioner}\NormalTok{(context, }\BuiltInTok{Request}\NormalTok{.}\FunctionTok{Method}\NormalTok{.}\FunctionTok{GET}\NormalTok{,}
   \StringTok{"https://www.beispiel.org/"}\NormalTok{, }\KeywordTok{null}\NormalTok{, }
-\NormalTok{  payload {-}> \{}
+\NormalTok{  payload -> \{}
          \CommentTok{// }\AlertTok{TODO}\CommentTok{: Antwort verarbeiten}
-         \CommentTok{// {-}> Anhand der Antwort Modell{-}Objekte instanziieren}
+         \CommentTok{// -> Anhand der Antwort Modell-Objekte instanziieren}
 \NormalTok{     \},}
-\NormalTok{  error {-}> \{}
+\NormalTok{  error -> \{}
          \CommentTok{// }\AlertTok{TODO}\CommentTok{: Fehler verarbeiten}
 \NormalTok{     \});}
      
@@ -873,7 +874,7 @@ ohne Lambda-Ausdrücke wie folgt ausschauen:
          \AttributeTok{@Override}
          \KeywordTok{public} \DataTypeTok{void} \FunctionTok{handleSuccess}\NormalTok{(}\BuiltInTok{String}\NormalTok{ payload) \{}
              \CommentTok{// }\AlertTok{TODO}\CommentTok{: Antwort verarbeiten}
-             \CommentTok{// {-}> Anhand der Antwort Modell{-}Objekte instanziieren}
+             \CommentTok{// -> Anhand der Antwort Modell-Objekte instanziieren}
 \NormalTok{         \}}
 \NormalTok{     \},}
      \KeywordTok{new} \FunctionTok{NetworkErrorHandler}\NormalTok{() \{}
@@ -926,7 +927,7 @@ verwendet:
     \AttributeTok{@Override}
     \KeywordTok{public} \DataTypeTok{void} \FunctionTok{onResponse}\NormalTok{(Call<}\BuiltInTok{String}\NormalTok{> call, }\BuiltInTok{Response}\NormalTok{<}\BuiltInTok{String}\NormalTok{> response) \{}
         \CommentTok{// }\AlertTok{TODO}\CommentTok{: Antwort verarbeiten}
-        \CommentTok{// {-}> Anhand der Antwort Modell{-}Objekte instanziieren}
+        \CommentTok{// -> Anhand der Antwort Modell-Objekte instanziieren}
 \NormalTok{    \}}
     \AttributeTok{@Override}
     \KeywordTok{public} \DataTypeTok{void} \FunctionTok{onFailure}\NormalTok{(Call<}\BuiltInTok{String}\NormalTok{> call, }\BuiltInTok{Throwable}\NormalTok{ t) \{}
@@ -1111,7 +1112,7 @@ Benutzername angezeigt werden:
 \begin{Highlighting}[]
 \KeywordTok{public} \KeywordTok{class}\NormalTok{ NameViewModel }\KeywordTok{extends}\NormalTok{ ViewModel \{}
 
-    \CommentTok{// LiveData{-}Objekt, das einen String beinhaltet}
+    \CommentTok{// LiveData-Objekt, das einen String beinhaltet}
     \KeywordTok{private}\NormalTok{ MutableLiveData<}\BuiltInTok{String}\NormalTok{> currentName;}
 
     \KeywordTok{public}\NormalTok{ LiveData<}\BuiltInTok{String}\NormalTok{> }\FunctionTok{getCurrentName}\NormalTok{() \{}
@@ -1151,7 +1152,7 @@ Realfall stammt \texttt{LiveData} ursprünglich aus dem Repository.
 \NormalTok{        model = }\KeywordTok{new} \FunctionTok{ViewModelProvider}\NormalTok{(}\KeywordTok{this}\NormalTok{).}\FunctionTok{get}\NormalTok{(NameViewModel.}\FunctionTok{class}\NormalTok{);}
 
 \NormalTok{        model.}\FunctionTok{getCurrentName}\NormalTok{().}\FunctionTok{observe}\NormalTok{(}\FunctionTok{getViewLifecycleOwner}\NormalTok{(),}
-\NormalTok{         currentName {-}> \{}
+\NormalTok{         currentName -> \{}
              \CommentTok{// Diese Methode wird bei Änderungen aufgerufen.}
              \CommentTok{// currentName ist ein String.}
              \CommentTok{// nameTextView ist ein TextFeld, }
@@ -1287,30 +1288,30 @@ Um diese Wrapper-Klasse elegant benutzen zu können, hat das Projektteam
     \KeywordTok{extends}\NormalTok{ MutableLiveData<StatusAwareData<T>> \{}
 
     \KeywordTok{public} \DataTypeTok{void} \FunctionTok{postFetching}\NormalTok{() \{}
-        \CommentTok{// Instanziiert StatusAwareData{-}Objekt mit FECHTING als }
+        \CommentTok{// Instanziiert StatusAwareData-Objekt mit FECHTING als }
         \CommentTok{// aktuellen Status.}
-        \CommentTok{// Setzt das StatusAwareData{-}Objekt anschließend }
-        \CommentTok{// als Wert der LiveData{-}Instanz.}
+        \CommentTok{// Setzt das StatusAwareData-Objekt anschließend }
+        \CommentTok{// als Wert der LiveData-Instanz.}
         \FunctionTok{postValue}\NormalTok{(}\KeywordTok{new}\NormalTok{ StatusAwareData<T>().}\FunctionTok{fetching}\NormalTok{());}
 \NormalTok{    \}}
 
     \KeywordTok{public} \DataTypeTok{void} \FunctionTok{postError}\NormalTok{(}\BuiltInTok{Exception}\NormalTok{ exception) \{}
-        \CommentTok{// Instanziiert StatusAwareData{-}Objekt mit ERROR als}
+        \CommentTok{// Instanziiert StatusAwareData-Objekt mit ERROR als}
         \CommentTok{// aktuellen Status.}
-        \CommentTok{// Mit der übergebenenen Exception wird die error{-}Variable}
+        \CommentTok{// Mit der übergebenenen Exception wird die error-Variable}
         \CommentTok{// initialisiert.}
-        \CommentTok{// Setzt das StatusAwareData{-}Objekt anschließend }
-        \CommentTok{// als Wert der LiveData{-}Instanz.}
+        \CommentTok{// Setzt das StatusAwareData-Objekt anschließend }
+        \CommentTok{// als Wert der LiveData-Instanz.}
         \FunctionTok{postValue}\NormalTok{(}\KeywordTok{new}\NormalTok{ StatusAwareData<T>().}\FunctionTok{error}\NormalTok{(exception));}
 \NormalTok{    \}}
 
     \KeywordTok{public} \DataTypeTok{void} \FunctionTok{postSuccess}\NormalTok{(T data) \{}
-        \CommentTok{// Instanziiert StatusAwareData{-}Objekt mit SUCCESS als}
+        \CommentTok{// Instanziiert StatusAwareData-Objekt mit SUCCESS als}
         \CommentTok{// aktuellen Status.}
-        \CommentTok{// Mit dem übergebenenen Objekt wird die data{-}Variable}
+        \CommentTok{// Mit dem übergebenenen Objekt wird die data-Variable}
         \CommentTok{// initialisiert.}
-        \CommentTok{// Setzt das StatusAwareData{-}Objekt anschließend }
-        \CommentTok{// als Wert der LiveData{-}Instanz.}
+        \CommentTok{// Setzt das StatusAwareData-Objekt anschließend }
+        \CommentTok{// als Wert der LiveData-Instanz.}
         \FunctionTok{postValue}\NormalTok{(}\KeywordTok{new}\NormalTok{ StatusAwareData<T>().}\FunctionTok{success}\NormalTok{(data));}
 \NormalTok{    \}}
 
@@ -1331,7 +1332,7 @@ vorherige \href{livedata}{``Beispiel''} wie folgt:
 
 \CommentTok{// Im ViewModel:}
 
-\CommentTok{// StatusAwareLiveData{-}Objekt, das einen String mit Status beinhaltet}
+\CommentTok{// StatusAwareLiveData-Objekt, das einen String mit Status beinhaltet}
 \KeywordTok{private}\NormalTok{ StatusAwareLiveData<}\BuiltInTok{String}\NormalTok{> currentName;}
 
 \KeywordTok{public}\NormalTok{ LiveData<StatusAwareData<}\BuiltInTok{String}\NormalTok{>> }\FunctionTok{getCurrentName}\NormalTok{() \{}
@@ -1349,7 +1350,7 @@ vorherige \href{livedata}{``Beispiel''} wie folgt:
 \CommentTok{// Im Fragment:}
 
 \NormalTok{model.}\FunctionTok{getCurrentName}\NormalTok{().}\FunctionTok{observe}\NormalTok{(}\FunctionTok{getViewLifecycleOwner}\NormalTok{(), }
-\NormalTok{ statusAwareData {-}> \{}
+\NormalTok{ statusAwareData -> \{}
       \KeywordTok{switch}\NormalTok{ (statusAwareData.}\FunctionTok{getStatus}\NormalTok{()) \{}
           \KeywordTok{case}\NormalTok{ SUCCESS:}
               \CommentTok{// }\AlertTok{TODO}\CommentTok{: Nutzdaten anzeigen}
@@ -1567,13 +1568,13 @@ werden:
         \CommentTok{// Der BroadcastReceiver muss erstmal beim BS registriert werden.}
 
 \NormalTok{        IntentFilter filter = }\KeywordTok{new} \FunctionTok{IntentFilter}\NormalTok{();}
-\NormalTok{        filter.}\FunctionTok{addCategory}\NormalTok{(Intent.}\FunctionTok{CATEGORY\_DEFAULT}\NormalTok{);}
+\NormalTok{        filter.}\FunctionTok{addCategory}\NormalTok{(Intent.}\FunctionTok{CATEGORY_DEFAULT}\NormalTok{);}
 
-        \CommentTok{// R.string.activity\_intent\_filter\_action definiert }
+        \CommentTok{// R.string.activity_intent_filter_action definiert }
         \CommentTok{// die konfigurierte ID des Broadcasts.}
 \NormalTok{        filter.}\FunctionTok{addAction}\NormalTok{(}
 \NormalTok{            context.}\FunctionTok{getResources}\NormalTok{()}
-\NormalTok{            .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{activity\_intent\_filter\_action}\NormalTok{));}
+\NormalTok{            .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{activity_intent_filter_action}\NormalTok{));}
 
         \CommentTok{// Hier wird der BroadcastReceiver mit der ID, }
         \CommentTok{// auf die er zu hören hat, registriert.}
@@ -1597,21 +1598,21 @@ werden:
 
         \BuiltInTok{String}\NormalTok{ action = intent.}\FunctionTok{getAction}\NormalTok{();}
 
-        \CommentTok{// R.string.activity\_intent\_filter\_action definiert }
+        \CommentTok{// R.string.activity_intent_filter_action definiert }
         \CommentTok{// die konfigurierte ID des Broadcasts.}
         \CommentTok{// Somit kann festgestellt werden,}
         \CommentTok{// ob es sich um den richtigen Broadcast handelt.}
         \KeywordTok{if}\NormalTok{ (action.}\FunctionTok{equals}\NormalTok{(context.}\FunctionTok{getResources}\NormalTok{()}
-\NormalTok{           .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{activity\_intent\_filter\_action}\NormalTok{))) \{}
+\NormalTok{           .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{activity_intent_filter_action}\NormalTok{))) \{}
 
-            \CommentTok{// R.string.datawedge\_intent\_key\_data }
+            \CommentTok{// R.string.datawedge_intent_key_data }
             \CommentTok{// definiert die ID des Scanergebnises selbst. }
             \CommentTok{// Der Scan liefert auch andere Ergebnisse, }
             \CommentTok{// wie z.B. das Barcodeformat. }
             \CommentTok{// Relevant ist nur der Barcode.}
             \BuiltInTok{String}\NormalTok{ barcode = intent.}\FunctionTok{getStringExtra}\NormalTok{(}
 \NormalTok{                context.}\FunctionTok{getResources}\NormalTok{()}
-\NormalTok{                .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{datawedge\_intent\_key\_data}\NormalTok{));}
+\NormalTok{                .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{datawedge_intent_key_data}\NormalTok{));}
 
           
             \CommentTok{// Das Scanergebnis wird nun per }

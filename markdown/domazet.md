@@ -78,6 +78,7 @@ Bis vor kurzem war es üblich, dass eine App mehrere Activities hat. Das wird be
 
 
 \chapter{Die Inventurlogik auf der App}
+\label{inventurlogik_auf_der_app}
 
 Die genaue Bedienung der App ist dem App-Handbuch zu entnehmen. Dieses Kapitel befasst sich mit der Logik hinter einer Inventur.  
 
@@ -264,7 +265,7 @@ God-Activities gilt es dringlichst zu vermeiden, da sie folgende Nachteile mit s
  * Wartung und Dokumentation werden äußerst schwierig
  * Automatisiertes Testing (\zB Unit-Testing) wird nahezu unmöglich gemacht
  * Größere Bug-Anfälligkeit
- * Im Bezug auf Android gibt es oftmals massive Probleme mit der Konsistenz einer Activity -- da eine Activity und ihre Daten schnell vernichtet werden können (\zB wenn der Benutzer sein Gerät rotiert und das Gerät den Bildschirmmodus wechselt, \siehe{as-viewmodel-und-das-fragment-im-detail})
+ * Im Bezug auf Android gibt es oftmals massive Probleme mit der Konsistenz einer Activity -- da eine Activity und ihre Daten schnell vernichtet werden können (\zB wenn der Benutzer sein Gerät rotiert und das Gerät den Bildschirmmodus wechselt, \siehe{das-fragment-und-das-viewmodel-im-detail})
 
 God-Activities sind ein typisches Beispiel für Spaghetticode.
 
