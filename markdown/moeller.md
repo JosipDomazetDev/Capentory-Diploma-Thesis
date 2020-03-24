@@ -28,7 +28,7 @@ Django bietet eine weit verbreitete Open-Source Lösung für die Entwicklung von
 Django zeichnet sich besonders durch die sog. \emph{"Batteries included"}\index{Batteries included: Das standardmäßige Vorhandensein von erwünschten bzw. gängigen \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems}, zu Deutsch: Batterien einbezogen} Mentalität aus. Das heißt, dass Django bereits die gängigsten \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems} eines Webserver-Backends standardmäßig innehat. Diese sind (im Vergleich zu Alternativen wie etwa Flask) \ua{}:
 
 * Authentifikation und Autorisierung, sowie eine damit verbundene Benutzerverwaltung
-* Schutz vor gängigen Attacken (wie \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem} oder \emph{CSRF}\index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}} \cite{csrf}), \siehe{views}.
+* Schutz vor gängigen Attacken (wie \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem} oder \emph{CSRF}\index{CSRF: Cross-Site-Request-Forgery -- eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}} \cite{csrf}), \siehe{views}.
 
 Zusätzlich bietet Ralph bereits einige \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems}, die die grundlegende Führung und Verwaltung eines herkömmlichen Inventars unterstützen (beispielsweise eine Suchfunktion mit automatischer Textvervollständigung). Ralph ist daher eine angemessene Basis für die vorliegende Diplomarbeit. 
 
@@ -36,7 +36,7 @@ Zusätzlich bietet Ralph bereits einige \emph{Features}\index{Feature: Eigenscha
 
 ## Einleitung
 
-Django ist ein in der Programmiersprache Python geschriebenes Webserver-\emph{Framework}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt}. Ralph ist eine auf dem Django-\emph{Framework}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt} basierende \emph{DCIM}\index{DCIM: Data Center Infrastructure Management - Software, die zur Verwaltung von Rechenzentren entwickelt wird } und \emph{CMDB}\index{CMDB: Configuration Management Database - Eine Datenbank, die für die Konfiguration von IT-Geräten entwickelt ist \cite{cmdb}} Softwarelösung. Haupteinsatzgebiet dieser Software sind vor allem Rechenzentren mit hoher Komplexität, die externe Verwaltungsplattformen benötigen. Zusätzlich können aber auch herkömmliche Inventardaten von IT-spezifischen Gegenständen in die Ralph-Plattform aufgenommen werden. 
+Django ist ein in der Programmiersprache Python geschriebenes Webserver-\emph{Framework}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt}. Ralph ist eine auf dem Django-\emph{Framework}\index{Framework: Eine softwaretechnische Architektur, die bestimmte Funktionen und Klassen zur Verfügung stellt} basierende \emph{DCIM}\index{DCIM: Data Center Infrastructure Management -- Software, die zur Verwaltung von Rechenzentren entwickelt wird } und \emph{CMDB}\index{CMDB: Configuration Management Database -- Eine Datenbank, die für die Konfiguration von IT-Geräten entwickelt ist \cite{cmdb}} Softwarelösung. Haupteinsatzgebiet dieser Software sind vor allem Rechenzentren mit hoher Komplexität, die externe Verwaltungsplattformen benötigen. Zusätzlich können aber auch herkömmliche Inventardaten von IT-spezifischen Gegenständen in die Ralph-Plattform aufgenommen werden. 
 
 Ralph wurde von der polnischen Softwarefirma "Allegro" entwickelt und ist unter der Apache 2.0 Lizenz öffentlich verfügbar. Dies ermöglicht auch Veränderungen und Erweiterungen. Zu Demonstrationszwecken bietet Allegro eine öffentlich nutzbare Demo-Version \cite{ralph-demo} von Ralph an.
 
@@ -64,7 +64,7 @@ innerhalb der \oa{} Einstellungsdatei registriert. Beispiele sind die beiden dur
 
 Ist ein Python-Paket erfolgreich registriert, können in der Datei `models.py`
 Datenbank-Tabellen als Python Klassen[^model-class-inheritance] definiert werden. Diese Klassen werden fortan als "Modell" bezeichnet. 
-Tabellenattribute werden als Attribute dieser Klassen definiert und sind jeweils Instanzen der Klasse `Field`\cite{django-doku-models}[^field-class-inheritance]. Datenbankeinträge können demnach als Instanzen der Modellklassen betrachtet und behandelt werden. Standardmäßig besitzt jedes Modell ein Attribut `id`, welches als \emph{primärer Schlüssel}\index{primärer Schlüssel: engl. "primary key", abgek. "pk" - ein Attribut, das einen Datensatz eindeutig identifiziert} dient. Der Wert des `id` Attributs ist unter allen Instanzen eines Modells einzigartig. Die Anpassung dieses Attributs wird in der offiziellen Django-Dokumentation genauer behandelt \cite{django-doku-models}.
+Tabellenattribute werden als Attribute dieser Klassen definiert und sind jeweils Instanzen der Klasse `Field`\cite{django-doku-models}[^field-class-inheritance]. Datenbankeinträge können demnach als Instanzen der Modellklassen betrachtet und behandelt werden. Standardmäßig besitzt jedes Modell ein Attribut `id`, welches als \emph{primärer Schlüssel}\index{primärer Schlüssel: engl. "primary key", abgek. "pk" -- ein Attribut, das einen Datensatz eindeutig identifiziert} dient. Der Wert des `id` Attributs ist unter allen Instanzen eines Modells einzigartig. Die Anpassung dieses Attributs wird in der offiziellen Django-Dokumentation genauer behandelt \cite{django-doku-models}.
 
 Jedes Modell benötigt eine innere Klasse `Meta`. Sie beschreibt  die \emph{Metadaten}\index{Metadaten: Daten, die einen gegebenen Datensatz beschreiben, beispielsweise der Autor eines Buches} der Modellklasse. Dazu gehört vor allem der von Benutzern lesbare Name des Modells `verbose_name` \cite{django-doku-models-options}.
 
@@ -95,10 +95,10 @@ Die Dokumentation der Administrationsfeatures von Django ist auf der offiziellen
 
 ## API und DRF
 
-Um Daten außerhalb der graphischen Administrationsoberfläche zu bearbeiten, wird eine \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} benötigt. Eine besondere und weit verbreitete Form einer API ist eine \emph{REST-API} \index{REST-API: Representational State Transfer \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} - eine zustandslose Schnittstelle für den Datenaustausch zwischen Clients und Servern \cite{rest-api}} \cite{rest-api}, die unter Django durch das integrierte \emph{DRF}\index{DRF: Django REST Framework - Implementierung einer \emph{REST-API}\index{REST-API: Representational State Transfer \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} - eine zustandslose Schnittstelle für den Datenaustausch zwischen Clients und Servern \cite{rest-api}} unter Django \cite{django-rest-framework}} implementiert wird \cite{django-rest-framework}.
+Um Daten außerhalb der graphischen Administrationsoberfläche zu bearbeiten, wird eine \emph{API}\index{API: Application-Programming-Interface -- Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} benötigt. Eine besondere und weit verbreitete Form einer API ist eine \emph{REST-API} \index{REST-API: Representational State Transfer \emph{API}\index{API: Application-Programming-Interface -- Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} -- eine zustandslose Schnittstelle für den Datenaustausch zwischen Clients und Servern \cite{rest-api}} \cite{rest-api}, die unter Django durch das integrierte \emph{DRF}\index{DRF: Django REST Framework -- Implementierung einer \emph{REST-API}\index{REST-API: Representational State Transfer \emph{API}\index{API: Application-Programming-Interface -- Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} -- eine zustandslose Schnittstelle für den Datenaustausch zwischen Clients und Servern \cite{rest-api}} unter Django \cite{django-rest-framework}} implementiert wird \cite{django-rest-framework}.
 API Definitionen werden unter Django in einem Paket in der Datei `api.py` getätigt. 
 
-Um den API-Zugriff auf ein Modell zu ermöglichen werden üblicherweise eine `APIView`[^ralph-viewset] \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} und eine `Serializer`[^ralph-serializer] \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} definiert. `APIView` Klassen sind zuständig für das Abarbeiten von Anfragen mithilfe einer `Serializer` Klasse, die die Daten aus der Datenbank repräsentiert und in das gewünschte Format konvertiert. Durch `APIView` Klassen werden Berechtigungen und sonstige Attribute definiert, die sich auf das wahrgenommene Erscheinungsbild des Servers auf einen Client auswirken. Beispiel dafür ist die Art der \emph{Paginierung} \cite{django-rest-framework}\index{Paginierung: engl. pagination - Die Aufteilung von Datensätzen in diskrete Seiten \cite{django-rest-framework-pagination}}.  Die erstellten `APIView` Klassen können dann mithilfe einer `Router`[^ralph-router] Instanz registriert werden. Anleitungen zur Erstellung dieser API-Klassen sind auf der offiziellen Webseite des DRF \cite{django-rest-framework} und der offiziellen Ralph-Dokumentationsseite \cite{ralph-api-doku} zu finden.
+Um den API-Zugriff auf ein Modell zu ermöglichen werden üblicherweise eine `APIView`[^ralph-viewset] \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} und eine `Serializer`[^ralph-serializer] \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} definiert. `APIView` Klassen sind zuständig für das Abarbeiten von Anfragen mithilfe einer `Serializer` Klasse, die die Daten aus der Datenbank repräsentiert und in das gewünschte Format konvertiert. Durch `APIView` Klassen werden Berechtigungen und sonstige Attribute definiert, die sich auf das wahrgenommene Erscheinungsbild des Servers auf einen Client auswirken. Beispiel dafür ist die Art der \emph{Paginierung} \cite{django-rest-framework}\index{Paginierung: engl. pagination -- Die Aufteilung von Datensätzen in diskrete Seiten \cite{django-rest-framework-pagination}}.  Die erstellten `APIView` Klassen können dann mithilfe einer `Router`[^ralph-router] Instanz registriert werden. Anleitungen zur Erstellung dieser API-Klassen sind auf der offiziellen Webseite des DRF \cite{django-rest-framework} und der offiziellen Ralph-Dokumentationsseite \cite{ralph-api-doku} zu finden.
 
 [^ralph-serializer]: Unter Ralph steht hierfür die Klasse `RalphAPIViewSet` zur Verfügung  \cite{ralph-api-doku}.
 [^ralph-viewset]: Unter Ralph steht hierfür die Klasse `RalphAPISerializer` zur Verfügung \cite{ralph-api-doku}.
@@ -109,7 +109,7 @@ Um den API-Zugriff auf ein Modell zu ermöglichen werden üblicherweise eine `AP
 Schnittstellen, die keiner der beiden \oa{} Kategorien zugeordnet werden können, werden in der Datei `views.py` definiert. Bei diesen \emph{generischen}\index{generisch: in einem allgemeingültigen Sinn} Schnittstellen handelt es sich entweder um \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} der Klasse `View`[^view-apiview-inheritance] \cite{django-doku-class-based-views} oder vereinzelte Methoden mit einem `request`[^request-german] Parameter \cite{django-doku-views}.
 Diese Schnittstellen werden fortan Views genannt.
 
-Soll ein View als Antwort auf eine Anfrage HTML-Daten liefern, so sollte dazu ein \emph{Template}\index{Template: zu Deutch: Vorlage, Schablone} verwendet werden. Mithilfe von Templates können Daten, die etwa durch Datenbankabfrage entstehen, zu einer HTML Antwort aufbereitet werden. Besonders ist hierbei die zusätzlich zu HTML verfügbare Django-Template-\emph{Syntax}\index{Syntax: Regelwerk, sprachliche Einheiten miteinander zu verknüpfen \cite{syntax}} \cite{django-doku-template}. Damit können HTML Elemente auf den Input-Daten basierend dynamisch generiert werden. So stehen beispielsweise `if` Statements direkt in der Definition des Templates zur Verfügung. Die Benutzung von Templates schützt standardmäßig gegen Attacken, wie \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem} oder \emph{CSRF} \index{CSRF: Cross-Site-Request-Forgery - eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}\cite{csrf} und gilt daher als besonders sicher. Durch das Diplomarbeitsteam wurden weitere Möglichkeiten zur Sicherung des Serversystems \cite{django-doku-security} implementiert und alle Sicherheitsempfehlungen der Entwickler von Django \cite{django-doku-security} eingehalten.
+Soll ein View als Antwort auf eine Anfrage HTML-Daten liefern, so sollte dazu ein \emph{Template}\index{Template: zu Deutch: Vorlage, Schablone} verwendet werden. Mithilfe von Templates können Daten, die etwa durch Datenbankabfrage entstehen, zu einer HTML Antwort aufbereitet werden. Besonders ist hierbei die zusätzlich zu HTML verfügbare Django-Template-\emph{Syntax}\index{Syntax: Regelwerk, sprachliche Einheiten miteinander zu verknüpfen \cite{syntax}} \cite{django-doku-template}. Damit können HTML Elemente auf den Input-Daten basierend dynamisch generiert werden. So stehen beispielsweise `if` Statements direkt in der Definition des Templates zur Verfügung. Die Benutzung von Templates schützt standardmäßig gegen Attacken, wie \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem} oder \emph{CSRF} \index{CSRF: Cross-Site-Request-Forgery -- eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}\cite{csrf} und gilt daher als besonders sicher. Durch das Diplomarbeitsteam wurden weitere Möglichkeiten zur Sicherung des Serversystems \cite{django-doku-security} implementiert und alle Sicherheitsempfehlungen der Entwickler von Django \cite{django-doku-security} eingehalten.
 
 Da reguläre Views nicht automatisch registriert werden, müssen sie manuell bekanntgegeben werden. Dies geschieht durch einen Eintrag in die Variable `urlpatterns` in der Datei `urls.py` \cite{django-doku-urls}.
 
@@ -483,21 +483,21 @@ Die Kommunikation zwischen Server und mobilem Client erfolgt über HTTP Abfragen
 
 Um eine Client-Schnittstelle für die Inventarisierung bestimmter Gegenstands- und der dazugehörigen Raummodelle zu implementieren, müssen diese bestimmte Voraussetzungen erfüllen. Die Voraussetzungen werden in diesem Abschnitt beschrieben.
 
-#### Raum-Gegenstand-Verknüpfung
+\subsubsection*{Raum-Gegenstand-Verknüpfung}
 
 Das Gegenstandsmodell muss ein Attribut der Klasse `ForeignKey` besitzen, das auf das Raummodell verweist. Der Name dieses Attributs wird in der Klasse, die von `BaseStocktakeRoomView` erbt, in dem Attribut `item_room_field_name` angegeben. Zusätzlich kann in der von `BaseStocktakeItemView` erbenden Klasse durch die `get_room_for_item()` Methode der Raum einer Gegenstandsinstanz als \emph{String} \index{String: Bezeichnung des Datentyps: Zeichenkette} zurückgegeben werden. Ein Implementierungsbeispiel ist in der \oa{}  angegebenen Client-Schnittstelle zu finden. 
 
-#### String-Repräsentation
+\subsubsection*{String-Repräsentation}
 
 Gegenstands- und Rauminstanzen müssen eine vom Menschen lesbare Repräsentation ermöglichen. Standardmäßig wird dazu die `__str__()` Methode der jeweiligen Instanz aufgerufen. Das Verhalten kann durch das Überschreiben der Methoden `item_display_name_getter()` (aus der Klasse `BaseStocktakeItemView`) und `room_display_name_getter()` (aus der Klasse `BaseStocktakeRoomView`) angepasst werden.
 
-#### Barcode eines Gegenstandes
+\subsubsection*{Barcode eines Gegenstandes}
 
 Es muss für eine Instanz des Gegenstandsmodells ein Barcode generiert werden können. Diese Funktion wird in der Methode `item_barcode_getter()` der von `BaseStocktakeItemView` erbenden Klasse definiert. Um über den von der mobilen Applikation gescannten Barcode auf einen Gegenstand schließen zu können, müssen die Attribute `slug_url_kwarg` und `slug_field` auf den Namen eines Attributes gesetzt werden, das den Barcode eines Gegenstandes repräsentiert. Dieses Attribut muss für jeden Datensatz, der durch die `get_queryset()` Methode entsteht, vorhanden sein. In dem in \kap{die-client-schnittstelle} angegebenen Beispiel wird dieses Attribut in der `get_queryset()` Methode durch `annotate()` \cite{django-doku-querysets} hinzugefügt.
 
 ### Einbindung und Erreichbarkeit der APIView-Klassen
 
-Um die für eine Art der Inventur implementierten Klassen über das \emph{DRF}\index{DRF: Django REST Framework - Implementierung einer \emph{REST-API}\index{REST-API: Representational State Transfer \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} - eine zustandslose Schnittstelle für den Datenaustausch zwischen Clients und Servern \cite{rest-api}} unter Django \cite{django-rest-framework}} ansprechbar zu machen, werden diese in die Variable `urlpatterns` \cite{django-doku-urls} eingebunden. Die Einbindung erfolgt beispielsweise in der Datei `api.py` eines beliebigen Pakets. Bei der Einbindung müssen den jeweiligen Schnittstellen zur späteren Verwendung interne Namen vergeben werden. Folgendes Implementierungsbeispiel bindet die oben definierten Klassen `BackOfficeAssetStocktakingView` und `WarehouseStocktakingView` ein:
+Um die für eine Art der Inventur implementierten Klassen über das \emph{DRF}\index{DRF: Django REST Framework -- Implementierung einer \emph{REST-API}\index{REST-API: Representational State Transfer \emph{API}\index{API: Application-Programming-Interface -- Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht} -- eine zustandslose Schnittstelle für den Datenaustausch zwischen Clients und Servern \cite{rest-api}} unter Django \cite{django-rest-framework}} ansprechbar zu machen, werden diese in die Variable `urlpatterns` \cite{django-doku-urls} eingebunden. Die Einbindung erfolgt beispielsweise in der Datei `api.py` eines beliebigen Pakets. Bei der Einbindung müssen den jeweiligen Schnittstellen zur späteren Verwendung interne Namen vergeben werden. Folgendes Implementierungsbeispiel bindet die oben definierten Klassen `BackOfficeAssetStocktakingView` und `WarehouseStocktakingView` ein:
 
 ```python
 urlpatterns = [
@@ -521,9 +521,9 @@ Für die Implementierung der Inventur der HTL Rennweg wurden die  \emph{URLs} \i
 
 Der mobilen Client-Applikation müssen notwendige Informationen der dynamisch erweiterbaren Inventuren und Inventurarten über statisch festgelegte \emph{URLs} \index{URL: Addressierungsstandard im Internet} mitgeteilt werden:
 
-#### Verfügbare Inventuren
+\subsubsection*{Verfügbare Inventuren}
 
-Der mobilen Client-Applikation muss mitgeteilt werden, welche Inventuren zurzeit durchgeführt werden können. Für das Modell `Stocktaking` ist eine \emph{API}\index{API: Application-Programming-Interface - Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht}-Schnittstelle implementiert (\siehe{api-und-drf}). Über diese Schnittstelle können durch folgende Abfrage-URL mittels eines HTTP GET-Requests \cite{rest-http-methods} alle verfügbaren Inventuren und dessen einzigartige \emph{IDs} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} abgefragt werden:
+Der mobilen Client-Applikation muss mitgeteilt werden, welche Inventuren zurzeit durchgeführt werden können. Für das Modell `Stocktaking` ist eine \emph{API}\index{API: Application-Programming-Interface -- Eine Schnittstelle, die die programmiertechnische Erstellung, Bearbeitung und Einholung  von Daten auf einem System ermöglicht}-Schnittstelle implementiert (\siehe{api-und-drf}). Über diese Schnittstelle können durch folgende Abfrage-URL mittels eines HTTP GET-Requests \cite{rest-http-methods} alle verfügbaren Inventuren und dessen einzigartige \emph{IDs} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} abgefragt werden:
 
 ```bash
 /api/stocktaking/?date_finished__isnull=True&time_finish_isnull=True&format=json
@@ -547,11 +547,11 @@ Durch `&format=json` wird festgelegt, dass der Server eine Antwort im JSON-Forma
     }
 ]
 ```
-Laut der Antwort des Servers sind aktuell 2 Inventuren - "Inventur 1" und "Inventur 2" -verfügbar. 
+Laut der Antwort des Servers sind aktuell 2 Inventuren -- "Inventur 1" und "Inventur 2" -verfügbar. 
 Die mobile Client-Applikation benötigt den Wert des Attributs `stocktake_id`, um bei späteren Abfragen festzulegen, welche Inventur von einem Benutzer ausgewählt wurde.
 
 
-#### Verfügbare Arten der Inventur
+\subsubsection*{Verfügbare Arten der Inventur}
 
 Der mobilen Client-Applikation muss mitgeteilt werden, welche Arten der Inventur verfügbar sind und über welche \emph{URLs} \index{URL: Addressierungsstandard im Internet} die jeweiligen `APIView` Klassen ansprechbar sind. Unter der \emph{URL} \index{URL: Addressierungsstandard im Internet} `/api/inventoryserializers/` werden je eine Beschreibung der Inventurart und die benötigten \emph{URLs} \index{URL: Addressierungsstandard im Internet} ausgegeben. Bei korrekter Implementierung der Inventurarten für die Gegenstandsmodelle `HTLItem` und `BackOfficeAsset` liefert der Server folgende Antwort im JSON-Format \cite{json-format-doku}:
 
@@ -593,7 +593,7 @@ STOCKTAKING_SERIALIZER_VIEWS = {
 
 Die Daten, die durch die implementierten `APIView` Klassen gesendet oder empfangen werden, müssen einer bestimmten Struktur folgen. In diesem Abschnitt werden die durch die Klassen akzeptierten HTTP-Methoden \cite{rest-http-methods} aufgezählt und deren JSON Schema anhand mehrerer Beispiele dargestellt. Die Beispiele können zwecks Lesbarkeit gekürzt sein. Gekürzte Bereiche werden mit `[...]` markiert.
 
-#### `BaseStocktakeItemView` GET-Methode
+\subsubsection*{`BaseStocktakeItemView` GET-Methode}
 
 Die Klasse `BaseStocktakeItemView` akzeptiert 2 unterschiedliche Abfragen der GET-Methode. 
 
@@ -640,7 +640,7 @@ Eine Abfrage über die \emph{URL} \index{URL: Addressierungsstandard im Internet
 }
 ```
 
-#### `BaseStocktakeItemView` OPTIONS-Methode
+\subsubsection*{`BaseStocktakeItemView` OPTIONS-Methode}
 
 Der `OPTIONS` Request wird von der mobilen Client-Applikation benötigt, um ein Formular für Gegenstandsdaten zu erstellen. Dafür werden die Eigenschaften eines Gegenstandes nach Relevanz in `displayFields` (hohe Priorität; wichtige Eigenschaften) und  `extraFields`(niedrige Priorität; unwichtige Eigenschaften) geteilt. Welche Eigenschaften welcher Kategorie zugeordnet werden ist in der Implementierung der `BaseStocktakeItemView` \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} durch die Variablen `display_fields` und `extra_fields` definiert. Jede Eigenschaft wird anhand folgender Kenngrößen beschrieben:
 
@@ -700,7 +700,7 @@ Der `OPTIONS` Request wird von der mobilen Client-Applikation benötigt, um ein 
 }
 ```
 
-#### `BaseStocktakeRoomView` GET-Methode
+\subsubsection*{`BaseStocktakeRoomView` GET-Methode}
 
 Die Klasse `BaseStocktakeRoomView` akzeptiert 2 unterschiedliche Abfragen der GET-Methode.  Beide Abfragen benötigen die \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} der ausgewählten Inventurinstanz als \emph{URL} \index{URL: Addressierungsstandard im Internet}-Parameter `stocktaking_id`. 
 
@@ -756,7 +756,7 @@ Eine Abfrage über die \emph{URL} \index{URL: Addressierungsstandard im Internet
 
 [^id_detail]: Diese ID wird etwa der Antwort auf die Abfrage ohne URL-Zusatz entnommen. Die entsprechende Eigenschaft ist `roomID`
 
-#### `BaseStocktakeRoomView` POST-Methode
+\subsubsection*{`BaseStocktakeRoomView` POST-Methode}
 
 Mit dieser Methode sendet die mobile Client-Applikation den aufgezeichneten Ist-Zustand der in einem Raum befindlichen Gegenstände. Eine Abfrage kann nur über die \emph{URL} \index{URL: Addressierungsstandard im Internet} mit Zusatz der \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} einer Rauminstanz[^id_detail] getätigt werden. Die \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} der ausgewählten Inventurinstanz muss als Teil der übermittelten Daten im Feld `stocktaking`  angegeben werden. Unter dem Feld `validations` werden alle validierten Gegenstände mit mindestens deren \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} als Feld `itemID` angegeben. Zusätzlich können alle Gegenstandseigenschaften spezifiziert werden. Die Eigenschaften jedes Gegenstandes werden von der Klasse `BaseStocktakeRoomView` oder der davon erbenden Klasse verarbeitet und mit dem aktuell in der Datenbank eingetragenen Wert verglichen. Bei einer Differenz wird automatisch ein Änderungsvorschlag für diesen Gegenstand erstellt. 
 
