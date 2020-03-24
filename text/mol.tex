@@ -74,9 +74,9 @@ Django bietet eine weit verbreitete Open-Source Lösung für die
 Entwicklung von Web-Diensten. Bekannte Webseiten, die auf Django
 basieren sind \ua{} Instagram, Mozilla, Pinterest und Open Stack
 \cite{django-overview}. Django zeichnet sich besonders durch die sog.
-\emph{"Batteries included"}\index{Batteries included: Das standardmäßige Vorhandensein von erwünschten bzw. gängigen \emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems}, zu Deutsch: Batterien einbezogen}
+\emph{"Batteries included"}\index{Batteries included: Das standardmäßige Vorhandensein von erwünschten \bzw{} gängigen \emph{Features}\index{Feature: Eigenschaft \bzw{} Funktion eines Systems}, zu Deutsch: Batterien einbezogen}
 Mentalität aus. Das heißt, dass Django bereits die gängigsten
-\emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems}
+\emph{Features}\index{Feature: Eigenschaft \bzw{} Funktion eines Systems}
 eines Webserver-Backends standardmäßig innehat. Diese sind (im Vergleich
 zu Alternativen wie etwa Flask) \ua{}:
 
@@ -94,7 +94,7 @@ zu Alternativen wie etwa Flask) \ua{}:
 \end{itemize}
 
 Zusätzlich bietet Ralph bereits einige
-\emph{Features}\index{Feature: Eigenschaft bzw. Funktion eines Systems},
+\emph{Features}\index{Feature: Eigenschaft \bzw{} Funktion eines Systems},
 die die grundlegende Führung und Verwaltung eines herkömmlichen
 Inventars unterstützen (beispielsweise eine Suchfunktion mit
 automatischer Textvervollständigung). Ralph ist daher eine angemessene
@@ -159,7 +159,7 @@ jeweiligen Datei im Verzeichnis \texttt{settings}. Eine detaillierte
 Anleitung zur Verbindung mit einer Datenbank ist in der offiziellen
 Django-Dokumentation \cite{django-doku-db} zu finden.
 
-Die verschiedenen Funktionsbereiche des Servers sind in Pakete bzw.
+Die verschiedenen Funktionsbereiche des Servers sind in Pakete \bzw{}
 Module gegliedert. Jedes Paket ist ein Ordner, der verschiedene Dateien
 und Unterordner beinhalten kann. Die Dateinamen-Nomenklatur eines Pakets
 ist normiert \cite{django-file-nomenklatur}. Der Name eines Pakets wird
@@ -504,7 +504,7 @@ Anwendungsfall, die Metavariable \texttt{unique\_together}
 
 Dieses Verfahren erfüllt die geforderte Bedingung nur in der Theorie.
 Praktisch werden leere Werte von Attributen dieser Art nicht als
-\texttt{None} (Python) bzw. \texttt{null} (MySQL), sondern als
+\texttt{None} (Python) \bzw{} \texttt{null} (MySQL), sondern als
 Leerstrings \texttt{""} gespeichert. Um diese Werte ebenfalls von der
 Regel auszuschließen, muss die \texttt{validate\_unique()} Methode
 \cite{django-doku-models-instances} überschrieben werden. Die Methode
@@ -780,7 +780,7 @@ Die in den zu importierenden Dateien vorhandenen Überschriften werden
 vor dem Importprozess auf Modelleigenschaften abgebildet. Manche Werte
 der zu importierenden Datensätze müssen in Werte gewandelt werden, die
 in der Datenbank gespeichert werden können. In der Datei
-\texttt{import\_settings.py} sind diese Abbildungen bzw. Umwandlungen
+\texttt{import\_settings.py} sind diese Abbildungen \bzw{} Umwandlungen
 als ``\emph{Aliases} \index{Alias: ein Pseudonym}'' deklariert. In dem
 folgenden Beispiel werden die Überschriften ``Erstes Attribut'' und
 ``Zweites Attribut'' auf die zwei Modelleigenschaften \texttt{field\_1}
@@ -887,7 +887,7 @@ System. Aus diesem Grund werden alle Änderungen von Eigenschaften eines
 ausgelagert und nicht direkt angewendet. Die Änderungen können zu einem
 späteren Zeitpunkt eingesehen, bearbeitet und schlussendlich angewendet
 werden. Grund für dieses spezielle Importverhalten ist die
-Vertrauenswürdigkeit der Informationen, die der sekundären bzw.
+Vertrauenswürdigkeit der Informationen, die der sekundären \bzw{}
 tertiären Quelle entnommen werden. Die Listen haben offiziell kein
 einheitliches Format und können daher bei sofortigem Übernehmen der
 Änderungen zu ungewollten Fehlinformationen führen. Der Import einer
@@ -1310,7 +1310,7 @@ Verhalten kann durch das Überschreiben der Methoden
 \texttt{room\_display\_name\_getter()} (aus der Klasse
 \texttt{BaseStocktakeRoomView}) angepasst werden.
 
-\subsubsection*{Barcode eines Gegenstandes}
+\subsubsection*{Barcode eines Gegenstandes}\label{barcode-eines-gegenstandes}
 
 Es muss für eine Instanz des Gegenstandsmodells ein Barcode generiert
 werden können. Diese Funktion wird in der Methode

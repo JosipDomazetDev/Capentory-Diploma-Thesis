@@ -92,7 +92,7 @@ In `/etc/network/interfaces`:
     iface ens32 inet static
     address 192.168.0.1
     netmask 255.255.255.0
-    
+
 
 Eine Netzwerkkonfiguration mit Verwendung eines IPv4-DHCP-Servers für eine Ubuntu-Distribution könnte wie folgt aussehen:
 
@@ -170,14 +170,14 @@ Python ist einer der Hauptbestandteile auf dem Serversystem der Diplomarbeit "Ca
 #### pip
 
 Und dieses Tool nennt sich Pip. Pip ist ein rekursives Akronym für **P**ip **I**nstalls **P**ython und ist, wie bereits erwähnt, das Standardverwaltungswerkzeug für Python-Module. Die Funktion sowie Syntax kann relativ gut mit der von apt verglichen werden.
- 
+
 #### uWSGI
 
 Das eigentliche Paket, mit dem der Produktivbetrieb schlussendlich gewährleistet wurde, nennt sich uWSGI. Speziell wurde es für die Produktivbereitstellung von Serveranwendungen (wie eben der Django-Server von Team "Capentory") entwickelt und harmoniert eindrucksvoll mit der Webserver-Software NGINX. Die grundlegende Funktionsweise von uWSGI, sowie eine Erklärung, warum schlussendlich dieses Paket und nicht Docker verwendet wurde, wird unter Punkt \ref{produktivbetrieb-der-applikation} veranschaulicht.
 
 #### Django
 
-Django ist ein in Python geschriebenes Webframework, auf dem unsere Serveranwendung basiert. Genauere Informationen wurden jedoch schon unter Punkt \ref{django-und-ralph} übermittelt.
+Django ist ein in Python geschriebenes Webframework, auf dem unsere Serveranwendung basiert. Genauere Informationen wurden jedoch schon unter Punkt \ref{kurzfassung-der-funktionsweise-von-django-und-ralph} übermittelt.
 
 #### runsslserver
 
@@ -194,7 +194,7 @@ Die Entwickler des Grundservers "Ralph" haben eine eigene Entwicklungsumgebung f
 Jedoch wurde diese Datei im Projekt von "Ralph" und daher auch von "Capentory" in eine eigene spezifische Entwicklungsumgebung umimplementiert. Der Server startet sich nach der eigenen Installation (welche ab Seite 4 im Dokument "Serverdokumentation Schritt für Schritt erklärt wird) nicht mehr mittels:
 
     python manage.py runserver
- 
+
 sondern mit:
 
     dev_ralph runserver 0.0.0.0:8000
@@ -265,11 +265,11 @@ Es wurde bereits desöfteren erklärt warum die vorhandene "Ralph-Dockerlösung"
  4. Das eigentliche Interface von uWSGi ist hier zu sehen. Diese Schnittstelle sorgt für die Kommunikation des oben genannten Websockets mit dem verwendeten Python-Framework.
  5. Django reagiert nun auf die Anfrage des Benutzers und lässt diesem (falls dessen Zugriffsrechte darauf es erlauben) die gewünschten Daten.
  6. Die vom Benutzer gewünschten Daten werden (bei "Capentory") in einer MySQL-Datenbank gespeichert. 
- 
+
  Grundsätzlich kann die Grafik auch mittels
 
     the web client <-> the web server <-> the socket <-> uwsgi <-> Django
- 
+
  als normale ASCII-Zeichenkette dargestellt werden.
 
 #### Funktion von Docker
@@ -334,7 +334,7 @@ System gibt es seit 2010 und wurde ursprünglich von Lennart Poettering (Red Hat
     
     [Install]
     WantedBy=multi-user.target
-   
+
  - **Description**:  Kurzbeschreibung des Dienstes
  - **After=network.target**: Der Dienst wird gestartet, sobald eine Netzwerkverbindung besteht
  - **ExecStart**: Den auszuführenden Shell-Befehl (in diesem Fall wird der uWSGI-Server gestartet
@@ -348,7 +348,7 @@ Mit
 
     systemctl enable ralph
     systemctl start ralph
- 
+
  wird der frisch angelegte Service nun immer wenn die virtuelle Maschine gestartet wurde gestartet.
 
 ## Absicherung der virtuellen Maschine
