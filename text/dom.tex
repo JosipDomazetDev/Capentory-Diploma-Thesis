@@ -1,10 +1,9 @@
-\chapter{Einführung in die App-Architektur}
+\chapter{Einführung in die App}
 
-Wie im vorherigen Kapitel angesprochen, ist das Ziel der Diplomarbeit,
-eine App zu entwickeln, mit der man in der Lage ist, eine Inventur
-durchzuführen. Doch wieso eine App und wieso überhaupt Android? Um diese
-Frage zu klären, muss man zwischen zwei Begriffen unterscheiden
-\cite{native-vs-web}:
+Das Ziel der Diplomarbeit ist es, eine App zu entwickeln, mit der man in
+der Lage ist, eine Inventur durchzuführen. Um zu verstehen, wieso sich
+das Projektteam für eine native App entschieden hat, muss man zwischen
+zwei Begriffen unterscheiden \cite{native-vs-web}:
 
 \begin{itemize}
 \tightlist
@@ -18,43 +17,34 @@ Frage zu klären, muss man zwischen zwei Begriffen unterscheiden
 \section{Nativ vs.~Web}\label{nativ-vs.-web}}
 
 Unter einer nativen App versteht man eine App, die für ein bestimmtes
-Betriebssystem geschrieben wurde \cite{native-definition}. Die
-Definition ist allerdings nicht ganz eindeutig, da Frameworks wie
-Flutter und Xamarin nativer Funktionalität sehr nahekommen, obwohl sie
-mehrere verschiedene Betriebssysteme unterstützten. Eine Web-App
+Betriebssystem geschrieben wurde \cite{native-definition}. Eine Web-App
 hingegen basiert auf HTML und wird per Browser aufgerufen. Sie stellt
 nichts anderes als eine für mobile Geräte optimierte Website dar.
-
-Am Markt zeichnet sich in letzter Zeit ein klarer Trend ab -- native
-Apps sterben allmählich aus \cite{native-trend} und werden durch mobile
-Webseiten ersetzt. Das ist dadurch erklärbar, dass mobile Webseiten
-immer funktionsreicher werden. Mittlerweile haben Web-Apps nur noch
-geringfügig weniger Möglichkeiten als native Apps. Aus wirtschaftlicher
-Betrachtungsweise amortisieren sich Web-Apps de facto um einiges
-schneller und sind auch dementsprechend lukrativer.
 
 \hypertarget{begruxfcndung-native-app}{%
 \section{Begründung: Native App}\label{begruxfcndung-native-app}}
 
-Das Projektteam hat sich dennoch für eine native App entschieden. Um
-diese Entscheidung nachvollziehen zu können, ist ein tieferer Einblick
-in den gegebenen Use-Case erforderlich.
+Das Projektteam hat sich für eine native App entschieden. Um diese
+Entscheidung nachvollziehen zu können, ist ein tieferer Einblick in den
+gegebenen Use-Case erforderlich.
 
 Das Ziel ist es nicht, möglichst viele Downloads im Play Store zu
 erzielen oder etwaige Marketingmaßnahmen zu setzen. Es soll stattdessen
 mit den gegebenen Ressourcen eine Inventurlösung entwickelt werden, die
-die bestmögliche Lösung für unsere Schule darstellt. Eine native App
-wird eine Web-App immer hinsichtlich Qualität und User Experience klar
-übertreffen. Im vorliegenden Fall wäre es sicherlich möglich, eine
-Inventur mittels Web-App durchzuführen, allerdings würde diese vor allem
-in den Bereichen Performanz und Verlässlichkeit Mängel aufweisen. Diese
-zwei Bereiche stellen genau die zwei Problembereiche dar, die es mit der
-vorliegenden Gesamtlösung bestmöglich zu optimieren gilt. Des Weiteren
-bieten sich native Apps ebenfalls für komplexe Projekte an, da Web-Apps
-aktuell noch nicht in der Lage sind, komplexe Aufgabenstellungen mit
-vergleichbar geringem Aufwand zu inkorporieren \cite{complex-article}.
-Die vorliegende Arbeit ist dabei bereits allein aufgrund der in Betracht
-zu ziehenden Sonderfälle als komplexe Aufgabenstellung einzustufen.
+die bestmögliche Lösung für die vorliegende Schule darstellt. Eine
+native App wird eine Web-App hinsichtlich Qualität und User Experience
+immer klar übertreffen.
+
+Im vorliegenden Fall wäre es sicherlich möglich, eine Inventur mittels
+Web-App durchzuführen, allerdings würde diese vor allem in den Bereichen
+Performanz und Verlässlichkeit Mängel aufweisen. Diese zwei Bereiche
+stellen genau die zwei Problembereiche dar, die es mit der vorliegenden
+Gesamtlösung bestmöglich zu optimieren gilt. Des Weiteren bieten sich
+native Apps ebenfalls für komplexe Projekte an, da Web-Apps aktuell noch
+nicht in der Lage sind, komplexe Aufgabenstellungen mit vergleichbar
+geringem Aufwand zu inkorporieren \cite{complex-article}. Die
+vorliegende Arbeit ist dabei bereits allein aufgrund der in Betracht zu
+ziehenden Sonderfälle als komplexe Aufgabenstellung einzustufen.
 
 Unter Berücksichtigung dieser Gesichtspunkte wurde also der Entschluss
 gefasst, eine native Applikation zu entwickeln, da diese ein insgesamt
@@ -99,14 +89,14 @@ Weiters macht Xamarin von der proprietären .NET-Platform Gebrauch.
 Infolgedessen haben alle Xamarin-Apps Zugriff auf ein umfassendes
 Repertoire von .NET-Libraries \cite{xamarin-details}. Da Xamarin und
 .NET Microsoft angehören, ist eine leichtere Azure-Integration oftmals
-ein Argument, das von offzielen Quellen verwendet wird. Xamarin wird -
-anders als die restlichen Optionen - bevorzugterweise in Visual Studio
+ein Argument, das von offzielen Quellen verwendet wird. Xamarin wird --
+anders als die restlichen Optionen -- bevorzugterweise in Visual Studio
 entwickelt \cite{xamarin-vs}.
 
 Native IOS wird nur der Vollständigkeit halber aufgelistet, stellte
 allerdings zu keinem Zeitpunkt eine wirkliche Alternative dar, weil
 IOS-Geräte einige Eigenschaften besitzen, die für eine Inventur nicht
-optimal sind (z.B. die Akkukapazität). Außerdem haben in etwa nur 20\%
+optimal sind (\zB die Akkukapazität). Außerdem haben in etwa nur 20\%
 aller Geräte \cite{ios-market-share} IOS als Betriebssystem und die
 Entwicklung einer IOS-App wird durch strenge Voraussetzungen äußerst
 unattraktiv gemacht. So kann man beispielsweise nur auf einem
@@ -141,8 +131,8 @@ aber aus folgenden Gründen die bewährteste und risikoloseste Option dar:
   immer noch in Java.
 \item
   Sehr viele Unternehmen haben viele aktive Java-Entwickler. Dadurch
-  wird die App attraktiver, da die Unternehmensmitarbeiter (von z.B.
-  allegro) keine neue Sprache lernen müssen, um Anpassungen
+  wird die App attraktiver, da die Unternehmensmitarbeiter (von
+  \zB allegro) keine neue Sprache lernen müssen, um Anpassungen
   durchzuführen.
 \item
   Das Projektteam hat im Rahmen eines Praktikums bereits Erfahrungen mit
@@ -151,23 +141,22 @@ aber aus folgenden Gründen die bewährteste und risikoloseste Option dar:
 
 Aus den Projektzielen hat sich in Absprache mit den Betreuern ergeben,
 dass die App nicht auf jedem ``Steinzeitgerät'' zu funktionieren hat.
-Das minimale API-Level der App ist daher 21 - auch bekannt als Android
-5.0 `Lollipop'. Android 4.0 hat sehr viele nützliche Libraries
-hervorgebracht. So zum Beispiel die \texttt{Mobile\ Vision\ API} von
-Google, dank derer man in der Lage ist, Barcodes in akzeptabler Zeit mit
-der Kamera des Geräts zu scannen. Die Wahl ist auf 5.0 gefallen, da
-somit ein Puffer zur Verfügung steht und in etwa 90\% aller
-Android-Geräte ohnehin auf 5.0 oder einer neueren Version laufen
-\cite{android-versions-market-share}.
+Das minimale API-Level der App ist daher 21 -- auch bekannt als Android
+5.0 ``Lollipop''.
 
 \hypertarget{einfuxfchrung-zu-nativem-java}{%
 \section{Einführung zu nativem
 Java}\label{einfuxfchrung-zu-nativem-java}}
 
 Um eine Basis für die folgenden Kapitel zu schaffen, werden hier die
-Basics der Android-Entwicklung mit nativem Java näher beschrieben. Das
-Layout einer App wird in XML Dateien gespeichert, während der
-Programmcode in der Programmiersprache Java erstellt wird.
+Basics der Android-Entwicklung mit nativem Java näher beschrieben.
+
+\hypertarget{grundsuxe4tzliches}{%
+\subsection{Grundsätzliches}\label{grundsuxe4tzliches}}
+
+Das Layout einer App wird in XML Dateien gespeichert, während der
+Programmcode in der Programmiersprache Java erstellt wird. Damit ist die
+Entwicklung einer Android-App objektorientiert.
 
 \hypertarget{single-activity-app}{%
 \subsection{Single-Activity-App}\label{single-activity-app}}
@@ -177,7 +166,7 @@ Eine Activity ist eine normale Java-Klasse, der durch Vererbung
 UI-Funktionen verliehen werden.
 
 Bis vor kurzem war es üblich, dass eine App mehrere Activities hat. Das
-wird bei den Benutzern dadurch bemerkbar, dass die App z.B. bei einem
+wird bei den Benutzern dadurch bemerkbar, dass die App \zB bei einem
 Tastendruck ein weiteres Fenster öffnet, das das bisherige überdeckt.
 Das neue Fenster ist eine eigene Activity. Google hat sich nun offiziell
 für sogenannte Single-Activities ausgesprochen \cite{single-activity}.
@@ -189,8 +178,444 @@ Fenster geöffnet werden, ist die User Expierence (UX) um ein Vielfaches
 besser -- die Performanz leidet nur minimal darunter. Die vorliegende
 App ist aus diesen Gründen ebenfalls eine Single-Activity-App.
 
+\chapter{Die Inventurlogik auf der App}
+
+Die genaue Bedienung der App ist dem App-Handbuch zu entnehmen. Dieses
+Kapitel befasst sich mit der Logik hinter einer Inventur.
+
+\hypertarget{allgemeiner-ablauf-einer-inventur}{%
+\section{Allgemeiner Ablauf einer
+Inventur}\label{allgemeiner-ablauf-einer-inventur}}
+
+Eine Inventur läuft immer wie folgt ab:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Der Benutzer wählt die Inventur aus, an der er arbeiten will.
+\item
+  Der Benutzer wählt die Datenbanksicht aus. Dieser Schritt ist
+  erforderlich, da die App auch mit der Ralph-Datenbanksicht kompatibel
+  ist. An der Schule ist die HTL-Datenbanksicht auszuwählen.
+\item
+  Der Benutzer begibt sich zu einem Raum und wählt ihn auf der App aus.
+\item
+  Der Benutzer erhält die Gegenstandsliste für diesen Raum. Diese
+  Gegenstandsliste gilt es abzuarbeiten.
+\item
+  Der Benutzer scannt die Barcodes der Gegenstände und arbeitet sie
+  dadurch ab. Nicht aufgelistete Gegenstände werden automatisch ergänzt.
+\item
+  Der Benutzer kann auf Gegenstandsbasis Änderungen an den Feldern eines
+  Gegenstandes vornehmen.
+\item
+  Wenn der Benutzer der Meinung ist, alle Gegenstände in diesem Raum
+  erfasst zu haben, sendet er seine Validierungen an den Server.
+\item
+  Damit ist der ausgewählte Raum abgeschlossen und der Benutzer kann
+  sich dem nächsten Raum annehmen.
+\end{enumerate}
+
+Alle Informationen, die die App bezieht, stammen vom Server.
+
+\hypertarget{die-modelle}{%
+\section{Die Modelle}\label{die-modelle}}
+
+Um die Antworten des Servers abzubilden, wurden mehrere Modell-Klassen
+erstellt. Folgende Modell-Klassen wurden angelegt:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{Stocktaking}: Stellt eine Inventur dar.
+\item
+  \texttt{SerializerEntry}: Stellt eine Datenbanksicht dar.
+\item
+  \texttt{Room}: Stellt einen Raum dar.
+\item
+  \texttt{MergedItem}: Stellt einen Gegenstand dar.
+\item
+  \texttt{MergedItemField}: Stellt ein dynamisches Feld dar.
+\item
+  \texttt{Attachment}: Stellt einen Anhang dar.
+\end{itemize}
+
+\hypertarget{designgrundsuxe4tze}{%
+\subsection{Designgrundsätze}\label{designgrundsuxe4tze}}
+
+Eine Modell-Klasse verwaltet etwaige Statusinformationen immer selbst.
+So weiß beispielsweise nur ein Gegenstand selbst, dass er ursprünglich
+aus einem anderen Raum stammt. Dies verbessert die Lesbarkeit und
+Wartbarkeit des Codes massiv, da diese Informationen abstrahiert sind
+und nicht mehrmals an verschiendenen Stellen im Quellcode schlummern.
+
+\hypertarget{die-fragments}{%
+\section{Die Fragments}\label{die-fragments}}
+
+Eine Inventur wird auf der App durch folgendene Fragments abgewickelt,
+die gleichzeitig als Phasen verstanden werden können:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{StocktakingFragment}
+\item
+  \texttt{RoomsFragment}
+\item
+  \texttt{ViewPagerFragment}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{MergedItemsFragment}
+  \item
+    \texttt{ValidatedMergedItemsFragment}
+  \end{itemize}
+\item
+  \texttt{DetailedItemFragment}
+\item
+  \texttt{AttachmentsFragment}
+\end{itemize}
+
+\hypertarget{stocktakingfragment}{%
+\paragraph{StocktakingFragment}\label{stocktakingfragment}}
+
+ist das Fragment, in dem der Benutzer die aktuelle Inventur auswählt.
+Die Inventur kann nur vom Administrator am Server angelegt werden.
+
+Außerdem wählt der Benutzer hier die Datenbanksicht (``den Serializer'')
+aus. Die App kommuniziert ausschließlich mittels REST API mit dem
+Server. Diese Schnittstelle kann verschiedene Quellen haben. Die Quellen
+sind abhängig von der ausgewählten Datenbanksicht.
+
+Durch das Bestätigen eines langegezogenen blauen Buttons gelangt man
+immer zur nächsten Inventurphase. In diesem Fall gelangt man zum
+\texttt{RoomsFragment}.
+
+\hypertarget{roomsfragment}{%
+\paragraph{RoomsFragment}\label{roomsfragment}}
+
+ist das Fragment, in dem der Benutzer den aktuellen Raum über eine
+DropDown auswählt. Anstatt die DropDown zu verwenden, kann er alternativ
+auch die Suchleiste verwenden. Als zusätzliche Alternative hat der
+Benutzer die Möglichkeit den Barcode eines Raumes zu scannen. Nach der
+Auswahl eines Raumes gelangt man zum \texttt{ViewPagerFragment}.
+
+\hypertarget{viewpagerfragment}{%
+\paragraph{ViewPagerFragment}\label{viewpagerfragment}}
+
+ist das Fragment, das als Wrapper für das \texttt{MergedItemsFragment}
+und das \texttt{ValidatedMergedItemsFragment} dient. Die einzige Aufgabe
+dieses Fragments ist es, die zwei vorher genannten Fragments als Tabs
+anzuzeigen. Dies wurde mit der neuen \texttt{ViewPager2}-Library
+realisiert \cite{viewpager2}.
+
+\hypertarget{mergeditemsfragment-validatedmergeditemsfragment}{%
+\paragraph{MergedItemsFragment \&
+ValidatedMergedItemsFragment}\label{mergeditemsfragment-validatedmergeditemsfragment}}
+
+sind die Fragments, die die Gegenstandsliste eines Raumes verwalten und
+sie dem Benutzer anzeigen. Das \texttt{MergedItemsFragment} zeigt dem
+Benutzer die noch zu validierenden Gegenstände an. Das
+\texttt{ValidatedMergedItemsFragment} erfüllt nur den Zweck, dem
+Benutzer bereits validierte Gegenstände anzuzeigen und ihm die
+Möglichkeit zu geben, validierte Gegenstände zurück zu den
+nicht-validierten Gegenständen in \texttt{MergedItemsFragment} zu
+verschieben. Daher trägt der Tab für das \texttt{MergedItemsFragment}
+die Beschriftung ``TODO'', währenddessen der Tab für das
+\texttt{ValidatedMergedItemsFragment} die Beschriftung ``DONE'' trägt.
+
+Beide Fragments verwenden eine \texttt{RecyclerView}, um dem Benutzer
+die Gegenstände anzuzeigen \cite{recyclerview}. Eine RecyclerView
+generiert pro Eintrag ein Layout, hält aber nur die aktuell angezeigten
+Einträge inkl. Layout im RAM.
+
+Die Gegenstände werden einzeln validiert. Durch das Scannen des Barcodes
+eines Gegenstands (beziehungsweise durch das Klicken auf seine
+GUI-Repräsentation) gelangt der Benutzer zum
+\texttt{DetailedItemFragment}.
+
+\hypertarget{detaileditemfragment}{%
+\paragraph{DetailedItemFragment}\label{detaileditemfragment}}
+
+ist das Fragment, das zur Validierung eines einzelnen Gegenstands dient.
+Der Benutzer hat hier die Möglichkeit, etwaige Eigenschaften des
+Gegenstandes (beispielsweise den Anzeigenamen) zu ändern. Ein Formular,
+dass die Felder eines Gegenstandes beinhaltet, wird einmal angefordert
+und anschließend für die gesamte Lebensdauer der App gespeichert. Anhand
+dieses Formulars wird dann eine GUI-Repräsentation dynamisch erstellt.
+
+Das Formular kann \texttt{ExtraFields} beinhalten. Das sind Felder, die
+als nicht essentiel angesehen werden und infolgedessen standardmäßig
+eingeklappt sind. Dazu gehören auch benutzerdefinierte Felder --
+sognannte \texttt{CustomFields}. \texttt{ExtraFields} weisen ansonsten
+dasselbe Verhalten wie herkömmliche Felder auf.
+
+Folgende GUI-Komponenten wurden statisch implementiert, da sie Felder
+repräsentieren, die unabhängig von der ausgewählten Datenbanksicht immer
+vorhanden sind und daher nicht dynamisch sind:
+
+\begin{itemize}
+\tightlist
+\item
+  Ein read-only Textfeld für die Gegendstandsbeschreibung
+\item
+  Ein read-only Textfeld für den Barcode
+\item
+  Eine Checkbox ``Erst später entscheiden''
+  (\siehe{das-stocktakingitem-modell})
+\item
+  Eine DropDown für Subrooms (\siehe{subrooms})
+\end{itemize}
+
+Man braucht für die gesamte Validierung eines Raumes -- insofern keine
+Sonderfälle auftreten -- keine Verbindung zum Server. Der Benutzer kann
+die Gegenstandsliste an einer Lokalität mit einer guten Verbindung
+anfordern, den Raum mit schlechter Verbindung betreten und alle
+Gegenstände validieren. Anschließend kann er den Raum verlassen und
+seine Validierungen an den Server senden. Damit wird der Bedarf an
+Netzwerkanfragen in Räumen mit schlechter Netzwerkverbindung minimiert.
+
+Der Benutzer kann zusätzlich zur Validierung auch Anhänge für einen
+Gegenstand definieren, dazu landet er beim \texttt{AttachmentsFragment}.
+
+\hypertarget{attachmentsfragment}{%
+\paragraph{AttachmentsFragment}\label{attachmentsfragment}}
+
+ist das Fragment, das die Anhänge eines Gegenstandes verwaltet. Der
+Benutzer sieht hier die bereits vorhandenen Anhänge mit Beschriftungen
+und kann weitere Anhänge hinzufügen. Bilder werden direkt angezeigt.
+Andere Dateien werden hingegen als Hyperlink dargestellt. Der Benutzer
+kann diese per Browser runterladen. Zum Hochladen eigener Anhänge greift
+die App auf den Standard-Dateibrowser des Systems zurück.
+
+Das Outsourcen auf Webbrowser und Dateibrowser bietet den massiven
+Vorteil, dass man sich die Entwicklung eigener Download-Manager bzw.
+File-Manager erspart und auf Apps setzen kann, die von namenhaften
+Herstellern entwickelt werden. Fast jedes System hat bereits beide
+Komponenten vorinstalliert, daher treten bezüglich der Verfügbarkeit
+keine Probleme auf.
+
+Beim dem Hochladen von Bildern komprimiert die App jene zuvor. Zur
+Kompression wird das \texttt{WEBP}-Format verwendet, das dem
+mittlerweile veralteten \texttt{JPG}-Standard überlegen ist \cite{webp}.
+Die Qualität des Bildes ist einstellbar:
+
+\begin{itemize}
+\tightlist
+\item
+  100 \% (keine Kompression)
+\item
+  95 \%
+\item
+  85 \%
+\item
+  75 \%
+\end{itemize}
+
+Der Server speichert den gesendeten Anhang nur einmal (Dateien werden
+anhand von Hashes unterschieden). Wenn ein Benutzer allen PCs in einem
+EDV-Saal dasselbe Bild zuweist, wird es nur einmal am Server hinterlegt.
+Die Anzahl der Anhänge ist nicht limitiert.
+
+\hypertarget{validierungslogik}{%
+\section{Validierungslogik}\label{validierungslogik}}
+
+\texttt{MergedItemsFragment} \& \texttt{DetailedItemFragment} sind die
+Fragments, die den Großteil einer Inventur ausmachen. Der Benutzer
+scannt alle SAP-Barcodes, die sich in einem Raum befinden. Im Idealfall
+entspricht diese Menge exakt der Menge der Gegenstände, die dem Benutzer
+im \texttt{MergedItemsFragment} angezeigt wird. Im Normalfall wird dies
+durch etwaige Sonderfälle jedoch nicht gegeben sein. Nach dem Scannen
+eines Gegenstandes werden die Felder des Gegenstandes dem Benutzer im
+\texttt{DetailedItemFragment} angezeigt. In diesem Fragment hat der
+Benutzer zwei Buttons, mit denen er den Gegenstand validieren kann:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Grüner Button}: Mit diesem Button wird signalisiert, dass sich
+  der Gegenstand im Raum befindet und der Gegenstand wird mitsamt
+  etwaigen Änderungen an seinen Attributen/Feldern übernommen. Dazu wird
+  ein \texttt{ValidationEntry} erstellt. Alternativ kann der Benutzer
+  das Klicken dieses Buttons mit dem Schütteln des Gerätes ersetzen. Die
+  Schüttel-Sensibilität ist über die Einstellungen konfigurierbar (und
+  auch deaktivierbar).
+\item
+  \textbf{Roter Button}: Mit diesem Button wird signalisiert, dass sich
+  der Gegenstand nicht im Raum befindet. Dieser Button wird im
+  Normalfall nie betätigt werden, da ein Gegenstand, der sich nicht in
+  diesem Raum befindet, nicht gescannt werden kann und daher dieses
+  Fenster nie geöffnet werden wird. Der Button hat trotzdem einen Sinn,
+  da der Benutzer damit die ``TODO''-Liste über das GUI verkleinern
+  kann, um sich einen besseren Überblick zu verschaffen.
+\end{itemize}
+
+\hypertarget{der-validationentry}{%
+\subsection{Der ValidationEntry}\label{der-validationentry}}
+
+Ein \texttt{ValidationEntry} beinhaltet sämtliche Informationen, die der
+Server benötigt, um die Datensätze eines Gengenstandes entsprechend
+anzupassen, und stellt eine Gegenstandsvalidierung dar. Ein
+\texttt{ValidationEntry} beinhaltet immer den Primary Key eines
+Gegenstandes und die Felder, die sich geändert haben. Ein
+\texttt{ValidationEntry} hat daher eine Liste an Feldern
+\texttt{List\textless{}Field\textgreater{}}. Wenn sich der Wert eines
+Feldes geändert hat, wird diese Liste um einen Eintrag erweitert.
+
+Da die Felder wie erwähnt dynamisch (und dadurch generisch) sind, wurden
+Java Generics eingesetzt \cite{java-generics}, um diese abbilden zu
+können. \texttt{Field} ist eine innere Klasse in
+\texttt{ValidationEntry}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \DataTypeTok{static} \KeywordTok{class} \BuiltInTok{Field}\NormalTok{<T> \{}
+    \KeywordTok{private} \BuiltInTok{String}\NormalTok{ fieldName;}
+    \KeywordTok{private}\NormalTok{ T fieldValue;}
+\NormalTok{    ...}
+\end{Highlighting}
+\end{Shaded}
+
+Ein Feld besteht also immer aus einem Feldnamen und einem generischen
+Feldwert.
+
+\hypertarget{sendeformat}{%
+\subsubsection{Sendeformat}\label{sendeformat}}
+
+Das \texttt{MergedItemsFragment} (bzw. das \texttt{MergedItemsViewModel}
+\siehe{die_app_architektur}) verfügt über eine \texttt{HashMap}
+(\texttt{Map\textless{}MergedItem,\ List\textless{}ValidationEntry\textgreater{}\textgreater{}}),
+die alle \texttt{ValidationEntries} beinhaltet. Einem Gegenstand ist
+eine Liste an \texttt{ValidationEntries} zugeordnet, da Subitems eigene
+\texttt{ValiditionEntries} bekommen können
+(\siehe{sonderfuxe4lle-auf-der-app}).
+
+Wenn ein Raum abgeschlossen ist, werden alle \texttt{ValidationEntries}
+in einer Liste vereint und anschließend in eine JSON-Darstellung
+transformiert. Dieses JSON wird dem Server gesandt und damit ist der
+aktuelle Raum abgeschlossen. Der Benutzer kann sich nun den restlichen
+Räumen annehmen. Die genaue Kommunikationsarchitektur wird im Kapitel
+\protect\hyperlink{das-repository-im-detaila}{``Das Repository im
+Detail''} beschrieben (\siehe{das-repository-im-detail}).
+
+Der Server erstellt auf Basis der gesendeten \texttt{ValidationEntries}
+Änderungsvorschläge -- sogenannte \texttt{Change\ Proposals}
+(\siehe{uxe4nderungsvorschluxe4ge}). Das \texttt{POST}-Format wird im
+Kapitel \protect\hyperlink{json-schema}{``JSON-Schema''} beschrieben
+(\siehe{json-schema}).
+
+\hypertarget{quickscan}{%
+\subsection{QuickScan}\label{quickscan}}
+
+Der häufigste Fall einer Inventur wird jener sein, dass ein Gegenstand
+im richtigen Raum ist und der Benutzer ohne weiteren Input auf den
+grünen Button drückt. Da dies einen unnötigen Overhead darstellt, wurde
+die App um den \texttt{QuickScan}-Modus erweitert. Hierbei wird sofort
+nach dem Scannen ein \texttt{ValidationEntry} erstellt, ohne dass zuvor
+das \texttt{DetailedItemFragment} geöffnet wird. Dieser Modus ist durch
+einen Button im \texttt{MergedItemsFragment} aktivierbar/deaktivierbar.
+
+Falls ein Sonderfall auftreten sollte, vibriert das Gerät zweimal und
+öffnet doch das \texttt{DetailedItemFragment}. Damit wird gewährleistet,
+dass der Benutzer nicht irrtümlich mit dem Scannen weitermacht. Er muss
+diesen Sonderfall händisch validieren. Haptisches Feedback ist für
+Sonderfälle reserviert.
+
+\hypertarget{sonderfuxe4lle-auf-der-app}{%
+\subsection{Sonderfälle auf der App}\label{sonderfuxe4lle-auf-der-app}}
+
+Ein zentrales Thema der vorliegenden Diplomarbeit ist die Behandlung der
+Sonderfälle.
+
+\hypertarget{subitems}{%
+\subsubsection{Subitems}\label{subitems}}
+
+Wenn sich mehrere physische Gegenstände einen Barcode teilen, werden sie
+in der primären Liste lediglich durch einen einzelnen Eintrag
+abgebildet. Ein Eintrag des Serversystems kann also mehrere Subitems
+zusammenfassen.
+
+Der Server inkludiert in seiner Antwort für jeden Gegenstand einen
+Zähler, der die nötigen Informationen zur Behandlung dieses Sonderfalles
+beinhaltet. Der Zähler wird in weiterer Folge
+\texttt{times\_found\_last}-Zähler genannt. Falls ein Gegenstand aus
+mehreren Subitems bestehen sollte, ist der
+\texttt{times\_found\_last}-Zähler in der Antwort des Servers größer als
+1. Dieser Counter wird dem Benutzer in folgender Form angezeigt:
+\texttt{{[}Anzahl\ aktuell\ gefunden{]}\ /\ {[}Anzahl\ zuletzt\ gefunden{]}}.
+
+Bei der Validierung eines Subitems wird ein eigener
+\texttt{ValidationEntry} erstellt und die Anzahl der aktuellen Funde
+erhöht. \texttt{Change\ Proposals} (\siehe{uxe4nderungsvorschluxe4ge}),
+die auf Basis dieser \texttt{ValidationEntries} erstellt werden, werden
+dem echten ``Parent''-Gegenstand zugeordnet und können wahlweise
+angewandt werden.
+
+Falls ein Gegenstand mehrmals gescannt wird, wird -- nach Bestätigung
+durch den Benutzer -- die Anzahl der aktuellen Funde erhöht und wiederum
+einen \texttt{ValidationEntry} erstellt, selbst wenn es sich bei dem
+Gegenstand aktuell nicht um ein Subitem handelt.
+
+\hypertarget{subrooms}{%
+\subsubsection{Subrooms}\label{subrooms}}
+
+Subrooms sind logische Räume in einem Raum (\zB steht ein PC in einem
+Kasten, der wiederum in einem Raum steht). Subrooms werden dem Benutzer
+im \texttt{MergedItemsFragment} als einklappbare Zwischenebenen, denen
+Gegenstände zugeordnet sind, angezeigt. Die Subroom-Zugehörigkeit kann
+auf Gegenstandsbasis über eine DropDown geändert werden. Die
+Subroom-Zugehörigkeit wird in einem \texttt{ValidationEntry} immer
+gesetzt, auch wenn sie sich nicht geändert hat.
+
+Die Gegenstandsliste des \texttt{MergedItemsFragment} beinhaltet in
+Wahrheit auch die Subrooms. Dies ist notwendig, da die
+\texttt{RecyclerView}, die dazu genutzt wird dem Benutzer die
+Gegenstände anzuzeigen, keine Möglichkeit bietet, eine Hierarchie bzw.
+Zwischenebenen darzustellen. Daher implementieren das
+\texttt{Room}-Modell und das \texttt{MergedItem}-Modell das Interface
+\texttt{RecyclerViewItem} und die RecyclerView erhält eine Liste an
+\texttt{RecyclerViewItems} - dies ist ein typisch polymorpher Ansatz.
+Abhängig vom Typen des aktuellen Listenelements baut die RecyclerView
+entweder ein Gegenstandslayout oder ein Raumlayout auf. Die Anzahl der
+Subrooms ist weder in der Tiefe noch in der Breite limitiert.
+
+\hypertarget{unbekannte-gegenstuxe4nde}{%
+\subsubsection{Unbekannte Gegenstände}\label{unbekannte-gegenstuxe4nde}}
+
+Falls ein Gegenstand, der sich nicht in der aktuellen Gegenstandsliste
+befindet, gescannt wird, muss der Server dazu befragt werden. Es gibt
+zwei mögliche Antwortszenarien. Die \texttt{ValidationEntries} für diese
+Sonderfälle unterscheiden sich nicht von den bisherigen.
+
+\hypertarget{neuer-gegenstand}{%
+\subparagraph{Neuer Gegenstand}\label{neuer-gegenstand}}
+
+Der Gegenstand befindet sich überhaupt nicht in der Datenbank. Im
+``DONE''-Tab haben solche Gegenstände eine blaue Hervorhebung.
+
+\hypertarget{gegenstand-aus-anderem-raum}{%
+\subparagraph{Gegenstand aus anderem
+Raum}\label{gegenstand-aus-anderem-raum}}
+
+Der Gegenstand befindet in der Datenbank und stammt ursprünglich aus
+einem anderen Raum. Im ``DONE''-Tab haben solche Gegenstände eine orange
+Hervorhebung.
+
+\chapter{Die App-Architektur}
+\label{die_app_architektur}
+
+Die App muss ein verlässliches und vorhersehbares Verhalten aufweisen.
+Die vom Benutzer erstellten Validierungen dürfen beispielsweise nicht
+einfach verschwinden. Um das zu gewährleisten, ist eine durchdachte
+App-Architektur vonnöten. Da die App-Architektur ein sehr zeitintensiver
+und zentraler Aspekt der vorliegenden Diplomarbeit ist, der als
+Fundament für die eigentlichen Ziele dient, folgt nun eine ausführliche
+Erläuterung.
+
 \hypertarget{separation-of-concerns}{%
-\subsection{Separation of Concerns}\label{separation-of-concerns}}
+\section{Separation of Concerns}\label{separation-of-concerns}}
 
 In Android ist es eine äußerst schlechte Idee, sämtliche Logik in einer
 Activity oder einem Fragment zu implementieren. Das softwaretechnische
@@ -198,15 +623,17 @@ Prinzip \texttt{Separation\ of\ Concerns\ (SoC)} hat unter Android einen
 besonderen Stellenwert. Dieses Prinzip beschreibt im Wesentlichen, dass
 eine Klasse nur einer Aufgabe dienen sollte. Falls eine Klasse mehrere
 Aufgaben erfüllt, so muss diese auf mehrere logische Komponenten
-aufgeteilt werden. Beispiel: Eine Activity hat immer die Verantwortung,
-die Kommunikation zwischen UI und Benutzer abzuwickeln. Bad Practice
-wäre es, wenn jene Activity ebenfalls dafür verantwortlich ist, Daten
-von einem Server abzurufen. Das Prinzip verfolgt das Ziel, die
+aufgeteilt werden. Beispiel: Eine Activity bzw. ein Fragment hat immer
+die Verantwortung, die Kommunikation zwischen UI und Benutzer
+abzuwickeln. Bad Practice wäre es, wenn eine Activity ebenfalls dafür
+verantwortlich ist, Daten von einem Server abzurufen.
+
+Das Prinzip verfolgt das Ziel, die
 \texttt{God\ Activity\ Architecture\ (GAA)} möglichst zu vermeiden
 \cite{god-activities}. Eine God-Activity ist unter Android eine
-Activity, die die komplette Business-Logic beinhaltet und SoC in
-jeglicher Hinsicht widerspricht. God-Activities gilt es dringlichst zu
-vermeiden, da sie folgende Nachteile mit sich bringen:
+Activity, die die komplette Business-Logic beinhaltet und \texttt{SoC}
+in jeglicher Hinsicht widerspricht. God-Activities gilt es dringlichst
+zu vermeiden, da sie folgende Nachteile mit sich bringen:
 
 \begin{itemize}
 \tightlist
@@ -215,23 +642,19 @@ vermeiden, da sie folgende Nachteile mit sich bringen:
 \item
   Wartung und Dokumentation werden äußerst schwierig
 \item
-  Automatisiertes Testing (z.B. Unit-Testing) wird nahezu unmöglich
+  Automatisiertes Testing (\zB Unit-Testing) wird nahezu unmöglich
   gemacht
 \item
   Größere Bug-Anfälligkeit
 \item
-  Im Bezug auf Android gibt es oftmals massive Probleme mit dem
-  \texttt{Lifecycle} einer Activity - da eine Activity und ihre Daten
-  schnell vernichtet werden können (z.B. wenn der Benutzer sein Gerät
-  rotiert und das Gerät den Bildschirmmodus wechselt)
+  Im Bezug auf Android gibt es oftmals massive Probleme mit der
+  Konsistenz einer Activity -- da eine Activity und ihre Daten schnell
+  vernichtet werden können (\zB wenn der Benutzer sein Gerät rotiert und
+  das Gerät den Bildschirmmodus wechselt,
+  \siehe{as-viewmodel-und-das-fragment-im-detail})
 \end{itemize}
 
-God-Activities sind ein typisches Beispiel für Spaghetticode. Es bedarf
-also einer wohlüberlegten und strukturierten Architektur, um diese
-Probleme zu unterbinden. Im nächsten Kapitel wird dementsprechend die
-Architektur der App im Detail erklärt.
-
-\chapter{MVVM - Die App-Architektur}
+God-Activities sind ein typisches Beispiel für Spaghetticode.
 
 Als Reaktion auf eine Vielzahl von Apps, die Probleme mit God-Activites
 aufwiesen, hat Google Libraries veröffentlicht, die klar auf eine
@@ -241,7 +664,7 @@ App-Architektur auf MVVM.
 \hypertarget{designgrundlagen-von-mvvm}{%
 \section{Designgrundlagen von MVVM}\label{designgrundlagen-von-mvvm}}
 
-MVVM steht für Model--View--Viewmodel \cite{mvvm-wiki}. Wie man am Namen
+MVVM steht für Model-View-Viewmodel \cite{mvvm-wiki}. Wie man am Namen
 bereits erkennt, gilt es zwischen drei Komponenten/Ebenen zu
 unterscheiden \cite{mvvm-article}.
 
@@ -271,40 +694,58 @@ Mit der Einführung der \texttt{Architecture\ Components} hat Google
 Android-Entwicklern eine Vielzahl an Libraries zur Verfügung gestellt,
 um MVVM leichter in Android implementieren zu können
 \cite{mvvm-architecture-components}. Die konkrete Implementierung in
-Android ist in Abbildung \ref{fig:mvvm} ersichtlich.
+Android ist in Abbildung \abb{fig:mvvm} ersichtlich.
 
 \begin{figure}
-  \includegraphics[width=\linewidth]{mvvm.png}
-  \caption{MVVM in Android nach Google \cite{mvvm}}
-  \label{fig:mvvm}
+\centering
+\includegraphics{mvvm.png}
+\caption{MVVM in Android nach Google \cite{mvvm} \cite{mvvm-bild}
+\label{fig:mvvm}}
 \end{figure}
 
 In dem vorliegenden Fall ist unser \texttt{Fragment} die \texttt{View},
 das \texttt{Repository} das \texttt{Model} und das \texttt{ViewModel}
-ist in Android namensgleich.
+ist in Android namensgleich. MVVM ist streng hierarchisch. Wie in der
+Abbildung zu erkennen ist, kommuniziert jede Ebene nur mit der
+hierarchisch nächsten Ebene.
 
 \hypertarget{das-repository-im-detail}{%
 \subsection{Das Repository im Detail}\label{das-repository-im-detail}}
 
-Wie in der Grafik \ref{fig:mvvm} veranschaulicht, ist das Repository
-dafür zuständig, Daten vom Server anzufordern. Im vorliegenden Fall
-besteht kein Grund, eine Datenbank am Client zu führen. Damit fällt
-dieser Aspekt der Grafik - der in violetter Farbe gehalten ist - für die
-vorliegende Diplomarbeit weg. Die Aufgabe des Repositories ist es also
-immer, Daten vom Server anzufordern.
+Wie in der \abb{fig:mvvm} veranschaulicht, ist das Repository alleinig
+dafür zuständig, Daten vom Server anzufordern. Beispielsweise wird die
+Gegenstandsliste für einen Raum vom Repository angefordert -- und von
+keiner anderen Ebene. Die Kommunikation zwischen der App und dem Server
+findet ausschließlich im \texttt{JSON}-Format statt. JSON ist ein
+text-basiertes und kompaktes Datenaustauschformat
+\cite{json-format-doku}.
 
-\hypertarget{jsonrequest}{%
-\subsubsection{JsonRequest}\label{jsonrequest}}
+Das Repository fordert JSON an und instanziiert anschließend anhand der
+Serverantwort Objekte der Modell-Klassen (\siehe{die-modelle}). Das
+Repository ist die einzige Ebene, die mit den rohen JSON-Antworten des
+Servers arbeitet. Die restlichen Ebenen arbeiten mit den abstrahierten
+Objekten, also \zB mit \texttt{MergedItems} oder \texttt{Rooms}.
 
-Die Kommunikation zwischen dem Client und der App findet ausschließlich
-im \texttt{JSON}-Format statt. JSON ist ein text-basiertes und kompaktes
-Datenaustauschformat. Android bietet Entwicklern eine Out-of-the-box
-Netzwerklibrary namens \texttt{Volley} an, mithilfe derer man unter
-anderem JSON-Anfragen verarbeiten kann \cite{volley}. Da diese für die
-vorliegenden Zwecke nicht komplett geeignet war, hat das
-Diplomarbeitsteam die gegebene Library durch den Einsatz von Vererbung
-und einer Wrapper-Klasse modifiziert. Die Library wurde in folgenden
-Punkten angepasst:
+Die Kommunikation zwischen dem Server und der App wird mit zwei
+Libraries abgewickelt:
+
+\begin{itemize}
+\tightlist
+\item
+  Volley
+\item
+  Retrofit
+\end{itemize}
+
+\hypertarget{jsonrequest-volley}{%
+\subsubsection{JsonRequest (Volley)}\label{jsonrequest-volley}}
+
+Android bietet Entwicklern eine Out-of-the-box Netzwerklibrary namens
+\texttt{Volley} an, mithilfe derer man unter anderem JSON-Anfragen
+verarbeiten kann \cite{volley}. Da diese für die vorliegenden Zwecke
+nicht komplett geeignet war, hat das Diplomarbeitsteam die gegebene
+Library durch den Einsatz von Vererbung und einer Wrapper-Klasse
+modifiziert. Die Library wurde in folgenden Punkten angepasst:
 
 \begin{itemize}
 \tightlist
@@ -332,103 +773,35 @@ Punkten angepasst:
   abhängig von der Systemsprache.
 \item
   Zum Zeitpunkt der Anfrage ist nicht bekannt, ob die Antwort als
-  \texttt{JSONArray} oder als \texttt{JSONObject} erfolgen wird. Da das
-  Backend abhängig von der Anfrage sowohl mit einem \texttt{JSONArray}
-  als auch einem \texttt{JSONObject} antworten kann, ist der
-  Rückgabewert am Client immer ein String. Die Umwandlung erfolgt erst
-  im Repository.
+  \texttt{JSONArray} (\zB für eine Gegenstandsliste) oder als
+  \texttt{JSONObject} (\zB für einen explizit angefragten Gegenstand)
+  erfolgen wird. Da das Backend abhängig von der Anfrage sowohl mit
+  einem \texttt{JSONArray} als auch einem \texttt{JSONObject} antworten
+  kann, ist der Rückgabewert der Netzwerkanfrage immer ein String. Die
+  Umwandlung erfolgt erst im Repository. Dies führt zu keinen
+  Perfomance-Problemen, da die vorgefertigte Android Library den String
+  zwar zu einem früheren Zeitpunkt aber auf dieselbe Weise umwandeln
+  würde.
 \end{itemize}
 
-Diese Unterscheidung zwischen \texttt{JSONArray} und \texttt{JSONObject}
-ist notwendig, da Android zwei Möglichkeiten anbietet, JSON als Objekt
-zu speichern:
+Diese Anpassungen wurden aus zwei Gründen vorgenommen:
 
-Direkt als \texttt{JSONArray}:
+\begin{itemize}
+\tightlist
+\item
+  Um eine robustere Netzwerklibrary zu erhalten, die es ermöglicht in
+  Räumen mit Netzwerkproblemen dennoch eine Inventur durchzuführen.
+\item
+  Um eine spätere Abstraktion der Netzwerkanfragen durchführen zu können
+  (\siehe{konkrete-mvvm-implementierung}).
+\end{itemize}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{JSONArray jsonArray = }\KeywordTok{new} \FunctionTok{JSONArray}\NormalTok{(payload);}
-\end{Highlighting}
-\end{Shaded}
+Sämtliche Netzwerkanfragen (die Raumliste, die Gegenstandsliste etc.)
+werden mit der modifizierten \texttt{Volley}-Library durchgeführt. Die
+einzige Ausnahme sind hierbei die Anhänge (\siehe{retrofit}).
 
-Direkt als \texttt{JSONObject}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{JSONObject jsonObject = }\KeywordTok{new} \FunctionTok{JSONObject}\NormalTok{(payload);}
-\end{Highlighting}
-\end{Shaded}
-
-Beide Optionen haben einen Konstruktor, der einen String akzeptiert (im
-obigen Beispiel ist dies der String \texttt{payload}). Das Backend
-könnte - natürlich in Abhängigkeit von der ursprünglichen Anfrage -
-folgende (vereinfachte) Antworten senden:
-
-Ein \texttt{JSONArray} (wenn die Anfrage beispielsweise eine
-Gegenstandsliste verlangt):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\OtherTok{[}
-  \FunctionTok{\{}
-    \DataTypeTok{"id"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
-    \DataTypeTok{"item"}\FunctionTok{:} \StringTok{"PC"}
-  \FunctionTok{\}}\OtherTok{,}
-  \FunctionTok{\{}
-    \DataTypeTok{"id"}\FunctionTok{:} \DecValTok{2}\FunctionTok{,}
-    \DataTypeTok{"item"}\FunctionTok{:} \StringTok{"Schrank"}
-  \FunctionTok{\}}
-\OtherTok{]}
-\end{Highlighting}
-\end{Shaded}
-
-Ein \texttt{JSONObject} (wenn die Anfrage beispielsweise einen
-spezifischen Gegenstand verlangt):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{\{}
-  \DataTypeTok{"id"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
-  \DataTypeTok{"item"}\FunctionTok{:} \StringTok{"PC"}
-\FunctionTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-Wenn das Backend ein \texttt{JSONArray} sendet und man versucht, jenes
-als \texttt{JSONObject} zu speichern, kommt es zu einem Fehler:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{// Dieser Code entspricht keiner korrekten Java-Syntax! }
-\CommentTok{// Antwort vom Backend}
-\BuiltInTok{String}\NormalTok{ payload =   }\StringTok{"[}
-\NormalTok{                        \{}
-                            \StringTok{"id"}\NormalTok{: }\DecValTok{1}\NormalTok{,}
-                            \StringTok{"item"}\NormalTok{: }\StringTok{"PC"}
-\NormalTok{                        \},}
-\NormalTok{                        \{}
-                            \StringTok{"id"}\NormalTok{: }\DecValTok{2}\NormalTok{,}
-                            \StringTok{"item"}\NormalTok{: }\StringTok{"Schrank"}
-\NormalTok{                        \}}
-\NormalTok{                    ]}\StringTok{";}
-
-\CommentTok{// Die Umwandlung eines JSONArray zu einem JSONObjects }
-\CommentTok{// wirft eine Exception.}
-\NormalTok{JSONObject jsonObject = }\KeywordTok{new} \FunctionTok{JSONObject}\NormalTok{(payload);}
-\end{Highlighting}
-\end{Shaded}
-
-Aus diesem Grund kann die Umwandlung der Backend-Antwort erst im
-Repository erfolgen. Dies führt zu keinen Perfomance-Problemen, da die
-vorgefertigte Android Library den String zwar zu einem früheren
-Zeitpunkt aber auf dieselbe Weise umwandeln würde. Die Umwandlung eines
-Strings zu einem \texttt{JSONArray} oder einem \texttt{JSONObject}
-entspricht nur dem Bruchteil der Zeitdauer, die die Backend-Antwort
-benötigt, um am Client anzukommen. Selbst bei größeren Strings bemerkt
-der Benutzer daher keinerlei Unterschied.
-
-\hypertarget{jsonrequest---beispiel}{%
-\subsubsection{JsonRequest - Beispiel}\label{jsonrequest---beispiel}}
+\hypertarget{jsonrequest-beispiel}{%
+\subsubsection{JsonRequest -- Beispiel}\label{jsonrequest-beispiel}}
 
 Eine Anfrage wird nie direkt, sondern immer über einen Wrapper
 ausgeführt. Der Konstruktor ist wie folgt aufgebaut:
@@ -438,9 +811,9 @@ ausgeführt. Der Konstruktor ist wie folgt aufgebaut:
 \item
   \texttt{Context\ context}: Ist eine Schnittstelle, die globale
   Information über die App-Umgebung zur Verfügung stellt \cite{context}
-  und von Android zur Verfügung gestellt wird. Jede UI-Komponente (z.B.
-  Textfelder, Buttons, Fragments, etc.) verfügt über einen Context. Ein
-  besonderer Context ist der globale Application-Context. Dieser ist
+  und von Android zur Verfügung gestellt wird. Jede UI-Komponente
+  (\zB Textfelder, Buttons, Fragments, etc.) verfügt über einen Context.
+  Ein besonderer Context ist der globale Application-Context. Dieser ist
   einzigartig und ist ein \texttt{Singleton}. Ein Singleton bedeutet,
   dass von einer Klasse nur ein (globales) Objekt besteht
   \cite{singleton}.
@@ -448,8 +821,7 @@ ausgeführt. Der Konstruktor ist wie folgt aufgebaut:
   \texttt{int\ method}: Ist die HTTP-Methode. Die App verwendet
   \texttt{GET}, \texttt{OPTIONS} und \texttt{POST}.
 \item
-  \texttt{String\ url}: Ist die Seite, die eine JSON-Antwort liefern
-  soll.
+  \texttt{String\ url}: Ist die URL, die eine JSON-Antwort liefern soll.
 \item
   \texttt{@Nullable\ String\ requestBody}: Eventuelle Parameter, die an
   den Server gesendet werden sollen. Dieser Paramter ist für einen
@@ -467,10 +839,11 @@ Ein Request kann wie folgt ausschauen:
 \NormalTok{RobustJsonRequestExecutioner robustJsonRequestExecutioner =}
  \KeywordTok{new} \FunctionTok{RobustJsonRequestExecutioner}\NormalTok{(context, }\BuiltInTok{Request}\NormalTok{.}\FunctionTok{Method}\NormalTok{.}\FunctionTok{GET}\NormalTok{,}
   \StringTok{"https://www.beispiel.org/"}\NormalTok{, }\KeywordTok{null}\NormalTok{, }
-\NormalTok{  payload -> \{}
+\NormalTok{  payload {-}> \{}
          \CommentTok{// }\AlertTok{TODO}\CommentTok{: Antwort verarbeiten}
+         \CommentTok{// {-}> Anhand der Antwort Modell{-}Objekte instanziieren}
 \NormalTok{     \},}
-\NormalTok{  error -> \{}
+\NormalTok{  error {-}> \{}
          \CommentTok{// }\AlertTok{TODO}\CommentTok{: Fehler verarbeiten}
 \NormalTok{     \});}
      
@@ -486,8 +859,8 @@ Features unterstützt, verwendet die App mehrheitlich Lambda-Ausdrücke
 \cite{java8}. Lambda-Ausdrücke sind im Wesentlichen dazu da, funktionale
 Interfaces in vereinfachter Schreibweise verwenden zu können. Da es nur
 eine einzige abstrakte Methode gibt, kann die Schreibweise simplifiziert
-werden, weil klar ist, von welcher Methode die Rede ist. Damit fallen -
-wie im obigen Beispiel zu sehen - redundante Informationen wie
+werden, weil klar ist, von welcher Methode die Rede ist. Damit fallen --
+wie im obigen Beispiel zu sehen -- redundante Informationen wie
 Rückgabetyp und Methodenkörper vollständig weg. Das obige Beispiel würde
 ohne Lambda-Ausdrücke wie folgt ausschauen:
 
@@ -500,6 +873,7 @@ ohne Lambda-Ausdrücke wie folgt ausschauen:
          \AttributeTok{@Override}
          \KeywordTok{public} \DataTypeTok{void} \FunctionTok{handleSuccess}\NormalTok{(}\BuiltInTok{String}\NormalTok{ payload) \{}
              \CommentTok{// }\AlertTok{TODO}\CommentTok{: Antwort verarbeiten}
+             \CommentTok{// {-}> Anhand der Antwort Modell{-}Objekte instanziieren}
 \NormalTok{         \}}
 \NormalTok{     \},}
      \KeywordTok{new} \FunctionTok{NetworkErrorHandler}\NormalTok{() \{}
@@ -531,28 +905,19 @@ erwähnten funktionalen Interfaces sind typische Callbacks
 
 In diesem Fall wird die Methode \texttt{handleSuccess} aufgerufen,
 sobald der Client die Antwort erhalten hat. Damit handelt es sich um ein
-asynchrones Callback.
+asynchrones Callback. Callbacks werden in der App sehr häufig
+eingesetzt.
 
 \hypertarget{retrofit}{%
 \subsubsection{Retrofit}\label{retrofit}}
 
 \texttt{Retrofit} ist eine weitere Netzwerk-Library (bzw. Libraries),
 die das Projektteam eingesetzt hat. Retrofit wurde nur zum Senden von
-Dateien eingesetzt, weil dies mit Volley nur erschwert möglich ist. Das
-Projektteam hat die von Retrofit zur Verfügung gestellten Libraries
-nicht wesentlich modifiziert. Da die Anhangfunktion das einzige
-Einsatzgebiet von Retrofit darstellt, nimmt Volley in der vorliegenden
-Diplomarbeit die weitaus wichtigere Rolle ein. Volley bietet
-grundsätzlich alle Funktionen von Retrofit und vice versa. Dadurch, dass
-Volley jedoch bessere Möglichkeiten zur Zuschneidung auf einen
-spezifischen Use-Case unterstützt, hat sich das Projektteam für Volley
-entschieden. Ein Vorteil, der jedoch damit verloren geht, ist das
-automatische Parsing von JSON-Antworten, das zwar in Retrofit
-implementiert ist, jedoch nicht in Volley \cite{retrofit-vs-volley}.
+Dateien eingesetzt, weil dies mit Volley nur erschwert möglich ist. Mit
+dieser Library wurde die Anhang-Funktion realisiert.
 
-Das Projektteam hat bei dem einzigen Einsatz von Retrofit auf das
-automatische Parsing verzichtet und stattdessen die bereits bekannte
-Callback-Logik verwendet.
+Das Projektteam hat bei dem einzigen die bereits bekannte Callback-Logik
+verwendet:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -561,6 +926,7 @@ Callback-Logik verwendet.
     \AttributeTok{@Override}
     \KeywordTok{public} \DataTypeTok{void} \FunctionTok{onResponse}\NormalTok{(Call<}\BuiltInTok{String}\NormalTok{> call, }\BuiltInTok{Response}\NormalTok{<}\BuiltInTok{String}\NormalTok{> response) \{}
         \CommentTok{// }\AlertTok{TODO}\CommentTok{: Antwort verarbeiten}
+        \CommentTok{// {-}> Anhand der Antwort Modell{-}Objekte instanziieren}
 \NormalTok{    \}}
     \AttributeTok{@Override}
     \KeywordTok{public} \DataTypeTok{void} \FunctionTok{onFailure}\NormalTok{(Call<}\BuiltInTok{String}\NormalTok{> call, }\BuiltInTok{Throwable}\NormalTok{ t) \{}
@@ -588,26 +954,29 @@ Dies führt zu einem besseren Überblick als bei Volley, da man pro
 API-Endpunkt des Backends ein Interface hat. Damit ist sofort
 ersichtlich, mit welchen Backend-Endpunkten ein Repository kommuniziert.
 
-\hypertarget{das-viewmodel-und-das-fragment-im-detail}{%
-\subsection{Das ViewModel und das Fragment im
-Detail}\label{das-viewmodel-und-das-fragment-im-detail}}
+\hypertarget{das-fragment-und-das-viewmodel-im-detail}{%
+\subsection{Das Fragment und das ViewModel im
+Detail}\label{das-fragment-und-das-viewmodel-im-detail}}
 
-Das ViewModel ist eine Klasse, die dafür ausgelegt ist, UI-bezogene
-Daten \texttt{lifecycle-aware} zu speichern. Ein Fragment durchlebt im
-Laufe seines Daseins eine Vielzahl an Zuständen/Phasen - man spricht von
-einem \texttt{Lifecycle}. Wenn der Benutzer zum Beispiel sein Gerät
-rotiert, führt dies dazu, dass das Fragment \emph{zerstört} wird und das
-Fragment durch erneutes Durchleben alter Zustände wiederaufgebaut wird -
-dies führt zu einer Zerstörung des aktuellen UIs des Fragments sowie
-sämtlicher Referenzen, die das Fragment besitzt. Eine Gerätrotierung
-gehört zur Kategorie der \texttt{Configuration\ Changes}
-\cite{viewmodel}. Der Grund hierfür liegt darin, dass Android das
-aktuelle Layout ändert, da beispielsweise andere Layouts (XML-Files) für
-den Landscape-Modus zur Verfügung stehen \cite{configuration-changes}.
-In der Literatur wird der Begriff \emph{zerstören} verwendet, da dabei
-das Callback \texttt{onDestroy} in einer Activity aufgerufen wird.
+Ein Fragment durchlebt im Laufe seines Daseins eine Vielzahl an
+Zuständen/Phasen -- man spricht von einem \texttt{Lifecycle}. Wenn der
+Benutzer zum Beispiel sein Gerät rotiert, führt dies dazu, dass das
+Fragment \emph{zerstört} wird und das Fragment durch erneutes Durchleben
+alter Zustände wiederaufgebaut wird -- dies führt zu einer Zerstörung
+des aktuellen UIs des Fragments sowie sämtlicher Referenzen, die das
+Fragment besitzt. Fast alle GUI-Komponenten (Fragments, Textfelder etc.)
+sind in Android an einen Lifecycle gebunden.
 
-Folgende Probleme können dadurch auftreten:
+Eine Gerätrotierung gehört zur Kategorie der
+\texttt{Configuration\ Changes} \cite{viewmodel}. Der Grund hierfür
+liegt darin, dass Android das aktuelle Layout ändert, da beispielsweise
+andere Layouts (XML-Files) für den Landscape-Modus zur Verfügung stehen
+\cite{configuration-changes}. In der Literatur wird der Begriff
+\emph{zerstören} verwendet, da dabei das Callback \texttt{onDestroy} in
+einer Activity aufgerufen wird.
+
+Folgende Probleme, die eine Inventur massiv erschweren würden, könnten
+durch Lifecycle-Probleme auftreten:
 
 \begin{itemize}
 \tightlist
@@ -634,13 +1003,16 @@ Folgende Probleme können dadurch auftreten:
 \subsubsection{ViewModel als Lösung}\label{viewmodel-als-luxf6sung}}
 
 \begin{figure}
-  \includegraphics[width=\linewidth]{viewmodel-lifecycle.png}
-  \caption{Zustände einer Activity im Vergleich zu den Zuständen eines ViewModels, Fragments haben einen ähnlichen Lifecycle \cite{fragment-lifecycle} \cite{viewmodel}}
-  \label{fig:vmlife}
+\centering
+\includegraphics{viewmodel-lifecycle.png}
+\caption{Zustände einer Activity im Vergleich zu den Zuständen eines
+ViewModels, Fragments haben einen ähnlichen Lifecycle
+\cite{fragment-lifecycle} \cite{viewmodel} \cite{life-bild}
+\label{fig:vmlife}}
 \end{figure}
 
-Bei genauerer Betrachtung der Grafik \ref{fig:vmlife} wird ersichtlich,
-welche Phasen eine Activity bei einer Gerätrotierung durchlebt:
+Bei genauerer Betrachtung der \abb{fig:vmlife} wird ersichtlich, welche
+Phasen eine Activity bei einer Gerätrotierung durchlebt:
 
 \begin{itemize}
 \tightlist
@@ -670,13 +1042,15 @@ welche Phasen eine Activity bei einer Gerätrotierung durchlebt:
   \end{itemize}
 \end{itemize}
 
-Wie in der Abbildung \ref{fig:vmlife} zu sehen ist, stellt ein ViewModel
-eine Lösung für diese Probleme dar. Ein ViewModel ist von einem
+Wie in der \abb{fig:vmlife} zu sehen ist, stellt ein ViewModel eine
+Lösung für diese Probleme dar. Ein ViewModel ist von einem
 \texttt{Configuration\ Change} nicht betroffen und kann dem UI damit
-stets die aktuellen Daten zur Verfügung stellen. Der gegebene
-Sachverhalt trifft genauso auf Fragments zu. Diese haben einen leicht
-veränderten Lifecycle, sind allerdings genauso von Configuration Changes
-betroffen wie Activities.
+stets die aktuellen Daten zur Verfügung stellen. Die Daten erhält das
+ViewModel vom Repository. Der gegebene Sachverhalt trifft genauso auf
+Fragments zu. Diese haben einen leicht veränderten Lifecycle, sind
+allerdings genauso von Configuration Changes betroffen wie Activities.
+Das ViewModel ermöglicht es dem Benutzer also eine Inventur konsistent
+-- ohne unvorhersehbares Lifecycle-Verhalten -- durchzuführen.
 
 \textbf{Anmerkung}: Man kann das Zerstören \& Wiederaufbauen von
 Activities/Fragments manuell blockieren. Dies ist jedoch kein Ersatz für
@@ -686,18 +1060,18 @@ Wechseln der Konfiguration (Layouts etc.) kümmern muss und dies weitaus
 komplizierter ist, als auf ViewModels zu setzen
 \cite{lifecycle-blocking}.
 
-Folgende Aspekte sind bei der Verwendung eines ViewModels zu beachten
+Folgende Details sind bei der Verwendung eines ViewModels zu beachten
 \cite{viewmodel-antipatterns}:
 
 \begin{itemize}
 \tightlist
 \item
-  Ein ViewModel sollte bei einem \texttt{Configuration\ Change} keinen
-  neuen Request starten, da es bereits über die Daten verfügt. Dies
-  lässt sich mit einer \texttt{If}-Anweisung beheben.
+  Ein ViewModel sollte bei einem \texttt{Configuration\ Change} keine
+  neue Netzwerkanfrage starten, da es bereits über die aktuellen Daten
+  verfügt. Dies lässt sich mit einer \texttt{If}-Anweisung beheben.
 \item
   Referenzen zu Objekten, die an einen Lifecycle gebunden sind, sind ein
-  absolutes NO-GO. Objekte mit Lifecycle haben ein klares Schicksal -
+  absolutes NO-GO. Objekte mit Lifecycle haben ein klares Schicksal --
   wenn ihr Host vernichtet wird, müssen sie ebenfalls vernichtet werden.
   \textbf{Folgendes Szenario}: Ein ViewModel hat eine
   \texttt{TextView}-Variable (= ein Textfeld). Dreht der Benutzer sein
@@ -715,15 +1089,16 @@ Folgende Aspekte sind bei der Verwendung eines ViewModels zu beachten
   \texttt{SoC}-Prinzip ist anzuwenden.
 \end{itemize}
 
-Wie gelangen die Daten ins UI, wenn das ViewModel keine Referenzen
-darauf haben darf? Die Antwort lautet \texttt{LiveData}.
+Wie gelangen die Daten wie \zB die Raumliste ins UI, wenn das ViewModel
+keine Referenzen auf das UI haben darf? Die Antwort lautet
+\texttt{LiveData}.
 
 \hypertarget{livedata}{%
 \subsubsection{LiveData}\label{livedata}}
 
 \texttt{LiveData} ist eine observierbare Container-Klasse. Observierbar
 heißt, dass bei Änderungen des enkapsulierten Objektes ein Callback
-aufgerufen wird. \texttt{LiveData} ist ebenfalls
+aufgerufen wird. \texttt{LiveData} ist (wie ein ViewModel)
 \texttt{lifecycle-aware}. Daher wird \texttt{LiveData} immer nur aktive
 Komponenten mit Daten versorgen. Eine \texttt{TextView}, die bereits
 zerstört wurde, erhält dementsprechend auch keine Updates mehr.
@@ -736,7 +1111,7 @@ Benutzername angezeigt werden:
 \begin{Highlighting}[]
 \KeywordTok{public} \KeywordTok{class}\NormalTok{ NameViewModel }\KeywordTok{extends}\NormalTok{ ViewModel \{}
 
-    \CommentTok{// LiveData-Objekt, das einen String beinhaltet}
+    \CommentTok{// LiveData{-}Objekt, das einen String beinhaltet}
     \KeywordTok{private}\NormalTok{ MutableLiveData<}\BuiltInTok{String}\NormalTok{> currentName;}
 
     \KeywordTok{public}\NormalTok{ LiveData<}\BuiltInTok{String}\NormalTok{> }\FunctionTok{getCurrentName}\NormalTok{() \{}
@@ -776,9 +1151,9 @@ Realfall stammt \texttt{LiveData} ursprünglich aus dem Repository.
 \NormalTok{        model = }\KeywordTok{new} \FunctionTok{ViewModelProvider}\NormalTok{(}\KeywordTok{this}\NormalTok{).}\FunctionTok{get}\NormalTok{(NameViewModel.}\FunctionTok{class}\NormalTok{);}
 
 \NormalTok{        model.}\FunctionTok{getCurrentName}\NormalTok{().}\FunctionTok{observe}\NormalTok{(}\FunctionTok{getViewLifecycleOwner}\NormalTok{(),}
-\NormalTok{         currentName -> \{}
+\NormalTok{         currentName {-}> \{}
              \CommentTok{// Diese Methode wird bei Änderungen aufgerufen.}
-             \CommentTok{// CurrentName ist ein String.}
+             \CommentTok{// currentName ist ein String.}
              \CommentTok{// nameTextView ist ein TextFeld, }
              \CommentTok{// das den aktuellen Benutzernamen anzeigt.}
              \CommentTok{// Mit .setText(String) kann der angezeigte Text }
@@ -792,17 +1167,20 @@ Realfall stammt \texttt{LiveData} ursprünglich aus dem Repository.
 Hier kommt wieder die vorher angesprochene Lambda-Syntax zum Einsatz.
 Die Methode wird einmal beim erstmaligen Registrieren aufgerufen und
 wird danach bei jeder weiteren Änderung aufgerufen. Im Callback arbeitet
-man direkt mit dem eigentlichem Datentypen - in diesem Fall mit einem
-String -, da \texttt{LiveData} nur ein Container-Objekt ist. Im Fragment
-befindet sich damit relativ wenig Logik. Das Fragment hört nur auf
-eventuelle Änderungen und aktualisiert das UI in Abhängigkeit von den
-Änderungen. Das LiveData-Objekt ist an \texttt{getViewLifeycleOwner()}
-gebunden. Wenn der \texttt{LifecycleOwner} inaktiv wird, werden keine
-Änderungen mehr entsandt. Man könnte auch \texttt{this} als Argument
-übergeben (\texttt{this} wäre in diesem Fall das Fragment, das ebenfalls
-über einen Lifecycle verfügt). \texttt{getViewLifeycleOwner()} hat
-jedoch den Vorteil, dass der Observer automatisch entfernt wird, sobald
-der LifecycleOwner zerstört wird.
+man direkt mit dem eigentlichem Datentypen -- in diesem Fall mit einem
+String --, da \texttt{LiveData} nur ein Container-Objekt ist. Im
+Fragment befindet sich damit relativ wenig Logik. Das Fragment hört nur
+auf eventuelle Änderungen und aktualisiert das UI in Abhängigkeit von
+den Änderungen. Ein Großteil der Logik (wie \zB Validierungen oder
+Gegenstandslisten) befindet sich also im ViewModel.
+
+Das LiveData-Objekt ist an \texttt{getViewLifeycleOwner()} gebunden.
+Wenn der \texttt{LifecycleOwner} inaktiv wird, werden keine Änderungen
+mehr entsandt. Man könnte auch \texttt{this} als Argument übergeben
+(\texttt{this} wäre in diesem Fall das Fragment, das ebenfalls über
+einen Lifecycle verfügt). \texttt{getViewLifeycleOwner()} hat jedoch den
+Vorteil, dass der Observer automatisch entfernt wird, sobald der
+LifecycleOwner zerstört wird.
 
 \hypertarget{angepasste-livedata-klasse}{%
 \subsubsection{Angepasste
@@ -810,21 +1188,24 @@ LiveData-Klasse}\label{angepasste-livedata-klasse}}
 
 Für den vorliegenden Usecase reichen jedoch die Nutzdaten allein nicht.
 Es sind weitere Informationen über den Status der Nutzdaten
-erforderlich. Beispiel: Wenn eine Anfrage zehn Sekunden benötigt, um am
-Client anzukommen, muss dem Benutzer signalisiert werden, dass er auf
-das Backend zu warten hat. Das wird mit einer \texttt{ProgressBar}
-realisiert. Man könnte jetzt im ViewModel
+erforderlich. \textbf{Beispiel:} Wenn eine Anfrage zehn Sekunden
+benötigt, um am Client anzukommen, muss dem Benutzer mittels Ladebalken
+(= \texttt{ProgressBar}) signalisiert werden, dass er auf das Backend zu
+warten hat.
+
+Man könnte jetzt im ViewModel
 \texttt{LiveData\textless{}Boolean\textgreater{}\ isFetching} verwenden
 und im Fragment dieses LiveData-Objekt observieren. Falls der aktuelle
 Wert \texttt{true} ist, wird die ProgressBar angezeigt. Falls der Wert
 auf \texttt{false} geändert wird, werden stattdessen die nun zur
-Verfügung stehenden Nutzdaten angezeigt. Bei mehreren Netzwerkanfragen
-wird dies bald unübersichtlich, da mehrere LiveData-Objekte vonnöten
-sind, die aus logischer Perspektive zu einem bereits bestehenden
-LiveData-Objekt gehören - den Nutzdaten. Daher hat das Diplomarbeitsteam
-- wie von Google \cite{google-wrapper} und von einem
-StackOverflow-Thread \cite{so-wrapper} empfohlen - die Nutzdaten in
-einer Wrapper-Klasse enkapsuliert.
+Verfügung stehenden Nutzdaten angezeigt.
+
+Bei mehreren Netzwerkanfragen wird dies bald unübersichtlich, da mehrere
+LiveData-Objekte vonnöten sind, die aus logischer Perspektive zu einem
+bereits bestehenden LiveData-Objekt gehören -- den Nutzdaten. Daher hat
+das Diplomarbeitsteam -- wie von Google \cite{google-wrapper} und von
+einem StackOverflow-Thread \cite{so-wrapper} empfohlen -- die Nutzdaten
+in einer Wrapper-Klasse (\texttt{StatusAwareData}) enkapsuliert:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -871,12 +1252,8 @@ einer Wrapper-Klasse enkapsuliert.
 \end{Shaded}
 
 Diese Wrapper-Klasse speichert Nutzdaten eines generischen Typen. Der
-Status wird durch eine Zustandsmaschine in Form eines \texttt{Enums}
-implementiert. In Android sollte man Enums vermeiden, da diese um ein
-Vielfaches mehr Arbeitsspeicher und persistenten Speicher benötigen als
-ihre Alternativen. Als Alternative kann man auf Konstanten
-zurückgreifen. Dieser Code-Ausschnitt stellt das einzige Enum des
-gesamten Projektes dar. \cite{avoid-enums}
+Status der Daten wird durch ein \texttt{Enum} abgebildet. Folgende
+Status können Nutzdaten haben:
 
 \begin{itemize}
 \tightlist
@@ -895,6 +1272,12 @@ gesamten Projektes dar. \cite{avoid-enums}
   Netzwerkanfrage gewartet wird.
 \end{itemize}
 
+In Android sollte man Enums vermeiden, da diese um ein Vielfaches mehr
+Arbeitsspeicher und persistenten Speicher benötigen als ihre
+Alternativen. Als Alternative kann man auf Konstanten zurückgreifen.
+Dieser Code-Ausschnitt stellt das einzige Enum des gesamten Projektes
+dar \cite{avoid-enums}.
+
 Um diese Wrapper-Klasse elegant benutzen zu können, hat das Projektteam
 \texttt{MutableLiveData} durch Vererbung angepasst:
 
@@ -904,30 +1287,30 @@ Um diese Wrapper-Klasse elegant benutzen zu können, hat das Projektteam
     \KeywordTok{extends}\NormalTok{ MutableLiveData<StatusAwareData<T>> \{}
 
     \KeywordTok{public} \DataTypeTok{void} \FunctionTok{postFetching}\NormalTok{() \{}
-        \CommentTok{// Instanziiert StatusAwareData-Objekt mit FECHTING als }
+        \CommentTok{// Instanziiert StatusAwareData{-}Objekt mit FECHTING als }
         \CommentTok{// aktuellen Status.}
-        \CommentTok{// Setzt das StatusAwareData-Objekt anschließend }
-        \CommentTok{// als Wert der LiveData-Instanz.}
+        \CommentTok{// Setzt das StatusAwareData{-}Objekt anschließend }
+        \CommentTok{// als Wert der LiveData{-}Instanz.}
         \FunctionTok{postValue}\NormalTok{(}\KeywordTok{new}\NormalTok{ StatusAwareData<T>().}\FunctionTok{fetching}\NormalTok{());}
 \NormalTok{    \}}
 
     \KeywordTok{public} \DataTypeTok{void} \FunctionTok{postError}\NormalTok{(}\BuiltInTok{Exception}\NormalTok{ exception) \{}
-        \CommentTok{// Instanziiert StatusAwareData-Objekt mit ERROR als}
+        \CommentTok{// Instanziiert StatusAwareData{-}Objekt mit ERROR als}
         \CommentTok{// aktuellen Status.}
-        \CommentTok{// Mit der übergebenenen Exception wird die error-Variable}
+        \CommentTok{// Mit der übergebenenen Exception wird die error{-}Variable}
         \CommentTok{// initialisiert.}
-        \CommentTok{// Setzt das StatusAwareData-Objekt anschließend }
-        \CommentTok{// als Wert der LiveData-Instanz.}
+        \CommentTok{// Setzt das StatusAwareData{-}Objekt anschließend }
+        \CommentTok{// als Wert der LiveData{-}Instanz.}
         \FunctionTok{postValue}\NormalTok{(}\KeywordTok{new}\NormalTok{ StatusAwareData<T>().}\FunctionTok{error}\NormalTok{(exception));}
 \NormalTok{    \}}
 
     \KeywordTok{public} \DataTypeTok{void} \FunctionTok{postSuccess}\NormalTok{(T data) \{}
-        \CommentTok{// Instanziiert StatusAwareData-Objekt mit SUCCESS als}
+        \CommentTok{// Instanziiert StatusAwareData{-}Objekt mit SUCCESS als}
         \CommentTok{// aktuellen Status.}
-        \CommentTok{// Mit dem übergebenenen Objekt wird die data-Variable}
+        \CommentTok{// Mit dem übergebenenen Objekt wird die data{-}Variable}
         \CommentTok{// initialisiert.}
-        \CommentTok{// Setzt das StatusAwareData-Objekt anschließend }
-        \CommentTok{// als Wert der LiveData-Instanz.}
+        \CommentTok{// Setzt das StatusAwareData{-}Objekt anschließend }
+        \CommentTok{// als Wert der LiveData{-}Instanz.}
         \FunctionTok{postValue}\NormalTok{(}\KeywordTok{new}\NormalTok{ StatusAwareData<T>().}\FunctionTok{success}\NormalTok{(data));}
 \NormalTok{    \}}
 
@@ -937,18 +1320,18 @@ Um diese Wrapper-Klasse elegant benutzen zu können, hat das Projektteam
 
 Damit entfällt der Bedarf, selbst neue StatusAwareData-Objekte zu
 instanziieren, da diese bereits über die \texttt{postFetching}-,
-\texttt{postError}- und \texttt{postSuccess}-Methoden - mit korrektem
-Status - instanziiert werden. Infolgedessen ist \texttt{StatusAwareData}
-abstrahiert und im ViewModel genügt es, mit den modifizierten
-LiveData-Instanzen zu arbeiten. Damit ändert sich das vorherige
-\href{livedata}{``Beispiel''} wie folgt:
+\texttt{postError}- und \texttt{postSuccess}-Methoden -- mit korrektem
+Status -- instanziiert werden. Infolgedessen ist
+\texttt{StatusAwareData} abstrahiert und im ViewModel genügt es, mit den
+modifizierten LiveData-Instanzen zu arbeiten. Damit ändert sich das
+vorherige \href{livedata}{``Beispiel''} wie folgt:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 
 \CommentTok{// Im ViewModel:}
 
-\CommentTok{// StatusAwareLiveData-Objekt, das einen String mit Status beinhaltet}
+\CommentTok{// StatusAwareLiveData{-}Objekt, das einen String mit Status beinhaltet}
 \KeywordTok{private}\NormalTok{ StatusAwareLiveData<}\BuiltInTok{String}\NormalTok{> currentName;}
 
 \KeywordTok{public}\NormalTok{ LiveData<StatusAwareData<}\BuiltInTok{String}\NormalTok{>> }\FunctionTok{getCurrentName}\NormalTok{() \{}
@@ -966,7 +1349,7 @@ LiveData-Instanzen zu arbeiten. Damit ändert sich das vorherige
 \CommentTok{// Im Fragment:}
 
 \NormalTok{model.}\FunctionTok{getCurrentName}\NormalTok{().}\FunctionTok{observe}\NormalTok{(}\FunctionTok{getViewLifecycleOwner}\NormalTok{(), }
-\NormalTok{ statusAwareData -> \{}
+\NormalTok{ statusAwareData {-}> \{}
       \KeywordTok{switch}\NormalTok{ (statusAwareData.}\FunctionTok{getStatus}\NormalTok{()) \{}
           \KeywordTok{case}\NormalTok{ SUCCESS:}
               \CommentTok{// }\AlertTok{TODO}\CommentTok{: Nutzdaten anzeigen}
@@ -989,30 +1372,31 @@ LiveData-Instanzen zu arbeiten. Damit ändert sich das vorherige
 \subsection{Konkrete
 MVVM-Implementierung}\label{konkrete-mvvm-implementierung}}
 
-Im vorliegenden Anwendungsfall hat ein Fragment immer mindestens einen
-Datensatz, der für das Fragment namensgebend ist. Der Room-Screen (also
-die Anzeige mit einer DropDown zur Raumauswahl) setzt sich
-beispielsweise aus folgenden Komponenten zusammen:
+Im vorliegenden Anwendungsfall zeigt das Fragment immer mindestens einen
+Datensatz an, der für das Fragment (und die anderen Ebenen) namensgebend
+ist. Der Room-Screen (also die Anzeige mit einer DropDown zur
+Raumauswahl) setzt sich beispielsweise aus folgenden Komponenten
+zusammen:
 
 \begin{itemize}
 \tightlist
 \item
-  Der \texttt{RoomsFragment}-Klasse
-\item
-  Der \texttt{fragment\_rooms.xml}-Datei, die das UI-Layout definiert
+  Der \texttt{RoomsRepository}-Klasse
 \item
   Der \texttt{RoomsViewModel}-Klasse
 \item
-  Der \texttt{RoomsRepository}-Klasse
+  Der \texttt{RoomsFragment}-Klasse
+\item
+  Der \texttt{fragment\_rooms.xml}-Datei, die das UI-Layout definiert
 \end{itemize}
 
 Das \texttt{RoomsRepository} ist dafür verantwortlich, die Raumliste vom
-Backend anzufordern und in Java-Objekte umzuwandeln. Das
-\texttt{RoomsViewModel} ist dafür verantwortlich, dem Fragment
-LiveData-Objekte zur Verfügung zu stellen. Das \texttt{RoomsFragment}
-ist dafür verantwortlich, dem Benutzer die Räume anzuzeigen, indem es
-\texttt{LiveData} observiert. Alternativ zeigt es Fehlermeldungen bzw.
-einen Ladebalken an.
+Backend anzufordern und in Objekte der Modell-Klasse \texttt{Room}
+umzuwandeln. Das \texttt{RoomsViewModel} ist dafür verantwortlich, dem
+Fragment LiveData-Objekte zur Verfügung zu stellen. Das
+\texttt{RoomsFragment} ist dafür verantwortlich, dem Benutzer die Räume
+anzuzeigen, indem es \texttt{LiveData} observiert. Alternativ zeigt es
+Fehlermeldungen bzw. einen Ladebalken an.
 
 Bei genauerer Betrachtung wird klar, dass fast jeder Screen dieselbe
 Aufgabe hat:
@@ -1021,7 +1405,7 @@ Aufgabe hat:
 \tightlist
 \item
   Das Repository fordert Daten vom Backend an und wandelt die
-  JSON-Antwort um.
+  JSON-Antwort in Modell-Objekte um.
 \item
   Das ViewModel abstrahiert Logik und stellt der View \texttt{LiveData}
   zur Verfügung.
@@ -1049,35 +1433,39 @@ definiert, die die Menge an Boilerplate-Code signifikant reduzieren:
   \texttt{NetworkFragment}
 \end{itemize}
 
-Alle Komponenten von Screens, die Netzwerkanforderungen durchführen,
-erben von diesen drei Klassen. Damit hat das Projektteam folgende
-Vorteile aggregiert:
+Alle Komponenten von inventurrelevanten Screens erben von diesen drei
+Klassen. Damit hat das Projektteam folgende Vorteile aggregiert:
 
 \begin{itemize}
 \tightlist
 \item
   Abstrahierte Fehlerbehandlung
 \item
-  Abstrahiertes Refreshverhalten
-\item
-  Abstrahierte Ladeanzeige (durch eine \texttt{ProgressBar})
+  Abstrahierte Ladeanzeige
 \item
   Abstrahierter Netzwerkzugriff
+\item
+  Abstrahiertes Refreshverhalten (durch nach unten wischen wie \zB bei
+  YouTube)
 \end{itemize}
 
-Der Refactor, der dies realisierte, war zwar zeitintensiv, hat sich
+Das Refactoring, das dies realisierte, war zwar zeitintensiv, hat sich
 jedoch mittlerweile mehr als rentiert. Das Hinzufügen von neuen Screens
-benötigt nur mehr einen Bruchteil des ursprünglichen Codes.
+benötigt nur mehr einen Bruchteil des ursprünglichen Codes und jeder
+neue Screen hat automatisch die aufgezählten Features inkludiert.
 Infolgedessen wird das Erweitern der App um neue Features enorm
 erleichtert.
 
 \chapter{Das Scannen}
 \label{das_scannen}
 
-Das Scannen ist ein vitaler Aspekt dieser Diplomarbeit. Gegenstände an
-unserer Organisation sind mit Barcodes ausgestattet. Um die
-Produktivität maximal zu steigern, muss die App in der Lage sein, diese
-Barcodes zu erfassen. Wir bieten folgende Varianten zum Scannen an:
+Das Scannen ist ein vitaler Aspekt der vorliegenden Diplomarbeit.
+Gegenstände an der vorliegenden Organisation sind mit Barcodes
+ausgestattet. Der Benutzer wird den Großteil seiner Zeit damit
+verbringen, die Gegenstandsliste durch das Scannen von Barcodes
+abzuarbeiten. Um die Produktivität maximal zu steigern, muss die App in
+der Lage sein, diese Barcodes möglichst schnell zu erfassen. Es werden
+folgende Scanvarianten angeboten:
 
 \begin{itemize}
 \tightlist
@@ -1092,13 +1480,16 @@ Barcodes zu erfassen. Wir bieten folgende Varianten zum Scannen an:
 \hypertarget{der-zebra-scan}{%
 \section{Der Zebra-Scan}\label{der-zebra-scan}}
 
-Der Sponsor dieser Diplomarbeit - Zebra - hat dem Diplomarbeitsteam
-einen \texttt{TC56} (``Touch Computer'') zur Verfügung gestellt. Dieser
-verfügt über einige Eigenschaften, die für eine Inventur vom Vorteil
-sind \cite{zebra-tc56}:
+Der hervorragende Sponsor dieser Diplomarbeit -- Zebra -- hat dem
+Diplomarbeitsteam einen \texttt{TC56} (``Touch Computer'') zur Verfügung
+gestellt. Dieser verfügt über einige Eigenschaften, die für eine
+Inventur vom Vorteil sind \cite{zebra-tc56}:
 
 \begin{itemize}
 \tightlist
+\item
+  Ein in das Smartphone integrierter Barcodescanner reduziert die
+  Scanzeiten drastisch.
 \item
   Ein Akku mit über 4000 mAh ermöglicht mehrstündige Inventuren.
 \item
@@ -1107,27 +1498,24 @@ sind \cite{zebra-tc56}:
 \item
   Dank robuster Bauart hält das Gerät auch physisch anspruchsvollere
   Phasen einer Inventur aus.
-\item
-  Ein in das Smartphone integrierter Barcodescanner reduziert die
-  Scanzeiten drastisch.
 \end{itemize}
 
 \hypertarget{zebra-scan-funktionsweise}{%
-\section{Zebra-Scan: Funktionsweise}\label{zebra-scan-funktionsweise}}
+\subsection{Zebra-Scan:
+Funktionsweise}\label{zebra-scan-funktionsweise}}
 
-Die App kommuniziert nicht direkt mit dem Scanner. Stattdessen wickelt
-das Zebra-Gerät den Scan ab und sendet das Resultat als
-\texttt{Broadcast} aus \cite{broadcast}. Auf dem Zebra-Gerät läuft im
-Hintergrund immer die DataWege-Applikation. Dies ist eine App, die die
-Behandlung des tatsächlichen Scans abwickelt und das Ergebnis auf
-mehrere Arten aussendet \cite{datawedge}. Beispielsweise wird das
-Ergebnis an die Tastatur geschickt, aber eben auch als Broadcast an das
-Betriebssystem. Die App registriert sich beim Betriebssystem und hört
-auf den Broadcast, der den Barcode enthält und automatisch von DataWege
-entsandt wird. Broadcasts werden durch eine String-ID unterschieden, die
-über DataWedge konfiguriert wird. Derartige Ansätze werden als
-Publish--subscribe-Model bezeichnet
-\textbackslash cite\{publish--subscribe\}.
+Die App kommuniziert nicht direkt mit dem Scanner. Auf dem Zebra-Gerät
+läuft im Hintergrund immer die DataWedge-Applikation. Dies ist eine App,
+die die Behandlung des tatsächlichen Scans abwickelt und das Ergebnis
+auf mehrere Arten aussendet \cite{datawedge}. Beispielsweise wird das
+Ergebnis an die Tastatur geschickt, aber auch als \texttt{Broadcast} an
+das Betriebssystem \cite{broadcast}.
+
+Die App registriert sich beim Betriebssystem und hört auf den Broadcast,
+der den Barcode enthält und automatisch von DataWedge entsandt wird.
+Broadcasts werden durch eine String-ID unterschieden, die über DataWedge
+konfiguriert wird. Derartige Ansätze werden als Publish--subscribe-Model
+bezeichnet \textbackslash cite\{publish--subscribe\}.
 
 Dies bietet folgende Vorteile:
 
@@ -1145,11 +1533,11 @@ Dies bietet folgende Vorteile:
 \end{itemize}
 
 Bei weiterer Überlegung kommt man außerdem zur Erkenntnis, dass der
-Broadcast nicht von DataWege stammen muss. Wenn eine beliebige andere
+Broadcast nicht von DataWedge stammen muss. Wenn eine beliebige andere
 App, einen Broadcast mit derselben ID ausschickt, wird die App dies als
 Scan werten. In weiterer Folge ist es zumindest theoretisch möglich,
 beispielsweise einen Bluetooth-Scanner mit einem regulären Android-Gerät
-zu verwenden und bei einem Resultat, einen Broadcast mit derselben ID
+zu verwenden und bei einem Resultat einen Broadcast mit derselben ID
 auszuschicken. Die App würde keinen Unterschied bemerken und somit auch
 mit dem Bluetooth-Scanner funktionieren. Dieses Einsatzgebiet wurde vom
 Diplomarbeitsteam jedoch nicht getestet.
@@ -1158,7 +1546,7 @@ Diplomarbeitsteam jedoch nicht getestet.
 \subsection{Zebra-Scan:
 Codeausschnitt}\label{zebra-scan-codeausschnitt}}
 
-Broadcast können in Android durch \texttt{BroadcastReceiver} ausgelsen
+Broadcast können in Android durch \texttt{BroadcastReceiver} ausgelesen
 werden. Auch hier wurde das DRY-Prinzip angewandt. Jedes Fragment, das
 Scanergebnisse braucht, verwendet nahezu denselben BroadcastReceiver.
 Daher hat das Team einen eigenen BroadcastReceiver erstellt, der die
@@ -1179,13 +1567,13 @@ werden:
         \CommentTok{// Der BroadcastReceiver muss erstmal beim BS registriert werden.}
 
 \NormalTok{        IntentFilter filter = }\KeywordTok{new} \FunctionTok{IntentFilter}\NormalTok{();}
-\NormalTok{        filter.}\FunctionTok{addCategory}\NormalTok{(Intent.}\FunctionTok{CATEGORY_DEFAULT}\NormalTok{);}
+\NormalTok{        filter.}\FunctionTok{addCategory}\NormalTok{(Intent.}\FunctionTok{CATEGORY\_DEFAULT}\NormalTok{);}
 
-        \CommentTok{// R.string.activity_intent_filter_action definiert }
+        \CommentTok{// R.string.activity\_intent\_filter\_action definiert }
         \CommentTok{// die konfigurierte ID des Broadcasts.}
 \NormalTok{        filter.}\FunctionTok{addAction}\NormalTok{(}
 \NormalTok{            context.}\FunctionTok{getResources}\NormalTok{()}
-\NormalTok{            .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{activity_intent_filter_action}\NormalTok{));}
+\NormalTok{            .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{activity\_intent\_filter\_action}\NormalTok{));}
 
         \CommentTok{// Hier wird der BroadcastReceiver mit der ID, }
         \CommentTok{// auf die er zu hören hat, registriert.}
@@ -1197,7 +1585,7 @@ werden:
                     \BuiltInTok{Context}\NormalTok{ context, }
 \NormalTok{                    ZebraBroadcastReceiver zebraBroadcastReceiver) \{}
          \CommentTok{// Falls ein BrodcastReceiver nicht mehr gebraucht wird,}
-         \CommentTok{// sollte er immer abgemeldet werden.}
+         \CommentTok{// sollte er immer beim BS abgemeldet werden.}
 
 \NormalTok{        context.}\FunctionTok{unregisterReceiver}\NormalTok{(zebraBroadcastReceiver);}
 \NormalTok{    \}}
@@ -1209,21 +1597,21 @@ werden:
 
         \BuiltInTok{String}\NormalTok{ action = intent.}\FunctionTok{getAction}\NormalTok{();}
 
-        \CommentTok{// R.string.activity_intent_filter_action definiert }
+        \CommentTok{// R.string.activity\_intent\_filter\_action definiert }
         \CommentTok{// die konfigurierte ID des Broadcasts.}
         \CommentTok{// Somit kann festgestellt werden,}
         \CommentTok{// ob es sich um den richtigen Broadcast handelt.}
         \KeywordTok{if}\NormalTok{ (action.}\FunctionTok{equals}\NormalTok{(context.}\FunctionTok{getResources}\NormalTok{()}
-\NormalTok{           .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{activity_intent_filter_action}\NormalTok{))) \{}
+\NormalTok{           .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{activity\_intent\_filter\_action}\NormalTok{))) \{}
 
-            \CommentTok{// R.string.datawedge_intent_key_data }
+            \CommentTok{// R.string.datawedge\_intent\_key\_data }
             \CommentTok{// definiert die ID des Scanergebnises selbst. }
             \CommentTok{// Der Scan liefert auch andere Ergebnisse, }
             \CommentTok{// wie z.B. das Barcodeformat. }
             \CommentTok{// Relevant ist nur der Barcode.}
             \BuiltInTok{String}\NormalTok{ barcode = intent.}\FunctionTok{getStringExtra}\NormalTok{(}
 \NormalTok{                context.}\FunctionTok{getResources}\NormalTok{()}
-\NormalTok{                .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{datawedge_intent_key_data}\NormalTok{));}
+\NormalTok{                .}\FunctionTok{getString}\NormalTok{(R.}\FunctionTok{string}\NormalTok{.}\FunctionTok{datawedge\_intent\_key\_data}\NormalTok{));}
 
           
             \CommentTok{// Das Scanergebnis wird nun per }
@@ -1241,12 +1629,13 @@ werden:
 Für Geräte, die nicht dem Hause Zebra entstammen, bietet die App die
 Möglichkeit eines Kamerascans an. Im Hintergrund wird dafür die Google
 Mobile Vision API verwendet, die unter anderem auch Texterkennung oder
-Gesichtserkennung anbietet \cite{mobile-vision}. Hierbei wird ein
-Barcode mittels der Gerätekamera erfasst, ohne dass zuvor ein Bild
-gemacht werden muss. Dem Benutzer wird eine Preview angezeigt und die
-Kamera schließt sich, sobald ein Barcode erfasst wurde. Um die
-Performanz zu maximieren, hat das Diplomarbeitsteam folgende
-Optimierungen vorgenommen:
+Gesichtserkennung anbietet \cite{mobile-vision}.
+
+Hierbei wird ein Barcode mittels der Gerätekamera erfasst, ohne dass
+zuvor ein Bild gemacht werden muss. Dem Benutzer wird eine Preview
+angezeigt und die Kamera schließt sich, sobald ein Barcode erfasst
+wurde. Um die Performanz zu maximieren, hat das Diplomarbeitsteam
+folgende Optimierungen vorgenommen:
 
 \begin{itemize}
 \tightlist
@@ -1291,7 +1680,7 @@ und im Vollbildmodus gestartet werden, macht es mehr Sinn, sie als
 Activities anstatt als Fragments zu implementieren. Die Fragments, die
 einen Kamerascan verwenden, können ihn mit
 \texttt{startActivityForResult} aufrufen. Sie starten also eine neue
-Activity um ein Ergebnis zu erhalten:
+Activity, um ein Ergebnis zu erhalten:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1330,7 +1719,7 @@ Aktivität und beendet die Aktivität.
 \end{Shaded}
 
 Das Ergebnis kann dann wiederum im Fragment wie folgt abgefangen und
-weiter verarbeitet werden:
+weiterverarbeitet werden:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1344,7 +1733,7 @@ weiter verarbeitet werden:
             \BuiltInTok{String}\NormalTok{ barcode = data.}\FunctionTok{getStringExtra}\NormalTok{(}\StringTok{"barcode"}\NormalTok{);}
             \CommentTok{// Anhand des Barcodes werden dann }
             \CommentTok{// weitere Aktionen gesetzt}
-            \FunctionTok{launchItemDetailFragmentFromBarcode}\NormalTok{(barcode);}
+            \FunctionTok{launchDetailedItemFragmentFromBarcode}\NormalTok{(barcode);}
 \NormalTok{        \}}
 \NormalTok{        ...}
 \NormalTok{\}}
@@ -1361,7 +1750,7 @@ einen Scan zu verzichten, wenn:
 \begin{itemize}
 \tightlist
 \item
-  der Scan langsam oder unmöglich ist (z.B. bei Barcodes in
+  der Scan langsam oder unmöglich ist (\zB bei Barcodes in
   unerreichbarer Höhe oder beschädigten Barcodes).
 \item
   man einen Gegenstand auch ohne Barcode identifizieren kann.
@@ -1376,21 +1765,20 @@ einen Scan zu verzichten, wenn:
 Die Gegenstandsliste, die dem Benutzer angezeigt wird, ist durch eine
 Suchleiste (\texttt{SearchBar}) filterbar. Der Benutzer kann nach
 Barcode und Gegenstandsbeschreibung filtern. Dadurch ergibt sich auch
-die Möglichkeit, eine Voice-Tastatur - insofern das Gerät eine hat -
+die Möglichkeit, eine Voice-Tastatur -- insofern das Gerät eine hat --
 einzusetzen.
 
 \hypertarget{textscan}{%
 \subsection{Textscan}\label{textscan}}
 
-Falls der Benutzer weder Voice noch Tastatur verwenden will, kann dieser
-den Textscan verwenden. Hierbei wird per Google Mobile Vision API der
-aufgedruckte Text auf einem Barcode - jedoch NICHT der Barcode selbst -
-gescannt \cite{text-scan}. Der Scan ist für Sprachen, die ein
-lateinisches Schriftsystem verwenden, optimiert. Dem Benutzer wird das
-aktuelle Scanergebnis laufend angezeigt. Da der Out-Of-The-Box-Scan für
-die vorliegenden Zwecke nicht unbedingt geeignet ist, wurden folgende
-Modifikationen vorgenommen (Der Textscan wurde als
-\texttt{TextScanActivity} realisiert):
+Falls der Benutzer weder Voice noch Tastatur verwenden will, kann er den
+Textscan verwenden. Hierbei wird per Google Mobile Vision API der
+aufgedruckte Text auf einem Barcode -- jedoch NICHT der Barcode selbst
+-- gescannt \cite{text-scan}. Dem Benutzer wird das aktuelle
+Scanergebnis laufend angezeigt.
+
+Da der Out-Of-The-Box-Scan für die vorliegenden Zwecke nicht unbedingt
+geeignet ist, wurden folgende Modifikationen vorgenommen:
 
 \begin{itemize}
 \tightlist
@@ -1420,13 +1808,13 @@ Modifikationen vorgenommen (Der Textscan wurde als
 
 Jeder Modus verwendet die Regex, die am besten für seine Kategorie
 geeignet ist. Die Library bietet nur geringfügige Möglichkeiten an, den
-Scan selbst zu beeinflussen. Man kann einen Fokus auf ein Scanergebnis
-setzen. Daher wird der Fokus auf ein Scanergebnis gesetzt, sobald dieses
-durch die aktuelle Regex ausgedrückt werden kann. Die API beschränkt
-sich allerdings nicht auf das Ergebnis, auf das der Fokus gesetzt wurde,
-sondern kann jederzeit den Fokus selbst wieder aufheben. Unabhängig
-davon werden alle Zeichen des Ergebnisses entfernt, die nicht durch die
-Regex erfasst wurden.
+Scan selbst zu beeinflussen. Man kann lediglich einen Fokus auf ein
+Scanergebnis setzen. Daher wird der Fokus auf ein Scanergebnis gesetzt,
+sobald dieses durch die aktuelle Regex ausgedrückt werden kann. Die API
+beschränkt sich allerdings nicht auf das Ergebnis, auf das der Fokus
+gesetzt wurde, sondern kann jederzeit den Fokus selbst wieder aufheben.
+Unabhängig davon werden alle Zeichen des Ergebnisses entfernt, die nicht
+durch die Regex erfasst wurden.
 
 Die Erkennung von Barcodes (also der Numerische Modus) hat zusätzlich
 folgende Optimierungen erhalten:
@@ -1438,8 +1826,8 @@ folgende Optimierungen erhalten:
   Das Ergebnis, das zuerst dreimal vorkam, wird eingelockt. Das heißt,
   dass alle restlichen Scans ignoriert werden.
 \item
-  Zeichen die häufig vom Scanner verwechselt werden (z.B. wird die
-  Ziffer ``0'' häufig als Buchstabe ``O'' erkannt), werden durch ihr
+  Zeichen die häufig vom Scanner verwechselt werden (\zB wird die Ziffer
+  ``0'' häufig als Buchstabe ``O'' erkannt), werden durch ihr
   numerisches Gegenstück ersetzt.
 \item
   Längere Zeichenketten erhalten eine höhere Priorität und werden dem
@@ -1457,369 +1845,3 @@ Zwischenablage kopieren und anschließend die Suchleiste nutzen. Die
 Kommunikation zwischen den Fragments und dem Textscan erfolgt analog zum
 Kamerascan, da der Textscan aus denselben Gründen als Activity
 implementiert wurde.
-
-\chapter{Die Inventurlogik auf der App}
-
-Die genaue Bedienung der App ist dem App-Handbuch zu entnehmen. Dieses
-Kapitel befasst sich mit der Logik hinter einer Inventur.
-
-\hypertarget{die-modelle}{%
-\section{Die Modelle}\label{die-modelle}}
-
-Um die Antworten des Servers abzubilden, wurden mehrere Modell-Klassen
-erstellt. Deren Konstruktoren haben je ein \texttt{JSONObject} als
-Parameter. Die Werte der einzelnen Attribute werden aus diesem
-\texttt{JSONObject} ausgelesen. Folgende Modell-Klassen wurden erstellt.
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{SerializerEntry}: Stellt eine Datenbanksicht dar.
-\item
-  \texttt{Stocktaking}: Stellt eine Inventur dar.
-\item
-  \texttt{Room}: Stellt einen Raum dar.
-\item
-  \texttt{MergedItem}: Stellt einen Gegenstand dar.
-\item
-  \texttt{MergedItemField}: Stellt ein dynamisches Feld dar.
-\item
-  \texttt{Attachment}: Stellt einen Anhang dar.
-\end{itemize}
-
-\hypertarget{grundsuxe4tze}{%
-\subsection{Grundsätze}\label{grundsuxe4tze}}
-
-Eine Modell-Klasse verwaltet etwaige Statusinformationen immer selbst.
-So weiß beispielsweise nur ein Gegenstand selbst, dass er ursprünglich
-aus einem anderen Raum stammt. Dies verbessert die Lesbarkeit und
-Wartbarkeit des Codes massiv, da diese Informationen abstrahiert sind
-und nicht mehrmals an verschiendenen Stellen im Quellcode schlummern.
-
-\hypertarget{die-fragments}{%
-\section{Die Fragments}\label{die-fragments}}
-
-Dieses Kapitel basiert auf den Erklärungen der vorhergehenden Artikel.
-Eine Inventur wird auf der App durch folgendene Fragments abgewickelt,
-die gleichzeitig als Phasen verstanden werden können:
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{StocktakingFragment}
-\item
-  \texttt{RoomsFragment}
-\item
-  \texttt{ViewPagerFragment}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \texttt{MergedItemsFragment}
-  \item
-    \texttt{ValidatedMergedItemsFragment}
-  \end{itemize}
-\item
-  \texttt{DetailedItemFragment}
-\item
-  \texttt{AttachmentsFragment}
-\end{itemize}
-
-\hypertarget{stocktakingfragment}{%
-\paragraph{StocktakingFragment}\label{stocktakingfragment}}
-
-ist das Fragment, in dem der Benutzer die aktuelle Inventur auswählt.
-Die Inventur kann nur vom Administrator am Server angelegt werden.
-Außerdem wählt der Benutzer hier die Datenbanksicht (``den Serializer'')
-aus. Die App kommuniziert ausschließlich mittels REST API mit dem
-Server. Diese Schnittstelle kann verschiedene Quellen haben. Für eine
-Inventur an unserer Schule ist die ``HTL''-Datenbanksicht auszuwählen.
-Durch das Bestätigen eines langegezogenen blauen Buttons gelangt man
-immer zur nächsten Inventurphase. In diesem Fall gelangt man zum
-\texttt{RoomsFragment}.
-
-\hypertarget{roomsfragment}{%
-\paragraph{RoomsFragment}\label{roomsfragment}}
-
-ist das Fragment, in dem der Benutzer den aktuellen Raum über eine
-DropDown auswählt. Anstatt die DropDown zu verwenden, kann er alternativ
-auch die Suchleiste verwenden. Als zusätzliche Alternative hat der
-Benutzer die Möglichkeit den Barcode eines Raumes zu scannen. Nach der
-Auswahl eines Raumes gelangt man zum \texttt{ViewPagerFragment}.
-
-\hypertarget{viewpagerfragment}{%
-\paragraph{ViewPagerFragment}\label{viewpagerfragment}}
-
-ist das Fragment, das als Wrapper für das \texttt{MergedItemsFragment}
-und das \texttt{ValidatedMergedItemsFragment} dient. Die einzige Aufgabe
-dieses Fragments ist es, die zwei vorher genannten Fragments als Tabs
-anzuzeigen. Dies wurde mit der neuen \texttt{ViewPager2}-Library
-realisiert \cite{viewpager2}. Die Tabs kommunizieren über ein geteiltes
-ViewModel miteinander.
-
-\hypertarget{mergeditemsfragment-validatedmergeditemsfragment}{%
-\paragraph{MergedItemsFragment \&
-ValidatedMergedItemsFragment}\label{mergeditemsfragment-validatedmergeditemsfragment}}
-
-sind die Fragments, die die Gegenstandsliste eines Raumes verwalten und
-sie dem Benutzer anzeigen. Die Gegenstände werden einzeln validiert.
-Durch das Scannen des Barcodes eines Gegenstands (beziehungsweise das
-Klicken auf seine GUI-Repräsentation) gelangt er zum
-\texttt{DetailedItemFragment}. Das \texttt{ValidatedMergedItemsFragment}
-erfüllt nur den Zweck, dem Benutzer bereits validierte Gegenstände
-anzuzeigen und ihm die Möglichkeit zu geben, validierte Gegenstände
-zurück zu den nicht-validierten Gegenständen in
-\texttt{MergedItemsFragment} zu verschieben. Daher trägt der Tab für das
-\texttt{MergedItemsFragment} die Beschriftung ``TODO'', währenddessen
-der Tab für das \texttt{ValidatedMergedItemsFragment} die Beschriftung
-``DONE'' trägt.
-
-Beide Fragments verwenden eine \texttt{RecyclerView}, um dem Benutzer
-die Gegenstände anzuzeigen \cite{recyclerview}. Eine RecyclerView
-generiert pro Eintrag ein Layout, hält aber nur die aktuell angezeigten
-Einträge inkl. Layout im RAM.
-
-\hypertarget{detaileditemfragment}{%
-\paragraph{DetailedItemFragment}\label{detaileditemfragment}}
-
-ist das Fragment, das zur Validierung eines einzelnen Gegenstands dient.
-Der Benutzer hat hier die Möglichkeit, etwaige Eigenschaften des
-Gegenstandes (beispielsweise den Anzeigenamen) zu ändern. Ein Formular,
-dass die Felder eines Gegenstandes beinhaltet, wird einmal angefordert,
-und anschließend für die gesamte Lebensdauer der App gespeichert. Anhand
-dieses Formulars wird dann eine GUI-Repräsentation dynamisch erstellt.
-Das Formular kann \texttt{ExtraFields} beinhalten. Das sind Felder, die
-als nicht essentiel angesehen werden und infolgedessen standardmäßig
-eingeklappt sind. Dazu gehören auch benutzerdefinierte Felder -
-sognannte \texttt{CustomFields}.
-
-Dadurch braucht man für die gesamte Validierung eines Raumes - insofern
-keine Sonderfälle auftreten - keine Verbindung zum Server. Der Benutzer
-kann die Liste an einer Lokalität mit einer guten Verbindung anfordern,
-den Raum mit schlechter Verbindung betreten und validieren. Anschließend
-kann er den Raum verlassen und seine Validierungen an den Server senden.
-Damit wird der Bedarf an Netzwerkanfragen in Räumen mit schlechter
-Netzwerkverbindung minimiert. Der Benutzer kann zusätzlich zur
-Validierung auch Anhänge für einen Gegenstand definieren, dazu landet er
-beim \texttt{AttachmentsFragment}.
-
-Folgende GUI-Komponenten wurden statisch implementiert, da sie Felder
-repräsentieren, die unabhängig von der ausgewählten Datenbanksicht immer
-vorhanden sind und daher nicht dynamisch sind:
-
-\begin{itemize}
-\tightlist
-\item
-  Ein read-only Textfeld für die Gegendstandsbeschreibung
-\item
-  Ein read-only Textfeld für den Barcode
-\item
-  Eine Checkbox ``Erst später entscheiden''
-\item
-  Eine DropDown für Subrooms
-\end{itemize}
-
-\hypertarget{attachmentsfragment}{%
-\paragraph{AttachmentsFragment}\label{attachmentsfragment}}
-
-ist das Fragment, das die Anhänge eines Gegenstandes verwaltet. Der
-Benutzer sieht hier die bereits vorhandenen Anhänge mit Beschriftungen
-und kann weitere Anhänge hinzufügen. Bilder werden direkt angezeigt.
-Andere Dateien werden hingegen als Hyperlink dargestellt. Der Benutzer
-kann diese per Browser runterladen. Zum Hochladen eigener Anhänge greift
-die App auf den Standard-Dateibrowser des Systems zurück. Das Outsourcen
-auf Webbrowser und Dateibrowser bietet den massiven Vorteil, dass man
-sich die Entwicklung eigener Download-Manager bzw. File-Manager erspart
-und auf Apps setzen kann, die von namenhaften Herstellern entwickelt
-werden. Fast jedes System hat bereits beide Komponenten vorinstalliert,
-daher treten bezüglich der Verfügbarkeit keine Probleme auf.
-
-Beim dem Hochladen von Bildern komprimiert die App jene zuvor. Die
-Qualität des Bildes ist einstellbar:
-
-\begin{itemize}
-\tightlist
-\item
-  100 \% (keine Kompression)
-\item
-  95 \%
-\item
-  85 \%
-\item
-  75 \%
-\end{itemize}
-
-Zur Kompression wird das \texttt{WEBP}-Format verwendet, das dem
-mittlerweile veralteten \texttt{JPG}-Standard überlegen ist \cite{webp}.
-Der Server speichert den gesendeten Anhang nur einmal (Dateien werden
-anhand von Hashes unterschieden). Wenn ein Benutzer allen PCs in einem
-EDV-Saal dasselbe Bild zuweist, wird es nur einmal am Server hinterlegt.
-Die Anzahl der Anhänge ist nicht limitiert.
-
-\hypertarget{validierungslogik}{%
-\section{Validierungslogik}\label{validierungslogik}}
-
-\texttt{MergedItemsFragment} \& \texttt{DetailedItemFragment} sind die
-Fragments, die den Großteil einer Inventur ausmachen. Der Benutzer
-scannt alle SAP-Barcodes, die sich in einem Raum befinden. Im Idealfall
-entspricht diese Menge exakt der Menge der Gegenstände, die dem Benutzer
-im \texttt{MergedItemsFragment} angezeigt wird. Im Normalfall wird dies
-durch etwaige Sonderfälle jedoch nicht gegeben sein.
-
-Nach dem Scannen eines Gegenstandes werden die Felder des Gegenstandes
-dem Benutzer im \texttt{DetailedItemFragment} angezeigt. In diesem
-Fragment hat der Benutzer zwei Buttons, mit denen er den Gegenstand
-validieren kann:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Grüner Button}: Mit diesem Button wird signalisiert, dass sich
-  der Gegenstand im Raum befindet und der Gegenstand wird mitsamt
-  etwaigen Änderungen an seinen Attributen/Feldern übernommen. Dazu wird
-  ein \texttt{ValidationEntry} erstellt. Alternativ kann der Benutzer
-  das Klicken dieses Buttons mit dem Schütteln des Gerätes ersetzen. Die
-  Schüttel-Sensibilität ist über die Einstellungen konfigurierbar (und
-  auch deaktivierbar).
-\item
-  \textbf{Roter Button}: Mit diesem Button wird signalisiert, dass sich
-  der Gegenstand nicht im Raum befindet. Dieser Button wird im
-  Normalfall nie betätigt werden, da ein Gegenstand, der sich nicht in
-  diesem Raum befindet, nicht gescannt werden kann und daher dieses
-  Fenster nie geöffnet werden wird. Der Button hat trotzdem einen Sinn,
-  da der Benutzer damit die ``TODO''-Liste über das GUI verkleinern
-  kann, um sich einen besseren Überblick zu verschaffen.
-\end{itemize}
-
-\hypertarget{der-validationentry}{%
-\subsection{Der ValidationEntry}\label{der-validationentry}}
-
-Das \texttt{MergedItemsFragment} (bzw. das
-\texttt{MergedItemsViewModel}) verfügt über eine \texttt{HashMap}
-(\texttt{Map\textless{}MergedItem,\ List\textless{}ValidationEntry\textgreater{}\textgreater{}}),
-die alle \texttt{ValidationEntries} beinhaltet. Ein
-\texttt{ValidationEntry} beinhaltet sämtliche Informationen, die der
-Server benötigt, um die Datensätze eines Gengenstandes entsprechend
-anzupassen. Einem Gegenstand ist eine Liste an
-\texttt{ValidationEntries} zugeordnet, da Subitems eigene
-\texttt{ValiditionEntries} bekommen können (siehe
-\protect\hyperlink{sonderfuxe4lle}{``Sonderfälle''}).
-
-Ein \texttt{ValidationEntry} beinhaltet immer den Primary Key eines
-Gegenstandes und die Felder, die sich geändert haben. Ein
-\texttt{ValidationEntry} hat daher eine Liste an Feldern
-\texttt{List\textless{}Field\textgreater{}}. Wenn sich der Wert eines
-Feldes geändert hat, wird diese Liste um einen Eintrag erweitert. Da die
-Felder wie erwähnt dynamisch sind, wurden Java Generics eingesetzt
-\cite{java-generics}, um diese abbilden zu können. \texttt{Field} ist
-eine innere Klasse in \texttt{ValidationEntry}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{public} \DataTypeTok{static} \KeywordTok{class} \BuiltInTok{Field}\NormalTok{<T> \{}
-    \KeywordTok{private} \BuiltInTok{String}\NormalTok{ fieldName;}
-    \KeywordTok{private}\NormalTok{ T fieldValue;}
-\NormalTok{    ...}
-\end{Highlighting}
-\end{Shaded}
-
-Ein Feld besteht also immer aus einem Feldnamen und einem generischen
-Feldwert. Selbiges gilt für \texttt{ExtraFields}.
-
-\hypertarget{sendeformat}{%
-\subsubsection{Sendeformat}\label{sendeformat}}
-
-Wenn ein Raum abgeschlossen ist, werden alle ValidationEntries in einer
-Liste vereint und anschließend in eine JSON-Darstellung transformiert.
-Dieses JSON wird dem Server gesandt und damit ist der aktuelle Raum
-abgeschlossen und der Benutzer kann sich den restlichen Räumen annehmen.
-Das POST-Format wird im Kapitel
-\protect\hyperlink{json-schema}{``JSON-Schema''} beschrieben.
-
-\hypertarget{quickscan}{%
-\subsection{Quickscan}\label{quickscan}}
-
-Der häufigste Fall einer Inventur wird jener sein, in dem ein Gegenstand
-im richtigen Raum ist und der Benutzer ohne weiteren Input auf den
-grünen Button drückt. Da dies einen unnötigen Overhead darstellt, wurde
-die App um den \texttt{QuickScan}-Modus erweitert. Hierbei wird sofort
-nach dem Scannen ein \texttt{ValidationEntry} erstellt, ohne dass zuvor
-das \texttt{DetailedItemFragment} geöffnet wird. Dieser Modus ist durch
-einen Button im \texttt{MergedItemsFragment} aktivierbar/deaktivierbar.
-Falls ein Sonderfall auftreten sollte, vibriert das Gerät zweimal und
-öffnet das \texttt{DetailedItemFragment}. Damit wird gewährleistet, dass
-der Benutzer nicht irrtümlich mit dem Scannen weitermacht. Er muss
-diesen Sonderfall händisch validieren. Haptisches Feedback ist für
-Sonderfälle reserviert.
-
-\hypertarget{sonderfuxe4lle-auf-der-app}{%
-\subsection{Sonderfälle auf der App}\label{sonderfuxe4lle-auf-der-app}}
-
-Ein zentrales Thema der vorliegenden Diplomarbeit ist die Behandlung der
-Sonderfälle.
-
-\hypertarget{subitems}{%
-\subsubsection{Subitems}\label{subitems}}
-
-Falls ein Gegenstand mehrmals vorhanden sein sollte, ist der
-\texttt{times\_found\_last}-Zähler in der Antwort des Servers größer als
-1 und der Gegenstand gilt als Subitem. Dieser Counter wird dem Benutzer
-in folgender Form angezeigt:
-\texttt{{[}Anzahl\ aktuell\ gefunden{]}\ /\ {[}Anzahl\ zuletzt\ gefunden{]}}.
-
-Pro Subitem wird ein eigener \texttt{ValidationEntry} erstellt. An
-unserer Schule haben Subitems jedoch keinen Barcode sondern sind
-beispielsweise Teil eines Bundles, was dazu führt, dass Subitems auch in
-der Datenbank keine selbstständigen Gegenstände sind.
-\texttt{Change\ Proposals} (siehe
-\protect\hyperlink{uxe4nderungsvorschluxe4ge}{``Änderungsvorschläge''}),
-die auf Basis dieser \texttt{ValidationEntries} erstellt werden, werden
-dem echten ``Parent''-Gegenstand zugeordnet und können wahlweise
-angewandt werden. Falls ein Gegenstand mehrmals gescannt wird, wird -
-nach Bestätigung durch den Benutzer - die Anzahl der aktuellen Funde
-erhöht und wiederum einen \texttt{ValidationEntry} erstellt, selbst wenn
-es sich bei dem Gegenstand aktuell nicht um ein Subitem handelt.
-
-\hypertarget{subrooms}{%
-\subsubsection{Subrooms}\label{subrooms}}
-
-Subrooms sind logische Räume in einem Raum. Subrooms werden dem Benutzer
-im \texttt{MergedItemsFragment} als einklappbare Teilmenge aller
-Gegenstände des Raumes angezeigt. Die Subroom-Zugehörigkeit kann auf
-Gegenstandsbasis über eine DropDown geändert werden. Die
-Subroom-Zugehörigkeit wird in einem \texttt{ValidationEntry} immer
-gesetzt, auch wenn sie sich nicht geändert hat.
-
-Die Gegenstandsliste des \texttt{MergedItemsFragment} beinhaltet in
-Wahrheit auch die Subrooms. Dies ist notwendig, da die
-\texttt{RecyclerView}, die dazu genutzt wird dem Benutzer die
-Gegenstände anzuzeigen, keine Möglichkeit bietet, eine Hierarchie bzw.
-Zwischenebenen darzustellen. Daher implementieren das Room-Model und das
-MergedItem-Model das Interface \texttt{RecyclerViewItem} und die
-RecyclerView erhält eine Liste an RecyclerViewItems - dies ist ein
-typisch polymorpher Ansatz. Abhängig vom Typen des aktuellen
-Listenelements baut die RecyclerView entweder ein Gegenstandslayout oder
-ein Raumlayout auf. Die Anzahl der Subrooms ist weder in der Tiefe noch
-in der Breite limitiert.
-
-\hypertarget{unbekannte-gegenstuxe4nde}{%
-\subsubsection{Unbekannte Gegenstände}\label{unbekannte-gegenstuxe4nde}}
-
-Falls ein Gegenstand gescannt wird, der sich nicht in der aktuellen
-Gegenstandsliste befindet, muss der Server befragt werden. Es gibt zwei
-mögliche Antwortszenarien. Die \texttt{ValidationEntries} für diese
-Sonderfälle unterscheiden sich nicht von den bisherigen.
-
-\hypertarget{neuer-gegenstand}{%
-\subparagraph{Neuer Gegenstand}\label{neuer-gegenstand}}
-
-Der Gegenstand befindet sich überhaupt nicht in der Datenbank. Im
-``DONE''-Tab haben solche Gegenstände eine blaue Hervorhebung.
-
-\hypertarget{gegenstand-aus-anderem-raum}{%
-\subparagraph{Gegenstand aus anderem
-Raum}\label{gegenstand-aus-anderem-raum}}
-
-Der Gegenstand befindet in der Datenbank und stammt ursprünglich aus
-einem anderen Raum. Im ``DONE''-Tab haben solche Gegenstände eine orange
-Hervorhebung.
