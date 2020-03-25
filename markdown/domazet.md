@@ -290,7 +290,7 @@ Das ViewModel dient als Bindeglied zwischen dem Model und der View. Die Logik de
 
 Mit der Einführung der `Architecture Components` hat Google Android-Entwicklern eine Vielzahl an Libraries zur Verfügung gestellt, um MVVM leichter in Android implementieren zu können \cite{mvvm-architecture-components}. Die konkrete Implementierung in Android ist in Abbildung \abb{fig:mvvm} ersichtlich.
 
-![MVVM in Android nach Google \cite{mvvm} \cite{mvvm-bild} \label{fig:mvvm}](mvvm.png)
+![MVVM in Android nach Google \cite{mvvm} \cite{mvvm-bild} \label{fig:mvvm}](mvvm.png){ width=250px }
 
 In dem vorliegenden Fall ist unser `Fragment` die `View`, das `Repository` das `Model` und das `ViewModel` ist in Android namensgleich. MVVM ist streng hierarchisch. Wie in der Abbildung zu erkennen ist, kommuniziert jede Ebene nur mit der hierarchisch nächsten Ebene. 
 
