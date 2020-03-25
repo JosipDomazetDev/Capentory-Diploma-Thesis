@@ -1,4 +1,5 @@
 \chapter{Einführung in die App}
+\renewcommand{\kapitelautor}{Autor: Josip Domazet}
 
 Das Ziel der Diplomarbeit ist es, eine App zu entwickeln, mit der man in der Lage ist, eine Inventur durchzuführen. Um zu verstehen, wieso sich das Projektteam für eine native App entschieden hat, muss man zwischen zwei Begriffen unterscheiden \cite{native-vs-web}:
 
