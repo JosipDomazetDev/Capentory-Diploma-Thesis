@@ -116,7 +116,7 @@ Damit die Ubuntu-Maschine für den Produktivbetrieb startbereit ist, müssen im 
 
 ### Advanced Packaging Tool
 
-Jeder Ubuntu Benutzer kennt es. Mit diesem Tool werden auf dem System die notwendigen Applikationen heruntergeladen, extrahiert und anschließend installiert. Insgesamt stehen einem 18 apt-get commands zur Verfügung. Genauere Erklärungen sowie die Syntax zu den wichtigsten commands folgen.
+Mit diesem Tool werden auf dem System die notwendigen Applikationen heruntergeladen, extrahiert und anschließend installiert. Insgesamt stehen einem 18 apt-get commands zur Verfügung. Genauere Erklärungen sowie die Syntax zu den wichtigsten commands folgen.
 
 #### apt-get update
 
@@ -189,7 +189,7 @@ Das Aufsetzen beziehungsweise die Installation der Produktivumgebung ist der wic
 
 ### Entwicklungsumgebung
 
-Die Entwickler des Grundservers "Ralph" haben eine eigene Entwicklungsumgebung für den Django-Server erstellt. Normalerweise findet sich in einem klassischen Python-Projekt oder einem Projekt, dass auf einem Python-Framework (wie zum Beispiel Django) basiert, ein sogenanntes "`manage.py`"-File. Hierbei handelt es sich um ein Script, dass das Management eines beliebigen Python-Projektes unterstützt. Mit dem Script ist man unter anderem in der Lage, den Webserver auf einem unspezifischen Rechner zu starten, ohne etwas Weiteres installieren zu müssen.
+Die Entwickler des Grundservers "Ralph" haben eine eigene Entwicklungsumgebung für den Django-Server erstellt. Normalerweise findet sich in einem klassischen Python-Projekt oder einem Projekt, dass auf einem Python-Framework (wie zum Beispiel Django) basiert, ein sogenanntes "`manage.py`"-File. Hierbei handelt es sich um ein Script, dass das Management eines beliebigen Python-Projektes unterstützt. Mit dem Script ist man unteranderem in der Lage, den Webserver auf einem unspezifischen Rechner zu starten, ohne etwas Weiteres installieren zu müssen.
 
 Jedoch wurde diese Datei im Projekt von "Ralph" und daher auch von "Capentory" in eine eigene spezifische Entwicklungsumgebung umimplementiert. Der Server startet sich nach der eigenen Installation (welche ab Seite 4 im Dokument "Serverdokumentation Schritt für Schritt erklärt wird) nicht mehr mittels:
 
@@ -292,7 +292,7 @@ Die erstellten Container enthalten die Datenbankanwendungen, sowie deren Ressour
 
 ### Erreichbarkeit mittels HTTPS
 
-Wie es sich für eine Netzwerktechnikklasse gehört, wurde auch an die Erreichbarkeit über HTTPS gedacht. NGINX wurde mit einem sogenannten Self Signed Certificate ausgestattet, um eine sichere Verbindung des Benutzers mit dem Webserver zu gewährleisten. Die Konfiguration von NGINX für den Gebrauch von uWSGI mit HTTPS ist auf Seite 9 der Serverdokumentation zu finden. Im Webbrowser "Microsoft Edge" würde der Aufruf des Servers nun wie folgt aussehen:
+Weiters wurde NGINX wurde mit einem sogenannten Self Signed Certificate ausgestattet, um eine sichere Verbindung des Benutzers mit dem Webserver zu gewährleisten. Die Konfiguration von NGINX für den Gebrauch von uWSGI mit HTTPS ist auf Seite 9 der Serverdokumentation zu finden. Im Webbrowser "Microsoft Edge" würde der Aufruf des Servers nun wie folgt aussehen:
 
 \begin{figure}[ht]
 \centering
@@ -329,7 +329,8 @@ System gibt es seit 2010 und wurde ursprünglich von Lennart Poettering (Red Hat
     After=network.target
     
     [Service]
-    ExecStart=/usr/bin/uwsgi /home/capentory/capentory-prod/capentory-ralph/ralph/ralph.ini
+    ExecStart=/usr/bin/uwsgi /home/capentory/capentory-prod/
+              capentory-ralph/ralph/ralph.ini
     
     Restart=on-failure
     RestartSec=60s
