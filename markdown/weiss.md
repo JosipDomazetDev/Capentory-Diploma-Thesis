@@ -1,4 +1,4 @@
-\renewcommand{\kapitelautor}{Autor: Mathias Möller}
+
 
 
 
@@ -233,7 +233,7 @@ Nach kurzer Recherche stieß man schließlich auf zwei verwendbare Alternativen,
 
 ### Alternativen
 
-Es  wurde bereits erläutert, warum "Capentory" die Dockerlösung von Ralph nicht verwendet (\siehe{probleme-der-produktivumgebung}). Allerdings musste rasch eine Alternative für die Umsetzung des Produktivbetriebs gesucht werden, um möglichst wenig Zeit zu verlieren.
+Es  wurde bereits erläutert, warum "Capentory" die Dockerlösung von Ralph nicht verwendet. (\siehe{probleme-der-produktivumgebung}) Allerdings musste rasch eine Alternative für die Umsetzung des Produktivbetriebs gesucht werden, um möglichst wenig Zeit zu verlieren.
 Zwei Alternativen, die für den Produktivbetrieb in Frage kamen, wurden genauer analysiert: uWSGI sowie Gunicorn.
 
 ### uWSGI vs. Gunicorn
