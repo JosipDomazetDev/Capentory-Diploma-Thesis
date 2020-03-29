@@ -1,12 +1,13 @@
-\chapter{Einführung in die Infrastruktur}
-\renewcommand{\kapitelautor}{Autor: Hannes Weiss}
+
+
+
 
 
 Technische Umsetzung: Infrastruktur
 =============================
 Um allen Kunden einen problemlosen Produktivbetrieb zu gewährleisten, muss ein physischer Server aufgesetzt werden. Auf diesem können dann alle Komponenten unseres Git-Repositories geklont und betriebsbereit installiert werden. Dafür gab es folgende Punkte zu erfüllen:
 
-* das Organisieren eines Servers
+* das Beschaffen eines Servers
 * das Aufsetzen eines Betriebssystemes
 * die Konfiguration der notwendigen Applikationen
 * die Konfiguration der Netzwerkschnittstellen
@@ -29,31 +30,31 @@ Vorteile:
 * frei verfügbar
 * ab 3 Servern Hochverfügbarkeit
 
-Jedoch liegen alle Maschinen der Diplomarbeitsteams in einem eigens gebaut und gesicherten Virtual Private Network (VPN), sodass nur mittels eines eingerichteten Tools auf den virtualisierten Server zugegriffen werden kann.
+Jedoch liegen alle Maschinen der Diplomarbeitsteams in einem eigens gebauten und gesicherten Virtual Private Network (VPN), sodass nur mittels eines eingerichteten Tools auf den virtualisierten Server zugegriffen werden kann.
 
 ### FortiClient
 
-FortiClient ermöglicht es, eines VPN-Konnektivität anhand von IPsec oder SSL zu erstellen. Die Datenübertragung wird verschlüsselt und damit der enstandene Datenstrom vollständig gesichert über einen sogenannten "Tunnel" übertragen.
+FortiClient ermöglicht es, VPN-Konnektivität anhand von IPsec oder SSL zu erstellen. Die Datenübertragung wird verschlüsselt, und damit der enstandene Datenstrom vollständig gesichert über einen sogenannten "Tunnel" übertragen.
 
-Da die Diplomarbeit "Capentory" jedoch Erreichbarkeit im Schulnetz verlangt, muss die Maschine in einem Ausmaß abgesichert werden, damit sie ohne Bedenken in das Schulnetz gehängt werden kann. Dafür müssen folgende Punkte gewährleistet sein:
+Da die Diplomarbeit "Capentory" die Erreichbarkeit des Servers im Schulnetz verlangt, muss die Maschine in ausreichenden Ausmaß abgesichert werden, damit sie ohne Bedenken in das Schulnetz gehängt werden kann. Dafür müssen folgende Punkte gewährleistet sein:
 
-* Konfiguration beider Firewalls (\siehe{absicherung-der-virtuellen-maschine})
+* Firewallkonfiguration (\siehe{absicherung-der-virtuellen-maschine})
 * Wohlüberlegte Passwörter und Zugriffsrechte
 
 ## Wahl des Betriebssystems
 
-Neben den physischen Hardwarekomponenten wird für einen funktionierenden und leicht bedienbaren Server logischerweise auch ein Betriebsystem benötigt. Die erste Entscheidung, welche Art von Betriebssystem für die Diplomarbeit "Capentory" in Frage kam wurde rasch beantwortet: Linux. Weltweit basieren die meisten Server und andere Geräte auf Linux. Jedoch gibt es selbst innerhalb des OpenSource-Hersteller zwei gängige Distributionen, die das Diplomarbeitsteam während deren Schulzeit an der HTL Rennweg kennenlernen und Übungen darauf durchführen durfte:
+Neben den physischen Hardwarekomponenten wird für einen funktionierenden und leicht bedienbaren Server logischerweise auch ein Betriebsystem benötigt. Die erste Entscheidung, welche Art von Betriebssystem für die Diplomarbeit "Capentory" in Frage kam, wurde rasch beantwortet: Linux. Während der Schulzeit an der HTL Rennweg durfte das Diplomarbeitsteam "Capentory" an zwei verschiedenen Linux-Distributionen, die auch für den Serverbetrieb der Diplomarbeit in Frage kamen, durchführen:
 
  * Linux CentOS
  * Linux Ubuntu
 
 ### Linux CentOS
 
-CentOS ist eine frei verfügbare Linux Distribution, die auf Red-Hat \cite{redhat} aufbaut. Hinter Ubuntu und Debian ist CentOS die am dritthäufigsten verwendete Software und wird von einer offenen Gruppe von freiwilligen Entwicklern betreut, gepflegt und weiterentwickelt.
+CentOS ist eine frei verfügbare Linux Distribution, die auf Red-Hat \cite{redhat} aufbaut. Hinter Ubuntu und Debian ist CentOS die am dritthäufigsten verwendete Linux-Plattform und wird von einer offenen Gruppe von freiwilligen Entwicklern betreut, gepflegt und weiterentwickelt.
 
 ### Linux Ubuntu
 
-Ubuntu ist die am meist verwendete Linux-Betriebssystemsoftware für Webserver. Auf Debian basierend ist das Ziel der Entwickler, ein einfach zu installierendes und leicht zu bedienendes Betriebssystem mit aufeinander abgestimmter Software zu schaffen. Hauptsponsor des Ubuntu-Projektes ist der Software-Hersteller Canonical \cite{canonical}, der vom südafrikanischen Unternehmer Mark Shuttleworth \cite{mark} gegründet wurde.
+Ubuntu ist die am meisten verwendete Linux-Betriebssystemsoftware für Webserver. Auf Debian basierend, ist das Ziel der Ubuntu-Entwickler, ein einfach zu installierendes und leicht zu bedienendes Betriebssystem mit aufeinander abgestimmter Software zu schaffen. Hauptsponsor des Ubuntu-Projektes ist der Software-Hersteller Canonical \cite{canonical}, der vom südafrikanischen Unternehmer Mark Shuttleworth \cite{mark} gegründet wurde.
 
 ### Vergleich und Wahl \cite{wahl}
 
@@ -70,11 +71,11 @@ Ubuntu ist die am meist verwendete Linux-Betriebssystemsoftware für Webserver. 
  - Zahlreich brauchbare Dokumentation im Internet vorhanden
  - Wird speziell von Ralph empfohlen
 
-Aus den angeführten Punkten entschied sich "Capentory" klarerweise das Betriebsystem Ubuntu zu verwenden, vorallem auch weil der Hersteller deren Serversoftware die Verwendung von diesem Betriebsystem empfiehlt. Anschließend wird die Installation des Betriebsystemes genauer erläutert und erklärt.
+Aus den angeführten Punkten entschied sich "Capentory" klarerweise das Betriebsystem Ubuntu zu verwenden, vorallem auch weil der Hersteller der Serversoftware "Ralph" die Verwendung von diesem Betriebsystem empfiehlt. Anschließend wird die Installation des Betriebsystemes genauer erläutert und erklärt.
 
 ## Installation des Betriebsystemes
 
-Wie bereits unter Punkt Anschaffung des Servers (\siehe{anschaffung-des-servers}) erwähnt, wird uns von der Schule ein eigener Servercluster mit virtuellen Maschinen zur Verfügung gestellt. Durch die ProxMox-Umgebung und diversen Tools, ging die Installation der Ubuntu-Distribution rasch von der Hand. In der Virtualisierungsumgebung der Schule musste nur ein vorhandenes Linux-Ubuntu 18.04 ISO-File gemountet und anschließend eine gewöhnliche Betriebsysteminstallation für Ubuntu durchgeführt werden. 
+Wie bereits unter Punkt "Anschaffung des Servers" (\siehe{anschaffung-des-servers}) erwähnt, wird uns von der Schule ein eigener Servercluster mit virtuellen Maschinen zur Verfügung gestellt. Durch die ProxMox-Umgebung und diversen Tools, ging die Installation der Ubuntu-Distribution rasch von der Hand. In der Virtualisierungsumgebung der Schule musste nur ein vorhandenes Linux-Ubuntu 18.04 ISO-File gemountet und anschließend eine gewöhnliche Betriebsysteminstallation für Ubuntu durchgeführt werden. 
 Jedoch kam es beim ersten Versuch zu Problemen mit der Konfiguration der Netzwerkschnittstellen, die im nächsten Punkt genauer erläutert werden.
 
 ## Internetkonnektivität der Maschine
@@ -226,7 +227,7 @@ gestartet werden.
 
 ### Probleme der Produktivumgebung
 
-Zu Beginn dachte Capentory, dass die Umsetzung des Django-Servers in eine Produktivumgebung nicht allzu kompliziert wäre, da von Ralph bereits Dockerfiles für den Produktivbetrieb vorlagen. Dadurch wurde zu Beginn der Arbeit versucht dieses bereits existierendes Dockersystem zu starten, jedoch war im Browser dann nicht der Capentory-Server, sondern die Basislösung von Ralph zu sehen. Der Infrastrukturverantwortliche analysierte anschließend die Docker-Dateien und musste feststellen, dass sie für die Zwecke von Capentory so tatsächlich nicht verwendet werden können. Ralph hat in Verbindung mit dem implementierten Dockersystem einige komplexe, aufeinander zugreifende Skripts verwendet. Vorweg muss gesagt werden, dass Ralph deren Serverlösung als Service anbietet und in den vorliegenden Skripts installieren sie den Ralphserver ohne den Änderungen von Capentory. Daraufhin wird aus dem Webservice ein Docker-Container erstellt und anschließend mit den anderen Docker-Komponenten hochgefahren. Dadurch war im Webbrowser beim Serverabruf, statt der gewollten Serverlösung, die falsche zu sehen. Der Fortschritt des Arbeitspaketes der Produktivumgebung war somit wieder um einiges geschrumpft und es musste schnellstmöglich eine Alternative gefunden werden, da das Umschreiben der Dockerfiles, beziehungsweise der Skripts, ein riesiger Aufwand wäre.
+Zu Beginn dachte "Capentory", dass die Umsetzung des Django-Servers in eine Produktivumgebung nicht allzu kompliziert wäre, da von Ralph bereits Dockerfiles für den Produktivbetrieb vorlagen. Dadurch wurde zu Beginn der Arbeit versucht dieses bereits existierendes Dockersystem zu starten, jedoch war im Browser dann nicht der "Capentory"-Server, sondern die Basislösung von Ralph zu sehen. Der Infrastrukturverantwortliche analysierte anschließend die Docker-Dateien und musste feststellen, dass sie für die Zwecke von "Capentory" so tatsächlich nicht verwendet werden können. Ralph hat in Verbindung mit dem implementierten Dockersystem einige komplexe, aufeinander zugreifende Skripts verwendet. Vorweg muss gesagt werden, dass Ralph deren Serverlösung als Service anbietet und in den vorliegenden Skripts installieren sie den Ralphserver ohne den Änderungen von "Capentory". Daraufhin wird aus dem Webservice ein Docker-Container erstellt und anschließend mit den anderen Docker-Komponenten hochgefahren. Dadurch war im Webbrowser beim Serverabruf, statt der gewollten Serverlösung, die falsche zu sehen. Der Fortschritt des Arbeitspaketes der Produktivumgebung war somit wieder um einiges geschrumpft und es musste schnellstmöglich eine Alternative gefunden werden, da das Umschreiben der Dockerfiles, beziehungsweise der Skripts, ein riesiger Aufwand wäre.
 
 Nach kurzer Recherche stieß man schließlich auf zwei verwendbare Alternativen, nachfolgend genannt und verglichen werden.
 
@@ -245,7 +246,7 @@ Das uWSGI-Projekt zielt darauf ab, einen vollständigen Stack für den Aufbau vo
 
 ### Wahl
 
-Da beide Alternativen sehr ähnlich sind, lag es an Capentory welche für die Installation der Produktivumgebung ausgewählt wird. Zuerst wurde versucht, alles mithilfe von Gunicorn aufzusetzen. Da dies jedoch mehrmalig Probleme verursachte, entschied man sich für die Verwendung von uWSGI. Nach kurzer Recherche stieß der Infrastrukturverantwortliche auf ein vielversprechendes Tutorial im Internet\cite{tutorialuwsgi}, mit dem die Installation reibungslos verlief. Die genaue Installationsanleitung wurde bereits in der Serverdokumentation niedergeschrieben. Die Funktionsweise, also wie uWSGI genau arbeitet, wirdnachfolgend (\siehe{funktion-von-uwsgi}) anhand einer Grafik erklärt.
+Da beide Alternativen sehr ähnlich sind, lag es an "Capentory" welche für die Installation der Produktivumgebung ausgewählt wird. Zuerst wurde versucht, alles mithilfe von Gunicorn aufzusetzen. Da dies jedoch mehrmalig Probleme verursachte, entschied man sich für die Verwendung von uWSGI. Nach kurzer Recherche stieß der Infrastrukturverantwortliche auf ein vielversprechendes Tutorial im Internet\cite{tutorialuwsgi}, mit dem die Installation reibungslos verlief. Die genaue Installationsanleitung wurde bereits in der Serverdokumentation niedergeschrieben. Die Funktionsweise, also wie uWSGI genau arbeitet, wirdnachfolgend (\siehe{funktion-von-uwsgi}) anhand einer Grafik erklärt.
 
 ### Funktionsweise der Produktivumgebung
 

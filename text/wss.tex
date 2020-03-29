@@ -10,7 +10,7 @@ installiert werden. Dafür gab es folgende Punkte zu erfüllen:
 \begin{itemize}
 \tightlist
 \item
-  das Organisieren eines Servers
+  das Beschaffen eines Servers
 \item
   das Aufsetzen eines Betriebssystemes
 \item
@@ -56,28 +56,27 @@ Gast-Betriebssystemen. Vorteile:
 \end{itemize}
 
 Jedoch liegen alle Maschinen der Diplomarbeitsteams in einem eigens
-gebaut und gesicherten Virtual Private Network (VPN), sodass nur mittels
-eines eingerichteten Tools auf den virtualisierten Server zugegriffen
-werden kann.
+gebauten und gesicherten Virtual Private Network (VPN), sodass nur
+mittels eines eingerichteten Tools auf den virtualisierten Server
+zugegriffen werden kann.
 
 \hypertarget{forticlient}{%
 \subsubsection{FortiClient}\label{forticlient}}
 
-FortiClient ermöglicht es, eines VPN-Konnektivität anhand von IPsec oder
-SSL zu erstellen. Die Datenübertragung wird verschlüsselt und damit der
+FortiClient ermöglicht es, VPN-Konnektivität anhand von IPsec oder SSL
+zu erstellen. Die Datenübertragung wird verschlüsselt, und damit der
 enstandene Datenstrom vollständig gesichert über einen sogenannten
 ``Tunnel'' übertragen.
 
-Da die Diplomarbeit ``Capentory'' jedoch Erreichbarkeit im Schulnetz
-verlangt, muss die Maschine in einem Ausmaß abgesichert werden, damit
-sie ohne Bedenken in das Schulnetz gehängt werden kann. Dafür müssen
-folgende Punkte gewährleistet sein:
+Da die Diplomarbeit ``Capentory'' die Erreichbarkeit des Servers im
+Schulnetz verlangt, muss die Maschine in ausreichenden Ausmaß
+abgesichert werden, damit sie ohne Bedenken in das Schulnetz gehängt
+werden kann. Dafür müssen folgende Punkte gewährleistet sein:
 
 \begin{itemize}
 \tightlist
 \item
-  Konfiguration beider Firewalls
-  (\siehe{absicherung-der-virtuellen-maschine})
+  Firewallkonfiguration (\siehe{absicherung-der-virtuellen-maschine})
 \item
   Wohlüberlegte Passwörter und Zugriffsrechte
 \end{itemize}
@@ -88,11 +87,10 @@ folgende Punkte gewährleistet sein:
 Neben den physischen Hardwarekomponenten wird für einen funktionierenden
 und leicht bedienbaren Server logischerweise auch ein Betriebsystem
 benötigt. Die erste Entscheidung, welche Art von Betriebssystem für die
-Diplomarbeit ``Capentory'' in Frage kam wurde rasch beantwortet: Linux.
-Weltweit basieren die meisten Server und andere Geräte auf Linux. Jedoch
-gibt es selbst innerhalb des OpenSource-Hersteller zwei gängige
-Distributionen, die das Diplomarbeitsteam während deren Schulzeit an der
-HTL Rennweg kennenlernen und Übungen darauf durchführen durfte:
+Diplomarbeit ``Capentory'' in Frage kam, wurde rasch beantwortet: Linux.
+Während der Schulzeit an der HTL Rennweg durfte das Diplomarbeitsteam
+``Capentory'' an zwei verschiedenen Linux-Distributionen, die auch für
+den Serverbetrieb der Diplomarbeit in Frage kamen, durchführen:
 
 \begin{itemize}
 \tightlist
@@ -107,15 +105,16 @@ HTL Rennweg kennenlernen und Übungen darauf durchführen durfte:
 
 CentOS ist eine frei verfügbare Linux Distribution, die auf Red-Hat
 \cite{redhat} aufbaut. Hinter Ubuntu und Debian ist CentOS die am
-dritthäufigsten verwendete Software und wird von einer offenen Gruppe
-von freiwilligen Entwicklern betreut, gepflegt und weiterentwickelt.
+dritthäufigsten verwendete Linux-Plattform und wird von einer offenen
+Gruppe von freiwilligen Entwicklern betreut, gepflegt und
+weiterentwickelt.
 
 \hypertarget{linux-ubuntu}{%
 \subsubsection{Linux Ubuntu}\label{linux-ubuntu}}
 
-Ubuntu ist die am meist verwendete Linux-Betriebssystemsoftware für
-Webserver. Auf Debian basierend ist das Ziel der Entwickler, ein einfach
-zu installierendes und leicht zu bedienendes Betriebssystem mit
+Ubuntu ist die am meisten verwendete Linux-Betriebssystemsoftware für
+Webserver. Auf Debian basierend, ist das Ziel der Ubuntu-Entwickler, ein
+einfach zu installierendes und leicht zu bedienendes Betriebssystem mit
 aufeinander abgestimmter Software zu schaffen. Hauptsponsor des
 Ubuntu-Projektes ist der Software-Hersteller Canonical \cite{canonical},
 der vom südafrikanischen Unternehmer Mark Shuttleworth \cite{mark}
@@ -152,16 +151,16 @@ gegründet wurde.
 \end{itemize}
 
 Aus den angeführten Punkten entschied sich ``Capentory'' klarerweise das
-Betriebsystem Ubuntu zu verwenden, vorallem auch weil der Hersteller
-deren Serversoftware die Verwendung von diesem Betriebsystem empfiehlt.
-Anschließend wird die Installation des Betriebsystemes genauer erläutert
-und erklärt.
+Betriebsystem Ubuntu zu verwenden, vorallem auch weil der Hersteller der
+Serversoftware ``Ralph'' die Verwendung von diesem Betriebsystem
+empfiehlt. Anschließend wird die Installation des Betriebsystemes
+genauer erläutert und erklärt.
 
 \hypertarget{installation-des-betriebsystemes}{%
 \subsection{Installation des
 Betriebsystemes}\label{installation-des-betriebsystemes}}
 
-Wie bereits unter Punkt Anschaffung des Servers
+Wie bereits unter Punkt ``Anschaffung des Servers''
 (\siehe{anschaffung-des-servers}) erwähnt, wird uns von der Schule ein
 eigener Servercluster mit virtuellen Maschinen zur Verfügung gestellt.
 Durch die ProxMox-Umgebung und diversen Tools, ging die Installation der
@@ -487,26 +486,26 @@ gestartet werden.
 \subsubsection{Probleme der
 Produktivumgebung}\label{probleme-der-produktivumgebung}}
 
-Zu Beginn dachte Capentory, dass die Umsetzung des Django-Servers in
+Zu Beginn dachte ``Capentory'', dass die Umsetzung des Django-Servers in
 eine Produktivumgebung nicht allzu kompliziert wäre, da von Ralph
 bereits Dockerfiles für den Produktivbetrieb vorlagen. Dadurch wurde zu
 Beginn der Arbeit versucht dieses bereits existierendes Dockersystem zu
-starten, jedoch war im Browser dann nicht der Capentory-Server, sondern
-die Basislösung von Ralph zu sehen. Der Infrastrukturverantwortliche
-analysierte anschließend die Docker-Dateien und musste feststellen, dass
-sie für die Zwecke von Capentory so tatsächlich nicht verwendet werden
-können. Ralph hat in Verbindung mit dem implementierten Dockersystem
-einige komplexe, aufeinander zugreifende Skripts verwendet. Vorweg muss
-gesagt werden, dass Ralph deren Serverlösung als Service anbietet und in
-den vorliegenden Skripts installieren sie den Ralphserver ohne den
-Änderungen von Capentory. Daraufhin wird aus dem Webservice ein
-Docker-Container erstellt und anschließend mit den anderen
-Docker-Komponenten hochgefahren. Dadurch war im Webbrowser beim
-Serverabruf, statt der gewollten Serverlösung, die falsche zu sehen. Der
-Fortschritt des Arbeitspaketes der Produktivumgebung war somit wieder um
-einiges geschrumpft und es musste schnellstmöglich eine Alternative
-gefunden werden, da das Umschreiben der Dockerfiles, beziehungsweise der
-Skripts, ein riesiger Aufwand wäre.
+starten, jedoch war im Browser dann nicht der ``Capentory''-Server,
+sondern die Basislösung von Ralph zu sehen. Der
+Infrastrukturverantwortliche analysierte anschließend die Docker-Dateien
+und musste feststellen, dass sie für die Zwecke von ``Capentory'' so
+tatsächlich nicht verwendet werden können. Ralph hat in Verbindung mit
+dem implementierten Dockersystem einige komplexe, aufeinander
+zugreifende Skripts verwendet. Vorweg muss gesagt werden, dass Ralph
+deren Serverlösung als Service anbietet und in den vorliegenden Skripts
+installieren sie den Ralphserver ohne den Änderungen von ``Capentory''.
+Daraufhin wird aus dem Webservice ein Docker-Container erstellt und
+anschließend mit den anderen Docker-Komponenten hochgefahren. Dadurch
+war im Webbrowser beim Serverabruf, statt der gewollten Serverlösung,
+die falsche zu sehen. Der Fortschritt des Arbeitspaketes der
+Produktivumgebung war somit wieder um einiges geschrumpft und es musste
+schnellstmöglich eine Alternative gefunden werden, da das Umschreiben
+der Dockerfiles, beziehungsweise der Skripts, ein riesiger Aufwand wäre.
 
 Nach kurzer Recherche stieß man schließlich auf zwei verwendbare
 Alternativen, nachfolgend genannt und verglichen werden.
@@ -541,8 +540,8 @@ Aufbau von Hosting-Diensten zu entwickeln.
 \hypertarget{wahl}{%
 \subsubsection{Wahl}\label{wahl}}
 
-Da beide Alternativen sehr ähnlich sind, lag es an Capentory welche für
-die Installation der Produktivumgebung ausgewählt wird. Zuerst wurde
+Da beide Alternativen sehr ähnlich sind, lag es an ``Capentory'' welche
+für die Installation der Produktivumgebung ausgewählt wird. Zuerst wurde
 versucht, alles mithilfe von Gunicorn aufzusetzen. Da dies jedoch
 mehrmalig Probleme verursachte, entschied man sich für die Verwendung
 von uWSGI. Nach kurzer Recherche stieß der Infrastrukturverantwortliche
