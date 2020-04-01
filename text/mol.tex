@@ -182,7 +182,7 @@ jeweils Instanzen der Klasse
   Klassen}. Datenbankeinträge können demnach als Instanzen der
 Modellklassen betrachtet und behandelt werden. Standardmäßig besitzt
 jedes Modell ein Attribut \texttt{id}, welches als
-\emph{primärer Schlüssel}\index{primärer Schlüssel: engl. "primary key", abgek. "pk" -- ein Attribut, das einen Datensatz eindeutig identifiziert}
+\emph{primärer Schlüssel}\index{primärer Schlüssel: engl. "primary key", abgekürzt "pk" -- ein Attribut, das einen Datensatz eindeutig identifiziert}
 dient. Der Wert des \texttt{id} Attributs ist unter allen Instanzen
 eines Modells einzigartig. Die Anpassung dieses Attributs wird in der
 offiziellen Django-Dokumentation genauer behandelt
@@ -675,16 +675,16 @@ Eigenschaft \texttt{description} bietet Platz für Kommentare.
 Durch das Setzen eines \texttt{HTLItemType} Objekts für ein
 \texttt{HTLItem} Objekt durch seine Eigenschaft \texttt{item\_type}
 werden dem \texttt{HTLItem} Objekt alle
-\emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.}
+\emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt unabhängig definierbar sind.}
 des \texttt{HTLItemType} Objekts zugewiesen. Anwendungsbeispiel ist das
 Setzen eines
-\emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.}
+\emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt unabhängig definierbar sind.}
 namens ``Anzahl Ports'' für den \texttt{HTLItemType} namens ``Switch''.
 Jedes \texttt{HTLItem} Objekt mit dem \texttt{item\_type} ``Switch'' hat
 nun ein \emph{Custom-Field} namens ``Anzahl Ports''.
 
 Das für
-\emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.}
+\emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt unabhängig definierbar sind.}
 erforderliche Mixin (\siehe{designgrundlagen})
 \texttt{WithCustomFieldsMixin} bietet die Funktionalität der
 \texttt{custom\_fields\_inheritance}. Sie ermöglicht das Erben von allen
@@ -985,7 +985,7 @@ Stocktaking-Moduls.}
 \hypertarget{das-stocktaking-modell}{%
 \subsection{Das Stocktaking Modell}\label{das-stocktaking-modell}}
 
-Eine Inszanz des \texttt{Stocktaking} Modells repräsentiert eine
+Eine Instanz des \texttt{Stocktaking} Modells repräsentiert eine
 Inventur.
 
 Zu den wichtigsten Attributen des \texttt{Stocktaking} Modells zählen:
@@ -1124,7 +1124,7 @@ Gegenstandseigenschaften anwenden zu müssen, werden sie in
 Änderungsvorschläge ausgelagert. So kann Fehlern, die während einer
 Inventur entstehen können, vorgebeugt werden. Der Benutzer der mobilen
 Applikation ist nur damit beauftragt, die aktuellen Inventardaten aus
-dessen Sicht zu erbehen. Es ist die Aufgabe eines Administrators,
+dessen Sicht zu erheben. Es ist die Aufgabe eines Administrators,
 Änderungsvorschläge als vertrauenswürdig einzustufen und diese
 tatsächlich anzuwenden.
 
@@ -1265,8 +1265,8 @@ Die Klassen \texttt{StocktakingGETWithCustomFieldsMixin},
 \texttt{StocktakingPOSTWithCustomFieldsMixin},
 \texttt{ClientAttachmentsGETMixin} und
 \texttt{ClientAttachmentsPOSTMixin} ermöglichen das Miteinbeziehen von
-\emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt ünabhängig definierbar sind.}
-und Änhängen (\siehe{speichern-von-bildern-und-anhuxe4ngen}). Weitere
+\emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt unabhängig definierbar sind.}
+und Anhängen (\siehe{speichern-von-bildern-und-anhuxe4ngen}). Weitere
 Informationen zu den \texttt{Mixin}-Klassen kann der im Source-Code
 enthaltenen Dokumentation entnommen werden.
 
@@ -1951,5 +1951,9 @@ Beschränkung auf die durch das Diplomarbeitsteam implementierten
 Klassen.
 
 Die erstellte Lösung wurde im Entwicklungsforum der Ralph Plattform
-vorgestellt \cite{ralph-forum-1} \cite{ralph-forum-2} und ein
-Pull-Request auf der GitHub-Plattform wurde durchgeführt.
+vorgestellt \cite{ralph-forum-1} \cite{ralph-forum-2}. Die
+Vorbereitungen für einen Pull-Request wurden getätigt. Das
+Entwicklerteam der Ralph Plattform hat entschieden, für die erstellte
+Lösung ein eigenes Git-Repository anzulegen. Das Repository ist dazu
+vorgesehen, optionale Module zu beherbergen. Ein Pull-Request erfolgt,
+sobald das Repository von den Entwicklern erstellt wurde.
