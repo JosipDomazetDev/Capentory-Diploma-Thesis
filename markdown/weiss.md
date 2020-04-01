@@ -1,8 +1,3 @@
-
-
-
-
-
 Technische Umsetzung: Infrastruktur
 =============================
 Um allen Kunden einen problemlosen Produktivbetrieb zu gewährleisten, muss ein physischer Server aufgesetzt werden. Auf diesem können dann alle Komponenten unseres Git-Repositories geklont und betriebsbereit installiert werden. Dafür gab es folgende Punkte zu erfüllen:
@@ -36,14 +31,14 @@ Jedoch liegen alle Maschinen der Diplomarbeitsteams in einem eigens gebauten und
 
 FortiClient ermöglicht es, VPN-Konnektivität anhand von IPsec oder SSL zu erstellen. Die Datenübertragung wird verschlüsselt, und damit der enstandene Datenstrom vollständig gesichert über einen sogenannten "Tunnel" übertragen.
 
-Da die Diplomarbeit "Capentory" die Erreichbarkeit des Servers im Schulnetz verlangt, muss die Maschine in ausreichenden Ausmaß abgesichert werden, damit sie ohne Bedenken in das Schulnetz gehängt werden kann. Dafür müssen folgende Punkte gewährleistet sein:
+Da die vorliegende Diplomarbeit die Erreichbarkeit des Servers im Schulnetz verlangt, muss die Maschine in ausreichenden Ausmaß abgesichert werden, damit sie ohne Bedenken in das Schulnetz gehängt werden kann. Dafür müssen folgende Punkte gewährleistet sein:
 
 * Firewallkonfiguration (\siehe{absicherung-der-virtuellen-maschine})
 * Wohlüberlegte Passwörter und Zugriffsrechte
 
 ## Wahl des Betriebssystems
 
-Neben den physischen Hardwarekomponenten wird für einen funktionierenden und leicht bedienbaren Server logischerweise auch ein Betriebsystem benötigt. Die erste Entscheidung, welche Art von Betriebssystem für die Diplomarbeit "Capentory" in Frage kam, wurde rasch beantwortet: Linux. Während der Schulzeit an der HTL Rennweg durfte das Diplomarbeitsteam "Capentory" an zwei verschiedenen Linux-Distributionen, die auch für den Serverbetrieb der Diplomarbeit in Frage kamen, durchführen:
+Neben den physischen Hardwarekomponenten wird für einen funktionierenden und leicht bedienbaren Server logischerweise auch ein Betriebsystem benötigt. Die erste Entscheidung, welche Art von Betriebssystem für die Diplomarbeit in Frage kam, wurde rasch beantwortet: Linux. Während der Schulzeit an der HTL Rennweg durfte das Diplomarbeitsteam an zwei verschiedenen Linux-Distributionen, die auch für den Serverbetrieb der Diplomarbeit in Frage kamen, durchführen:
 
  * Linux CentOS
  * Linux Ubuntu
@@ -71,7 +66,7 @@ Ubuntu ist die am meisten verwendete Linux-Betriebssystemsoftware für Webserver
  - Zahlreich brauchbare Dokumentation im Internet vorhanden
  - Wird speziell von Ralph empfohlen
 
-Aus den angeführten Punkten entschied sich "Capentory" klarerweise das Betriebsystem Ubuntu zu verwenden, vorallem auch weil der Hersteller der Serversoftware "Ralph" die Verwendung von diesem Betriebsystem empfiehlt. Anschließend wird die Installation des Betriebsystemes genauer erläutert und erklärt.
+Aus den angeführten Punkten entschied sich das Diplomarbeitsteam klarerweise das Betriebsystem Ubuntu zu verwenden, vorallem auch weil der Hersteller der Serversoftware "Ralph" die Verwendung von diesem Betriebsystem empfiehlt. Anschließend wird die Installation des Betriebsystemes genauer erläutert und erklärt.
 
 ## Installation des Betriebsystemes
 
@@ -103,7 +98,7 @@ In `/etc/network/interfaces`:
 
 ### Topologie des Netzwerkes
 
-Unter Abbildung 5.1 wird der Netzwerkplan veranschaulicht. Auf der linken Seite wird der Servercluster der Diplomarbeitsteams dargestellt, worauf die virtuelle Maschine von "Capentory" gehostet wird. In der Mitte ist die FortiGate-Firewall zu sehen, die nicht nur als äußerster Schutz vor Angriffen dient, sondern auch die konfigurierte VPN-Verbindung beinhaltet und nur berechtigten Teammitgliedern den Zugriff gewährleistet. Desweiteren ist die moderne Firewall auch für die Konnektivität der virtuellen Maschine im Schulnetz zuständig, aber dazu später (unter Punkt "Absicherung der virtuellen Maschine") mehr.
+Unter Abbildung 5.1 wird der Netzwerkplan veranschaulicht. Auf der linken Seite wird der Servercluster der Diplomarbeitsteams dargestellt, worauf die virtuelle Maschine der Diplomarbeit gehostet wird. In der Mitte ist die FortiGate-Firewall zu sehen, die nicht nur als äußerster Schutz vor Angriffen dient, sondern auch die konfigurierte VPN-Verbindung beinhaltet und nur berechtigten Teammitgliedern den Zugriff gewährleistet. Desweiteren ist die moderne Firewall auch für die Konnektivität der virtuellen Maschine im Schulnetz zuständig, aber dazu später (unter Punkt "Absicherung der virtuellen Maschine") mehr.
 \begin{figure}[ht]
 \centering
 \includegraphics{topo1.png}
@@ -112,15 +107,15 @@ Unter Abbildung 5.1 wird der Netzwerkplan veranschaulicht. Auf der linken Seite 
 	
 
 ## Installation der notwendigen Applikationen
-Damit die Ubuntu-Maschine für den Produktivbetrieb startbereit ist, müssen im Vorhinein noch einige wichtige Konfigurationen durchgeführt werden. Die wichtigste (Netzwerkkonfiguration) wurde soeben ausführlich erläutert doch ohne der Installation von diversen Applikationen, wäre das System nicht brauchbar.
+Damit die Ubuntu-Maschine für den Produktivbetrieb startbereit ist, müssen im Vorhinein noch einige wichtige Konfigurationen durchgeführt werden. Die wichtigste (Netzwerkkonfiguration) wurde soeben ausführlich erläutert, doch ohne der Installation von diversen Applikationen, wäre das System nicht brauchbar.
 
 ### Advanced Packaging Tool
 
-Mit diesem Tool werden auf dem System die notwendigen Applikationen heruntergeladen, extrahiert und anschließend installiert. Insgesamt stehen einem 18 apt-get commands zur Verfügung. Genauere Erklärungen sowie die Syntax zu den wichtigsten commands folgen.
+Mit diesem Tool werden auf dem System die notwendigen Applikationen heruntergeladen, extrahiert und anschließend installiert. Insgesamt stehen einem 18 apt-get commands zur Verfügung. Genauere Erklärungen zu den wichtigsten commands folgen.
 
 #### apt-get update
 
-Update liest alle in `/etc/apt/sources.list` sowie in `/etc/apt/sources.list.d/` eingetragenen Paketquellen neu ein. Dieser Schritt wird vor allem vor einem upgrade-command oder nach dem Hinzufügen einer neuen Quelle empfohlen, um sich die neusten Informationen für Pakete ansehen zu können.
+Update liest alle in `/etc/apt/sources.list`, sowie in `/etc/apt/sources.list.d/` eingetragenen Paketquellen neu ein. Dieser Schritt wird vor allem vor einem upgrade-command, oder nach dem Hinzufügen einer neuen Quelle empfohlen, um sich die neusten Informationen für Pakete ansehen zu können.
 
 #### apt-get upgrade
 
@@ -165,7 +160,7 @@ Nagios ist ein Monitoring-System, mit dem sich verschiedene Geräte und auf solc
 Bei virtualenv handelt es sich um ein Tool, mit dem eine isolierte Python-Umgebung erstellt werden kann. Eine solch isolierte Umgebung besitzt eine eigene Installation von diversen Services und teilt ihre libraries nicht mit anderen virtuellen Umgebungen (im optionalen Fall greifen sie auch nicht auf die global installierten libraries zu). Dies bringt vor allem den großen Vorteil, dass im Testfall virtuelle Umgebungen aufgesetzt werden können, um nicht die globalen Konfigurationen zu gefährden.
 
 #### Python
-Python ist einer der Hauptbestandteile auf dem Serversystem der Diplomarbeit "Capentory". Das Backend (=Serveranwendung) basiert wie bereits erwähnt auf dem Python-Framework "Django". Um dieses Framework auf dem System installieren zu können wird jedoch noch ein weiteres "Packaging-Tool", speziell für Python-Module, benötigt.
+Python ist einer der Hauptbestandteile auf dem Serversystem der Diplomarbeit. Das Backend (=Serveranwendung) basiert wie bereits erwähnt auf dem Python-Framework "Django". Um dieses Framework auf dem System installieren zu können wird jedoch noch ein weiteres "Packaging-Tool", speziell für Python-Module, benötigt.
 
 #### pip
 
@@ -173,7 +168,7 @@ Und dieses Tool nennt sich Pip. Pip ist ein rekursives Akronym für **P**ip **I*
  
 #### uWSGI
 
-Das eigentliche Paket, mit dem der Produktivbetrieb schlussendlich gewährleistet wurde, nennt sich uWSGI. Speziell wurde es für die Produktivbereitstellung von Serveranwendungen (wie eben der Django-Server von Team "Capentory") entwickelt und harmoniert eindrucksvoll mit der Webserver-Software NGINX. Die grundlegende Funktionsweise von uWSGI, sowie eine Erklärung, warum schlussendlich diese Software und nicht Docker verwendet wurde, wird in einem eigenen Teil (\siehe{probleme-der-produktivumgebung}) veranschaulicht.
+Das eigentliche Paket, mit dem der Produktivbetrieb schlussendlich gewährleistet wurde, nennt sich uWSGI. Speziell wurde es für die Produktivbereitstellung von Serveranwendungen (wie eben der Django-Server der vorliegenden Diplomarbeit) entwickelt und harmoniert eindrucksvoll mit der Webserver-Software NGINX. Die grundlegende Funktionsweise von uWSGI, sowie eine Erklärung, warum schlussendlich diese Software und nicht Docker verwendet wurde, wird in einem eigenen Teil (\siehe{probleme-der-produktivumgebung}) veranschaulicht.
 
 #### Django
 
@@ -185,13 +180,13 @@ Runsslserver ist ein Python-Paket mit dem eine Entwicklungsumgebung über https 
 
 ## Produktivbetrieb der Applikation
 
-Das Aufsetzen beziehungsweise die Installation der Produktivumgebung ist der wichtigste, aber auch aufwendigste, Bestandteil jeder Serverinfrastruktur. Eine Produktivumgebung soll von einer Testumgebung möglichst weit getrennt sein, damit die zu testende Software keinen Schaden für den produktiven Betrieb anrichten kann. Weiters soll durch den Produktivbetrieb der Server um einiges perfomanter sein, da dieser, im Falle der Diplomarbeit "Capentory", einen optimierten Webserver (NGINX) verwendet. 
+Das Aufsetzen beziehungsweise die Installation der Produktivumgebung ist der wichtigste, aber auch aufwendigste, Bestandteil jeder Serverinfrastruktur. Eine Produktivumgebung soll von einer Testumgebung möglichst weit getrennt sein, damit die zu testende Software keinen Schaden für den produktiven Betrieb anrichten kann. Weiters soll durch den Produktivbetrieb der Server um einiges perfomanter sein, da dieser, im Falle der vorliegenden Diplomarbeit, einen optimierten Webserver (NGINX) verwendet. 
 
 ### Entwicklungsumgebung
 
 Die Entwickler des Grundservers "Ralph" haben eine eigene Entwicklungsumgebung für den Django-Server erstellt. Normalerweise findet sich in einem klassischen Python-Projekt oder einem Projekt, dass auf einem Python-Framework (wie zum Beispiel Django) basiert, ein sogenanntes "`manage.py`"-File. Hierbei handelt es sich um ein Script, dass das Management eines beliebigen Python-Projektes unterstützt. Mit dem Script ist man unteranderem in der Lage, den Webserver auf einem unspezifischen Rechner zu starten, ohne etwas Weiteres installieren zu müssen.
 
-Jedoch wurde diese Datei im Projekt von "Ralph" und daher auch von "Capentory" in eine eigene spezifische Entwicklungsumgebung umimplementiert. Der Server startet sich nach der eigenen Installation (welche ab Seite 4 im Dokument "Serverdokumentation Schritt für Schritt erklärt wird) nicht mehr mittels:
+Jedoch wurde diese Datei im Vorgängerprojekt in eine eigene spezifische Entwicklungsumgebung umimplementiert. Der Server startet sich nach der eigenen Installation (welche ab Seite 4 im Dokument "Serverdokumentation Schritt für Schritt erklärt wird) nicht mehr mittels:
 
     python manage.py runserver
  
@@ -201,7 +196,7 @@ sondern mit:
 
 Obwohl die Befehle dieses Serverstarts nicht wirklich ident aussehen, führen sie im Hintergrund aber die gleichen Unterbefehle aus, um eine sichere Verwendung der Entwicklungsumgebung zu gewährleisten.
 
-Da das Diplomarbeitsteam "Capentory" diesen Entwicklungsumgebung vorerst auf dem Produktivserver für Testzwecke verwendete, wurde ein eher unbekanntes Paket namens "runsslserver" für die Entwicklungsumgebung installiert und eingebaut. Zuerst musste, üblich um eine https-Verbindung einzurichten, beispielsweise mit dem Befehl
+Da das Diplomarbeitsteam diese Entwicklungsumgebung vorerst auf dem Produktivserver für Testzwecke verwendete, wurde ein eher unbekanntes Paket namens "runsslserver" für die Entwicklungsumgebung installiert und eingebaut. Mit diesem Tool kann eine Django-Entwicklungsumgebung mittels "https" gestartet werden. Zuerst musste, üblich um eine https-Verbindung einzurichten, beispielsweise mit dem Befehl
 
     sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 
     -keyout /ssl/nginx.key -out /ssl/cert.crt
@@ -217,7 +212,7 @@ Kurzerklärung der Befehlsoptionen
  - `-keyout` Gibt die Ausgabepfad und -datei für den Schlüssel an.
  - `-out` Gibt die Ausgabepfad und -datei des Zertifikates an.
 
-Der Befehl "runsslserver" muss jetzt nur noch in den "Installed-Apps" des Projektes (im Falle von "Ralph" und "Capentory" befinden sich diese in der Datei "`base.py`") hinzugefügt werden.
+Der Befehl "runsslserver" muss jetzt nur noch in den "Installed-Apps" des Projektes (im vorliegenden Projekt befinden sich diese in der Datei "`base.py`") hinzugefügt werden.
 
 Dann kann der Server problemlos mit 
 
@@ -227,13 +222,13 @@ gestartet werden.
 
 ### Probleme der Produktivumgebung
 
-Zu Beginn dachte "Capentory", dass die Umsetzung des Django-Servers in eine Produktivumgebung nicht allzu kompliziert wäre, da von Ralph bereits Dockerfiles für den Produktivbetrieb vorlagen. Dadurch wurde zu Beginn der Arbeit versucht dieses bereits existierendes Dockersystem zu starten, jedoch war im Browser dann nicht der "Capentory"-Server, sondern die Basislösung von Ralph zu sehen. Der Infrastrukturverantwortliche analysierte anschließend die Docker-Dateien und musste feststellen, dass sie für die Zwecke von "Capentory" so tatsächlich nicht verwendet werden können. Ralph hat in Verbindung mit dem implementierten Dockersystem einige komplexe, aufeinander zugreifende Skripts verwendet. Vorweg muss gesagt werden, dass Ralph deren Serverlösung als Service anbietet und in den vorliegenden Skripts installieren sie den Ralphserver ohne den Änderungen von "Capentory". Daraufhin wird aus dem Webservice ein Docker-Container erstellt und anschließend mit den anderen Docker-Komponenten hochgefahren. Dadurch war im Webbrowser beim Serverabruf, statt der gewollten Serverlösung, die falsche zu sehen. Der Fortschritt des Arbeitspaketes der Produktivumgebung war somit wieder um einiges geschrumpft und es musste schnellstmöglich eine Alternative gefunden werden, da das Umschreiben der Dockerfiles, beziehungsweise der Skripts, ein riesiger Aufwand wäre.
+Zu Beginn dachte das Diplomarbeitsteam, dass die Umsetzung des Django-Servers in eine Produktivumgebung nicht allzu kompliziert wäre, da von Ralph bereits Dockerfiles für den Produktivbetrieb vorlagen. Dadurch wurde zu Beginn der Arbeit versucht dieses bereits existierendes Dockersystem zu starten, jedoch war im Browser dann nicht der Diplomarbeitsserver, sondern die Basislösung des Vorgängers zu sehen. Der Infrastrukturverantwortliche analysierte anschließend die Docker-Dateien und musste feststellen, dass sie für die Zwecke der Diplomarbeit so tatsächlich nicht verwendet werden können. Ralph hat in Verbindung mit dem implementierten Dockersystem einige komplexe, aufeinander zugreifende Skripts verwendet. Vorweg muss gesagt werden, dass der Vorgänger deren Serverlösung als Service anbietet und in den vorliegenden Skripts deren Server ohne den Änderungen des Diplomarbeitsteam installiert. Daraufhin wird aus dem Webservice ein Docker-Container erstellt und anschließend mit den anderen Docker-Komponenten hochgefahren. Dadurch war im Webbrowser beim Serverabruf, statt der gewollten Serverlösung, die falsche zu sehen. Der Fortschritt des Arbeitspaketes der Produktivumgebung war somit wieder um einiges geschrumpft und es musste schnellstmöglich eine Alternative gefunden werden, da das Umschreiben der Dockerfiles, beziehungsweise der Skripts, ein riesiger Aufwand wäre.
 
 Nach kurzer Recherche stieß man schließlich auf zwei verwendbare Alternativen, nachfolgend genannt und verglichen werden.
 
 ### Alternativen
 
-Es  wurde bereits erläutert, warum "Capentory" die Dockerlösung von Ralph nicht verwendet. (\siehe{probleme-der-produktivumgebung}) Allerdings musste rasch eine Alternative für die Umsetzung des Produktivbetriebs gesucht werden, um möglichst wenig Zeit zu verlieren.
+Es  wurde bereits erläutert, warum das Diplomarbeitsteam die Dockerlösung des Vorgängers nicht verwendet. (\siehe{probleme-der-produktivumgebung}) Allerdings musste rasch eine Alternative für die Umsetzung des Produktivbetriebs gesucht werden, um möglichst wenig Zeit zu verlieren.
 Zwei Alternativen, die für den Produktivbetrieb in Frage kamen, wurden genauer analysiert: uWSGI sowie Gunicorn.
 
 ### uWSGI vs. Gunicorn
@@ -246,13 +241,13 @@ Das uWSGI-Projekt zielt darauf ab, einen vollständigen Stack für den Aufbau vo
 
 ### Wahl
 
-Da beide Alternativen sehr ähnlich sind, lag es an "Capentory" welche für die Installation der Produktivumgebung ausgewählt wird. Zuerst wurde versucht, alles mithilfe von Gunicorn aufzusetzen. Da dies jedoch mehrmalig Probleme verursachte, entschied man sich für die Verwendung von uWSGI. Nach kurzer Recherche stieß der Infrastrukturverantwortliche auf ein vielversprechendes Tutorial im Internet\cite{tutorialuwsgi}, mit dem die Installation reibungslos verlief. Die genaue Installationsanleitung wurde bereits in der Serverdokumentation niedergeschrieben. Die Funktionsweise, also wie uWSGI genau arbeitet, wirdnachfolgend (\siehe{funktion-von-uwsgi}) anhand einer Grafik erklärt.
+Da beide Alternativen sehr ähnlich sind, lag es am Infrastrukturverantwortlichen, welche für die Installation der Produktivumgebung ausgewählt wird. Zuerst wurde versucht, alles mithilfe von Gunicorn aufzusetzen. Da dies jedoch mehrmalig Probleme verursachte, entschied man sich für die Verwendung von uWSGI. Nach kurzer Recherche stieß der Infrastrukturverantwortliche auf ein vielversprechendes Tutorial im Internet\cite{tutorialuwsgi}, mit dem die Installation reibungslos verlief. Die genaue Installationsanleitung wurde bereits in der Serverdokumentation niedergeschrieben. Die Funktionsweise, also wie uWSGI genau arbeitet, wirdnachfolgend (\siehe{funktion-von-uwsgi}) anhand einer Grafik erklärt.
 
 ### Funktionsweise der Produktivumgebung
 
 ####  Funktion von uWSGI
 
-Es wurde bereits desöfteren erklärt warum die vorhandene "Ralph-Dockerlösung" von "Capentory" nicht verwendet wird. (\siehe{probleme-der-produktivumgebung}) Jedenfalls wurde nun die Einrichtung der Produktivumgebung mittels uWSGI erfolgreich durchgeführt. In der folgenden Grafik wird die Funktion von uWSGI genauer dargestellt.
+Es wurde bereits desöfteren erklärt, warum die Dockerlösung des Vorgängers vom Diplomarbeitsteam nicht verwendet wird. (\siehe{probleme-der-produktivumgebung}) Jedenfalls wurde nun die Einrichtung der Produktivumgebung mittels uWSGI erfolgreich durchgeführt. In der folgenden Grafik wird die Funktion von uWSGI genauer dargestellt.
 
 \begin{figure}[ht]
 \centering
@@ -262,11 +257,11 @@ Es wurde bereits desöfteren erklärt warum die vorhandene "Ralph-Dockerlösung"
 \end{figure}
 
  1. Ein beliebiger Benutzer eines Webbrowsers (zum Beispiel Google Chrome oder Mozilla Firefox) sendet einen sogenannten "Webrequest" auf den https-Port "443" (\siehe{probleme-der-produktivumgebung}).
- 2. Ein beliebig gewählter, optimierter Webserver (im Fall von "Capentory" NGINX) stellt Dateien wie Javascript, CSS oder auch Bilder bereit und macht diese für den Benutzer abrufbar.
+ 2. Ein beliebig gewählter, optimierter Webserver (im Fall der vorliegenden Diplomarbeit "NGINX") stellt Dateien wie Javascript, CSS oder auch Bilder bereit und macht diese für den Benutzer abrufbar.
  3. Hier wird die Kommunikation zwischen dem hochperfomanten Webserver NGINX und dem Webinterface uWSGI mit Verwendung eines klassischen Websockets veranschaulicht. (Anm.: Bei einem Websocket handelt es sich um ein auf TCP basierendes Protokoll, dass eine bidirektionale Verbindung zwischen einer Webanwendung und einem Webserver herstellt).
  4. Das eigentliche Interface von uWSGi ist hier zu sehen. Diese Schnittstelle sorgt für die Kommunikation des oben genannten Websockets mit dem verwendeten Python-Framework.
  5. Django reagiert nun auf die Anfrage des Benutzers und lässt diesem (falls dessen Zugriffsrechte darauf es erlauben) die gewünschten Daten.
- 6. Die vom Benutzer gewünschten Daten werden (bei "Capentory") in einer MySQL-Datenbank gespeichert. 
+ 6. Die vom Benutzer gewünschten Daten werden in einer MySQL-Datenbank gespeichert. 
  
  Grundsätzlich kann die Grafik auch mittels
 
@@ -276,7 +271,7 @@ Es wurde bereits desöfteren erklärt warum die vorhandene "Ralph-Dockerlösung"
 
 #### Funktion von Docker
 
-Docker wird im Projekt "Capentory" ausschließlich für die Bereitstellung der Datenbank verwendet. Der Befehl 
+Docker wird im Projekt ausschließlich für die Bereitstellung der Datenbank verwendet. Der Befehl 
 
 `docker-compose -f docker/docker-compose-dev.yml up -d`
 
@@ -300,7 +295,7 @@ Weiters wurde NGINX wurde mit einem sogenannten Self Signed Certificate ausgesta
 \caption{Aufruf des Servers über HTTPS}
 \end{figure}
 
-Der Zertifikatsfehler, der am Bild deutlich zu sehen ist, bedeudet jedoch nichts anderes als dass das Zertifakt des Produktivservers von "Capentory" nicht von einer offiziellen Zertifizierungsstelle signiert wurde. Da der Server aber sowieso nur im Schulnetz der HTL 3 Rennweg beziehungsweise über einen VPN-Tunnel erreichbar ist, war es nicht nötig, sich an solch eine Zertifizierungsstelle zu wenden.
+Der Zertifikatsfehler, der am Bild deutlich zu sehen ist, bedeudet jedoch nichts anderes als, dass das Zertifakt des Produktivservers der Diplomarbeit nicht von einer offiziellen Zertifizierungsstelle signiert wurde. Da der Server aber sowieso nur im Schulnetz der HTL 3 Rennweg beziehungsweise über einen VPN-Tunnel erreichbar ist, war es nicht nötig, sich an solch eine Zertifizierungsstelle zu wenden.
 
 ### Verwendung einer .ini-Datei
 
@@ -316,7 +311,7 @@ Beide Befehle liefern schlussendlich das gleiche Ergebnis, jedoch ist der unter 
 
 ### Neustartverhalten mittels Service
 
-Für den Gebrauch von uWSGi gibt es einige Lösungen, um den automatischen Neustart, beispielsweise bei Eintritt eines Stromausfalls, zu gewährleisten. "Capentory" hat sich, mit der Implementierung eines eigenen "Ralph-Service", für den klassischen Linuxweg entschieden.
+Für den Gebrauch von uWSGi gibt es einige Lösungen, um den automatischen Neustart, beispielsweise bei Eintritt eines Stromausfalls, zu gewährleisten. Das Team hat sich, mit der Implementierung eines eigenen "Ralph-Service", für den klassischen Linuxweg entschieden.
 
 #### Systemd
 
@@ -356,7 +351,7 @@ Mit
 
 ## Absicherung der virtuellen Maschine
 
-Ein weiterer wichtiger und sensibler Teil der Serverinfrastruktur ist die Absicherung der virtuellen Maschine gegen Angriffe. Da es sich im Rahmen der Diplomarbeit "Capentory" um geheime Daten der Schulinventur handelt, war es ein Anliegen der Verantwortlichen, dass mit diesen Daten verantwortungsvoll und vorsichtig umgegangen wird.
+Ein weiterer wichtiger und sensibler Teil der Serverinfrastruktur ist die Absicherung der virtuellen Maschine gegen Angriffe. Da es sich im Rahmen der Diplomarbeit um geheime Daten der Schulinventur handelt, war es ein Anliegen der Verantwortlichen, dass mit diesen Daten verantwortungsvoll und vorsichtig umgegangen wird.
 
 ### Firewall
 
@@ -404,23 +399,23 @@ Bei Malware handelt es sich um Schadsoftware zudem unteranderem **Viren**, **Wü
 
 Neben dem Raten und Ausspionieren von Passwörtern ist die Brute Force Attacke weit verbreitet. Bei dieser Attacke versuchen Hacker mithilfe einer Software, die in einer schnellen Abfolge verschiedene Zeichenkombinationen ausprobiert, das Passwort zu knacken. Je einfacher das Passwort gewählt ist, umso schneller kann dieses geknackt werden.
 
-Vorbeugung von Team "Capentory": Die festgelegten Passwörter sind komplex aufgebaut und sicher in den Köpfen der Mitarbeiter gespeichert.
+Vorbeugung des Diplomarbeitsteams: Die festgelegten Passwörter sind komplex aufgebaut und sicher in den Köpfen der Mitarbeiter gespeichert.
 
 #### Man-in-the-middle Attacken
 
 Bei der „Man in the Middle“-Attacke nistet sich ein Angreifer  zwischen den miteinander kommunizierenden Rechnern. Diese Position ermöglicht ihm, den ausgetauschten Datenverkehr zu  kontrollieren und zu manipulieren. Er kann \zB die ausgetauschten Informationen abfangen, lesen, die Weiterleitung kappen usw. Von all dem erfährt der Empfänger aber nichts.
 
-Vorbeugung von Team "Capentory": Der Datenaustausch verläuft über HTTPS und somit verschlüsselt.
+Vorbeugung des Diplomarbeitsteams: Der Datenaustausch verläuft über HTTPS und somit verschlüsselt.
 
 #### Sniffing
 
 Unter Sniffing (Schnüffeln) wird das unberechtigte Abhören des Datenverkehrs verstanden. Dabei werden oft Passwörter, die nicht oder nur sehr schwach verschlüsselt sind, abgefangen. Andere Angreife bedienen sich dieser Methode um rausfinden zu können, welche Teilnehmer über welche Protokolle miteinander kommunizieren. Mit den so erlangten Informationen können die Angreifer dann den eigentlichen Angriff starten.
 
-Vorbeugung von Team "Capentory": Der Datenaustausch verläuft über HTTPS und somit verschlüsselt.
+Vorbeugung des Diplomarbeitsteams: Der Datenaustausch verläuft über HTTPS und somit verschlüsselt.
 
 ## Überwachung des Netzwerks
 
-Sollte der Fall eintreten, dass der Server nicht mehr erreichbar ist, wurde ein eigener Monitoring-Server im Netzwerk eingehängt und installiert. Dadurch wird der Produktivserver rund um die Uhr überwacht. Weiters wird das Diplomarbeitsteam "Capentory" bei etwaigen Komplikationen per E-Mail benachrigtigt, damit das aufgetretene Problem beziehungsweise die aufgetretenen Probleme möglichst schnell behoben werden können.
+Sollte der Fall eintreten, dass der Server nicht mehr erreichbar ist, wurde ein eigener Monitoring-Server im Netzwerk eingehängt und installiert. Dadurch wird der Produktivserver rund um die Uhr überwacht. Weiters wird das Diplomarbeitsteam bei etwaigen Komplikationen per E-Mail benachrichtigt, damit das aufgetretene Problem beziehungsweise die aufgetretenen Probleme möglichst schnell behoben werden können.
 
 ### Topologieänderung
 
@@ -438,7 +433,7 @@ Worum es sich bei diesem tollen Tool handelt wurde bereits bei den installierten
 
 #### Hosts
 
-Hosts sind bei Nagios definierte virtuelle Maschinen, die überwacht werden sollen. "Capentory" überwacht nicht nur den Produktivserver, sondern auch den aufgesetzten Nagios-Server selbst. Falls dieser Probleme aufweist, wird das Team ebenfalls per E-Mail benachrichtigt aber dies wird in einem eigenen Punkt (\siehe{notifications}) näher erläutert.
+Hosts sind bei Nagios definierte virtuelle Maschinen, die überwacht werden sollen. Die vorliegende Diplomarbeit überwacht nicht nur den Produktivserver, sondern auch den aufgesetzten Nagios-Server selbst. Falls dieser Probleme aufweist, wird das Team ebenfalls per E-Mail benachrichtigt aber dies wird in einem eigenen Punkt (\siehe{notifications}) näher erläutert.
 
 Im Webbrowser sehen die zu überwachenden Hosts wie folgt aus:
 
@@ -490,4 +485,4 @@ Zuguterletzt gibt es noch das Feature der Notifications. Falls ein Host oder ein
 
 ## Verfassen einer Serverdokumentation
 
-Im Laufe dieses Kapitels wurde der Inhalt von den für die Produktivumgebung zu erstellenden Dateien aufgelistet und Zeile für Zeile erklärt. Da nur mit diesen Dateien alleine jedoch kein Server funktionieren kann, war ein weiteres großes Ziel die Erstellung einer Guideline für Benutzer, damit diese ebenfalls in der Lage sind, den Server der Diplomarbeit "Capentory" für eine Entwicklungsumgebung sowie eine Produktumgebung aufzusetzen. 
+Die Funktionsweise (\siehe{produktivbetrieb-der-applikation}) wurde bereits erklärt, allerdings war das letzte Ziel der Infrastruktur, den Installationsvorgang der Entwicklungs- sowie der Produktivumgebung zu dokumentieren. Somit kann nun jeder Interessierte die vorliegende Inventurlösung verwenden und anhand der Serverdokumentation Schritt-für-Schritt selbständig aufsetzen. 
