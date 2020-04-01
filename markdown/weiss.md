@@ -4,14 +4,14 @@ Technische Umsetzung: Infrastruktur
 Um allen Kunden einen problemlosen Produktivbetrieb zu gewährleisten, muss ein physischer Server aufgesetzt werden. Auf diesem können dann alle Komponenten unseres Git-Repositories geklont und betriebsbereit installiert werden. Dafür gab es folgende Punkte zu erfüllen:
 
 * das Beschaffen eines Servers
-* das Aufsetzen eines Betriebssystemes
+* das Aufsetzen eines Betriebssystems
 * die Konfiguration der notwendigen Applikationen
 * die Konfiguration der Netzwerkschnittstellen
 * das Testen der Konnektivität im Netzwerk
-* die Einrichtung des Produktivbetriebes der Applikation
+* die Einrichtung des Produktivbetriebs der Applikation
 * das Verfassen einer Serverdokumentation
 * die Absicherung der Maschine
-* die Überwachung des Netzwerk
+* die Überwachung des Netzwerks
 
 ## Anschaffung des Servers
 Den 5. Klassen wird, dank gesponserter Infrastruktur, im Rahmen ihrer Diplomarbeit ein Diplomarbeitscluster zur Verfügung gestellt. Damit können sich alle Diplomarbeitsteams problemlos Zugang zu ihrer eigenen virtualisierten Maschine verschaffen. 
@@ -30,16 +30,16 @@ Jedoch liegen alle Maschinen der Diplomarbeitsteams in einem eigens gebauten und
 
 ### FortiClient
 
-FortiClient ermöglicht es, VPN-Konnektivität anhand von IPsec oder SSL zu erstellen. Die Datenübertragung wird verschlüsselt, und damit der enstandene Datenstrom vollständig gesichert über einen sogenannten "Tunnel" übertragen.
+FortiClient ermöglicht es, VPN-Konnektivität anhand von IPsec oder SSL zu erstellen. Die Datenübertragung wird verschlüsselt und damit der enstandene Datenstrom vollständig gesichert über einen sogenannten "Tunnel" übertragen.
 
-Da die vorliegende Diplomarbeit die Erreichbarkeit des Servers im Schulnetz verlangt, muss die Maschine in ausreichenden Ausmaß abgesichert werden, damit sie ohne Bedenken in das Schulnetz gehängt werden kann. Dafür müssen folgende Punkte gewährleistet sein:
+Da die vorliegende Diplomarbeit die Erreichbarkeit des Servers im Schulnetz verlangt, muss die Maschine in ausreichendem Ausmaß abgesichert werden, damit sie ohne Bedenken in das Schulnetz gehängt werden kann. Dafür müssen folgende Punkte gewährleistet sein:
 
 * Firewallkonfiguration (\siehe{absicherung-der-virtuellen-maschine})
-* Wohlüberlegte Passwörter und Zugriffsrechte
+* wohlüberlegte Passwörter und Zugriffsrechte
 
 ## Wahl des Betriebssystems
 
-Neben den physischen Hardwarekomponenten wird für einen funktionierenden und leicht bedienbaren Server logischerweise auch ein Betriebsystem benötigt. Die erste Entscheidung, welche Art von Betriebssystem für die Diplomarbeit in Frage kam, wurde rasch beantwortet: Linux. Während der Schulzeit an der HTL Rennweg durfte das Diplomarbeitsteam an zwei verschiedenen Linux-Distributionen, die auch für den Serverbetrieb der Diplomarbeit in Frage kamen, durchführen:
+Neben den physischen Hardwarekomponenten wird für einen funktionierenden und leicht bedienbaren Server selbstverständlich auch ein Betriebsystem benötigt. Die erste Entscheidung, welche Art von Betriebssystem für die Diplomarbeit in Frage kam, wurde rasch beantwortet: Linux. Während der Schulzeit an der HTL Rennweg durfte das Diplomarbeitsteam auf zwei verschiedenen Linux-Distributionen, die auch für den Serverbetrieb der Diplomarbeit in Frage kamen, Übungen durchführen:
 
  * Linux CentOS
  * Linux Ubuntu
@@ -65,11 +65,11 @@ Ubuntu ist die am meisten verwendete Linux-Betriebssystemsoftware für Webserver
  - Leichte Bedienung
  - Wird ständig weiterentwickelt und aktualisiert
  - Zahlreich brauchbare Dokumentation im Internet vorhanden
- - Wird speziell von Ralph empfohlen
+ - Wird speziell von "Ralph" empfohlen
 
-Aus den angeführten Punkten entschied sich das Diplomarbeitsteam klarerweise das Betriebsystem Ubuntu zu verwenden, vorallem auch weil der Hersteller der Serversoftware "Ralph" die Verwendung von diesem Betriebsystem empfiehlt. Anschließend wird die Installation des Betriebsystemes genauer erläutert und erklärt.
+Aus den angeführten Punkten entschied sich das Diplomarbeitsteam, aufgrund der auf der Hand liegenden Vorteile, das Betriebsystem Ubuntu zu verwenden, vor allem auch weil der Hersteller der Serversoftware "Ralph" die Verwendung dieses Betriebsystems empfiehlt. Anschließend wird die Installation des Betriebsystems genauer erläutert und erklärt.
 
-## Installation des Betriebsystemes
+## Installation des Betriebsystems
 
 Wie bereits unter Punkt "Anschaffung des Servers" (\siehe{anschaffung-des-servers}) erwähnt, wird uns von der Schule ein eigener Servercluster mit virtuellen Maschinen zur Verfügung gestellt. Durch die ProxMox-Umgebung und diversen Tools, ging die Installation der Ubuntu-Distribution rasch von der Hand. In der Virtualisierungsumgebung der Schule musste nur ein vorhandenes Linux-Ubuntu 18.04 ISO-File gemountet und anschließend eine gewöhnliche Betriebsysteminstallation für Ubuntu durchgeführt werden. 
 Jedoch kam es beim ersten Versuch zu Problemen mit der Konfiguration der Netzwerkschnittstellen, die im nächsten Punkt genauer erläutert werden.
@@ -77,7 +77,7 @@ Jedoch kam es beim ersten Versuch zu Problemen mit der Konfiguration der Netzwer
 ## Internetkonnektivität der Maschine
 
 ### Konfiguration
-Im Rahmen des Laborunterrichts an der HTL Rennweg, bekamen die Schüler für diverse Unklarheiten ein sogenanntes Cheat-Sheet \cite{cheat} für Linux-Befehle zur Verfügung gestellt. In diesem Cheat-Sheet finden sich unteranderem Anleitungen für die Konfiguration einer Netzwerkschnittstelle auf einer CentOS/RedHat sowie Ubuntu/Debian-Distribution.
+Im Rahmen des Laborunterrichts an der HTL Rennweg bekamen die Schüler für diverse Unklarheiten ein sogenanntes Cheat-Sheet \cite{cheat} für Linux-Befehle zur Verfügung gestellt. In diesem Cheat-Sheet finden sich unter anderem Anleitungen für die Konfiguration einer Netzwerkschnittstelle auf einer CentOS/RedHat sowie Ubuntu/Debian-Distribution.
 Den Schülern der fünften Netzwerktechnikklasse sollte diese Kurzkonfiguration jedoch schon leicht von der Hand gehen, da sie diese Woche für Woche benötigen.
 
 Eine Netzwerkkonfiguration mit statischen IPv4-Adressen für eine Ubuntu-Distribution könnte wie folgt aussehen:
@@ -99,7 +99,7 @@ In `/etc/network/interfaces`:
 
 ### Topologie des Netzwerkes
 
-Unter Abbildung 5.1 wird der Netzwerkplan veranschaulicht. Auf der linken Seite wird der Servercluster der Diplomarbeitsteams dargestellt, worauf die virtuelle Maschine der Diplomarbeit gehostet wird. In der Mitte ist die FortiGate-Firewall zu sehen, die nicht nur als äußerster Schutz vor Angriffen dient, sondern auch die konfigurierte VPN-Verbindung beinhaltet und nur berechtigten Teammitgliedern den Zugriff gewährleistet. Desweiteren ist die moderne Firewall auch für die Konnektivität der virtuellen Maschine im Schulnetz zuständig, aber dazu später (unter Punkt "Absicherung der virtuellen Maschine") mehr.
+Unter Abbildung 8.1 ist der Netzwerkplan veranschaulicht. Auf der linken Seite ist der Servercluster des Diplomarbeitsteams dargestellt, worauf die virtuelle Maschine der Diplomarbeit gehostet wird. In der Mitte ist die FortiGate-Firewall zu sehen, die nicht nur als äußerster Schutz vor Angriffen dient, sondern auch die konfigurierte VPN-Verbindung beinhaltet und nur berechtigten Teammitgliedern den Zugriff gewährleistet. Desweiteren ist die moderne Firewall auch für die Konnektivität der virtuellen Maschine im Schulnetz zuständig, aber dazu später (unter Punkt "Absicherung der virtuellen Maschine") mehr.
 \begin{figure}[ht]
 \centering
 \includegraphics{topo1.png}
@@ -116,7 +116,7 @@ Mit diesem Tool werden auf dem System die notwendigen Applikationen heruntergela
 
 #### apt-get update
 
-Update liest alle in `/etc/apt/sources.list`, sowie in `/etc/apt/sources.list.d/` eingetragenen Paketquellen neu ein. Dieser Schritt wird vor allem vor einem upgrade-command, oder nach dem Hinzufügen einer neuen Quelle empfohlen, um sich die neusten Informationen für Pakete ansehen zu können.
+Update liest alle in `/etc/apt/sources.list`, sowie in `/etc/apt/sources.list.d/` eingetragenen Paketquellen neu ein. Dieser Schritt wird vor allem vor einem upgrade-command oder nach dem Hinzufügen einer neuen Quelle empfohlen, um sich die neusten Informationen für Pakete ansehen zu können.
 
 #### apt-get upgrade
 
@@ -134,19 +134,19 @@ Mit apt-get remove werden nicht mehr benötigte Pakete von einem Ubuntu-System v
 
 #### NGINX
 
-NGINX ist einer der am Häufigsten verwendeten OpenSource-Webserver unter Linux für diverse Webanwendungen. Große Unternehmen wie Cisco, Microsoft, Facebook oder auch IBM verwenden diesen Webserver für deren Zwecke. Unteranderem wird NGINX auch als Reverse-Proxy, HTTP-Cache und Load-Balancer verwendet. Wie genau NGINX für den Produktivbetrieb funktioniert wird in einem eigenen Punkt (\siehe{funktionsweise-der-produktivumgebung}) erläutert.
+NGINX ist einer der am häufigsten verwendeten OpenSource-Webserver unter Linux für diverse Webanwendungen. Große Unternehmen wie Cisco, Microsoft, Facebook oder auch IBM verwenden diesen Webserver für deren Zwecke. Unter anderem wird NGINX auch als Reverse-Proxy, HTTP-Cache und Load-Balancer verwendet. Wie genau NGINX für den Produktivbetrieb funktioniert, wird in einem eigenen Punkt (\siehe{funktionsweise-der-produktivumgebung}) erläutert.
 
 #### Docker
 
-Docker ist eine frei verwendbare Software, die die Erstellung und den Betrieb von Linux Containern ermöglicht. Wie genau dies funktioniert, wird später etwas später (\siehe{funktionsweise-der-produktivumgebung}) genauer beschrieben und erklärt.
+Docker ist eine frei verwendbare Software, die die Erstellung und den Betrieb von Linux Containern ermöglicht. Wie genau dies funktioniert, wird etwas später (\siehe{funktionsweise-der-produktivumgebung}) genauer beschrieben und erklärt.
 
 #### docker-compose
 
-Die Verwaltung und Verlinkung von mehreren Containern kann auf Dauer sehr nervenaufreibend sein. Die Lösung dieses Problems nennt sich docker-compose. Wie docker-compose jedoch genau funktioniert, wird ebenfalls wie das Grundkonzept von Docker (\siehe{funktionsweise-der-produktivumgebung}) präziser erläutert.
+Die Verwaltung und Verlinkung von mehreren Containern kann auf Dauer sehr nervenaufreibend sein. Die Lösung dieses Problems nennt sich docker-compose. Wie docker-compose jedoch genau funktioniert, wird ebenfalls, wie das Grundkonzept von Docker, (\siehe{funktionsweise-der-produktivumgebung}) präziser erläutert.
 
 #### MySQL
 
-MySQL ist ein OpenSource-Datenverwaltungssystem und die Grundlage für die meisten dynamischen Websiten. Darauf werden die Inventurdatensätze der HTL Rennweg gespeichert. Nähere Informationen finden sich ebenfalls während der Erklärung der Funktionsweise des Produktivbetriebes (\siehe{funktionsweise-der-produktivumgebung}) wieder.
+MySQL ist ein OpenSource-Datenverwaltungssystem und die Grundlage für die meisten dynamischen Websiten. Darauf werden die Inventurdatensätze der HTL Rennweg gespeichert. Nähere Informationen finden sich ebenfalls während der Erklärung der Funktionsweise des Produktivbetriebs (\siehe{funktionsweise-der-produktivumgebung}) wieder.
 
 #### Redis
 
@@ -154,22 +154,22 @@ Redis ist eine In-Memory-Datenbank mit einer Schlüssel-Wert-Datenstruktur (Key 
 
 #### Nagios
 
-Nagios ist ein Monitoring-System, mit dem sich verschiedene Geräte und auf solche laufende Dienste (oder auch Eigenschaften) überwachen lassen. Ziel ist es dabei schnell Ausfälle festzustellen und diese dem zuständigen Administrator mit zu teilen, so dass dieser dann schnell darauf reagieren kann.
+Nagios ist ein Monitoring-System, mit dem sich verschiedene Geräte und auch laufende Dienste (oder auch Eigenschaften) überwachen lassen. Ziel ist es dabei, schnell Ausfälle festzustellen und diese dem zuständigen Administrator mitzuteilen, sodass dieser dann schnell darauf reagieren kann.
 
 #### virtualenv
 
-Bei virtualenv handelt es sich um ein Tool, mit dem eine isolierte Python-Umgebung erstellt werden kann. Eine solch isolierte Umgebung besitzt eine eigene Installation von diversen Services und teilt ihre libraries nicht mit anderen virtuellen Umgebungen (im optionalen Fall greifen sie auch nicht auf die global installierten libraries zu). Dies bringt vor allem den großen Vorteil, dass im Testfall virtuelle Umgebungen aufgesetzt werden können, um nicht die globalen Konfigurationen zu gefährden.
+Bei virtualenv handelt es sich um ein Tool, mit dem eine isolierte Python-Umgebung erstellt werden kann. Eine solche isolierte Umgebung besitzt eine eigene Installation von diversen Services und teilt ihre libraries nicht mit anderen virtuellen Umgebungen (im optionalen Fall greifen sie auch nicht auf die global installierten libraries zu). Dies bringt vor allem den großen Vorteil, dass im Testfall virtuelle Umgebungen aufgesetzt werden können, um nicht die globalen Konfigurationen zu gefährden.
 
 #### Python
-Python ist einer der Hauptbestandteile auf dem Serversystem der Diplomarbeit. Das Backend (=Serveranwendung) basiert wie bereits erwähnt auf dem Python-Framework "Django". Um dieses Framework auf dem System installieren zu können wird jedoch noch ein weiteres "Packaging-Tool", speziell für Python-Module, benötigt.
+Python ist einer der Hauptbestandteile auf dem Serversystem der Diplomarbeit. Das Backend (=Serveranwendung) basiert, wie bereits erwähnt, auf dem Python-Framework "Django". Um dieses Framework auf dem System installieren zu können wird jedoch noch ein weiteres "Packaging-Tool", speziell für Python-Module, benötigt.
 
 #### pip
 
-Und dieses Tool nennt sich Pip. Pip ist ein rekursives Akronym für **P**ip **I**nstalls **P**ython und ist, wie bereits erwähnt, das Standardverwaltungswerkzeug für Python-Module. Die Funktion sowie Syntax kann relativ gut mit der von apt verglichen werden.
+Dieses Tool nennt sich Pip. Pip ist ein rekursives Akronym für **P**ip **I**nstalls **P**ython und ist, wie bereits erwähnt, das Standardverwaltungswerkzeug für Python-Module. Die Funktion sowie Syntax kann relativ gut mit der von apt verglichen werden.
  
 #### uWSGI
 
-Das eigentliche Paket, mit dem der Produktivbetrieb schlussendlich gewährleistet wurde, nennt sich uWSGI. Speziell wurde es für die Produktivbereitstellung von Serveranwendungen (wie eben der Django-Server der vorliegenden Diplomarbeit) entwickelt und harmoniert eindrucksvoll mit der Webserver-Software NGINX. Die grundlegende Funktionsweise von uWSGI, sowie eine Erklärung, warum schlussendlich diese Software und nicht Docker verwendet wurde, wird in einem eigenen Teil (\siehe{probleme-der-produktivumgebung}) veranschaulicht.
+Das eigentliche Paket, mit dem der Produktivbetrieb schlussendlich gewährleistet wurde, nennt sich uWSGI. Speziell wurde es für die Produktivbereitstellung von Serveranwendungen (wie eben der Django-Server der vorliegenden Diplomarbeit) entwickelt und harmoniert eindrucksvoll mit der Webserver-Software NGINX. Die grundlegende Funktionsweise von uWSGI, sowie eine Erklärung warum schlussendlich diese Software und nicht Docker verwendet wurde, wird in einem eigenen Teil (\siehe{probleme-der-produktivumgebung}) veranschaulicht.
 
 #### Django
 
@@ -185,9 +185,9 @@ Das Aufsetzen beziehungsweise die Installation der Produktivumgebung ist der wic
 
 ### Entwicklungsumgebung
 
-Die Entwickler des Grundservers "Ralph" haben eine eigene Entwicklungsumgebung für den Django-Server erstellt. Normalerweise findet sich in einem klassischen Python-Projekt oder einem Projekt, dass auf einem Python-Framework (wie zum Beispiel Django) basiert, ein sogenanntes "`manage.py`"-File. Hierbei handelt es sich um ein Script, dass das Management eines beliebigen Python-Projektes unterstützt. Mit dem Script ist man unteranderem in der Lage, den Webserver auf einem unspezifischen Rechner zu starten, ohne etwas Weiteres installieren zu müssen.
+Die Entwickler des Grundservers "Ralph" haben eine eigene Entwicklungsumgebung für den Django-Server erstellt. Normalerweise findet sich in einem klassischen Python-Projekt oder einem Projekt, das auf einem Python-Framework (wie zum Beispiel Django) basiert, ein sogenanntes "`manage.py`"-File. Hierbei handelt es sich um ein Script, das das Management eines beliebigen Python-Projektes unterstützt. Mit dem Script ist man unter anderem in der Lage, den Webserver auf einem unspezifischen Rechner zu starten, ohne etwas Weiteres installieren zu müssen.
 
-Jedoch wurde diese Datei im Vorgängerprojekt in eine eigene spezifische Entwicklungsumgebung umimplementiert. Der Server startet sich nach der eigenen Installation (welche ab Seite 4 im Dokument "Serverdokumentation Schritt für Schritt erklärt wird) nicht mehr mittels:
+Jedoch wurde diese Datei im Vorgängerprojekt in eine eigene spezifische Entwicklungsumgebung umimplementiert. Der Server startet nach der eigenen Installation (welche ab Seite 4 im Dokument "Serverdokumentation Schritt für Schritt erklärt wird) nicht mehr mittels:
 
     python manage.py runserver
  
@@ -206,14 +206,14 @@ ein Zertifikat mit dem zugehörigen Schlüssel generiert werden.
 
 Kurzerklärung der Befehlsoptionen
 
- - `-x509` Gibt an, statt eines CSR gleich ein selbstsigniertes Zertifikat auszustellen.
+ - `-x509` Gibt an, statt eines CSR, gleich ein selbstsigniertes Zertifikat auszustellen.
  - `-nodes` Zertifikat wird nicht über ein Kennwort geschützt. Damit kann der Server ohne weitere Aktion (Eingabe des Kennworts) gestartet werden.
- - `-days` Beschreibt die Gültigkeit des Zertifikates für 365 Tage.
+ - `-days` Beschreibt die Gültigkeit des Zertifikats für 365 Tage.
  - `-newkey rsa:2048` Generiert das Zertifikat und einen 2048-bit langen RSA Schlüssel.
  - `-keyout` Gibt die Ausgabepfad und -datei für den Schlüssel an.
- - `-out` Gibt die Ausgabepfad und -datei des Zertifikates an.
+ - `-out` Gibt Ausgabepfad und -datei des Zertifikats an.
 
-Der Befehl "runsslserver" muss jetzt nur noch in den "Installed-Apps" des Projektes (im vorliegenden Projekt befinden sich diese in der Datei "`base.py`") hinzugefügt werden.
+Der Befehl "runsslserver" muss jetzt nur noch in den "Installed-Apps" des Projekts (im vorliegenden Projekt befinden sich diese in der Datei "`base.py`") hinzugefügt werden.
 
 Dann kann der Server problemlos mit 
 
@@ -223,32 +223,32 @@ gestartet werden.
 
 ### Probleme der Produktivumgebung
 
-Zu Beginn dachte das Diplomarbeitsteam, dass die Umsetzung des Django-Servers in eine Produktivumgebung nicht allzu kompliziert wäre, da von Ralph bereits Dockerfiles für den Produktivbetrieb vorlagen. Dadurch wurde zu Beginn der Arbeit versucht dieses bereits existierendes Dockersystem zu starten, jedoch war im Browser dann nicht der Diplomarbeitsserver, sondern die Basislösung des Vorgängers zu sehen. Der Infrastrukturverantwortliche analysierte anschließend die Docker-Dateien und musste feststellen, dass sie für die Zwecke der Diplomarbeit so tatsächlich nicht verwendet werden können. Ralph hat in Verbindung mit dem implementierten Dockersystem einige komplexe, aufeinander zugreifende Skripts verwendet. Vorweg muss gesagt werden, dass der Vorgänger deren Serverlösung als Service anbietet und in den vorliegenden Skripts deren Server ohne den Änderungen des Diplomarbeitsteam installiert. Daraufhin wird aus dem Webservice ein Docker-Container erstellt und anschließend mit den anderen Docker-Komponenten hochgefahren. Dadurch war im Webbrowser beim Serverabruf, statt der gewollten Serverlösung, die falsche zu sehen. Der Fortschritt des Arbeitspaketes der Produktivumgebung war somit wieder um einiges geschrumpft und es musste schnellstmöglich eine Alternative gefunden werden, da das Umschreiben der Dockerfiles, beziehungsweise der Skripts, ein riesiger Aufwand wäre.
+Zu Beginn dachte das Diplomarbeitsteam, dass die Umsetzung des Django-Servers in eine Produktivumgebung nicht allzu kompliziert wäre, da von Ralph bereits Dockerfiles für den Produktivbetrieb vorlagen. Dadurch wurde zu Beginn der Arbeit versucht dieses bereits existierendes Dockersystem zu starten, jedoch war im Browser dann nicht der Diplomarbeitsserver, sondern die Basislösung des Vorgängers zu sehen. Der Infrastrukturverantwortliche analysierte anschließend die Docker-Dateien und musste feststellen, dass sie für die Zwecke der Diplomarbeit so tatsächlich nicht verwendet werden können. Ralph hat in Verbindung mit dem implementierten Dockersystem einige komplexe, aufeinander zugreifende Skripts, verwendet. Vorweg muss gesagt werden, dass die Vorgängerserverlösung als Service angeboten wird und in den vorliegenden Skripts ohne den Änderungen des Diplomarbeitsteam installiert wird. Daraufhin wird aus dem Webservice ein Docker-Container erstellt und anschließend mit den anderen Docker-Komponenten hochgefahren. Dadurch war im Webbrowser beim Serverabruf, statt der gewollten Serverlösung, die falsche zu sehen. Der Fortschritt des Arbeitspaketes der Produktivumgebung war somit wieder um einiges geschrumpft und es musste schnellstmöglich eine Alternative gefunden werden, da das Umschreiben der Dockerfiles, beziehungsweise der Skripts, ein riesiger Aufwand wäre.
 
-Nach kurzer Recherche stieß man schließlich auf zwei verwendbare Alternativen, nachfolgend genannt und verglichen werden.
+Nach kurzer Recherche stieß man schließlich auf zwei verwendbare Alternativen, die nachfolgend genannt und miteinander verglichen werden.
 
 ### Alternativen
 
-Es  wurde bereits erläutert, warum das Diplomarbeitsteam die Dockerlösung des Vorgängers nicht verwendet. (\siehe{probleme-der-produktivumgebung}) Allerdings musste rasch eine Alternative für die Umsetzung des Produktivbetriebs gesucht werden, um möglichst wenig Zeit zu verlieren.
+Es  wurde bereits erläutert, warum das Diplomarbeitsteam die Dockerlösung des Vorgängers nicht verwendet (\siehe{probleme-der-produktivumgebung}). Allerdings musste rasch eine Alternative für die Umsetzung des Produktivbetriebs gesucht werden, um möglichst wenig Zeit zu verlieren.
 Zwei Alternativen, die für den Produktivbetrieb in Frage kamen, wurden genauer analysiert: uWSGI sowie Gunicorn.
 
 ### uWSGI vs. Gunicorn
 
-Bei beiden Alternativen handelt es sich um Schnittstellen-Spezifikationen, unteranderem für die Programmiersprache Python, die eine Schnittstelle zwischen Webservern und Webframeworks bzw. Web Application Servern festlegen, um die Portabilität von Webanwendungen auf unterschiedlichen Webservern zu fördern.
+Bei beiden Alternativen handelt es sich um Schnittstellen-Spezifikationen, unter anderem für die Programmiersprache Python, die eine Schnittstelle zwischen Webservern und Webframeworks bzw. Web Application Servern festlegen, um die Portabilität von Webanwendungen auf unterschiedlichen Webservern zu fördern.
 
-Gunicorn ist ein Pre-Fork-Worker-Modell\cite{prefork}, das aus Rubys Unicorn-Projekt portiert wurde. Der Gunicorn-Server ist weitgehend kompatibel mit verschiedenen Web-Frameworks, einfach implementiert, spart Serverressourcen und ist recht schnell.
+Gunicorn ist ein Pre-Fork-Worker-Modell\cite{prefork}, das aus Rubys Unicorn-Projekt portiert wurde. Der Gunicorn-Server ist weitgehend kompatibel mit verschiedenen Web-Frameworks, einfach implementierbar, spart Serverressourcen und ist recht schnell.
 
 Das uWSGI-Projekt zielt darauf ab, einen vollständigen Stack für den Aufbau von Hosting-Diensten zu entwickeln.
 
 ### Wahl
 
-Da beide Alternativen sehr ähnlich sind, lag es am Infrastrukturverantwortlichen, welche für die Installation der Produktivumgebung ausgewählt wird. Zuerst wurde versucht, alles mithilfe von Gunicorn aufzusetzen. Da dies jedoch mehrmalig Probleme verursachte, entschied man sich für die Verwendung von uWSGI. Nach kurzer Recherche stieß der Infrastrukturverantwortliche auf ein vielversprechendes Tutorial im Internet\cite{tutorialuwsgi}, mit dem die Installation reibungslos verlief. Die genaue Installationsanleitung wurde bereits in der Serverdokumentation niedergeschrieben. Die Funktionsweise, also wie uWSGI genau arbeitet, wirdnachfolgend (\siehe{funktion-von-uwsgi}) anhand einer Grafik erklärt.
+Da beide Alternativen sehr ähnlich sind, lag es am Infrastrukturverantwortlichen, welche für die Installation der Produktivumgebung ausgewählt wird. Zuerst wurde versucht, alles mithilfe von Gunicorn aufzusetzen. Da dies jedoch mehrmalig Probleme verursachte, entschied man sich für die Verwendung von uWSGI. Nach kurzer Recherche stieß der Infrastrukturverantwortliche auf ein vielversprechendes Tutorial im Internet\cite{tutorialuwsgi}, mit dem die Installation reibungslos verlief. Die genaue Installationsanleitung wurde bereits in der Serverdokumentation niedergeschrieben. Die Funktionsweise, also wie uWSGI genau arbeitet, wird nachfolgend (\siehe{funktion-von-uwsgi}) anhand einer Grafik erklärt.
 
 ### Funktionsweise der Produktivumgebung
 
 ####  Funktion von uWSGI
 
-Es wurde bereits desöfteren erklärt, warum die Dockerlösung des Vorgängers vom Diplomarbeitsteam nicht verwendet wird. (\siehe{probleme-der-produktivumgebung}) Jedenfalls wurde nun die Einrichtung der Produktivumgebung mittels uWSGI erfolgreich durchgeführt. In der folgenden Grafik wird die Funktion von uWSGI genauer dargestellt.
+Es wurde bereits des öfteren erklärt, warum die Dockerlösung des Vorgängers vom Diplomarbeitsteam nicht verwendet wird. (\siehe{probleme-der-produktivumgebung}) Jedenfalls wurde nun die Einrichtung der Produktivumgebung mittels uWSGI erfolgreich durchgeführt. In der folgenden Grafik wird die Funktion von uWSGI genauer dargestellt.
 
 \begin{figure}[ht]
 \centering
@@ -259,9 +259,9 @@ Es wurde bereits desöfteren erklärt, warum die Dockerlösung des Vorgängers v
 
  1. Ein beliebiger Benutzer eines Webbrowsers (zum Beispiel Google Chrome oder Mozilla Firefox) sendet einen sogenannten "Webrequest" auf den https-Port "443" (\siehe{probleme-der-produktivumgebung}).
  2. Ein beliebig gewählter, optimierter Webserver (im Fall der vorliegenden Diplomarbeit "NGINX") stellt Dateien wie Javascript, CSS oder auch Bilder bereit und macht diese für den Benutzer abrufbar.
- 3. Hier wird die Kommunikation zwischen dem hochperfomanten Webserver NGINX und dem Webinterface uWSGI mit Verwendung eines klassischen Websockets veranschaulicht. (Anm.: Bei einem Websocket handelt es sich um ein auf TCP basierendes Protokoll, dass eine bidirektionale Verbindung zwischen einer Webanwendung und einem Webserver herstellt).
+ 3. Hier wird die Kommunikation zwischen dem hochperfomanten Webserver NGINX und dem Webinterface uWSGI, mit Verwendung eines klassischen Websockets, veranschaulicht. (Anm.: Bei einem Websocket handelt es sich um ein auf TCP basierendes Protokoll, das eine bidirektionale Verbindung zwischen einer Webanwendung und einem Webserver herstellt).
  4. Das eigentliche Interface von uWSGi ist hier zu sehen. Diese Schnittstelle sorgt für die Kommunikation des oben genannten Websockets mit dem verwendeten Python-Framework.
- 5. Django reagiert nun auf die Anfrage des Benutzers und lässt diesem (falls dessen Zugriffsrechte darauf es erlauben) die gewünschten Daten.
+ 5. Django reagiert nun auf die Anfrage des Benutzers und überlässt diesem (falls dessen Zugriffsrechte darauf es erlauben) die gewünschten Daten.
  6. Die vom Benutzer gewünschten Daten werden in einer MySQL-Datenbank gespeichert. 
  
  Grundsätzlich kann die Grafik auch mittels
@@ -284,11 +284,11 @@ Docker wird im Projekt ausschließlich für die Bereitstellung der Datenbank ver
 \caption{Datenbanksystem mit Docker}
 \end{figure}
 
-Die erstellten Container enthalten die Datenbankanwendungen, sowie deren Ressourcen und speichern, beziehungsweise stellen eine dauerhafte Verfügbarkeit der erfassten Inventurdaten bereit. 
+Die erstellten Container enthalten die Datenbankanwendungen, sowie deren Ressourcen und speichern beziehungsweise stellen eine dauerhafte Verfügbarkeit der erfassten Inventurdaten bereit. 
 
 ### Erreichbarkeit mittels HTTPS
 
-Weiters wurde NGINX wurde mit einem sogenannten Self Signed Certificate ausgestattet, um eine sichere Verbindung des Benutzers mit dem Webserver zu gewährleisten. Die Konfiguration von NGINX für den Gebrauch von uWSGI mit HTTPS ist auf Seite 9 der Serverdokumentation zu finden. Im Webbrowser "Microsoft Edge" würde der Aufruf des Servers nun wie folgt aussehen:
+Weiters wurde NGINX mit einem sogenannten Self Signed Certificate ausgestattet, um eine sichere Verbindung des Benutzers mit dem Webserver zu gewährleisten. Die Konfiguration von NGINX für den Gebrauch von uWSGI mit HTTPS ist auf Seite 9 der Serverdokumentation zu finden. Im Webbrowser "Microsoft Edge" würde der Aufruf des Servers nun wie folgt aussehen:
 
 \begin{figure}[ht]
 \centering
@@ -296,7 +296,7 @@ Weiters wurde NGINX wurde mit einem sogenannten Self Signed Certificate ausgesta
 \caption{Aufruf des Servers über HTTPS}
 \end{figure}
 
-Der Zertifikatsfehler, der am Bild deutlich zu sehen ist, bedeudet jedoch nichts anderes als, dass das Zertifakt des Produktivservers der Diplomarbeit nicht von einer offiziellen Zertifizierungsstelle signiert wurde. Da der Server aber sowieso nur im Schulnetz der HTL 3 Rennweg beziehungsweise über einen VPN-Tunnel erreichbar ist, war es nicht nötig, sich an solch eine Zertifizierungsstelle zu wenden.
+Der Zertifikatsfehler, der am Bild deutlich zu sehen ist, bedeutet jedoch nichts anderes als dass das Zertifakt des Produktivservers der Diplomarbeit nicht von einer offiziellen Zertifizierungsstelle signiert wurde. Da der Server sowieso nur im Schulnetz der HTL 3 Rennweg beziehungsweise über einen VPN-Tunnel erreichbar ist, war es nicht nötig, sich an solch eine Zertifizierungsstelle zu wenden.
 
 ### Verwendung einer .ini-Datei
 
@@ -312,11 +312,11 @@ Beide Befehle liefern schlussendlich das gleiche Ergebnis, jedoch ist der unter 
 
 ### Neustartverhalten mittels Service
 
-Für den Gebrauch von uWSGi gibt es einige Lösungen, um den automatischen Neustart, beispielsweise bei Eintritt eines Stromausfalls, zu gewährleisten. Das Team hat sich, mit der Implementierung eines eigenen "Ralph-Service", für den klassischen Linuxweg entschieden.
+Für den Gebrauch von uWSGi gibt es einige Lösungen, um den automatischen Neustart, beispielsweise bei Eintritt eines Stromausfalls, zu gewährleisten. Das Team hat sich mit der Implementierung eines eigenen "Ralph-Service" für den klassischen Linuxweg entschieden.
 
 #### Systemd
 
-System gibt es seit 2010 und wurde ursprünglich von Lennart Poettering (Red Hat Inc.) entwickelt. Es ist heutzutage der de-facto Standard, daher in nahezu allen Distros standardmäßig inkludiert und hat damit System-V-Init abgelöst (ist aber noch zu 99% mit System-V-Init Skripten abwärtskompatibel). Die ursprüngliche Überlegung: ein schnellerer Systemstart durch Parallelisierung und Verwenden von kompiliertem C-Code statt Shell-Boot-Skripten. Mittlerweile ist Systemd nicht NUR Service-, sondern ganzer System-Manager und daher viel mächtiger als Init-V. Systemd wird als erster Prozess vom Linux-Kernel gestartet und hat daher die PID 1.
+Systemd gibt es seit 2010 und wurde ursprünglich von Lennart Poettering (Red Hat Inc.) entwickelt. Es ist heutzutage der de-facto Standard, daher in nahezu allen Distros standardmäßig inkludiert und hat damit System-V-Init abgelöst (ist aber noch zu 99% mit System-V-Init Skripten abwärtskompatibel). Die ursprüngliche Überlegung war ein schnellerer Systemstart durch Parallelisierung und Verwenden von kompiliertem C-Code statt Shell-Boot-Skripten. Mittlerweile ist Systemd nicht NUR Service- sondern ganzer System-Manager und daher viel mächtiger als Init-V. Systemd wird als erster Prozess vom Linux-Kernel gestartet und hat daher die PID 1.
 
 #### .service-Datei
 
@@ -335,9 +335,9 @@ System gibt es seit 2010 und wurde ursprünglich von Lennart Poettering (Red Hat
     WantedBy=multi-user.target
    
  - **Description**:  Kurzbeschreibung des Dienstes
- - **After=network.target**: Der Dienst wird gestartet, sobald eine Netzwerkverbindung besteht
- - **ExecStart**: Den auszuführenden Shell-Befehl (in diesem Fall wird der uWSGI-Server gestartet)
- - **Restart und RestartSec**: Hier wird der Dienst beispielsweise bei einem unsauberen Beenden des Prozesses, einem Timeout o.ä. neugestartet. Es ist auch möglich, einen Dienst neu zu starten, wenn der Watchdog einen Fehler meldet.
+ - **After=network.target**: Der Dienst wird gestartet sobald eine Netzwerkverbindung besteht
+ - **ExecStart**: Der auszuführende Shell-Befehl (in diesem Fall wird der uWSGI-Server gestartet)
+ - **Restart und RestartSec**: Hier wird der Dienst beispielsweise bei einem unsauberen Beenden des Prozesses, einem Timeout, oder ähnlichem neugestartet. Es ist auch möglich, einen Dienst neu zu starten, wenn der Watchdog einen Fehler meldet.
  - **WantedBy=multi-user.target**: Normalbetrieb
 
 #### Start des Service
@@ -356,11 +356,11 @@ Ein weiterer wichtiger und sensibler Teil der Serverinfrastruktur ist die Absich
 
 ### Firewall
 
-Weiter oben (\siehe{topologie-des-netzwerkes}) wird der Plan des Netzwerkes veranschaulicht. Die in der Mitte liegende FortiGate-Firewall stellt, wie bereits in oben genannten Punkt erwähnt, die Verfügbarkeit des Servers im Schulnetz bereit. Dadurch dass der Server nur über eine VPN-Verbindung konfiguriert werden kann, denkt man sich bestimmt, dass die virtuelle Maschine schon genug gesichert sei. Jedoch ist es sinnvoll den Server doppelt abzusichern und somit wurden auf der Linux-Maschine ebenfalls noch Firewallregeln konfiguriert.
+Weiter oben (\siehe{topologie-des-netzwerkes}) wird der Plan des Netzwerkes veranschaulicht. Die in der Mitte liegende FortiGate-Firewall stellt, wie bereits in oben genannten Punkt erwähnt, die Verfügbarkeit des Servers im Schulnetz bereit. Dadurch dass der Server nur über eine VPN-Verbindung konfiguriert werden kann, denkt man sich bestimmt, dass die virtuelle Maschine schon genug gesichert sei. Jedoch ist es sinnvoll den Server doppelt abzusichern, daher wurden auf der Linux-Maschine ebenfalls noch Firewallregeln konfiguriert.
 
 #### Erlauben einer SSH-Verbindung
 
-Die virtuelle Maschine wurde aufgrund der nicht-vorteilshaften Konsole von ProxMox immer über SSH mit einer beliebigen externen Konsole (beispielsweise Putty) konfiguriert. Dies ist wegen der FortiGate-Konfiguration nur mit VPN-Verbindung möglich. Direkt auf dem Server wurde daher eine Firewallregel für die Erlaubnis von SSH implementiert.
+Die virtuelle Maschine wurde aufgrund der nicht-vorteilhaften Konsole von ProxMox immer über SSH mit einer beliebigen externen Konsole (beispielsweise Putty) konfiguriert. Dies ist wegen der FortiGate-Konfiguration nur mit VPN-Verbindung möglich. Direkt auf dem Server wurde daher eine Firewallregel für die Erlaubnis von SSH implementiert.
 
 Regel: `sudo ufw allow ssh`
 
@@ -384,17 +384,17 @@ oder:  `sudo ufw allow 443`
 
 #### Verbieten aller restlichen Verbindungen
 
-Zuguterletzt müssen alle restlichen (die nicht von Administratoren gebrauchten) Verbindungen deaktiviert werden um Angriffslücken zu schließen.
+Zuguterletzt müssen alle restlichen (die nicht von Administratoren gebrauchten) Verbindungen deaktiviert werden, um Angriffslücken zu schließen.
 
 Regel: `ufw default deny`
 
 ### Mögliche Angriffsszenarien
 
-Da der Server im Schulnetz erreichbar ist, gelten unteranderem auch die Schüler der HTL 3 Rennweg als potenzielle Angreifer. 
+Da der Server im Schulnetz erreichbar ist, gelten unter anderem auch die Schüler der HTL 3 Rennweg als potenzielle Angreifer. 
 
 #### Malware
 
-Bei Malware handelt es sich um Schadsoftware zudem unteranderem **Viren**, **Würmer** und **Trojaner** zählen.
+Bei Malware handelt es sich um Schadsoftware, zu dem unter anderem **Viren**, **Würmer** und **Trojaner** zählen.
 
 #### Angriffe auf Passwörter
 
@@ -404,19 +404,19 @@ Vorbeugung des Diplomarbeitsteams: Die festgelegten Passwörter sind komplex auf
 
 #### Man-in-the-middle Attacken
 
-Bei der „Man in the Middle“-Attacke nistet sich ein Angreifer  zwischen den miteinander kommunizierenden Rechnern. Diese Position ermöglicht ihm, den ausgetauschten Datenverkehr zu  kontrollieren und zu manipulieren. Er kann \zB die ausgetauschten Informationen abfangen, lesen, die Weiterleitung kappen usw. Von all dem erfährt der Empfänger aber nichts.
+Bei der „Man-in-the-Middle“-Attacke nistet sich ein Angreifer zwischen den miteinander kommunizierenden Rechnern ein. Diese Position ermöglicht es ihm, den ausgetauschten Datenverkehr zu  kontrollieren und zu manipulieren. Er kann \zB die ausgetauschten Informationen abfangen, lesen, die Weiterleitung kappen, usw.. Von all dem erfährt der Empfänger aber nichts.
 
-Vorbeugung des Diplomarbeitsteams: Der Datenaustausch verläuft über HTTPS und somit verschlüsselt.
+Vorbeugung des Diplomarbeitsteams: Der Datenaustausch verläuft über HTTPS und ist somit verschlüsselt.
 
 #### Sniffing
 
-Unter Sniffing (Schnüffeln) wird das unberechtigte Abhören des Datenverkehrs verstanden. Dabei werden oft Passwörter, die nicht oder nur sehr schwach verschlüsselt sind, abgefangen. Andere Angreife bedienen sich dieser Methode um rausfinden zu können, welche Teilnehmer über welche Protokolle miteinander kommunizieren. Mit den so erlangten Informationen können die Angreifer dann den eigentlichen Angriff starten.
+Unter Sniffing (Schnüffeln) wird das unberechtigte Abhören des Datenverkehrs verstanden. Dabei werden oft Passwörter, die nicht oder nur sehr schwach verschlüsselt sind, abgefangen. Andere Angreifer bedienen sich dieser Methode, um herrausfinden zu können, welche Teilnehmer über welche Protokolle miteinander kommunizieren. Mit den so erlangten Informationen können die Angreifer dann den eigentlichen Angriff starten.
 
-Vorbeugung des Diplomarbeitsteams: Der Datenaustausch verläuft über HTTPS und somit verschlüsselt.
+Vorbeugung des Diplomarbeitsteams: Der Datenaustausch verläuft über HTTPS und ist somit verschlüsselt.
 
 ## Überwachung des Netzwerks
 
-Sollte der Fall eintreten, dass der Server nicht mehr erreichbar ist, wurde ein eigener Monitoring-Server im Netzwerk eingehängt und installiert. Dadurch wird der Produktivserver rund um die Uhr überwacht. Weiters wird das Diplomarbeitsteam bei etwaigen Komplikationen per E-Mail benachrichtigt, damit das aufgetretene Problem beziehungsweise die aufgetretenen Probleme möglichst schnell behoben werden können.
+Sollte der Fall eintreten, dass der Server nicht mehr erreichbar ist, wurde ein eigener Monitoring-Server im Netzwerk eingehängt und installiert. Dadurch wird der Produktivserver rund um die Uhr überwacht. Weiters wird das Diplomarbeitsteam bei etwaigen Komplikationen per E-Mail benachrichtigt, damit das aufgetretene Problem, beziehungsweise die aufgetretenen Probleme, möglichst schnell behoben werden können.
 
 ### Topologieänderung
 
@@ -434,7 +434,7 @@ Worum es sich bei diesem tollen Tool handelt wurde bereits bei den installierten
 
 #### Hosts
 
-Hosts sind bei Nagios definierte virtuelle Maschinen, die überwacht werden sollen. Die vorliegende Diplomarbeit überwacht nicht nur den Produktivserver, sondern auch den aufgesetzten Nagios-Server selbst. Falls dieser Probleme aufweist, wird das Team ebenfalls per E-Mail benachrichtigt aber dies wird in einem eigenen Punkt (\siehe{notifications}) näher erläutert.
+Hosts sind bei Nagios definierte virtuelle Maschinen, die überwacht werden sollen. Die vorliegende Diplomarbeit überwacht nicht nur den Produktivserver, sondern auch den aufgesetzten Nagios-Server selbst. Falls dieser Probleme aufweist, wird das Team ebenfalls per E-Mail benachrichtigt. Dies wird in einem eigenen Punkt (\siehe{notifications}) näher erläutert.
 
 Im Webbrowser sehen die zu überwachenden Hosts wie folgt aus:
 
@@ -448,7 +448,7 @@ Im Webbrowser sehen die zu überwachenden Hosts wie folgt aus:
 
 **Localhost** heißt der Host des Nagios-Servers.
 
-Momentan scheint alles ohne Probleme zu funktionieren. Jedoch kann sich soetwas schlagartig ändern:
+Momentan scheint alles ohne Probleme zu funktionieren. Jedoch kann sich dies schlagartig ändern:
 
 \begin{figure}[ht]
 \centering
@@ -460,7 +460,7 @@ Hier wird deutlich gemacht, dass der Produktivserver abgestürzt ist.
 
 #### Services
 
-Nagios-Services sind, wie der Name schon verrät, die einzelnen zu überwachenden Services eines Hosts. Zurzeit wird am Nagios-Server aus Testzwecken eine Menge an Services überwacht. Auf dem Produktivserver hingegen werden nur Probleme, die mit der Verbindung über Port 22 (SSH) oder Port 443 (HTTPS) zu tun haben, erfasst.
+Nagios-Services sind, wie der Name schon verrät, die einzeln zu überwachenden Dienste eines Hosts. Zurzeit wird am Nagios-Server aus Testzwecken eine Menge an Services überwacht. Auf dem Produktivserver hingegen werden nur Probleme, die mit der Verbindung über Port 22 (SSH) oder Port 443 (HTTPS) zu tun haben, erfasst.
 
 So sehen die überwachten Services am Admin-Dashboard des Nagios-Servers aus:
 
@@ -472,7 +472,7 @@ So sehen die überwachten Services am Admin-Dashboard des Nagios-Servers aus:
 
 Im Moment weist kein Service der beiden Hosts ein kritisches Problem auf. Auf dem Nagios-Server ist der HTTP-Service zwar gelb markiert, hierbei handelt es sich jedoch nur um eine harmlose Warnung.
 
-Wenn auf dem Produktivserver hingegen der Webserver NGINX ausfällt sieht das Dashboard jedoch wiederum anders aus:
+Wenn auf dem Produktivserver hingegen der Webserver NGINX ausfällt, sieht das Dashboard jedoch wiederum anders aus:
 
 \begin{figure}[ht]
 \centering
@@ -486,4 +486,4 @@ Zuguterletzt gibt es noch das Feature der Notifications. Falls ein Host oder ein
 
 ## Verfassen einer Serverdokumentation
 
-Die Funktionsweise (\siehe{produktivbetrieb-der-applikation}) wurde bereits erklärt, allerdings war das letzte Ziel der Infrastruktur, den Installationsvorgang der Entwicklungs- sowie der Produktivumgebung zu dokumentieren. Somit kann nun jeder die vorliegende Inventurlösung verwenden und anhand der Serverdokumentation Schritt-für-Schritt selbständig aufsetzen. Die elf Seiten der Serverdokumentation sind jedoch nicht im Anhang beigelegt.
+Die Funktionsweise (\siehe{produktivbetrieb-der-applikation}) wurde bereits erklärt, allerdings war das letzte Ziel der Infrastruktur, den Installationsvorgang der Entwicklungs- sowie der Produktivumgebung zu dokumentieren. Somit kann nun jeder die vorliegende Inventurlösung verwenden und anhand der Serverdokumentation Schritt für Schritt selbständig aufsetzen. Die elf Seiten der Serverdokumentation sind jedoch nicht im Anhang beigelegt.

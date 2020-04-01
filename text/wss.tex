@@ -12,7 +12,7 @@ installiert werden. Dafür gab es folgende Punkte zu erfüllen:
 \item
   das Beschaffen eines Servers
 \item
-  das Aufsetzen eines Betriebssystemes
+  das Aufsetzen eines Betriebssystems
 \item
   die Konfiguration der notwendigen Applikationen
 \item
@@ -20,13 +20,13 @@ installiert werden. Dafür gab es folgende Punkte zu erfüllen:
 \item
   das Testen der Konnektivität im Netzwerk
 \item
-  die Einrichtung des Produktivbetriebes der Applikation
+  die Einrichtung des Produktivbetriebs der Applikation
 \item
   das Verfassen einer Serverdokumentation
 \item
   die Absicherung der Maschine
 \item
-  die Überwachung des Netzwerk
+  die Überwachung des Netzwerks
 \end{itemize}
 
 \hypertarget{anschaffung-des-servers}{%
@@ -64,12 +64,12 @@ zugegriffen werden kann.
 \subsubsection{FortiClient}\label{forticlient}}
 
 FortiClient ermöglicht es, VPN-Konnektivität anhand von IPsec oder SSL
-zu erstellen. Die Datenübertragung wird verschlüsselt, und damit der
+zu erstellen. Die Datenübertragung wird verschlüsselt und damit der
 enstandene Datenstrom vollständig gesichert über einen sogenannten
 ``Tunnel'' übertragen.
 
 Da die vorliegende Diplomarbeit die Erreichbarkeit des Servers im
-Schulnetz verlangt, muss die Maschine in ausreichenden Ausmaß
+Schulnetz verlangt, muss die Maschine in ausreichendem Ausmaß
 abgesichert werden, damit sie ohne Bedenken in das Schulnetz gehängt
 werden kann. Dafür müssen folgende Punkte gewährleistet sein:
 
@@ -78,19 +78,19 @@ werden kann. Dafür müssen folgende Punkte gewährleistet sein:
 \item
   Firewallkonfiguration (\siehe{absicherung-der-virtuellen-maschine})
 \item
-  Wohlüberlegte Passwörter und Zugriffsrechte
+  wohlüberlegte Passwörter und Zugriffsrechte
 \end{itemize}
 
 \hypertarget{wahl-des-betriebssystems}{%
 \subsection{Wahl des Betriebssystems}\label{wahl-des-betriebssystems}}
 
 Neben den physischen Hardwarekomponenten wird für einen funktionierenden
-und leicht bedienbaren Server logischerweise auch ein Betriebsystem
+und leicht bedienbaren Server selbstverständlich auch ein Betriebsystem
 benötigt. Die erste Entscheidung, welche Art von Betriebssystem für die
 Diplomarbeit in Frage kam, wurde rasch beantwortet: Linux. Während der
-Schulzeit an der HTL Rennweg durfte das Diplomarbeitsteam an zwei
+Schulzeit an der HTL Rennweg durfte das Diplomarbeitsteam auf zwei
 verschiedenen Linux-Distributionen, die auch für den Serverbetrieb der
-Diplomarbeit in Frage kamen, durchführen:
+Diplomarbeit in Frage kamen, Übungen durchführen:
 
 \begin{itemize}
 \tightlist
@@ -147,18 +147,18 @@ gegründet wurde.
 \item
   Zahlreich brauchbare Dokumentation im Internet vorhanden
 \item
-  Wird speziell von Ralph empfohlen
+  Wird speziell von ``Ralph'' empfohlen
 \end{itemize}
 
-Aus den angeführten Punkten entschied sich das Diplomarbeitsteam
-klarerweise das Betriebsystem Ubuntu zu verwenden, vorallem auch weil
-der Hersteller der Serversoftware ``Ralph'' die Verwendung von diesem
-Betriebsystem empfiehlt. Anschließend wird die Installation des
-Betriebsystemes genauer erläutert und erklärt.
+Aus den angeführten Punkten entschied sich das Diplomarbeitsteam,
+aufgrund der auf der Hand liegenden Vorteile, das Betriebsystem Ubuntu
+zu verwenden, vor allem auch weil der Hersteller der Serversoftware
+``Ralph'' die Verwendung dieses Betriebsystems empfiehlt. Anschließend
+wird die Installation des Betriebsystems genauer erläutert und erklärt.
 
-\hypertarget{installation-des-betriebsystemes}{%
+\hypertarget{installation-des-betriebsystems}{%
 \subsection{Installation des
-Betriebsystemes}\label{installation-des-betriebsystemes}}
+Betriebsystems}\label{installation-des-betriebsystems}}
 
 Wie bereits unter Punkt ``Anschaffung des Servers''
 (\siehe{anschaffung-des-servers}) erwähnt, wird uns von der Schule ein
@@ -178,10 +178,10 @@ Maschine}\label{internetkonnektivituxe4t-der-maschine}}
 \hypertarget{konfiguration}{%
 \subsubsection{Konfiguration}\label{konfiguration}}
 
-Im Rahmen des Laborunterrichts an der HTL Rennweg, bekamen die Schüler
+Im Rahmen des Laborunterrichts an der HTL Rennweg bekamen die Schüler
 für diverse Unklarheiten ein sogenanntes Cheat-Sheet \cite{cheat} für
 Linux-Befehle zur Verfügung gestellt. In diesem Cheat-Sheet finden sich
-unteranderem Anleitungen für die Konfiguration einer
+unter anderem Anleitungen für die Konfiguration einer
 Netzwerkschnittstelle auf einer CentOS/RedHat sowie
 Ubuntu/Debian-Distribution. Den Schülern der fünften
 Netzwerktechnikklasse sollte diese Kurzkonfiguration jedoch schon leicht
@@ -213,13 +213,13 @@ iface ens32 inet dhcp
 \subsubsection{Topologie des
 Netzwerkes}\label{topologie-des-netzwerkes}}
 
-Unter Abbildung 5.1 wird der Netzwerkplan veranschaulicht. Auf der
-linken Seite wird der Servercluster der Diplomarbeitsteams dargestellt,
-worauf die virtuelle Maschine der Diplomarbeit gehostet wird. In der
-Mitte ist die FortiGate-Firewall zu sehen, die nicht nur als äußerster
-Schutz vor Angriffen dient, sondern auch die konfigurierte
-VPN-Verbindung beinhaltet und nur berechtigten Teammitgliedern den
-Zugriff gewährleistet. Desweiteren ist die moderne Firewall auch für die
+Unter Abbildung 8.1 ist der Netzwerkplan veranschaulicht. Auf der linken
+Seite ist der Servercluster des Diplomarbeitsteams dargestellt, worauf
+die virtuelle Maschine der Diplomarbeit gehostet wird. In der Mitte ist
+die FortiGate-Firewall zu sehen, die nicht nur als äußerster Schutz vor
+Angriffen dient, sondern auch die konfigurierte VPN-Verbindung
+beinhaltet und nur berechtigten Teammitgliedern den Zugriff
+gewährleistet. Desweiteren ist die moderne Firewall auch für die
 Konnektivität der virtuellen Maschine im Schulnetz zuständig, aber dazu
 später (unter Punkt ``Absicherung der virtuellen Maschine'') mehr.
 
@@ -252,7 +252,7 @@ den wichtigsten commands folgen.
 
 Update liest alle in \texttt{/etc/apt/sources.list}, sowie in
 \texttt{/etc/apt/sources.list.d/} eingetragenen Paketquellen neu ein.
-Dieser Schritt wird vor allem vor einem upgrade-command, oder nach dem
+Dieser Schritt wird vor allem vor einem upgrade-command oder nach dem
 Hinzufügen einer neuen Quelle empfohlen, um sich die neusten
 Informationen für Pakete ansehen zu können.
 
@@ -282,12 +282,12 @@ Ubuntu-System vollständig entfernt.
 \hypertarget{nginx}{%
 \paragraph{NGINX}\label{nginx}}
 
-NGINX ist einer der am Häufigsten verwendeten OpenSource-Webserver unter
+NGINX ist einer der am häufigsten verwendeten OpenSource-Webserver unter
 Linux für diverse Webanwendungen. Große Unternehmen wie Cisco,
 Microsoft, Facebook oder auch IBM verwenden diesen Webserver für deren
-Zwecke. Unteranderem wird NGINX auch als Reverse-Proxy, HTTP-Cache und
+Zwecke. Unter anderem wird NGINX auch als Reverse-Proxy, HTTP-Cache und
 Load-Balancer verwendet. Wie genau NGINX für den Produktivbetrieb
-funktioniert wird in einem eigenen Punkt
+funktioniert, wird in einem eigenen Punkt
 (\siehe{funktionsweise-der-produktivumgebung}) erläutert.
 
 \hypertarget{docker}{%
@@ -295,8 +295,8 @@ funktioniert wird in einem eigenen Punkt
 
 Docker ist eine frei verwendbare Software, die die Erstellung und den
 Betrieb von Linux Containern ermöglicht. Wie genau dies funktioniert,
-wird später etwas später (\siehe{funktionsweise-der-produktivumgebung})
-genauer beschrieben und erklärt.
+wird etwas später (\siehe{funktionsweise-der-produktivumgebung}) genauer
+beschrieben und erklärt.
 
 \hypertarget{docker-compose}{%
 \paragraph{docker-compose}\label{docker-compose}}
@@ -304,7 +304,7 @@ genauer beschrieben und erklärt.
 Die Verwaltung und Verlinkung von mehreren Containern kann auf Dauer
 sehr nervenaufreibend sein. Die Lösung dieses Problems nennt sich
 docker-compose. Wie docker-compose jedoch genau funktioniert, wird
-ebenfalls wie das Grundkonzept von Docker
+ebenfalls, wie das Grundkonzept von Docker,
 (\siehe{funktionsweise-der-produktivumgebung}) präziser erläutert.
 
 \hypertarget{mysql}{%
@@ -313,7 +313,7 @@ ebenfalls wie das Grundkonzept von Docker
 MySQL ist ein OpenSource-Datenverwaltungssystem und die Grundlage für
 die meisten dynamischen Websiten. Darauf werden die Inventurdatensätze
 der HTL Rennweg gespeichert. Nähere Informationen finden sich ebenfalls
-während der Erklärung der Funktionsweise des Produktivbetriebes
+während der Erklärung der Funktionsweise des Produktivbetriebs
 (\siehe{funktionsweise-der-produktivumgebung}) wieder.
 
 \hypertarget{redis}{%
@@ -327,16 +327,16 @@ es sich um eine OpenSource-Datenbank.
 \paragraph{Nagios}\label{nagios}}
 
 Nagios ist ein Monitoring-System, mit dem sich verschiedene Geräte und
-auf solche laufende Dienste (oder auch Eigenschaften) überwachen lassen.
-Ziel ist es dabei schnell Ausfälle festzustellen und diese dem
-zuständigen Administrator mit zu teilen, so dass dieser dann schnell
-darauf reagieren kann.
+auch laufende Dienste (oder auch Eigenschaften) überwachen lassen. Ziel
+ist es dabei, schnell Ausfälle festzustellen und diese dem zuständigen
+Administrator mitzuteilen, sodass dieser dann schnell darauf reagieren
+kann.
 
 \hypertarget{virtualenv}{%
 \paragraph{virtualenv}\label{virtualenv}}
 
 Bei virtualenv handelt es sich um ein Tool, mit dem eine isolierte
-Python-Umgebung erstellt werden kann. Eine solch isolierte Umgebung
+Python-Umgebung erstellt werden kann. Eine solche isolierte Umgebung
 besitzt eine eigene Installation von diversen Services und teilt ihre
 libraries nicht mit anderen virtuellen Umgebungen (im optionalen Fall
 greifen sie auch nicht auf die global installierten libraries zu). Dies
@@ -348,15 +348,15 @@ Konfigurationen zu gefährden.
 \paragraph{Python}\label{python}}
 
 Python ist einer der Hauptbestandteile auf dem Serversystem der
-Diplomarbeit. Das Backend (=Serveranwendung) basiert wie bereits erwähnt
-auf dem Python-Framework ``Django''. Um dieses Framework auf dem System
-installieren zu können wird jedoch noch ein weiteres ``Packaging-Tool'',
-speziell für Python-Module, benötigt.
+Diplomarbeit. Das Backend (=Serveranwendung) basiert, wie bereits
+erwähnt, auf dem Python-Framework ``Django''. Um dieses Framework auf
+dem System installieren zu können wird jedoch noch ein weiteres
+``Packaging-Tool'', speziell für Python-Module, benötigt.
 
 \hypertarget{pip}{%
 \paragraph{pip}\label{pip}}
 
-Und dieses Tool nennt sich Pip. Pip ist ein rekursives Akronym für
+Dieses Tool nennt sich Pip. Pip ist ein rekursives Akronym für
 \textbf{P}ip \textbf{I}nstalls \textbf{P}ython und ist, wie bereits
 erwähnt, das Standardverwaltungswerkzeug für Python-Module. Die Funktion
 sowie Syntax kann relativ gut mit der von apt verglichen werden.
@@ -369,7 +369,7 @@ gewährleistet wurde, nennt sich uWSGI. Speziell wurde es für die
 Produktivbereitstellung von Serveranwendungen (wie eben der
 Django-Server der vorliegenden Diplomarbeit) entwickelt und harmoniert
 eindrucksvoll mit der Webserver-Software NGINX. Die grundlegende
-Funktionsweise von uWSGI, sowie eine Erklärung, warum schlussendlich
+Funktionsweise von uWSGI, sowie eine Erklärung warum schlussendlich
 diese Software und nicht Docker verwendet wurde, wird in einem eigenen
 Teil (\siehe{probleme-der-produktivumgebung}) veranschaulicht.
 
@@ -405,16 +405,16 @@ im Falle der vorliegenden Diplomarbeit, einen optimierten Webserver
 
 Die Entwickler des Grundservers ``Ralph'' haben eine eigene
 Entwicklungsumgebung für den Django-Server erstellt. Normalerweise
-findet sich in einem klassischen Python-Projekt oder einem Projekt, dass
+findet sich in einem klassischen Python-Projekt oder einem Projekt, das
 auf einem Python-Framework (wie zum Beispiel Django) basiert, ein
 sogenanntes ``\texttt{manage.py}''-File. Hierbei handelt es sich um ein
-Script, dass das Management eines beliebigen Python-Projektes
-unterstützt. Mit dem Script ist man unteranderem in der Lage, den
+Script, das das Management eines beliebigen Python-Projektes
+unterstützt. Mit dem Script ist man unter anderem in der Lage, den
 Webserver auf einem unspezifischen Rechner zu starten, ohne etwas
 Weiteres installieren zu müssen.
 
 Jedoch wurde diese Datei im Vorgängerprojekt in eine eigene spezifische
-Entwicklungsumgebung umimplementiert. Der Server startet sich nach der
+Entwicklungsumgebung umimplementiert. Der Server startet nach der
 eigenen Installation (welche ab Seite 4 im Dokument "Serverdokumentation
 Schritt für Schritt erklärt wird) nicht mehr mittels:
 
@@ -451,26 +451,25 @@ Kurzerklärung der Befehlsoptionen
 \begin{itemize}
 \tightlist
 \item
-  \texttt{-x509} Gibt an, statt eines CSR gleich ein selbstsigniertes
+  \texttt{-x509} Gibt an, statt eines CSR, gleich ein selbstsigniertes
   Zertifikat auszustellen.
 \item
   \texttt{-nodes} Zertifikat wird nicht über ein Kennwort geschützt.
   Damit kann der Server ohne weitere Aktion (Eingabe des Kennworts)
   gestartet werden.
 \item
-  \texttt{-days} Beschreibt die Gültigkeit des Zertifikates für 365
-  Tage.
+  \texttt{-days} Beschreibt die Gültigkeit des Zertifikats für 365 Tage.
 \item
   \texttt{-newkey\ rsa:2048} Generiert das Zertifikat und einen 2048-bit
   langen RSA Schlüssel.
 \item
   \texttt{-keyout} Gibt die Ausgabepfad und -datei für den Schlüssel an.
 \item
-  \texttt{-out} Gibt die Ausgabepfad und -datei des Zertifikates an.
+  \texttt{-out} Gibt Ausgabepfad und -datei des Zertifikats an.
 \end{itemize}
 
 Der Befehl ``runsslserver'' muss jetzt nur noch in den
-``Installed-Apps'' des Projektes (im vorliegenden Projekt befinden sich
+``Installed-Apps'' des Projekts (im vorliegenden Projekt befinden sich
 diese in der Datei ``\texttt{base.py}'') hinzugefügt werden.
 
 Dann kann der Server problemlos mit
@@ -495,26 +494,26 @@ Der Infrastrukturverantwortliche analysierte anschließend die
 Docker-Dateien und musste feststellen, dass sie für die Zwecke der
 Diplomarbeit so tatsächlich nicht verwendet werden können. Ralph hat in
 Verbindung mit dem implementierten Dockersystem einige komplexe,
-aufeinander zugreifende Skripts verwendet. Vorweg muss gesagt werden,
-dass der Vorgänger deren Serverlösung als Service anbietet und in den
-vorliegenden Skripts deren Server ohne den Änderungen des
-Diplomarbeitsteam installiert. Daraufhin wird aus dem Webservice ein
-Docker-Container erstellt und anschließend mit den anderen
-Docker-Komponenten hochgefahren. Dadurch war im Webbrowser beim
-Serverabruf, statt der gewollten Serverlösung, die falsche zu sehen. Der
-Fortschritt des Arbeitspaketes der Produktivumgebung war somit wieder um
-einiges geschrumpft und es musste schnellstmöglich eine Alternative
-gefunden werden, da das Umschreiben der Dockerfiles, beziehungsweise der
-Skripts, ein riesiger Aufwand wäre.
+aufeinander zugreifende Skripts, verwendet. Vorweg muss gesagt werden,
+dass die Vorgängerserverlösung als Service angeboten wird und in den
+vorliegenden Skripts ohne den Änderungen des Diplomarbeitsteam
+installiert wird. Daraufhin wird aus dem Webservice ein Docker-Container
+erstellt und anschließend mit den anderen Docker-Komponenten
+hochgefahren. Dadurch war im Webbrowser beim Serverabruf, statt der
+gewollten Serverlösung, die falsche zu sehen. Der Fortschritt des
+Arbeitspaketes der Produktivumgebung war somit wieder um einiges
+geschrumpft und es musste schnellstmöglich eine Alternative gefunden
+werden, da das Umschreiben der Dockerfiles, beziehungsweise der Skripts,
+ein riesiger Aufwand wäre.
 
 Nach kurzer Recherche stieß man schließlich auf zwei verwendbare
-Alternativen, nachfolgend genannt und verglichen werden.
+Alternativen, die nachfolgend genannt und miteinander verglichen werden.
 
 \hypertarget{alternativen}{%
 \subsubsection{Alternativen}\label{alternativen}}
 
 Es wurde bereits erläutert, warum das Diplomarbeitsteam die Dockerlösung
-des Vorgängers nicht verwendet. (\siehe{probleme-der-produktivumgebung})
+des Vorgängers nicht verwendet (\siehe{probleme-der-produktivumgebung}).
 Allerdings musste rasch eine Alternative für die Umsetzung des
 Produktivbetriebs gesucht werden, um möglichst wenig Zeit zu verlieren.
 Zwei Alternativen, die für den Produktivbetrieb in Frage kamen, wurden
@@ -524,14 +523,14 @@ genauer analysiert: uWSGI sowie Gunicorn.
 \subsubsection{uWSGI vs.~Gunicorn}\label{uwsgi-vs.-gunicorn}}
 
 Bei beiden Alternativen handelt es sich um
-Schnittstellen-Spezifikationen, unteranderem für die Programmiersprache
+Schnittstellen-Spezifikationen, unter anderem für die Programmiersprache
 Python, die eine Schnittstelle zwischen Webservern und Webframeworks
 bzw. Web Application Servern festlegen, um die Portabilität von
 Webanwendungen auf unterschiedlichen Webservern zu fördern.
 
 Gunicorn ist ein Pre-Fork-Worker-Modell\cite{prefork}, das aus Rubys
 Unicorn-Projekt portiert wurde. Der Gunicorn-Server ist weitgehend
-kompatibel mit verschiedenen Web-Frameworks, einfach implementiert,
+kompatibel mit verschiedenen Web-Frameworks, einfach implementierbar,
 spart Serverressourcen und ist recht schnell.
 
 Das uWSGI-Projekt zielt darauf ab, einen vollständigen Stack für den
@@ -549,7 +548,7 @@ stieß der Infrastrukturverantwortliche auf ein vielversprechendes
 Tutorial im Internet\cite{tutorialuwsgi}, mit dem die Installation
 reibungslos verlief. Die genaue Installationsanleitung wurde bereits in
 der Serverdokumentation niedergeschrieben. Die Funktionsweise, also wie
-uWSGI genau arbeitet, wirdnachfolgend (\siehe{funktion-von-uwsgi})
+uWSGI genau arbeitet, wird nachfolgend (\siehe{funktion-von-uwsgi})
 anhand einer Grafik erklärt.
 
 \hypertarget{funktionsweise-der-produktivumgebung}{%
@@ -559,7 +558,7 @@ Produktivumgebung}\label{funktionsweise-der-produktivumgebung}}
 \hypertarget{funktion-von-uwsgi}{%
 \paragraph{Funktion von uWSGI}\label{funktion-von-uwsgi}}
 
-Es wurde bereits desöfteren erklärt, warum die Dockerlösung des
+Es wurde bereits des öfteren erklärt, warum die Dockerlösung des
 Vorgängers vom Diplomarbeitsteam nicht verwendet wird.
 (\siehe{probleme-der-produktivumgebung}) Jedenfalls wurde nun die
 Einrichtung der Produktivumgebung mittels uWSGI erfolgreich
@@ -586,16 +585,16 @@ genauer dargestellt.
   CSS oder auch Bilder bereit und macht diese für den Benutzer abrufbar.
 \item
   Hier wird die Kommunikation zwischen dem hochperfomanten Webserver
-  NGINX und dem Webinterface uWSGI mit Verwendung eines klassischen
-  Websockets veranschaulicht. (Anm.: Bei einem Websocket handelt es sich
-  um ein auf TCP basierendes Protokoll, dass eine bidirektionale
+  NGINX und dem Webinterface uWSGI, mit Verwendung eines klassischen
+  Websockets, veranschaulicht. (Anm.: Bei einem Websocket handelt es
+  sich um ein auf TCP basierendes Protokoll, das eine bidirektionale
   Verbindung zwischen einer Webanwendung und einem Webserver herstellt).
 \item
   Das eigentliche Interface von uWSGi ist hier zu sehen. Diese
   Schnittstelle sorgt für die Kommunikation des oben genannten
   Websockets mit dem verwendeten Python-Framework.
 \item
-  Django reagiert nun auf die Anfrage des Benutzers und lässt diesem
+  Django reagiert nun auf die Anfrage des Benutzers und überlässt diesem
   (falls dessen Zugriffsrechte darauf es erlauben) die gewünschten
   Daten.
 \item
@@ -629,14 +628,14 @@ Grafik zu sehenden Container, die das Datenbanksystem darstellen:
 \end{figure}
 
 Die erstellten Container enthalten die Datenbankanwendungen, sowie deren
-Ressourcen und speichern, beziehungsweise stellen eine dauerhafte
+Ressourcen und speichern beziehungsweise stellen eine dauerhafte
 Verfügbarkeit der erfassten Inventurdaten bereit.
 
 \hypertarget{erreichbarkeit-mittels-https}{%
 \subsubsection{Erreichbarkeit mittels
 HTTPS}\label{erreichbarkeit-mittels-https}}
 
-Weiters wurde NGINX wurde mit einem sogenannten Self Signed Certificate
+Weiters wurde NGINX mit einem sogenannten Self Signed Certificate
 ausgestattet, um eine sichere Verbindung des Benutzers mit dem Webserver
 zu gewährleisten. Die Konfiguration von NGINX für den Gebrauch von uWSGI
 mit HTTPS ist auf Seite 9 der Serverdokumentation zu finden. Im
@@ -649,10 +648,10 @@ aussehen:
 \caption{Aufruf des Servers über HTTPS}
 \end{figure}
 
-Der Zertifikatsfehler, der am Bild deutlich zu sehen ist, bedeudet
-jedoch nichts anderes als, dass das Zertifakt des Produktivservers der
+Der Zertifikatsfehler, der am Bild deutlich zu sehen ist, bedeutet
+jedoch nichts anderes als dass das Zertifakt des Produktivservers der
 Diplomarbeit nicht von einer offiziellen Zertifizierungsstelle signiert
-wurde. Da der Server aber sowieso nur im Schulnetz der HTL 3 Rennweg
+wurde. Da der Server sowieso nur im Schulnetz der HTL 3 Rennweg
 beziehungsweise über einen VPN-Tunnel erreichbar ist, war es nicht
 nötig, sich an solch eine Zertifizierungsstelle zu wenden.
 
@@ -686,19 +685,19 @@ Service}\label{neustartverhalten-mittels-service}}
 
 Für den Gebrauch von uWSGi gibt es einige Lösungen, um den automatischen
 Neustart, beispielsweise bei Eintritt eines Stromausfalls, zu
-gewährleisten. Das Team hat sich, mit der Implementierung eines eigenen
-``Ralph-Service'', für den klassischen Linuxweg entschieden.
+gewährleisten. Das Team hat sich mit der Implementierung eines eigenen
+``Ralph-Service'' für den klassischen Linuxweg entschieden.
 
 \hypertarget{systemd}{%
 \paragraph{Systemd}\label{systemd}}
 
-System gibt es seit 2010 und wurde ursprünglich von Lennart Poettering
+Systemd gibt es seit 2010 und wurde ursprünglich von Lennart Poettering
 (Red Hat Inc.) entwickelt. Es ist heutzutage der de-facto Standard,
 daher in nahezu allen Distros standardmäßig inkludiert und hat damit
 System-V-Init abgelöst (ist aber noch zu 99\% mit System-V-Init Skripten
-abwärtskompatibel). Die ursprüngliche Überlegung: ein schnellerer
+abwärtskompatibel). Die ursprüngliche Überlegung war ein schnellerer
 Systemstart durch Parallelisierung und Verwenden von kompiliertem C-Code
-statt Shell-Boot-Skripten. Mittlerweile ist Systemd nicht NUR Service-,
+statt Shell-Boot-Skripten. Mittlerweile ist Systemd nicht NUR Service-
 sondern ganzer System-Manager und daher viel mächtiger als Init-V.
 Systemd wird als erster Prozess vom Linux-Kernel gestartet und hat daher
 die PID 1.
@@ -727,16 +726,16 @@ WantedBy=multi-user.target
 \item
   \textbf{Description}: Kurzbeschreibung des Dienstes
 \item
-  \textbf{After=network.target}: Der Dienst wird gestartet, sobald eine
+  \textbf{After=network.target}: Der Dienst wird gestartet sobald eine
   Netzwerkverbindung besteht
 \item
-  \textbf{ExecStart}: Den auszuführenden Shell-Befehl (in diesem Fall
+  \textbf{ExecStart}: Der auszuführende Shell-Befehl (in diesem Fall
   wird der uWSGI-Server gestartet)
 \item
   \textbf{Restart und RestartSec}: Hier wird der Dienst beispielsweise
-  bei einem unsauberen Beenden des Prozesses, einem Timeout o.ä.
-  neugestartet. Es ist auch möglich, einen Dienst neu zu starten, wenn
-  der Watchdog einen Fehler meldet.
+  bei einem unsauberen Beenden des Prozesses, einem Timeout, oder
+  ähnlichem neugestartet. Es ist auch möglich, einen Dienst neu zu
+  starten, wenn der Watchdog einen Fehler meldet.
 \item
   \textbf{WantedBy=multi-user.target}: Normalbetrieb
 \end{itemize}
@@ -774,14 +773,14 @@ stellt, wie bereits in oben genannten Punkt erwähnt, die Verfügbarkeit
 des Servers im Schulnetz bereit. Dadurch dass der Server nur über eine
 VPN-Verbindung konfiguriert werden kann, denkt man sich bestimmt, dass
 die virtuelle Maschine schon genug gesichert sei. Jedoch ist es sinnvoll
-den Server doppelt abzusichern und somit wurden auf der Linux-Maschine
+den Server doppelt abzusichern, daher wurden auf der Linux-Maschine
 ebenfalls noch Firewallregeln konfiguriert.
 
 \hypertarget{erlauben-einer-ssh-verbindung}{%
 \paragraph{Erlauben einer
 SSH-Verbindung}\label{erlauben-einer-ssh-verbindung}}
 
-Die virtuelle Maschine wurde aufgrund der nicht-vorteilshaften Konsole
+Die virtuelle Maschine wurde aufgrund der nicht-vorteilhaften Konsole
 von ProxMox immer über SSH mit einer beliebigen externen Konsole
 (beispielsweise Putty) konfiguriert. Dies ist wegen der
 FortiGate-Konfiguration nur mit VPN-Verbindung möglich. Direkt auf dem
@@ -819,7 +818,7 @@ oder: \texttt{sudo\ ufw\ allow\ 443}
 Verbindungen}\label{verbieten-aller-restlichen-verbindungen}}
 
 Zuguterletzt müssen alle restlichen (die nicht von Administratoren
-gebrauchten) Verbindungen deaktiviert werden um Angriffslücken zu
+gebrauchten) Verbindungen deaktiviert werden, um Angriffslücken zu
 schließen.
 
 Regel: \texttt{ufw\ default\ deny}
@@ -828,13 +827,13 @@ Regel: \texttt{ufw\ default\ deny}
 \subsubsection{Mögliche
 Angriffsszenarien}\label{muxf6gliche-angriffsszenarien}}
 
-Da der Server im Schulnetz erreichbar ist, gelten unteranderem auch die
+Da der Server im Schulnetz erreichbar ist, gelten unter anderem auch die
 Schüler der HTL 3 Rennweg als potenzielle Angreifer.
 
 \hypertarget{malware}{%
 \paragraph{Malware}\label{malware}}
 
-Bei Malware handelt es sich um Schadsoftware zudem unteranderem
+Bei Malware handelt es sich um Schadsoftware, zu dem unter anderem
 \textbf{Viren}, \textbf{Würmer} und \textbf{Trojaner} zählen.
 
 \hypertarget{angriffe-auf-passwuxf6rter}{%
@@ -853,29 +852,29 @@ komplex aufgebaut und sicher in den Köpfen der Mitarbeiter gespeichert.
 \paragraph{Man-in-the-middle
 Attacken}\label{man-in-the-middle-attacken}}
 
-Bei der „Man in the Middle``-Attacke nistet sich ein Angreifer zwischen
-den miteinander kommunizierenden Rechnern. Diese Position ermöglicht
-ihm, den ausgetauschten Datenverkehr zu kontrollieren und zu
+Bei der „Man-in-the-Middle``-Attacke nistet sich ein Angreifer zwischen
+den miteinander kommunizierenden Rechnern ein. Diese Position ermöglicht
+es ihm, den ausgetauschten Datenverkehr zu kontrollieren und zu
 manipulieren. Er kann \zB die ausgetauschten Informationen abfangen,
-lesen, die Weiterleitung kappen usw. Von all dem erfährt der Empfänger
+lesen, die Weiterleitung kappen, usw.. Von all dem erfährt der Empfänger
 aber nichts.
 
 Vorbeugung des Diplomarbeitsteams: Der Datenaustausch verläuft über
-HTTPS und somit verschlüsselt.
+HTTPS und ist somit verschlüsselt.
 
 \hypertarget{sniffing}{%
 \paragraph{Sniffing}\label{sniffing}}
 
 Unter Sniffing (Schnüffeln) wird das unberechtigte Abhören des
 Datenverkehrs verstanden. Dabei werden oft Passwörter, die nicht oder
-nur sehr schwach verschlüsselt sind, abgefangen. Andere Angreife
-bedienen sich dieser Methode um rausfinden zu können, welche Teilnehmer
-über welche Protokolle miteinander kommunizieren. Mit den so erlangten
-Informationen können die Angreifer dann den eigentlichen Angriff
-starten.
+nur sehr schwach verschlüsselt sind, abgefangen. Andere Angreifer
+bedienen sich dieser Methode, um herrausfinden zu können, welche
+Teilnehmer über welche Protokolle miteinander kommunizieren. Mit den so
+erlangten Informationen können die Angreifer dann den eigentlichen
+Angriff starten.
 
 Vorbeugung des Diplomarbeitsteams: Der Datenaustausch verläuft über
-HTTPS und somit verschlüsselt.
+HTTPS und ist somit verschlüsselt.
 
 \hypertarget{uxfcberwachung-des-netzwerks}{%
 \subsection{Überwachung des
@@ -885,8 +884,8 @@ Sollte der Fall eintreten, dass der Server nicht mehr erreichbar ist,
 wurde ein eigener Monitoring-Server im Netzwerk eingehängt und
 installiert. Dadurch wird der Produktivserver rund um die Uhr überwacht.
 Weiters wird das Diplomarbeitsteam bei etwaigen Komplikationen per
-E-Mail benachrichtigt, damit das aufgetretene Problem beziehungsweise
-die aufgetretenen Probleme möglichst schnell behoben werden können.
+E-Mail benachrichtigt, damit das aufgetretene Problem, beziehungsweise
+die aufgetretenen Probleme, möglichst schnell behoben werden können.
 
 \hypertarget{topologieuxe4nderung}{%
 \subsubsection{Topologieänderung}\label{topologieuxe4nderung}}
@@ -915,8 +914,8 @@ Hosts sind bei Nagios definierte virtuelle Maschinen, die überwacht
 werden sollen. Die vorliegende Diplomarbeit überwacht nicht nur den
 Produktivserver, sondern auch den aufgesetzten Nagios-Server selbst.
 Falls dieser Probleme aufweist, wird das Team ebenfalls per E-Mail
-benachrichtigt aber dies wird in einem eigenen Punkt
-(\siehe{notifications}) näher erläutert.
+benachrichtigt. Dies wird in einem eigenen Punkt (\siehe{notifications})
+näher erläutert.
 
 Im Webbrowser sehen die zu überwachenden Hosts wie folgt aus:
 
@@ -931,7 +930,7 @@ Im Webbrowser sehen die zu überwachenden Hosts wie folgt aus:
 \textbf{Localhost} heißt der Host des Nagios-Servers.
 
 Momentan scheint alles ohne Probleme zu funktionieren. Jedoch kann sich
-soetwas schlagartig ändern:
+dies schlagartig ändern:
 
 \begin{figure}[ht]
 \centering
@@ -944,8 +943,8 @@ Hier wird deutlich gemacht, dass der Produktivserver abgestürzt ist.
 \hypertarget{services}{%
 \paragraph{Services}\label{services}}
 
-Nagios-Services sind, wie der Name schon verrät, die einzelnen zu
-überwachenden Services eines Hosts. Zurzeit wird am Nagios-Server aus
+Nagios-Services sind, wie der Name schon verrät, die einzeln zu
+überwachenden Dienste eines Hosts. Zurzeit wird am Nagios-Server aus
 Testzwecken eine Menge an Services überwacht. Auf dem Produktivserver
 hingegen werden nur Probleme, die mit der Verbindung über Port 22 (SSH)
 oder Port 443 (HTTPS) zu tun haben, erfasst.
@@ -963,8 +962,8 @@ Im Moment weist kein Service der beiden Hosts ein kritisches Problem
 auf. Auf dem Nagios-Server ist der HTTP-Service zwar gelb markiert,
 hierbei handelt es sich jedoch nur um eine harmlose Warnung.
 
-Wenn auf dem Produktivserver hingegen der Webserver NGINX ausfällt sieht
-das Dashboard jedoch wiederum anders aus:
+Wenn auf dem Produktivserver hingegen der Webserver NGINX ausfällt,
+sieht das Dashboard jedoch wiederum anders aus:
 
 \begin{figure}[ht]
 \centering
@@ -987,6 +986,6 @@ Die Funktionsweise (\siehe{produktivbetrieb-der-applikation}) wurde
 bereits erklärt, allerdings war das letzte Ziel der Infrastruktur, den
 Installationsvorgang der Entwicklungs- sowie der Produktivumgebung zu
 dokumentieren. Somit kann nun jeder die vorliegende Inventurlösung
-verwenden und anhand der Serverdokumentation Schritt-für-Schritt
+verwenden und anhand der Serverdokumentation Schritt für Schritt
 selbständig aufsetzen. Die elf Seiten der Serverdokumentation sind
 jedoch nicht im Anhang beigelegt.
