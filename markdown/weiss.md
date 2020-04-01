@@ -486,4 +486,4 @@ Zuguterletzt gibt es noch das Feature der Notifications. Falls ein Host oder ein
 
 ## Verfassen einer Serverdokumentation
 
-Die Funktionsweise (\siehe{produktivbetrieb-der-applikation}) wurde bereits erklärt, allerdings war das letzte Ziel der Infrastruktur, den Installationsvorgang der Entwicklungs- sowie der Produktivumgebung zu dokumentieren. Somit kann nun jeder Interessierte die vorliegende Inventurlösung verwenden und anhand der Serverdokumentation Schritt-für-Schritt selbständig aufsetzen. 
+Die Funktionsweise (\siehe{produktivbetrieb-der-applikation}) wurde bereits erklärt, allerdings war das letzte Ziel der Infrastruktur, den Installationsvorgang der Entwicklungs- sowie der Produktivumgebung zu dokumentieren. Somit kann nun jeder die vorliegende Inventurlösung verwenden und anhand der Serverdokumentation Schritt-für-Schritt selbständig aufsetzen. Die elf Seiten der Serverdokumentation sind jedoch nicht im Anhang beigelegt.
