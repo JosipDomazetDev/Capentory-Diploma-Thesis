@@ -510,9 +510,8 @@ Leerstrings \texttt{""} gespeichert. Um diese Werte ebenfalls von der
 Regel auszuschließen, muss die \texttt{validate\_unique()} Methode
 \cite{django-doku-models-instances} überschrieben werden. Die Methode
 wird unter Normalzuständen immer vor dem Speichern eines Objekts des
-Modells aufgerufen wird. Wirft sie einen Fehler auf, wird das Objekt
-nicht gespeichert und der Benutzer erhält eine entsprechende
-Fehlermeldung.
+Modells aufgerufen. Wirft sie einen Fehler auf, wird das Objekt nicht
+gespeichert und der Benutzer erhält eine entsprechende Fehlermeldung.
 
 Ist das \texttt{barcode\_prio} Attribut eines \texttt{HTLItem} Objekts
 gesetzt, darf dessen Wert nicht mit jenem eines anderen \texttt{HTLItem}
@@ -638,7 +637,7 @@ dieser Regel ausgeschlossen. Gleichzeitig darf der Wert des
 \texttt{HTLItem} Modells durch Überschreiben der
 \texttt{validate\_unique()} Methode \cite{django-doku-models-instances}
 implementiert werden. Die Methode wird unter Normalzuständen immer vor
-dem Speichern eines Objekts des Modells aufgerufen wird. Wirft sie einen
+dem Speichern eines Objekts des Modells aufgerufen. Wirft sie einen
 Fehler auf, wird das Objekt nicht gespeichert und der Benutzer erhält
 eine entsprechende Fehlermeldung.
 
@@ -661,7 +660,7 @@ Speicherprozess eines \texttt{HTLRoom} Objekts überprüft werden. Das
 geschieht durch die Methode \texttt{clean\_children()}, die beim
 Speichern durch die graphische Administrationsoberfläche automatisch
 aufgerufen wird. Bei Speichervorgängen, die nicht direkt durch die
-Administrationsoberfläche initiiert werden \footnote{etwa das
+Administrationsoberfläche initiiert werden\footnote{etwa das
   automatisierte Speichern beim Datenimport}, muss
 \texttt{clean\_children()} manuell aufgerufen werden.
 
@@ -725,7 +724,7 @@ verfügbare Importfunktion entsprechend erweitert werden. Dazu sind 4
 spezielle Importverhalten notwendig. Die Datenquellen sind das
 \emph{SAP ERP}
 \index{SAP ERP: Enterprise-Resource-Planning Software der Firma SAP. Damit können Unternehmen mehrere Bereiche wie beispielsweise Inventardaten oder Kundenbeziehungen zentral verwalten}
-System der HTL Rennweg (\siehe{import-aus-dem-sap-erp-system}) und und
+System der HTL Rennweg (\siehe{import-aus-dem-sap-erp-system}) und
 intern von Lehrkräften und Inventarverantwortlichen geführte Listen
 (\siehe{import-aus-sekunduxe4rer-und-tertiuxe4rer-quelle}).
 
@@ -1574,7 +1573,7 @@ Der \texttt{OPTIONS} Request wird von der mobilen Client-Applikation
 benötigt, um ein Formular für Gegenstandsdaten zu erstellen. Dafür
 werden die Eigenschaften eines Gegenstandes nach Relevanz in
 \texttt{displayFields} (hohe Priorität; wichtige Eigenschaften) und
-\texttt{extraFields}(niedrige Priorität; unwichtige Eigenschaften)
+\texttt{extraFields} (niedrige Priorität; unwichtige Eigenschaften)
 geteilt. Welche Eigenschaften welcher Kategorie zugeordnet werden ist in
 der Implementierung der \texttt{BaseStocktakeItemView}
 \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}

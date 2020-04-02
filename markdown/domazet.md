@@ -76,7 +76,7 @@ Das Layout einer App wird in XML Dateien gespeichert, während der Programmcode 
 
 Als Einstiegspunkt in eine App dient eine sogenannte `Activity`. Eine Activity ist eine normale Java-Klasse, der durch Vererbung UI-Funktionen verliehen werden. 
 
-Bis vor kurzem war es üblich, dass eine App mehrere Activities hat. Das wird bei den Benutzern dadurch bemerkbar, dass die App \zB bei einem Tastendruck ein weiteres Fenster öffnet, das das bisherige überdeckt. Das neue Fenster ist eine eigene Activity. Google hat sich nun offiziell für sogenannte Single-Activities ausgesprochen \cite{single-activity}. Das heißt, dass es nur eine Activity und mehrere `Fragments` gibt. Ein Fragment ist eine Teilmenge des UIs bzw. einer Activity. Anstatt jetzt beim Tastendruck eine neue Activity zu starten, wird einfach das aktuelle Fragment ausgetauscht. Dadurch, dass keine neuen Fenster geöffnet werden, ist die User Expierence (UX) um ein Vielfaches besser – die Performanz leidet nur minimal darunter. Die vorliegende App ist aus diesen Gründen ebenfalls eine Single-Activity-App.
+Bis vor kurzem war es üblich, dass eine App mehrere Activities hat. Das wird bei den Benutzern dadurch bemerkbar, dass die App \zB bei einem Tastendruck ein weiteres Fenster öffnet, das das bisherige überdeckt. Das neue Fenster ist eine eigene Activity. Google hat sich nun offiziell für sogenannte Single-Activities ausgesprochen \cite{single-activity}. Das heißt, dass es nur eine Activity und mehrere `Fragments` gibt. Ein Fragment ist eine Teilmenge des UIs \bzw einer Activity. Anstatt jetzt beim Tastendruck eine neue Activity zu starten, wird einfach das aktuelle Fragment ausgetauscht. Dadurch, dass keine neuen Fenster geöffnet werden, ist die User Experience (UX) um ein Vielfaches besser – die Performanz leidet nur minimal darunter. Die vorliegende App ist aus diesen Gründen ebenfalls eine Single-Activity-App.
 
 
 \chapter{Die Inventurlogik auf der App}
@@ -143,7 +143,7 @@ ist das Fragment, das als Wrapper für das `MergedItemsFragment` und das `Valida
 
 sind die Fragments, die die Gegenstandsliste eines Raumes verwalten und sie dem Benutzer anzeigen. Das `MergedItemsFragment` zeigt dem Benutzer die noch zu validierenden Gegenstände an. Das `ValidatedMergedItemsFragment` erfüllt nur den Zweck, dem Benutzer bereits validierte Gegenstände anzuzeigen und ihm die Möglichkeit zu geben, validierte Gegenstände zurück zu den nicht-validierten Gegenständen in `MergedItemsFragment` zu verschieben. Daher trägt der Tab für das `MergedItemsFragment` die Beschriftung "TODO", währenddessen der Tab für das `ValidatedMergedItemsFragment` die Beschriftung "DONE" trägt.
 
- Beide Fragments verwenden eine `RecyclerView`, um dem Benutzer die Gegenstände anzuzeigen \cite{recyclerview}. Eine RecyclerView generiert pro Eintrag ein Layout, hält aber nur die aktuell angezeigten Einträge inkl. Layout im RAM.
+ Beide Fragments verwenden eine `RecyclerView`, um dem Benutzer die Gegenstände anzuzeigen \cite{recyclerview}. Eine RecyclerView generiert pro Eintrag ein Layout, hält aber nur die aktuell angezeigten Einträge \inkl. Layout im RAM.
 
 Die Gegenstände werden einzeln validiert. Durch das Scannen des Barcodes eines Gegenstands (beziehungsweise durch das Klicken auf seine GUI-Repräsentation) gelangt der Benutzer zum `DetailedItemFragment`.
 
@@ -168,7 +168,7 @@ Der Benutzer kann zusätzlich zur Validierung auch Anhänge für einen Gegenstan
 #### AttachmentsFragment
 ist das Fragment, das die Anhänge eines Gegenstandes verwaltet. Der Benutzer sieht hier die bereits vorhandenen Anhänge mit Beschriftungen und kann weitere Anhänge hinzufügen. Bilder werden direkt angezeigt. Andere Dateien werden hingegen als Hyperlink dargestellt. Der Benutzer kann diese per Browser runterladen. Zum Hochladen eigener Anhänge greift die App auf den Standard-Dateibrowser des Systems zurück. 
 
-Das Outsourcen auf Webbrowser und Dateibrowser bietet den massiven Vorteil, dass man sich die Entwicklung eigener Download-Manager bzw. File-Manager erspart und auf Apps setzen kann, die von namenhaften Herstellern entwickelt werden. Fast jedes System hat bereits beide Komponenten vorinstalliert, daher treten bezüglich der Verfügbarkeit keine Probleme auf. 
+Das Outsourcen auf Webbrowser und Dateibrowser bietet den massiven Vorteil, dass man sich die Entwicklung eigener Download-Manager \bzw File-Manager erspart und auf Apps setzen kann, die von namenhaften Herstellern entwickelt werden. Fast jedes System hat bereits beide Komponenten vorinstalliert, daher treten bezüglich der Verfügbarkeit keine Probleme auf. 
 
 Beim dem Hochladen von Bildern komprimiert die App jene zuvor. Zur Kompression wird das `WEBP`-Format verwendet, das dem mittlerweile veralteten `JPG`-Standard überlegen ist \cite{webp}. Die Qualität des Bildes ist einstellbar:
 
@@ -203,7 +203,7 @@ Ein Feld besteht also immer aus einem Feldnamen und einem generischen Feldwert.
 
 ### Sendeformat
 
-Das `MergedItemsFragment` (bzw. das `MergedItemsViewModel` \siehe{die_app_architektur}) verfügt über eine `HashMap` (`Map<MergedItem, List<ValidationEntry>>`), die alle `ValidationEntries` beinhaltet. Einem Gegenstand ist eine Liste an `ValidationEntries` zugeordnet, da Subitems eigene `ValiditionEntries` bekommen können (\siehe{sonderfuxe4lle-auf-der-app}).
+Das `MergedItemsFragment` (\bzw das `MergedItemsViewModel` \siehe{die_app_architektur}) verfügt über eine `HashMap` (`Map<MergedItem, List<ValidationEntry>>`), die alle `ValidationEntries` beinhaltet. Einem Gegenstand ist eine Liste an `ValidationEntries` zugeordnet, da Subitems eigene `ValiditionEntries` bekommen können (\siehe{sonderfuxe4lle-auf-der-app}).
 
 Wenn ein Raum abgeschlossen ist, werden alle `ValidationEntries` in einer Liste vereint und anschließend in eine JSON-Darstellung transformiert. Dieses JSON wird dem Server gesandt und damit ist der aktuelle Raum abgeschlossen. Der Benutzer kann sich nun den restlichen Räumen annehmen. Die genaue Kommunikationsarchitektur wird im Kapitel ["Das Repository im Detail"](#das-repository-im-detaila) beschrieben (\siehe{das-repository-im-detail}).
 
@@ -234,7 +234,7 @@ Falls ein Gegenstand mehrmals gescannt wird, wird -- nach Bestätigung durch den
 
 Subrooms sind logische Räume in einem Raum (\zB steht ein PC in einem Kasten, der wiederum in einem Raum steht). Subrooms werden dem Benutzer im `MergedItemsFragment` als einklappbare Zwischenebenen, denen Gegenstände zugeordnet sind, angezeigt. Die Subroom-Zugehörigkeit kann auf Gegenstandsbasis über eine DropDown geändert werden. Die Subroom-Zugehörigkeit wird in einem `ValidationEntry` immer gesetzt, auch wenn sie sich nicht geändert hat. 
 
-Die Gegenstandsliste des `MergedItemsFragment` beinhaltet in Wahrheit auch die Subrooms. Dies ist notwendig, da die `RecyclerView`, die dazu genutzt wird dem Benutzer die Gegenstände anzuzeigen, keine Möglichkeit bietet, eine Hierarchie bzw. Zwischenebenen darzustellen. Daher implementieren das `Room`-Modell und das `MergedItem`-Modell das Interface `RecyclerViewItem` und die RecyclerView erhält eine Liste an `RecyclerViewItems` - dies ist ein typisch polymorpher Ansatz. Abhängig vom Typen des aktuellen Listenelements baut die RecyclerView entweder ein Gegenstandslayout oder ein Raumlayout auf. Die Anzahl der Subrooms ist weder in der Tiefe noch in der Breite limitiert.
+Die Gegenstandsliste des `MergedItemsFragment` beinhaltet in Wahrheit auch die Subrooms. Dies ist notwendig, da die `RecyclerView`, die dazu genutzt wird dem Benutzer die Gegenstände anzuzeigen, keine Möglichkeit bietet, eine Hierarchie \bzw Zwischenebenen darzustellen. Daher implementieren das `Room`-Modell und das `MergedItem`-Modell das Interface `RecyclerViewItem` und die RecyclerView erhält eine Liste an `RecyclerViewItems` - dies ist ein typisch polymorpher Ansatz. Abhängig vom Typen des aktuellen Listenelements baut die RecyclerView entweder ein Gegenstandslayout oder ein Raumlayout auf. Die Anzahl der Subrooms ist weder in der Tiefe noch in der Breite limitiert.
 
 ### Unbekannte Gegenstände
 
@@ -257,7 +257,7 @@ Die App muss ein verlässliches und vorhersehbares Verhalten aufweisen. Die vom 
 
 In Android ist es eine äußerst schlechte Idee, sämtliche Logik in einer Activity oder einem Fragment zu implementieren.
 Das softwaretechnische Prinzip `Separation of Concerns (SoC)` hat unter Android einen besonderen Stellenwert. Dieses Prinzip beschreibt im Wesentlichen, dass eine Klasse nur einer Aufgabe dienen sollte. Falls eine Klasse mehrere Aufgaben erfüllt, so muss diese auf mehrere logische Komponenten aufgeteilt werden.
-Beispiel: Eine Activity bzw. ein Fragment hat immer die Verantwortung, die Kommunikation zwischen UI und Benutzer abzuwickeln. Bad Practice wäre es, wenn eine Activity ebenfalls dafür verantwortlich ist, Daten von einem Server abzurufen.
+Beispiel: Eine Activity \bzw ein Fragment hat immer die Verantwortung, die Kommunikation zwischen UI und Benutzer abzuwickeln. Bad Practice wäre es, wenn eine Activity ebenfalls dafür verantwortlich ist, Daten von einem Server abzurufen.
 
 Das Prinzip verfolgt das Ziel, die `God Activity Architecture (GAA)` möglichst zu vermeiden \cite{god-activities}. 
 Eine God-Activity ist unter Android eine Activity, die die komplette Business-Logic beinhaltet und `SoC` in jeglicher Hinsicht widerspricht.
@@ -390,7 +390,7 @@ In diesem Fall wird die Methode `handleSuccess` aufgerufen, sobald der Client di
 
 ### Retrofit 
 
-`Retrofit` ist eine weitere Netzwerk-Library (bzw. Libraries), die das Projektteam eingesetzt hat. Retrofit wurde nur zum Senden von Dateien eingesetzt, weil dies mit Volley nur erschwert möglich ist. Mit dieser Library wurde die Anhang-Funktion realisiert.
+`Retrofit` ist eine weitere Netzwerk-Library (\bzw Libraries), die das Projektteam eingesetzt hat. Retrofit wurde nur zum Senden von Dateien eingesetzt, weil dies mit Volley nur erschwert möglich ist. Mit dieser Library wurde die Anhang-Funktion realisiert.
 
 Das Projektteam hat bei dem einzigen die bereits bekannte Callback-Logik verwendet:
 ```java
@@ -676,7 +676,7 @@ Der Room-Screen (also die Anzeige mit einer DropDown zur Raumauswahl) setzt sich
 
 Das `RoomsRepository` ist dafür verantwortlich, die Raumliste vom Backend anzufordern und in Objekte der Modell-Klasse `Room` umzuwandeln.
 Das `RoomsViewModel` ist dafür verantwortlich, dem Fragment LiveData-Objekte zur Verfügung zu stellen. 
-Das `RoomsFragment` ist dafür verantwortlich, dem Benutzer die Räume anzuzeigen, indem es `LiveData` observiert. Alternativ zeigt es Fehlermeldungen bzw. einen Ladebalken an.
+Das `RoomsFragment` ist dafür verantwortlich, dem Benutzer die Räume anzuzeigen, indem es `LiveData` observiert. Alternativ zeigt es Fehlermeldungen \bzw einen Ladebalken an.
 
 Bei genauerer Betrachtung wird klar, dass fast jeder Screen dieselbe Aufgabe hat:
 
@@ -813,7 +813,7 @@ public class ZebraBroadcastReceiver extends BroadcastReceiver {
 
 Für Geräte, die nicht dem Hause Zebra entstammen, bietet die App die Möglichkeit eines Kamerascans an. Im Hintergrund wird dafür die Google Mobile Vision API verwendet, die unter anderem auch Texterkennung oder Gesichtserkennung anbietet \cite{mobile-vision}. 
 
-Hierbei wird ein Barcode mittels der Gerätekamera erfasst, ohne dass zuvor ein Bild gemacht werden muss. Dem Benutzer wird eine Preview angezeigt und die Kamera schließt sich, sobald ein Barcode erfasst wurde. Um die Performanz zu maximieren, hat das Diplomarbeitsteam folgende Optimierungen vorgenommen:
+Hierbei wird ein Barcode mittels der Gerätekamera erfasst, ohne zuvor ein Bild machen zu müssen. Dem Benutzer wird eine Preview angezeigt und die Kamera schließt sich, sobald ein Barcode erfasst wurde. Um die Performanz zu maximieren, hat das Diplomarbeitsteam folgende Optimierungen vorgenommen:
 
 * Die API wurde um Blitzfunktionalitäten ergänzt. Dazu wurde eine OpenSource-Variante der Library modifiziert, da die offizielle proprietäre Version keinen Blitz unterstützt. Der Blitz ist über einen `ToggleButton` sofort deaktivierbar oder aktivierbar. Um einen Klick einzusparen, kann der Benutzer über die Einstellungen den Blitz gleich beim Start des Kamerascans aktivieren lassen. Für eine optimale Erkennung darf man den Blitz jedoch nicht direkt in Richtung des Barcode anvisieren, sondern sollte den Blitz entweder höher oder niedriger als den Barcode halten, um optische Reflexionen zu vermeiden. 
 * Über die Einstellungen kann der Benutzer die Barcodeformate einschränken. Dies führt ebenfalls zur schnelleren Barcodeerkennung und vermeidet zudem noch das Auftreten von `false positives`. Wenn der Benutzer die Kamera nicht auf den gesamten Barcode hält, kann es unter Umständen dazu kommen, dass der abgeschnittene Barcode fälschlicherweise als anderes Format interpretiert wird und der Scan daher einen Barcode liefert, der nicht existiert. Offiziell wird in der vorliegenden Organisation nur das `Code_93`-Format eingesetzt.

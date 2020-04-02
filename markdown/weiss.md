@@ -111,11 +111,11 @@ Unter Abbildung 8.1 ist der Netzwerkplan veranschaulicht. Auf der linken Seite i
 	
 
 ## Installation der notwendigen Applikationen
-Damit die Ubuntu-Maschine für den Produktivbetrieb startbereit ist, müssen im Vorhinein noch einige wichtige Konfigurationen durchgeführt werden. Die wichtigste (Netzwerkkonfiguration) wurde soeben ausführlich erläutert, doch ohne der Installation von diversen Applikationen, wäre das System nicht brauchbar.
+Damit die Ubuntu-Maschine für den Produktivbetrieb startbereit ist, müssen im Vorhinein noch einige wichtige Konfigurationen durchgeführt werden. Die Wichtigste (Netzwerkkonfiguration) wurde soeben ausführlich erläutert, doch ohne der Installation von diversen Applikationen, wäre das System nicht brauchbar.
 
 ### Advanced Packaging Tool
 
-Mit diesem Tool werden auf dem System die notwendigen Applikationen heruntergeladen, extrahiert und anschließend installiert. Insgesamt stehen einem 18 apt-get commands zur Verfügung. Genauere Erklärungen zu den wichtigsten commands folgen.
+Mit diesem Tool werden auf dem System die notwendigen Applikationen heruntergeladen, extrahiert und anschließend installiert. Insgesamt stehen 18 apt-get commands zur Verfügung. Genauere Erklärungen zu den wichtigsten commands folgen.
 
 #### apt-get update
 
@@ -226,7 +226,7 @@ gestartet werden.
 
 ### Probleme der Produktivumgebung
 
-Zu Beginn dachte das Diplomarbeitsteam, dass die Umsetzung des Django-Servers in eine Produktivumgebung nicht allzu kompliziert wäre, da von Ralph bereits Dockerfiles für den Produktivbetrieb vorlagen. Dadurch wurde zu Beginn der Arbeit versucht dieses bereits existierendes Dockersystem zu starten, jedoch war im Browser dann nicht der Diplomarbeitsserver, sondern die Basislösung des Vorgängers zu sehen. Der Infrastrukturverantwortliche analysierte anschließend die Docker-Dateien und musste feststellen, dass sie für die Zwecke der Diplomarbeit so tatsächlich nicht verwendet werden können. Ralph hat in Verbindung mit dem implementierten Dockersystem einige komplexe, aufeinander zugreifende Skripts, verwendet. Vorweg muss gesagt werden, dass die Vorgängerserverlösung als Service angeboten wird und in den vorliegenden Skripts ohne den Änderungen des Diplomarbeitsteam installiert wird. Daraufhin wird aus dem Webservice ein Docker-Container erstellt und anschließend mit den anderen Docker-Komponenten hochgefahren. Dadurch war im Webbrowser beim Serverabruf, statt der gewollten Serverlösung, die falsche zu sehen. Der Fortschritt des Arbeitspaketes der Produktivumgebung war somit wieder um einiges geschrumpft und es musste schnellstmöglich eine Alternative gefunden werden, da das Umschreiben der Dockerfiles, beziehungsweise der Skripts, ein riesiger Aufwand wäre.
+Zu Beginn dachte das Diplomarbeitsteam, dass die Umsetzung des Django-Servers in eine Produktivumgebung nicht allzu kompliziert wäre, da von Ralph bereits Dockerfiles für den Produktivbetrieb vorlagen. Dadurch wurde zu Beginn der Arbeit versucht, dieses bereits existierende Dockersystem zu starten, jedoch war im Browser dann nicht der Diplomarbeitsserver, sondern die Basislösung des Vorgängers zu sehen. Der Infrastrukturverantwortliche analysierte anschließend die Docker-Dateien und musste feststellen, dass sie für die Zwecke der Diplomarbeit so tatsächlich nicht verwendet werden können. Ralph hat in Verbindung mit dem implementierten Dockersystem einige komplexe, aufeinander zugreifende Skripts, verwendet. Vorweg muss gesagt werden, dass die Vorgängerserverlösung als Service angeboten wird und in den vorliegenden Skripts ohne den Änderungen des Diplomarbeitsteam installiert wird. Daraufhin wird aus dem Webservice ein Docker-Container erstellt und anschließend mit den anderen Docker-Komponenten hochgefahren. Dadurch war im Webbrowser beim Serverabruf, statt der gewollten Serverlösung, die falsche zu sehen. Der Fortschritt des Arbeitspaketes der Produktivumgebung war somit wieder um einiges geschrumpft und es musste schnellstmöglich eine Alternative gefunden werden, da das Umschreiben der Dockerfiles, beziehungsweise der Skripts, ein riesiger Aufwand wäre.
 
 Nach kurzer Recherche stieß man schließlich auf zwei verwendbare Alternativen, die nachfolgend genannt und miteinander verglichen werden.
 
@@ -480,12 +480,12 @@ Wenn auf dem Produktivserver hingegen der Webserver NGINX ausfällt, sieht das D
 \begin{figure}[ht]
 \centering
 \includegraphics{dednginx.png}
-\caption{Die überwachten Services}
+\caption{Die überwachten Services (Kritisch)}
 \end{figure}
 
 #### Notifications
 
-Zuguterletzt gibt es noch das Feature der Notifications. Falls ein Host oder ein Service der Hosts ausfällt, benachrichtigt der Nagios-Server das Diplomarbeitsteam per E-Mail über die aufgetretenen Probleme.
+Zu gu­ter Letzt gibt es noch das Feature der Notifications. Falls ein Host oder ein Service der Hosts ausfällt, benachrichtigt der Nagios-Server das Diplomarbeitsteam per E-Mail über die aufgetretenen Probleme.
 
 ## Verfassen einer Serverdokumentation
 

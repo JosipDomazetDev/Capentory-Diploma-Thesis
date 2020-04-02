@@ -174,10 +174,10 @@ Tastendruck ein weiteres Fenster öffnet, das das bisherige überdeckt.
 Das neue Fenster ist eine eigene Activity. Google hat sich nun offiziell
 für sogenannte Single-Activities ausgesprochen \cite{single-activity}.
 Das heißt, dass es nur eine Activity und mehrere \texttt{Fragments}
-gibt. Ein Fragment ist eine Teilmenge des UIs bzw. einer Activity.
+gibt. Ein Fragment ist eine Teilmenge des UIs \bzw einer Activity.
 Anstatt jetzt beim Tastendruck eine neue Activity zu starten, wird
 einfach das aktuelle Fragment ausgetauscht. Dadurch, dass keine neuen
-Fenster geöffnet werden, ist die User Expierence (UX) um ein Vielfaches
+Fenster geöffnet werden, ist die User Experience (UX) um ein Vielfaches
 besser -- die Performanz leidet nur minimal darunter. Die vorliegende
 App ist aus diesen Gründen ebenfalls eine Single-Activity-App.
 
@@ -333,7 +333,7 @@ die Beschriftung ``TODO'', währenddessen der Tab für das
 Beide Fragments verwenden eine \texttt{RecyclerView}, um dem Benutzer
 die Gegenstände anzuzeigen \cite{recyclerview}. Eine RecyclerView
 generiert pro Eintrag ein Layout, hält aber nur die aktuell angezeigten
-Einträge inkl. Layout im RAM.
+Einträge \inkl. Layout im RAM.
 
 Die Gegenstände werden einzeln validiert. Durch das Scannen des Barcodes
 eines Gegenstands (beziehungsweise durch das Klicken auf seine
@@ -395,8 +395,8 @@ kann diese per Browser runterladen. Zum Hochladen eigener Anhänge greift
 die App auf den Standard-Dateibrowser des Systems zurück.
 
 Das Outsourcen auf Webbrowser und Dateibrowser bietet den massiven
-Vorteil, dass man sich die Entwicklung eigener Download-Manager bzw.
-File-Manager erspart und auf Apps setzen kann, die von namenhaften
+Vorteil, dass man sich die Entwicklung eigener Download-Manager
+\bzw File-Manager erspart und auf Apps setzen kann, die von namenhaften
 Herstellern entwickelt werden. Fast jedes System hat bereits beide
 Komponenten vorinstalliert, daher treten bezüglich der Verfügbarkeit
 keine Probleme auf.
@@ -488,7 +488,7 @@ Feldwert.
 \hypertarget{sendeformat}{%
 \subsubsection{Sendeformat}\label{sendeformat}}
 
-Das \texttt{MergedItemsFragment} (bzw. das \texttt{MergedItemsViewModel}
+Das \texttt{MergedItemsFragment} (\bzw das \texttt{MergedItemsViewModel}
 \siehe{die_app_architektur}) verfügt über eine \texttt{HashMap}
 (\texttt{Map\textless{}MergedItem,\ List\textless{}ValidationEntry\textgreater{}\textgreater{}}),
 die alle \texttt{ValidationEntries} beinhaltet. Einem Gegenstand ist
@@ -576,8 +576,8 @@ gesetzt, auch wenn sie sich nicht geändert hat.
 Die Gegenstandsliste des \texttt{MergedItemsFragment} beinhaltet in
 Wahrheit auch die Subrooms. Dies ist notwendig, da die
 \texttt{RecyclerView}, die dazu genutzt wird dem Benutzer die
-Gegenstände anzuzeigen, keine Möglichkeit bietet, eine Hierarchie bzw.
-Zwischenebenen darzustellen. Daher implementieren das
+Gegenstände anzuzeigen, keine Möglichkeit bietet, eine Hierarchie
+\bzw Zwischenebenen darzustellen. Daher implementieren das
 \texttt{Room}-Modell und das \texttt{MergedItem}-Modell das Interface
 \texttt{RecyclerViewItem} und die RecyclerView erhält eine Liste an
 \texttt{RecyclerViewItems} - dies ist ein typisch polymorpher Ansatz.
@@ -627,7 +627,7 @@ Prinzip \texttt{Separation\ of\ Concerns\ (SoC)} hat unter Android einen
 besonderen Stellenwert. Dieses Prinzip beschreibt im Wesentlichen, dass
 eine Klasse nur einer Aufgabe dienen sollte. Falls eine Klasse mehrere
 Aufgaben erfüllt, so muss diese auf mehrere logische Komponenten
-aufgeteilt werden. Beispiel: Eine Activity bzw. ein Fragment hat immer
+aufgeteilt werden. Beispiel: Eine Activity \bzw ein Fragment hat immer
 die Verantwortung, die Kommunikation zwischen UI und Benutzer
 abzuwickeln. Bad Practice wäre es, wenn eine Activity ebenfalls dafür
 verantwortlich ist, Daten von einem Server abzurufen.
@@ -915,7 +915,7 @@ eingesetzt.
 \hypertarget{retrofit}{%
 \subsubsection{Retrofit}\label{retrofit}}
 
-\texttt{Retrofit} ist eine weitere Netzwerk-Library (bzw. Libraries),
+\texttt{Retrofit} ist eine weitere Netzwerk-Library (\bzw Libraries),
 die das Projektteam eingesetzt hat. Retrofit wurde nur zum Senden von
 Dateien eingesetzt, weil dies mit Volley nur erschwert möglich ist. Mit
 dieser Library wurde die Anhang-Funktion realisiert.
@@ -1400,7 +1400,7 @@ umzuwandeln. Das \texttt{RoomsViewModel} ist dafür verantwortlich, dem
 Fragment LiveData-Objekte zur Verfügung zu stellen. Das
 \texttt{RoomsFragment} ist dafür verantwortlich, dem Benutzer die Räume
 anzuzeigen, indem es \texttt{LiveData} observiert. Alternativ zeigt es
-Fehlermeldungen bzw. einen Ladebalken an.
+Fehlermeldungen \bzw einen Ladebalken an.
 
 Bei genauerer Betrachtung wird klar, dass fast jeder Screen dieselbe
 Aufgabe hat:
@@ -1635,11 +1635,11 @@ Möglichkeit eines Kamerascans an. Im Hintergrund wird dafür die Google
 Mobile Vision API verwendet, die unter anderem auch Texterkennung oder
 Gesichtserkennung anbietet \cite{mobile-vision}.
 
-Hierbei wird ein Barcode mittels der Gerätekamera erfasst, ohne dass
-zuvor ein Bild gemacht werden muss. Dem Benutzer wird eine Preview
-angezeigt und die Kamera schließt sich, sobald ein Barcode erfasst
-wurde. Um die Performanz zu maximieren, hat das Diplomarbeitsteam
-folgende Optimierungen vorgenommen:
+Hierbei wird ein Barcode mittels der Gerätekamera erfasst, ohne zuvor
+ein Bild machen zu müssen. Dem Benutzer wird eine Preview angezeigt und
+die Kamera schließt sich, sobald ein Barcode erfasst wurde. Um die
+Performanz zu maximieren, hat das Diplomarbeitsteam folgende
+Optimierungen vorgenommen:
 
 \begin{itemize}
 \tightlist
