@@ -339,21 +339,21 @@ In dem folgenden Code-Auszug\footnote{entnommen aus der offiziellen
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Erstelle ein Queryset aller Entry{-}Objekte, }
-\CommentTok{\# dessen Attribut "headline" mit "What" beginnt.}
-\NormalTok{q }\OperatorTok{=}\NormalTok{ Entry.objects.}\BuiltInTok{filter}\NormalTok{(headline\_\_startswith}\OperatorTok{=}\StringTok{"What"}\NormalTok{)}
+\CommentTok{# Erstelle ein Queryset aller Entry-Objekte, }
+\CommentTok{# dessen Attribut "headline" mit "What" beginnt.}
+\NormalTok{q }\OperatorTok{=}\NormalTok{ Entry.objects.}\BuiltInTok{filter}\NormalTok{(headline__startswith}\OperatorTok{=}\StringTok{"What"}\NormalTok{)}
 
-\CommentTok{\# Filtere aus dem erstellten Queryset alle Entry{-}Objekte, }
-\CommentTok{\# dessen Attribut "pub\_date" kleiner oder gleich }
-\CommentTok{\# dem aktuellen Datum ist.}
-\NormalTok{q }\OperatorTok{=}\NormalTok{ q.}\BuiltInTok{filter}\NormalTok{(pub\_date\_\_lte}\OperatorTok{=}\NormalTok{datetime.date.today())}
+\CommentTok{# Filtere aus dem erstellten Queryset alle Entry-Objekte, }
+\CommentTok{# dessen Attribut "pub_date" kleiner oder gleich }
+\CommentTok{# dem aktuellen Datum ist.}
+\NormalTok{q }\OperatorTok{=}\NormalTok{ q.}\BuiltInTok{filter}\NormalTok{(pub_date__lte}\OperatorTok{=}\NormalTok{datetime.date.today())}
 
-\CommentTok{\# Schließe aus dem erstellten Queryset alle Entry{-}Objekte, }
-\CommentTok{\# dessen Attribut "body\_text" den Text "food" beinhaltet, aus.}
-\NormalTok{q }\OperatorTok{=}\NormalTok{ q.exclude(body\_text\_\_icontains}\OperatorTok{=}\StringTok{"food"}\NormalTok{)}
+\CommentTok{# Schließe aus dem erstellten Queryset alle Entry-Objekte, }
+\CommentTok{# dessen Attribut "body_text" den Text "food" beinhaltet, aus.}
+\NormalTok{q }\OperatorTok{=}\NormalTok{ q.exclude(body_text__icontains}\OperatorTok{=}\StringTok{"food"}\NormalTok{)}
 
-\CommentTok{\# Ausgabe des erstellten Querysets.}
-\CommentTok{\# Erst hier kommt es zu der ersten Datenbankabfrage!}
+\CommentTok{# Ausgabe des erstellten Querysets.}
+\CommentTok{# Erst hier kommt es zu der ersten Datenbankabfrage!}
 \BuiltInTok{print}\NormalTok{(q)}
 \end{Highlighting}
 \end{Shaded}
@@ -383,6 +383,7 @@ Voraussetzung für das Erben einer Klasse von
 Klasse \texttt{Model} erbt.
 
 \chapter{Die zwei Erweiterungsmodule des Serversystems}
+\label{die_zwei_module}
 
 Die vorliegende Diplomarbeit erweitert das Ralph-System um 2 Module.
 Dabei handelt es sich um die beiden Pakete ``Capentory'' und
@@ -498,7 +499,7 @@ Anwendungsfall, die Metavariable \texttt{unique\_together}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{unique\_together }\OperatorTok{=}\NormalTok{ [[}\StringTok{"anlage"}\NormalTok{,  }\StringTok{"asset\_subnumber"}\NormalTok{, }\StringTok{"company\_code"}\NormalTok{]]}
+\NormalTok{unique_together }\OperatorTok{=}\NormalTok{ [[}\StringTok{"anlage"}\NormalTok{,  }\StringTok{"asset_subnumber"}\NormalTok{, }\StringTok{"company_code"}\NormalTok{]]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -699,13 +700,13 @@ oder \texttt{HTLItem} Objekts aufgerufen wird:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\AttributeTok{@receiver}\NormalTok{(post\_save, sender}\OperatorTok{=}\NormalTok{HTLItemType)}
-\KeywordTok{def}\NormalTok{ populate\_htlitem\_custom\_field\_values(sender, instance, }\OperatorTok{**}\NormalTok{kwargs):}
-\NormalTok{    populate\_inheritants\_custom\_field\_values(instance)}
+\AttributeTok{@receiver}\NormalTok{(post_save, sender}\OperatorTok{=}\NormalTok{HTLItemType)}
+\KeywordTok{def}\NormalTok{ populate_htlitem_custom_field_values(sender, instance, }\OperatorTok{**}\NormalTok{kwargs):}
+\NormalTok{    populate_inheritants_custom_field_values(instance)}
     
-\AttributeTok{@receiver}\NormalTok{(post\_save, sender}\OperatorTok{=}\NormalTok{HTLItem)}
-\KeywordTok{def}\NormalTok{ populate\_htlitemtype\_custom\_field\_values(sender, instance, }\OperatorTok{**}\NormalTok{kwargs):}
-\NormalTok{    populate\_with\_parents\_custom\_field\_values(instance)}
+\AttributeTok{@receiver}\NormalTok{(post_save, sender}\OperatorTok{=}\NormalTok{HTLItem)}
+\KeywordTok{def}\NormalTok{ populate_htlitemtype_custom_field_values(sender, instance, }\OperatorTok{**}\NormalTok{kwargs):}
+\NormalTok{    populate_with_parents_custom_field_values(instance)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -743,20 +744,20 @@ des eigentlichen Modells.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Definition eines Proxy{-}Modells zu dem Modell "HTLItem"}
+\CommentTok{# Definition eines Proxy-Modells zu dem Modell "HTLItem"}
 \KeywordTok{class}\NormalTok{ HTLItemSecondaryImportProxy(HTLItem):}
     \KeywordTok{class}\NormalTok{ Meta:}
 \NormalTok{        proxy }\OperatorTok{=} \VariableTok{True}
 
-\CommentTok{\# Diese Datenbankabfragen liefern beide dasselbe Ergebnis:}
+\CommentTok{# Diese Datenbankabfragen liefern beide dasselbe Ergebnis:}
 \BuiltInTok{print}\NormalTok{(HTLItem.objects.}\BuiltInTok{all}\NormalTok{())}
 \BuiltInTok{print}\NormalTok{(HTLItemSecondaryImportProxy.objects.}\BuiltInTok{all}\NormalTok{())}
 
-\CommentTok{\# Für das Proxy{-}Modell kann eine ModelAdmin{-}Klasse definiert werden.}
-\CommentTok{\# Diese bekommt eine eigene "resource\_class".}
+\CommentTok{# Für das Proxy-Modell kann eine ModelAdmin-Klasse definiert werden.}
+\CommentTok{# Diese bekommt eine eigene "resource_class".}
 \AttributeTok{@register}\NormalTok{(HTLItemSecondaryImportProxy)}
 \KeywordTok{class}\NormalTok{ HTLItemSecondaryImportProxyAdmin(HTLItemSecondaryImportMixin, RalphAdmin):}
-\NormalTok{    resource\_class }\OperatorTok{=}\NormalTok{ HTLItemSecodaryResource}
+\NormalTok{    resource_class }\OperatorTok{=}\NormalTok{ HTLItemSecodaryResource}
 \end{Highlighting}
 \end{Shaded}
 
@@ -791,12 +792,12 @@ Attribut'' werden von den Zeichenketten ``Ja'' und ``Nein'' auf die
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Beispielhafte Definition von Aliases für einen Import}
-\NormalTok{ALIASES\_HTLITEM }\OperatorTok{=}\NormalTok{ \{}
-    \StringTok{"field\_1"}\NormalTok{: ([}\StringTok{"Erstes Attribut"}\NormalTok{], \{}
+\CommentTok{# Beispielhafte Definition von Aliases für einen Import}
+\NormalTok{ALIASES_HTLITEM }\OperatorTok{=}\NormalTok{ \{}
+    \StringTok{"field_1"}\NormalTok{: ([}\StringTok{"Erstes Attribut"}\NormalTok{], \{}
 
 \NormalTok{    \}),}
-    \StringTok{"field\_2"}\NormalTok{: ([}\StringTok{"Zweites Attribut"}\NormalTok{], \{}
+    \StringTok{"field_2"}\NormalTok{: ([}\StringTok{"Zweites Attribut"}\NormalTok{], \{}
       \StringTok{"Ja"}\NormalTok{: }\VariableTok{True}\NormalTok{,}
       \StringTok{"Nein"}\NormalTok{: }\VariableTok{False}
 \NormalTok{    \}),}
@@ -962,10 +963,10 @@ erstellt. Folgendes Kommando wurde dafür aufgerufen
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ExtensionTok{dev\_ralph}\NormalTok{ graph\_models stocktaking \textbackslash{}}
-\NormalTok{{-}X ItemSplitChangeProposal,MultipleValidationsChangeProposal,}
+\ExtensionTok{dev_ralph}\NormalTok{ graph_models stocktaking \textbackslash{}}
+\NormalTok{-X ItemSplitChangeProposal,MultipleValidationsChangeProposal,}
    \ExtensionTok{ValueChangeProposal}\NormalTok{,TimeStampMixin \textbackslash{}}
-\NormalTok{{-}g {-}o stocktaking\_klassendiagramm.png}
+\NormalTok{-g -o stocktaking_klassendiagramm.png}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1040,7 +1041,7 @@ Metavariable \cite{django-doku-models-options} festgelegt:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{unique\_together }\OperatorTok{=}\NormalTok{ [[}\StringTok{"user"}\NormalTok{, }\StringTok{"stocktaking"}\NormalTok{]]}
+\NormalTok{unique_together }\OperatorTok{=}\NormalTok{ [[}\StringTok{"user"}\NormalTok{, }\StringTok{"stocktaking"}\NormalTok{]]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1212,49 +1213,49 @@ als 30 Code-Zeilen erstellt.
 \KeywordTok{class}\NormalTok{ BackOfficeAssetStocktakingView(StocktakingGETWithCustomFieldsMixin,}
 \NormalTok{                                     ClientAttachmentsGETMixin,}
 \NormalTok{                                     BaseStocktakeItemView):}
-\NormalTok{    item\_model }\OperatorTok{=}\NormalTok{ BackOfficeAsset}
-\NormalTok{    pk\_url\_kwarg }\OperatorTok{=} \VariableTok{None}
-\NormalTok{    slug\_url\_kwarg }\OperatorTok{=} \StringTok{"barcode\_final"}
-\NormalTok{    slug\_field }\OperatorTok{=} \StringTok{"barcode\_final"}
+\NormalTok{    item_model }\OperatorTok{=}\NormalTok{ BackOfficeAsset}
+\NormalTok{    pk_url_kwarg }\OperatorTok{=} \VariableTok{None}
+\NormalTok{    slug_url_kwarg }\OperatorTok{=} \StringTok{"barcode_final"}
+\NormalTok{    slug_field }\OperatorTok{=} \StringTok{"barcode_final"}
 
-\NormalTok{    display\_fields }\OperatorTok{=}\NormalTok{ (}\StringTok{"hostname"}\NormalTok{, }\StringTok{"status"}\NormalTok{, }\StringTok{"location"}\NormalTok{, }\StringTok{"price"}\NormalTok{, }\StringTok{"provider"}\NormalTok{)}
-\NormalTok{    extra\_fields }\OperatorTok{=}\NormalTok{ (}
-        \StringTok{"custom\_fields"}\NormalTok{, }\StringTok{"office\_infrastructure"}\NormalTok{, }\StringTok{"depreciation\_rate"}\NormalTok{,}
-        \StringTok{"budget\_info"}\NormalTok{, }\StringTok{"property\_of"}\NormalTok{, }\StringTok{"start\_usage"}
+\NormalTok{    display_fields }\OperatorTok{=}\NormalTok{ (}\StringTok{"hostname"}\NormalTok{, }\StringTok{"status"}\NormalTok{, }\StringTok{"location"}\NormalTok{, }\StringTok{"price"}\NormalTok{, }\StringTok{"provider"}\NormalTok{)}
+\NormalTok{    extra_fields }\OperatorTok{=}\NormalTok{ (}
+        \StringTok{"custom_fields"}\NormalTok{, }\StringTok{"office_infrastructure"}\NormalTok{, }\StringTok{"depreciation_rate"}\NormalTok{,}
+        \StringTok{"budget_info"}\NormalTok{, }\StringTok{"property_of"}\NormalTok{, }\StringTok{"start_usage"}
 \NormalTok{    )}
-\NormalTok{    explicit\_readonly\_fields }\OperatorTok{=}\NormalTok{ (}\StringTok{"hostname"}\NormalTok{, }\StringTok{"price"}\NormalTok{)}
+\NormalTok{    explicit_readonly_fields }\OperatorTok{=}\NormalTok{ (}\StringTok{"hostname"}\NormalTok{, }\StringTok{"price"}\NormalTok{)}
 
-    \KeywordTok{def}\NormalTok{ get\_queryset(}\VariableTok{self}\NormalTok{, request}\OperatorTok{=}\VariableTok{None}\NormalTok{, previous\_room\_validation}\OperatorTok{=}\VariableTok{None}\NormalTok{):}
-        \CommentTok{\# annotate custom barcode as either "barcode" or "sn"}
-        \ControlFlowTok{return} \BuiltInTok{super}\NormalTok{(BackOfficeAssetStocktakingView, }\VariableTok{self}\NormalTok{).get\_queryset(}
-\NormalTok{            request}\OperatorTok{=}\NormalTok{request, previous\_room\_validation}\OperatorTok{=}\NormalTok{previous\_room\_validation}
+    \KeywordTok{def}\NormalTok{ get_queryset(}\VariableTok{self}\NormalTok{, request}\OperatorTok{=}\VariableTok{None}\NormalTok{, previous_room_validation}\OperatorTok{=}\VariableTok{None}\NormalTok{):}
+        \CommentTok{# annotate custom barcode as either "barcode" or "sn"}
+        \ControlFlowTok{return} \BuiltInTok{super}\NormalTok{(BackOfficeAssetStocktakingView, }\VariableTok{self}\NormalTok{).get_queryset(}
+\NormalTok{            request}\OperatorTok{=}\NormalTok{request, previous_room_validation}\OperatorTok{=}\NormalTok{previous_room_validation}
 \NormalTok{        ).annotate(}
-\NormalTok{            barcode\_final}\OperatorTok{=}\NormalTok{Case(}
-\NormalTok{                When(Q(barcode\_\_isnull}\OperatorTok{=}\VariableTok{True}\NormalTok{) }\OperatorTok{|}\NormalTok{ Q(barcode\_\_exact}\OperatorTok{=}\StringTok{""}\NormalTok{),}
+\NormalTok{            barcode_final}\OperatorTok{=}\NormalTok{Case(}
+\NormalTok{                When(Q(barcode__isnull}\OperatorTok{=}\VariableTok{True}\NormalTok{) }\OperatorTok{|}\NormalTok{ Q(barcode__exact}\OperatorTok{=}\StringTok{""}\NormalTok{),}
 \NormalTok{                     then}\OperatorTok{=}\NormalTok{(F(}\StringTok{"sn"}\NormalTok{))),}
-\NormalTok{                default}\OperatorTok{=}\NormalTok{F(}\StringTok{"barcode"}\NormalTok{), output\_field}\OperatorTok{=}\NormalTok{CharField()))}
+\NormalTok{                default}\OperatorTok{=}\NormalTok{F(}\StringTok{"barcode"}\NormalTok{), output_field}\OperatorTok{=}\NormalTok{CharField()))}
 
-    \KeywordTok{def}\NormalTok{ get\_room\_for\_item(}\VariableTok{self}\NormalTok{, item\_object):}
-        \ControlFlowTok{return} \BuiltInTok{str}\NormalTok{(item\_object.warehouse)}
+    \KeywordTok{def}\NormalTok{ get_room_for_item(}\VariableTok{self}\NormalTok{, item_object):}
+        \ControlFlowTok{return} \BuiltInTok{str}\NormalTok{(item_object.warehouse)}
 
-    \KeywordTok{def}\NormalTok{ item\_display\_name\_getter(}\VariableTok{self}\NormalTok{, item\_object):}
-        \ControlFlowTok{return} \BuiltInTok{str}\NormalTok{(item\_object)}
+    \KeywordTok{def}\NormalTok{ item_display_name_getter(}\VariableTok{self}\NormalTok{, item_object):}
+        \ControlFlowTok{return} \BuiltInTok{str}\NormalTok{(item_object)}
 
-    \KeywordTok{def}\NormalTok{ item\_barcode\_getter(}\VariableTok{self}\NormalTok{, item\_object):}
+    \KeywordTok{def}\NormalTok{ item_barcode_getter(}\VariableTok{self}\NormalTok{, item_object):}
         \ControlFlowTok{return} \BuiltInTok{str}\NormalTok{(}
-\NormalTok{            item\_object.barcode\_final}
+\NormalTok{            item_object.barcode_final}
 \NormalTok{        ) }\KeywordTok{or} \StringTok{""} \ControlFlowTok{if} \BuiltInTok{hasattr}\NormalTok{(}
-\NormalTok{            item\_object, }\StringTok{"id"}
+\NormalTok{            item_object, }\StringTok{"id"}
 \NormalTok{        ) }\ControlFlowTok{else} \StringTok{""}
 
 
 \KeywordTok{class}\NormalTok{ WarehouseStocktakingView(StocktakingPOSTWithCustomFieldsMixin,}
 \NormalTok{                               ClientAttachmentsPOSTMixin,}
 \NormalTok{                               BaseStocktakeRoomView):}
-\NormalTok{    room\_model }\OperatorTok{=}\NormalTok{ Warehouse}
-\NormalTok{    item\_detail\_view }\OperatorTok{=}\NormalTok{ BackOfficeAssetStocktakingView()}
+\NormalTok{    room_model }\OperatorTok{=}\NormalTok{ Warehouse}
+\NormalTok{    item_detail_view }\OperatorTok{=}\NormalTok{ BackOfficeAssetStocktakingView()}
 
-\NormalTok{    item\_room\_field\_name }\OperatorTok{=} \StringTok{"warehouse"}
+\NormalTok{    item_room_field_name }\OperatorTok{=} \StringTok{"warehouse"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1344,12 +1345,12 @@ Implementierungsbeispiel bindet die oben definierten Klassen
 \begin{Highlighting}[]
 \NormalTok{urlpatterns }\OperatorTok{=}\NormalTok{ [}
 \NormalTok{    url(}
-        \VerbatimStringTok{r"\^{}warehousesforstocktaking/(?:(?P<pk>[\textbackslash{}w/]+)/)?$"}\NormalTok{, }
-\NormalTok{        WarehouseStocktakingView.as\_view(),}
+        \VerbatimStringTok{r"^warehousesforstocktaking/(?:(?P<pk>[\textbackslash{}w/]+)/)?$"}\NormalTok{, }
+\NormalTok{        WarehouseStocktakingView.as_view(),}
 \NormalTok{        name}\OperatorTok{=}\StringTok{"warehousesforstocktaking"}\NormalTok{),}
 \NormalTok{    url(}
-        \VerbatimStringTok{r"\^{}backofficeassetsforstocktaking/(?:(?P<barcode\_final>[\textbackslash{}w/]+)/)?$"}\NormalTok{, }
-\NormalTok{        BackOfficeAssetStocktakingView.as\_view(),}
+        \VerbatimStringTok{r"^backofficeassetsforstocktaking/(?:(?P<barcode_final>[\textbackslash{}w/]+)/)?$"}\NormalTok{, }
+\NormalTok{        BackOfficeAssetStocktakingView.as_view(),}
 \NormalTok{        name}\OperatorTok{=}\StringTok{"backofficeassetsforstocktaking"}\NormalTok{),}
 \NormalTok{]}
 \end{Highlighting}
@@ -1399,7 +1400,7 @@ abgefragt werden:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ExtensionTok{/api/stocktaking}\NormalTok{/}\ExtensionTok{?date\_finished\_\_isnull}\NormalTok{=True}\KeywordTok{\&}\VariableTok{time\_finish\_isnull=}\NormalTok{True}\KeywordTok{\&}\VariableTok{format=}\NormalTok{json}
+\ExtensionTok{/api/stocktaking}\NormalTok{/}\ExtensionTok{?date_finished__isnull}\NormalTok{=True}\KeywordTok{&}\VariableTok{time_finish_isnull=}\NormalTok{True}\KeywordTok{&}\VariableTok{format=}\NormalTok{json}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1412,16 +1413,16 @@ wurden zwecks Lesbarkeit auf die wesentlichsten Attribute gekürzt.):
 \begin{Highlighting}[]
 \OtherTok{[}
     \FunctionTok{\{}
-        \DataTypeTok{"stocktake\_id"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+        \DataTypeTok{"stocktake_id"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
         \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"Inventur 1"}\FunctionTok{,}
         \DataTypeTok{"comment"}\FunctionTok{:} \StringTok{"Diese Inventur endet nie!"}\FunctionTok{,}
-        \DataTypeTok{"neverending\_stocktaking"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+        \DataTypeTok{"neverending_stocktaking"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
     \FunctionTok{\}}\OtherTok{,}
     \FunctionTok{\{}
-        \DataTypeTok{"stocktake\_id"}\FunctionTok{:} \DecValTok{2}\FunctionTok{,}
+        \DataTypeTok{"stocktake_id"}\FunctionTok{:} \DecValTok{2}\FunctionTok{,}
         \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"Inventur 2"}\FunctionTok{,}
         \DataTypeTok{"comment"}\FunctionTok{:} \StringTok{""}\FunctionTok{,}
-        \DataTypeTok{"neverending\_stocktaking"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+        \DataTypeTok{"neverending_stocktaking"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
     \FunctionTok{\}}
 \OtherTok{]}
 \end{Highlighting}
@@ -1452,12 +1453,12 @@ folgende Antwort im JSON-Format \cite{json-format-doku}:
     \DataTypeTok{"HTL"}\FunctionTok{:} \FunctionTok{\{}
         \DataTypeTok{"roomUrl"}\FunctionTok{:} \StringTok{"/api/htlinventoryrooms/"}\FunctionTok{,}
         \DataTypeTok{"itemUrl"}\FunctionTok{:} \StringTok{"/api/htlinventoryitems/"}\FunctionTok{,}
-        \DataTypeTok{"description"}\FunctionTok{:} \StringTok{"Inventur der HTL{-}Items"}
+        \DataTypeTok{"description"}\FunctionTok{:} \StringTok{"Inventur der HTL-Items"}
     \FunctionTok{\},}
-    \DataTypeTok{"BackOfficeAsset{-}Inventur"}\FunctionTok{:} \FunctionTok{\{}
+    \DataTypeTok{"BackOfficeAsset-Inventur"}\FunctionTok{:} \FunctionTok{\{}
         \DataTypeTok{"roomUrl"}\FunctionTok{:} \StringTok{"/api/warehousesforstocktaking/"}\FunctionTok{,}
         \DataTypeTok{"itemUrl"}\FunctionTok{:} \StringTok{"/api/backofficeassetsforstocktaking/"}\FunctionTok{,}
-        \DataTypeTok{"description"}\FunctionTok{:} \StringTok{"Demonstrations{-}Inventur fuer BackOfficeAssets"}
+        \DataTypeTok{"description"}\FunctionTok{:} \StringTok{"Demonstrations-Inventur fuer BackOfficeAssets"}
     \FunctionTok{\}}
 \FunctionTok{\}}
 \end{Highlighting}
@@ -1473,16 +1474,16 @@ definiert:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{STOCKTAKING\_SERIALIZER\_VIEWS }\OperatorTok{=}\NormalTok{ \{}
+\NormalTok{STOCKTAKING_SERIALIZER_VIEWS }\OperatorTok{=}\NormalTok{ \{}
     \StringTok{"HTL"}\NormalTok{: (}
         \StringTok{"htlinventoryrooms"}\NormalTok{, }
         \StringTok{"htlinventoryitems"}\NormalTok{, }
-        \StringTok{"Inventur der HTL{-}Items"}
+        \StringTok{"Inventur der HTL-Items"}
 \NormalTok{    ),}
-    \StringTok{"BackOfficeAsset{-}Inventur"}\NormalTok{: (}
+    \StringTok{"BackOfficeAsset-Inventur"}\NormalTok{: (}
         \StringTok{"warehousesforstocktaking"}\NormalTok{, }
         \StringTok{"backofficeassetsforstocktaking"}\NormalTok{, }
-        \StringTok{"Demonstrations{-}Inventur fuer BackOfficeAssets"}
+        \StringTok{"Demonstrations-Inventur fuer BackOfficeAssets"}
 \NormalTok{    )}
 \NormalTok{\}}
 \end{Highlighting}
@@ -1620,23 +1621,23 @@ beschrieben:
 \begin{Highlighting}[]
 \FunctionTok{\{}
     \DataTypeTok{"displayFields"}\FunctionTok{:} \FunctionTok{\{}
-        \DataTypeTok{"anlagenbeschreibung\_prio"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"anlagenbeschreibung_prio"}\FunctionTok{:} \FunctionTok{\{}
             \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"interne Gegenstandsbeschreibung"}\FunctionTok{,}
             \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
             \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"string"}
         \FunctionTok{\},}
-        \DataTypeTok{"item\_type"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"item_type"}\FunctionTok{:} \FunctionTok{\{}
             \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Kategorie"}\FunctionTok{,}
             \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
             \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"choice"}\FunctionTok{,}
             \DataTypeTok{"choices"}\FunctionTok{:} \OtherTok{[}
                 \FunctionTok{\{}
                     \DataTypeTok{"value"}\FunctionTok{:} \KeywordTok{null}\FunctionTok{,}
-                    \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"{-}{-}{-} kein Wert {-}{-}{-}"}
+                    \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"--- kein Wert ---"}
                 \FunctionTok{\}}\OtherTok{,}
                 \FunctionTok{\{}
                     \DataTypeTok{"value"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
-                    \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"IT{-}Infrastruktur"}
+                    \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"IT-Infrastruktur"}
                 \FunctionTok{\}}\OtherTok{,}
                 \OtherTok{[}\ErrorTok{...}\OtherTok{]}
             \OtherTok{]}
@@ -1649,13 +1650,13 @@ beschrieben:
             \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
             \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"string"}
         \FunctionTok{\},}
-        \DataTypeTok{"custom\_fields"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"custom_fields"}\FunctionTok{:} \FunctionTok{\{}
             \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Custom Fields"}\FunctionTok{,}
             \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
             \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"dict"}\FunctionTok{,}
             \DataTypeTok{"fields"}\FunctionTok{:} \FunctionTok{\{}
-                \DataTypeTok{"Beispiel{-}Custom{-}Field"}\FunctionTok{:} \FunctionTok{\{}
-                    \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Beispiel{-}Custom{-}Field"}\FunctionTok{,}
+                \DataTypeTok{"Beispiel-Custom-Field"}\FunctionTok{:} \FunctionTok{\{}
+                    \DataTypeTok{"verboseFieldName"}\FunctionTok{:} \StringTok{"Beispiel-Custom-Field"}\FunctionTok{,}
                     \DataTypeTok{"type"}\FunctionTok{:} \StringTok{"string"}\FunctionTok{,}
                     \DataTypeTok{"readOnly"}\FunctionTok{:} \KeywordTok{false}
                 \FunctionTok{\}}
@@ -1723,7 +1724,7 @@ Eigenschaften und allen Subräumen der Rauminstanz:
     \DataTypeTok{"itemID"}\FunctionTok{:} \KeywordTok{null}\FunctionTok{,}
     \DataTypeTok{"subrooms"}\FunctionTok{:} \OtherTok{[]}\FunctionTok{,}
     \DataTypeTok{"items"}\FunctionTok{:} \OtherTok{[}\FunctionTok{\{}
-            \DataTypeTok{"times\_found\_last"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+            \DataTypeTok{"times_found_last"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
             \DataTypeTok{"itemID"}\FunctionTok{:} \DecValTok{2}\FunctionTok{,}
             \DataTypeTok{"displayName"}\FunctionTok{:} \StringTok{"Tischlampe"}\FunctionTok{,}
             \DataTypeTok{"displayDescription"}\FunctionTok{:} \StringTok{""}\FunctionTok{,}
@@ -1837,7 +1838,7 @@ späteren Zeitpunkt durch einen Administrator zu markieren, kann das Feld
     \DataTypeTok{"validations"}\FunctionTok{:} \OtherTok{[}
         \FunctionTok{\{}
             \DataTypeTok{"itemID"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
-            \DataTypeTok{"mark\_for\_later\_validation"}\FunctionTok{:} \KeywordTok{true}
+            \DataTypeTok{"mark_for_later_validation"}\FunctionTok{:} \KeywordTok{true}
         \FunctionTok{\}}
     \OtherTok{]}
 \FunctionTok{\}}

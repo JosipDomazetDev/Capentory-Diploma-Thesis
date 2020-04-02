@@ -1,3 +1,6 @@
+\chapter{Einführung in die Infrastruktur}
+\label{intro_infra}
+\renewcommand{\kapitelautor}{Autor: Hannes Weiss}
 
 Technische Umsetzung: Infrastruktur
 =============================

@@ -278,7 +278,7 @@ Der Server basiert auf dem frei verfügbaren Anlagenverwaltungstool ``Ralph'', d
 Sowohl die App als auch der Server wurden unter derselben liberalen Lizenz wie Ralph veröffentlicht (Apache 2.0)\cite{ralph}. 
 
 \subsection{Der Sponsor}
-Zebra ist der Sponsor des vorliegenden Projektes. Zebra ist ein Hardware-Unternehmen, dass sich auf die Datenerfassung und Datenverarbeitung spezialisiert hat \cite{zebra}. Zebra hat sich im Laufe des Projektes als sehr kooperativ erwiesen. Das Projektteam hat ausschließlich positive Erfahrungen mit Zebra gesammelt und konnte sich glücklich schätzen, einen Partner wie Zebra für das Projekt gewonnen zu haben.
+Zebra \cite{zebra} ist der Sponsor des vorliegenden Projektes. Zebra ist ein Hardware-Unternehmen, dass sich auf die Datenerfassung und Datenverarbeitung spezialisiert hat. Zebra hat sich im Laufe des Projektes als guter Kooperationspartner erwiesen. Das Projektteam hat ausschließlich positive Erfahrungen mit Zebra gesammelt und konnte sich glücklich schätzen, einen Partner wie Zebra für das Projekt gewonnen zu haben.
 
 Zebra hat dem Projektteam ein Smartphone zur Verfügung gestellt, das mit einem dedizierten Barcodescanner ausgestattet ist. Damit kann das Scannen von Barcodes rapide vonstatten gehen und der für eine Inventur notwendige Zeitaufwand enorm reduziert werden (\siehe{der-zebra-scan}). 
 
@@ -436,6 +436,31 @@ Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{das-capento
   Der Server ist für Monitoring vorbereitet.
   Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{uxfcberwachung-des-netzwerks}.
 
+
+\section{Gesamtübersicht}
+
+\begin{figure}
+  \centering
+  \includegraphics{bigpic.pdf}
+  \caption{Gesamtübersicht
+  \label{fig:gesamt}}
+  \end{figure}
+
+Die vorliegende Diplomarbeit kann vereinfacht durch die \abb{fig:gesamt} ausgedrückt werden. Die vorliegende Diplomarbeit kann dabei in drei Bereiche unterteilt werden. Die restlichen Kapitel erläutern die konkrete Implementierung und Funktionsweise dieser Bereiche: 
+
+
+\begin{itemize}
+  \tightlist
+  \item
+    Die Appsoftware (\kap{intro_app} bis \inkl \kap{das_scannen})
+  \item
+    Die Serversoftware (\kap{intro_server} bis \inkl \kap{die_zwei_module})
+  \item
+    Die Infrastruktur, auf der die Serversoftware ausgeführt wird (\kap{intro_infra})
+\end{itemize}
+
+
+
 %\chapter{Formatierung}
 
 % wer hat diese Kapitel geschrieben oder leer
@@ -444,7 +469,6 @@ Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{das-capento
 %\input{text/demo_kap1.tex}
 
 % wer hat diese Kapitel geschrieben oder leer
-\renewcommand{\kapitelautor}{Autor: Josip Domazet}
 \input{text/dom.tex}
 
 % wer hat diese Kapitel geschrieben oder leer
@@ -452,9 +476,6 @@ Dieses Ziel wird in folgendem Kapitel näher erläutert: \plainsiehe{das-capento
 \input{text/mol.tex}
 
 % wer hat diese Kapitel geschrieben oder leer
-
-\chapter{Einführung in die Infrastruktur}
-\renewcommand{\kapitelautor}{Autor: Hannes Weiss}
 \input{text/wss.tex}
 
 
@@ -514,13 +535,13 @@ Breite $ = #1 {\textrm\ mm}$\\
 Höhe $ = #2 {\textrm\ mm}$
 }}}\end{picture}
 }
-\begin{center} {\Large --- Druckgröße kontrollieren! ---}
-\bigskip
+%\begin{center} {\Large --- Druckgröße kontrollieren! ---}
+%\bigskip
 
-\Messbox{100}{50} % Angabe der Breite/Hoehe in mm
-\bigskip
+%\Messbox{100}{50} % Angabe der Breite/Hoehe in mm
+%\bigskip
 
-{\Large --- Diese Seite nach dem Druck entfernen! ---}
-\todo{Diese Seite nach dem Druck entfernen!}
-\end{center} 
+%{\Large --- Diese Seite nach dem Druck entfernen! ---}
+%\todo{Diese Seite nach dem Druck entfernen!}
+%\end{center} 
 \end{document}

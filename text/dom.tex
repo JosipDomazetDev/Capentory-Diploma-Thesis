@@ -1,4 +1,6 @@
 \chapter{Einführung in die App}
+\label{intro_app}
+\renewcommand{\kapitelautor}{Autor: Josip Domazet}
 
 Das Ziel der Diplomarbeit ist es, eine App zu entwickeln, mit der man in
 der Lage ist, eine Inventur durchzuführen. Um zu verstehen, wieso sich
@@ -13,16 +15,17 @@ zwei Begriffen unterscheiden \cite{native-vs-web}:
   Web-App
 \end{itemize}
 
-\hypertarget{nativ-vs.-web}{%
-\section{Nativ vs.~Web}\label{nativ-vs.-web}}
+\hypertarget{nativ-versus-web}{%
+\section{Nativ versus Web}\label{nativ-versus-web}}
 
 Unter einer nativen App versteht man eine App, die für ein bestimmtes
 Betriebssystem geschrieben wurde \cite{native-definition}. Eine Web-App
 hingegen basiert auf HTML und wird per Browser aufgerufen. Sie stellt
 nichts anderes als eine für mobile Geräte optimierte Website dar.
 
-\hypertarget{begruxfcndung-native-app}{%
-\section{Begründung: Native App}\label{begruxfcndung-native-app}}
+\hypertarget{begruxfcndung-fuxfcr-die-wahl-der-nativen-app}{%
+\section{Begründung für die Wahl der nativen
+App}\label{begruxfcndung-fuxfcr-die-wahl-der-nativen-app}}
 
 Das Projektteam hat sich für eine native App entschieden. Um diese
 Entscheidung nachvollziehen zu können, ist ein tieferer Einblick in den
@@ -144,9 +147,9 @@ dass die App nicht auf jedem ``Steinzeitgerät'' zu funktionieren hat.
 Das minimale API-Level der App ist daher 21 -- auch bekannt als Android
 5.0 ``Lollipop''.
 
-\hypertarget{einfuxfchrung-zu-nativem-java}{%
-\section{Einführung zu nativem
-Java}\label{einfuxfchrung-zu-nativem-java}}
+\hypertarget{einfuxfchrung-in-natives-java}{%
+\section{Einführung in natives
+Java}\label{einfuxfchrung-in-natives-java}}
 
 Um eine Basis für die folgenden Kapitel zu schaffen, werden hier die
 Basics der Android-Entwicklung mit nativem Java näher beschrieben.
@@ -699,7 +702,7 @@ Android ist in Abbildung \abb{fig:mvvm} ersichtlich.
 
 \begin{figure}
 \centering
-\includegraphics{mvvm.png}
+\includegraphics[width=2.60417in,height=\textheight]{mvvm.png}
 \caption{MVVM in Android nach Google \cite{mvvm} \cite{mvvm-bild}
 \label{fig:mvvm}}
 \end{figure}
@@ -1561,11 +1564,11 @@ werden:
 \NormalTok{    ...}
 
     \KeywordTok{public} \DataTypeTok{static} \DataTypeTok{void} \FunctionTok{registerZebraReceiver}\NormalTok{(}
-                            \BuiltInTok{Context}\NormalTok{ context, }
-\NormalTok{                            ZebraBroadcastReceiver zebraBroadcastReceiver, }
-                            \BuiltInTok{ErrorHandler}\NormalTok{ errorHandler) \{}
+                          \BuiltInTok{Context}\NormalTok{ context, }
+\NormalTok{                          ZebraBroadcastReceiver zebraBroadcastReceiver, }
+                          \BuiltInTok{ErrorHandler}\NormalTok{ errorHandler) \{}
 \NormalTok{        ...}
-        \CommentTok{// Der BroadcastReceiver muss erstmal beim BS registriert werden.}
+        \CommentTok{// Der BroadcastReceiver muss beim BS registriert werden.}
 
 \NormalTok{        IntentFilter filter = }\KeywordTok{new} \FunctionTok{IntentFilter}\NormalTok{();}
 \NormalTok{        filter.}\FunctionTok{addCategory}\NormalTok{(Intent.}\FunctionTok{CATEGORY_DEFAULT}\NormalTok{);}
@@ -1702,7 +1705,8 @@ Aktivität und beendet die Aktivität.
 \NormalTok{barcodeDetector.}\FunctionTok{setProcessor}\NormalTok{(}\KeywordTok{new}\NormalTok{ Detector.}\FunctionTok{Processor}\NormalTok{<Barcode>() \{}
 
      \AttributeTok{@Override}
-    \KeywordTok{public} \DataTypeTok{void} \FunctionTok{receiveDetections}\NormalTok{(Detector.}\FunctionTok{Detections}\NormalTok{<Barcode> detections) \{}
+    \KeywordTok{public} \DataTypeTok{void} \FunctionTok{receiveDetections}\NormalTok{(}
+\NormalTok{                        Detector.}\FunctionTok{Detections}\NormalTok{<Barcode> detections) \{}
 \NormalTok{           ...}
            \CommentTok{// Barcode einlesen}
            \BuiltInTok{String}\NormalTok{ barcode = barcodeSparseArray.}\FunctionTok{valueAt}\NormalTok{(}\DecValTok{0}\NormalTok{).}\FunctionTok{rawValue}\NormalTok{;}

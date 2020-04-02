@@ -1,4 +1,5 @@
 \chapter{Einführung in die App}
+\label{intro_app}
 \renewcommand{\kapitelautor}{Autor: Josip Domazet}
 
 Das Ziel der Diplomarbeit ist es, eine App zu entwickeln, mit der man in der Lage ist, eine Inventur durchzuführen. Um zu verstehen, wieso sich das Projektteam für eine native App entschieden hat, muss man zwischen zwei Begriffen unterscheiden \cite{native-vs-web}:
@@ -6,13 +7,13 @@ Das Ziel der Diplomarbeit ist es, eine App zu entwickeln, mit der man in der Lag
 * Native App
 * Web-App
 
-Nativ vs. Web
+Nativ versus Web
 =============================
 
 Unter einer nativen App versteht man eine App, die für ein bestimmtes Betriebssystem geschrieben wurde \cite{native-definition}. 
 Eine Web-App hingegen basiert auf HTML und wird per Browser aufgerufen. Sie stellt nichts anderes als eine für mobile Geräte optimierte Website dar. 
 
-# Begründung: Native App
+# Begründung für die Wahl der nativen App
 
 Das Projektteam hat sich für eine native App entschieden. Um diese Entscheidung nachvollziehen zu können, ist ein tieferer Einblick in den gegebenen Use-Case erforderlich.  
 
@@ -63,7 +64,7 @@ Aus den Projektzielen hat sich in Absprache mit den Betreuern ergeben, dass die 
 Das minimale API-Level der App ist daher 21 -- auch bekannt als Android 5.0 "Lollipop".
 
 
-# Einführung zu nativem Java
+# Einführung in natives Java
 
 Um eine Basis für die folgenden Kapitel zu schaffen, werden hier die Basics der Android-Entwicklung mit nativem Java näher beschrieben. 
 
@@ -743,11 +744,11 @@ public class ZebraBroadcastReceiver extends BroadcastReceiver {
     ...
 
     public static void registerZebraReceiver(
-                            Context context, 
-                            ZebraBroadcastReceiver zebraBroadcastReceiver, 
-                            ErrorHandler errorHandler) {
+                          Context context, 
+                          ZebraBroadcastReceiver zebraBroadcastReceiver, 
+                          ErrorHandler errorHandler) {
         ...
-        // Der BroadcastReceiver muss erstmal beim BS registriert werden.
+        // Der BroadcastReceiver muss beim BS registriert werden.
 
         IntentFilter filter = new IntentFilter();
         filter.addCategory(Intent.CATEGORY_DEFAULT);
@@ -837,7 +838,8 @@ Mit der Vision API erstellt man einen `BarcodeDetector` dem ein `Processor` zuge
 barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
 
      @Override
-    public void receiveDetections(Detector.Detections<Barcode> detections) {
+    public void receiveDetections(
+                        Detector.Detections<Barcode> detections) {
            ...
            // Barcode einlesen
            String barcode = barcodeSparseArray.valueAt(0).rawValue;
