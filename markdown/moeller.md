@@ -151,7 +151,7 @@ Das Konzept des `Mixin`s wird von der Ralph-Plattform besonders häufig genutzt.
 \chapter{Die zwei Erweiterungsmodule des Serversystems}
 \label{die_zwei_module}
 
-Die vorliegende Diplomarbeit erweitert das Ralph-System um 2 Module. Dabei handelt es sich um die beiden Pakete "Capentory" und "Stocktaking". Das Paket "Capentory" behandelt die Führung der Inventardaten und wurde speziell an die Inventardaten der HTL Rennweg angepasst. Das Paket "Stocktaking" ermöglicht die Verwaltung der durch die mobile Applikation durchgeführten Inventuren. Dazu zählen Aufgaben wie das Erstellen der Inventuren, das Einsehen von Inventurberichten oder das Anwenden der aufgetretenen Änderungen.
+Die vorliegende Diplomarbeit erweitert das Ralph-System um zwei Module. Dabei handelt es sich um die beiden Pakete "Capentory" und "Stocktaking". Das Paket "Capentory" behandelt die Führung der Inventardaten und wurde speziell an die Inventardaten der HTL Rennweg angepasst. Das Paket "Stocktaking" ermöglicht die Verwaltung der durch die mobile Applikation durchgeführten Inventuren. Dazu zählen Aufgaben wie das Erstellen der Inventuren, das Einsehen von Inventurberichten oder das Anwenden der aufgetretenen Änderungen.
 
 Dieses Kapitel beschreibt die grundlegende Funktionsweise der beiden Module. Eine Anleitung zur Bedienung der \emph{Weboberfläche} \index{Weboberfläche: graphische Oberfläche für administrative Tätigkeiten, die über einen Webbrowser erreichbar ist} ist dem Handbuch zum Server (\siehe{chap:Anhang-1}) zu entnehmen.
 
@@ -186,7 +186,7 @@ Zu den wichtigsten Attributen des `HTLItem` Modells zählen:
 
 Bezüglich der Einzigartigkeit von `HTLItem` Objekten gelten einige Bestimmungen. 
 
-Sind die Attribute `anlage`,  `asset_subnumber` und `company_code` je mit einem nichtleeren Wert befüllt, so repräsentieren sie ein `HTLItem` Objekt eindeutig. Es dürfen keine 2 `HTLItem` Objekte denselben Wert dieser Attribute haben. Um diese Bedingung erfüllen zu können, muss eine eigens angepasste Validierungslogik implementiert werden. Standardverfahren wäre in diesem Anwendungsfall, die Metavariable `unique_together` \cite{django-doku-models-options} anzupassen:
+Sind die Attribute `anlage`,  `asset_subnumber` und `company_code` je mit einem nichtleeren Wert befüllt, so repräsentieren sie ein `HTLItem` Objekt eindeutig. Es dürfen keine zwei `HTLItem` Objekte denselben Wert dieser Attribute haben. Um diese Bedingung erfüllen zu können, muss eine eigens angepasste Validierungslogik implementiert werden. Standardverfahren wäre in diesem Anwendungsfall, die Metavariable `unique_together` \cite{django-doku-models-options} anzupassen:
 
 ```python
 unique_together = [["anlage",  "asset_subnumber", "company_code"]]
@@ -341,7 +341,7 @@ Um das Datenbankmodell möglichst modular und übersichtlich zu gestalten, werde
 
 ```bash
 dev_ralph graph_models stocktaking \
--X ItemSplitChangeProposal,MultipleValidationsChangeProposal,
+-X ItemSplitChangeProposal,MultipleValidationsChangeProposal, \
    ValueChangeProposal,TimeStampMixin \
 -g -o stocktaking_klassendiagramm.png
 ```
@@ -399,7 +399,7 @@ Zu den wichtigsten Attributen des `StocktakingItem` Modells zählen:
 
 Um während einer Inventur nicht sofort jegliche erkannte Änderungen von Gegenstandseigenschaften anwenden zu müssen, werden sie in Änderungsvorschläge ausgelagert. So kann Fehlern, die während einer Inventur entstehen können, vorgebeugt werden. Der Benutzer der mobilen Applikation ist nur damit beauftragt, die aktuellen Inventardaten aus dessen Sicht zu erheben. Es ist die Aufgabe eines Administrators, Änderungsvorschläge als vertrauenswürdig einzustufen und diese tatsächlich anzuwenden.
 
-Als Basis für Änderungsvorschläge dient die Klasse `ChangeProposalBase`. Sie beschreibt nicht, welche Änderung während einer Inventur festgestellt wurde. Sie erbt von der Klasse `Polymorphic`. Die Klasse `Polymorphic` ermöglicht die Vererbung von Modellklassen auf der Datenbankebene. So können alle \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} der Klassen `ChangeProposalBase` einheitlich betrachtet werden. Über die Verbindung von `StocktakingItem` zu `ChangeProposalBase` in \abb{fig:stocktaking_klassendiagramm} sind nicht nur alle verknüpften `ChangeProposalBase` Instanzen, sondern auch alle Instanzen der \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ChangeProposalBase`, verbunden. Eine \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ChangeProposalBase` beschreibt eine Änderung, die von einem Benutzer während einer Inventur festgestellt würde. Es sind 4  \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ChangeProposalBase` und damit 4 Arten von Änderungsvorschlägen implementiert:
+Als Basis für Änderungsvorschläge dient die Klasse `ChangeProposalBase`. Sie beschreibt nicht, welche Änderung während einer Inventur festgestellt wurde. Sie erbt von der Klasse `Polymorphic`. Die Klasse `Polymorphic` ermöglicht die Vererbung von Modellklassen auf der Datenbankebene. So können alle \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} der Klassen `ChangeProposalBase` einheitlich betrachtet werden. Über die Verbindung von `StocktakingItem` zu `ChangeProposalBase` in \abb{fig:stocktaking_klassendiagramm} sind nicht nur alle verknüpften `ChangeProposalBase` Instanzen, sondern auch alle Instanzen der \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ChangeProposalBase`, verbunden. Eine \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ChangeProposalBase` beschreibt eine Änderung, die von einem Benutzer während einer Inventur festgestellt würde. Es sind vier  \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} von `ChangeProposalBase` und damit vier Arten von Änderungsvorschlägen implementiert:
 
 1. `ValueChangeProposal`
 2. `MultipleValidationsChangeProposal`
@@ -412,7 +412,7 @@ Weitere Informationen über die Arten von Änderungsvorschlägen und deren Handh
 
 Jede Art der Inventur benötigt eine eigene Client-Schnittstelle. Eine Art der Inventur unterscheidet sich von anderen durch das Gegenstands- und Raummodell, gegen welches inventarisiert wird. Ein Beispiel ist die Inventur für die Gegenstände der HTL Rennweg, durch die gegen die `HTLItem` und `HTLRoom` Modelle inventarisiert wird. 
 
-Um die Kommunikation zwischen Server und mobiler Client-Applikation für eine Art der Inventur zu ermöglichen, werden 2 `APIView` Klassen erstellt (\siehe{views}):
+Um die Kommunikation zwischen Server und mobiler Client-Applikation für eine Art der Inventur zu ermöglichen, werden zwei `APIView` Klassen erstellt (\siehe{views}):
 
 * Eine Klasse, die von der Klasse `BaseStocktakeItemView` erbt.
 * Eine Klasse, die von der Klasse `BaseStocktakeRoomView` erbt.
@@ -472,7 +472,7 @@ class WarehouseStocktakingView(StocktakingPOSTWithCustomFieldsMixin,
 
 Die Modelle `BackOfficeAsset` und `Warehouse` sind in dem unveränderten Ralph-System vorhanden.
 
-Die Klassen `StocktakingGETWithCustomFieldsMixin`,  `StocktakingPOSTWithCustomFieldsMixin`, `ClientAttachmentsGETMixin` und `ClientAttachmentsPOSTMixin` ermöglichen das Miteinbeziehen von \emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt unabhängig definierbar sind.} und Anhängen (\siehe{speichern-von-bildern-und-anhuxe4ngen}). Weitere Informationen zu den `Mixin`-Klassen kann der im Source-Code enthaltenen Dokumentation entnommen werden.  
+Die Klassen `StocktakingGETWithCustomFieldsMixin`, `StocktakingPOSTWithCustomFieldsMixin`, `ClientAttachmentsGETMixin` und `ClientAttachmentsPOSTMixin` ermöglichen das Miteinbeziehen von \emph{Custom-Fields}\index{Custom-Fields: Benutzerdefinierte Eigenschaften eines Objektes in der Datenbank, die für jedes Objekt unabhängig definierbar sind.} und Anhängen (\siehe{speichern-von-bildern-und-anhuxe4ngen}). Weitere Informationen zu den `Mixin`-Klassen kann der im Source-Code enthaltenen Dokumentation entnommen werden.  
 
 ### Kommunikationsformat
 
@@ -546,7 +546,7 @@ Durch `&format=json` wird festgelegt, dass der Server eine Antwort im JSON-Forma
     }
 ]
 ```
-Laut der Antwort des Servers sind aktuell 2 Inventuren -- "Inventur 1" und "Inventur 2" -verfügbar. 
+Laut der Antwort des Servers sind aktuell zwei Inventuren -- "Inventur 1" und "Inventur 2" -verfügbar. 
 Die mobile Client-Applikation benötigt den Wert des Attributs `stocktake_id`, um bei späteren Abfragen festzulegen, welche Inventur von einem Benutzer ausgewählt wurde.
 
 
@@ -592,7 +592,7 @@ STOCKTAKING_SERIALIZER_VIEWS = {
 
 Die Daten, die durch die implementierten `APIView` Klassen gesendet oder empfangen werden, müssen einer bestimmten Struktur folgen. In diesem Abschnitt werden die durch die Klassen akzeptierten HTTP-Methoden \cite{rest-http-methods} aufgezählt und deren JSON Schema anhand mehrerer Beispiele dargestellt. Die Beispiele können zwecks Lesbarkeit gekürzt sein. Gekürzte Bereiche werden mit `[...]` markiert.
 
-\subsubsection*{`BaseStocktakeItemView` GET-Methode}
+\subsubsection*{BaseStocktakeItemView GET-Methode}
 
 Die Klasse `BaseStocktakeItemView` akzeptiert 2 unterschiedliche Abfragen der GET-Methode. 
 
@@ -639,7 +639,7 @@ Eine Abfrage über die \emph{URL} \index{URL: Addressierungsstandard im Internet
 }
 ```
 
-\subsubsection*{`BaseStocktakeItemView` OPTIONS-Methode}
+\subsubsection*{BaseStocktakeItemView OPTIONS-Methode}
 
 Der `OPTIONS` Request wird von der mobilen Client-Applikation benötigt, um ein Formular für Gegenstandsdaten zu erstellen. Dafür werden die Eigenschaften eines Gegenstandes nach Relevanz in `displayFields` (hohe Priorität; wichtige Eigenschaften) und  `extraFields` (niedrige Priorität; unwichtige Eigenschaften) geteilt. Welche Eigenschaften welcher Kategorie zugeordnet werden ist in der Implementierung der `BaseStocktakeItemView` \emph{Subklasse}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} durch die Variablen `display_fields` und `extra_fields` definiert. Jede Eigenschaft wird anhand folgender Kenngrößen beschrieben:
 
@@ -699,7 +699,7 @@ Der `OPTIONS` Request wird von der mobilen Client-Applikation benötigt, um ein 
 }
 ```
 
-\subsubsection*{`BaseStocktakeRoomView` GET-Methode}
+\subsubsection*{BaseStocktakeRoomView GET-Methode}
 
 Die Klasse `BaseStocktakeRoomView` akzeptiert 2 unterschiedliche Abfragen der GET-Methode.  Beide Abfragen benötigen die \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} der ausgewählten Inventurinstanz als \emph{URL} \index{URL: Addressierungsstandard im Internet}-Parameter `stocktaking_id`. 
 
@@ -755,7 +755,7 @@ Eine Abfrage über die \emph{URL} \index{URL: Addressierungsstandard im Internet
 
 [^id_detail]: Diese ID wird etwa der Antwort auf die Abfrage ohne URL-Zusatz entnommen. Die entsprechende Eigenschaft ist `roomID`
 
-\subsubsection*{`BaseStocktakeRoomView` POST-Methode}
+\subsubsection*{BaseStocktakeRoomView POST-Methode}
 
 Mit dieser Methode sendet die mobile Client-Applikation den aufgezeichneten Ist-Zustand der in einem Raum befindlichen Gegenstände. Eine Abfrage kann nur über die \emph{URL} \index{URL: Addressierungsstandard im Internet} mit Zusatz der \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} einer Rauminstanz[^id_detail] getätigt werden. Die \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} der ausgewählten Inventurinstanz muss als Teil der übermittelten Daten im Feld `stocktaking`  angegeben werden. Unter dem Feld `validations` werden alle validierten Gegenstände mit mindestens deren \emph{ID} \index{ID: einzigartige Identifikationsnummer für eine Instanz eines Django-Modells} als Feld `itemID` angegeben. Zusätzlich können alle Gegenstandseigenschaften spezifiziert werden. Die Eigenschaften jedes Gegenstandes werden von der Klasse `BaseStocktakeRoomView` oder der davon erbenden Klasse verarbeitet und mit dem aktuell in der Datenbank eingetragenen Wert verglichen. Bei einer Differenz wird automatisch ein Änderungsvorschlag für diesen Gegenstand erstellt. 
 
