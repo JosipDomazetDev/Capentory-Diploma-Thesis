@@ -256,7 +256,7 @@ Die App muss ein verlässliches und vorhersehbares Verhalten aufweisen. Die vom 
 # Separation of Concerns
 
 In Android ist es eine äußerst schlechte Idee, sämtliche Logik in einer Activity oder einem Fragment zu implementieren.
-Das softwaretechnische Prinzip `Separation of Concerns (SoC)` hat unter Android einen besonderen Stellenwert. Dieses Prinzip beschreibt im Wesentlichen, dass eine Klasse nur einer Aufgabe dienen sollte. Falls eine Klasse mehrere Aufgaben erfüllt, so muss diese auf mehrere logische Komponenten aufgeteilt werden.
+Das softwaretechnische Prinzip "`Separation of Concerns (SoC)`" hat unter Android einen besonderen Stellenwert. Dieses Prinzip beschreibt im Wesentlichen, dass eine Klasse nur einer Aufgabe dienen sollte. Falls eine Klasse mehrere Aufgaben erfüllt, so muss diese auf mehrere logische Komponenten aufgeteilt werden.
 Beispiel: Eine Activity \bzw ein Fragment hat immer die Verantwortung, die Kommunikation zwischen UI und Benutzer abzuwickeln. Bad Practice wäre es, wenn eine Activity ebenfalls dafür verantwortlich ist, Daten von einem Server abzurufen.
 
 Das Prinzip verfolgt das Ziel, die `God Activity Architecture (GAA)` möglichst zu vermeiden \cite{god-activities}. 
@@ -724,7 +724,7 @@ Der hervorragende Sponsor dieser Diplomarbeit -- Zebra -- hat dem Diplomarbeitst
 
 Die App kommuniziert nicht direkt mit dem Scanner. Auf dem Zebra-Gerät läuft im Hintergrund immer die DataWedge-Applikation. Dies ist eine App, die die Behandlung des tatsächlichen Scans abwickelt und das Ergebnis auf mehrere Arten aussendet \cite{datawedge}. Beispielsweise wird das Ergebnis an die Tastatur geschickt, aber auch als `Broadcast` an das Betriebssystem \cite{broadcast}. 
 
-Die App registriert sich beim Betriebssystem und hört auf den Broadcast, der den Barcode enthält und automatisch von DataWedge entsandt wird. Broadcasts werden durch eine String-ID unterschieden, die über DataWedge konfiguriert wird. Derartige Ansätze werden als Publish–subscribe-Model bezeichnet \cite{publish–subscribe}.
+Die App registriert sich beim Betriebssystem und hört auf den Broadcast, der den Barcode enthält und automatisch von DataWedge gesendet wird. Broadcasts werden durch eine String-ID unterschieden, die über DataWedge konfiguriert wird. Derartige Ansätze werden als Publish–subscribe-Model bezeichnet \cite{publish–subscribe}.
 
 
 Dies bietet folgende Vorteile:
