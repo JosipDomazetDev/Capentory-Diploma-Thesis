@@ -7,7 +7,7 @@ Die Inventur- sowie Gegenstandsdaten der HTL Rennweg sollen an einem zentralen O
 * eine einfache Datenbankverwaltung und -verbindung
 * das Führen einer Historie aller Zustände der Inventar-Gegenstände
 * eine Grundlage für eine Web-Administrationsoberfläche
-* die Möglichkeit für Datenimport und -export, etwa als \emph{.xlsx}\index{.xlsx: Format einer Excel Datei} Datei
+* die Möglichkeit für Datenimport und -export, etwa als \emph{.xlsx}\index{.xlsx: Dateinamenserweiterung einer Excel Datei} Datei
 * eine Grundlage für die Kommunikation mit der Client-Applikation
 * hohe Stabilität und Verfügbarkeit
 
@@ -107,12 +107,12 @@ Um den API-Zugriff auf ein Modell zu ermöglichen werden üblicherweise eine `AP
 Schnittstellen, die keiner der beiden \oa{} Kategorien zugeordnet werden können, werden in der Datei `views.py` definiert. Bei diesen \emph{generischen}\index{generisch: in einem allgemeingültigen Sinn} Schnittstellen handelt es sich entweder um \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt} der Klasse `View`[^view-apiview-inheritance] \cite{django-doku-class-based-views} oder vereinzelte Methoden mit einem `request`[^request-german] Parameter \cite{django-doku-views}.
 Diese Schnittstellen werden fortan Views genannt.
 
-Soll ein View als Antwort auf eine Anfrage HTML-Daten liefern, so sollte dazu ein \emph{Template}\index{Template: zu Deutch: Vorlage, Schablone} verwendet werden. Mithilfe von Templates können Daten, die etwa durch Datenbankabfrage entstehen, zu einer HTML Antwort aufbereitet werden. Besonders ist hierbei die zusätzlich zu HTML verfügbare Django-Template-\emph{Syntax}\index{Syntax: Regelwerk, sprachliche Einheiten miteinander zu verknüpfen \cite{syntax}} \cite{django-doku-template}. Damit können HTML Elemente auf den Input-Daten basierend dynamisch generiert werden. So stehen beispielsweise `if` Statements direkt in der Definition des Templates zur Verfügung. Die Benutzung von Templates schützt standardmäßig gegen Attacken, wie \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem} oder \emph{CSRF} \index{CSRF: Cross-Site-Request-Forgery -- eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}\cite{csrf} und gilt daher als besonders sicher. Durch das Diplomarbeitsteam wurden weitere Möglichkeiten zur Sicherung des Serversystems \cite{django-doku-security} implementiert und alle Sicherheitsempfehlungen der Entwickler von Django \cite{django-doku-security} eingehalten.
+Soll ein View als Antwort auf eine Anfrage HTML-Daten liefern, so sollte dazu ein \emph{Template}\index{Template: zu Deutsch: Vorlage, Schablone} verwendet werden. Mithilfe von Templates können Daten, die etwa durch Datenbankabfrage entstehen, zu einer HTML Antwort aufbereitet werden. Besonders ist hierbei die zusätzlich zu HTML verfügbare Django-Template-\emph{Syntax}\index{Syntax: Regelwerk, sprachliche Einheiten miteinander zu verknüpfen \cite{syntax}} \cite{django-doku-template}. Damit können HTML Elemente auf den Input-Daten basierend dynamisch generiert werden. So stehen beispielsweise `if` Statements direkt in der Definition des Templates zur Verfügung. Die Benutzung von Templates schützt standardmäßig gegen Attacken, wie \emph{SQL-Injections}\index{SQL-Injections: klassischer Angriff auf ein Datenbanksystem} oder \emph{CSRF} \index{CSRF: Cross-Site-Request-Forgery -- eine Angriffsart, bei dem ein Opfer dazu gebracht wird, eine von einem Angreifer gefälschte Anfrage an einen Server zu schicken \cite{csrf}}\cite{csrf} und gilt daher als besonders sicher. Durch das Diplomarbeitsteam wurden weitere Möglichkeiten zur Sicherung des Serversystems \cite{django-doku-security} implementiert und alle Sicherheitsempfehlungen der Entwickler von Django \cite{django-doku-security} eingehalten.
 
 Da reguläre Views nicht automatisch registriert werden, müssen sie manuell bekanntgegeben werden. Dies geschieht durch einen Eintrag in die Variable `urlpatterns` in der Datei `urls.py` \cite{django-doku-urls}.
 
 [^view-apiview-inheritance]: die ebenfalls Superklasse der Klasse `ApiView` ist
-[^request-german]: zu Deutch: Anfrage; entspricht den empfangenen Daten
+[^request-german]: zu Deutsch: Anfrage; entspricht den empfangenen Daten
 
 ## Datenbankabfragen
 

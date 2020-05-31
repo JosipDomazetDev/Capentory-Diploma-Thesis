@@ -16,7 +16,8 @@ entwickelte Server muss also folgende Anforderungen erfüllen:
   eine Grundlage für eine Web-Administrationsoberfläche
 \item
   die Möglichkeit für Datenimport und -export, etwa als
-  \emph{.xlsx}\index{.xlsx: Format einer Excel Datei} Datei
+  \emph{.xlsx}\index{.xlsx: Dateinamenserweiterung einer Excel Datei}
+  Datei
 \item
   eine Grundlage für die Kommunikation mit der Client-Applikation
 \item
@@ -292,13 +293,13 @@ Schnittstellen handelt es sich entweder um
 \emph{Subklassen}\index{Subklasse: Eine programmiertechnische Klasse, die eine übergeordnete Klasse, auch "Superklasse", erweitert oder verändert, indem sie alle Attribute und Methoden der Superklasse erbt}
 der Klasse \texttt{View}\footnote{die ebenfalls Superklasse der Klasse
   \texttt{ApiView} ist} \cite{django-doku-class-based-views} oder
-vereinzelte Methoden mit einem \texttt{request}\footnote{zu Deutch:
+vereinzelte Methoden mit einem \texttt{request}\footnote{zu Deutsch:
   Anfrage; entspricht den empfangenen Daten} Parameter
 \cite{django-doku-views}. Diese Schnittstellen werden fortan Views
 genannt.
 
 Soll ein View als Antwort auf eine Anfrage HTML-Daten liefern, so sollte
-dazu ein \emph{Template}\index{Template: zu Deutch: Vorlage, Schablone}
+dazu ein \emph{Template}\index{Template: zu Deutsch: Vorlage, Schablone}
 verwendet werden. Mithilfe von Templates können Daten, die etwa durch
 Datenbankabfrage entstehen, zu einer HTML Antwort aufbereitet werden.
 Besonders ist hierbei die zusätzlich zu HTML verfügbare
