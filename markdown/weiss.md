@@ -168,7 +168,7 @@ Python ist einer der Hauptbestandteile auf dem Serversystem der Diplomarbeit. Da
 
 #### pip
 
-Dieses Tool nennt sich Pip. Pip ist ein rekursives Akronym für **P**ip **I**nstalls **P**ython und ist, wie bereits erwähnt, das Standardverwaltungswerkzeug für Python-Module. Die Funktion sowie Syntax kann relativ gut mit der von apt verglichen werden.
+Pip ist ein rekursives Akronym für **P**ip **I**nstalls **P**ython und ist das Standardverwaltungswerkzeug für Python-Module. Die Funktion sowie Syntax kann relativ gut mit der von apt verglichen werden.
  
 #### uWSGI
 
@@ -190,7 +190,7 @@ Das Aufsetzen beziehungsweise die Installation der Produktivumgebung ist der wic
 
 Die Entwickler des Grundservers "Ralph" haben eine eigene Entwicklungsumgebung für den Django-Server erstellt. Normalerweise findet sich in einem klassischen Python-Projekt oder einem Projekt, das auf einem Python-Framework (wie zum Beispiel Django) basiert, ein sogenanntes "`manage.py`"-File. Hierbei handelt es sich um ein Script, das das Management eines beliebigen Python-Projektes unterstützt. Mit dem Script ist man unter anderem in der Lage, den Webserver auf einem unspezifischen Rechner zu starten, ohne etwas Weiteres installieren zu müssen.
 
-Jedoch wurde diese Datei im Vorgängerprojekt in eine eigene spezifische Entwicklungsumgebung umimplementiert. Der Server startet nach der eigenen Installation (welche ab Seite 4 im Dokument "Serverdokumentation Schritt für Schritt erklärt wird) nicht mehr mittels:
+Jedoch wurde diese Datei im Vorgängerprojekt in eine eigene spezifische Entwicklungsumgebung umimplementiert. Der Server startet nach der eigenen Installation (welche ab Seite 4 im Dokument (Serverdokumentation Schritt für Schritt erklärt wird) nicht mehr mittels:
 
     python manage.py runserver
  
@@ -226,7 +226,7 @@ gestartet werden.
 
 ### Probleme der Produktivumgebung
 
-Zu Beginn dachte das Diplomarbeitsteam, dass die Umsetzung des Django-Servers in eine Produktivumgebung nicht allzu kompliziert wäre, da von Ralph bereits Dockerfiles für den Produktivbetrieb vorlagen. Dadurch wurde zu Beginn der Arbeit versucht, dieses bereits existierende Dockersystem zu starten, jedoch war im Browser dann nicht der Diplomarbeitsserver, sondern die Basislösung des Vorgängers zu sehen. Der Infrastrukturverantwortliche analysierte anschließend die Docker-Dateien und musste feststellen, dass sie für die Zwecke der Diplomarbeit so tatsächlich nicht verwendet werden können. Ralph hat in Verbindung mit dem implementierten Dockersystem einige komplexe, aufeinander zugreifende Skripts, verwendet. Vorweg muss gesagt werden, dass die Vorgängerserverlösung als Service angeboten wird und in den vorliegenden Skripts ohne den Änderungen des Diplomarbeitsteam installiert wird. Daraufhin wird aus dem Webservice ein Docker-Container erstellt und anschließend mit den anderen Docker-Komponenten hochgefahren. Dadurch war im Webbrowser beim Serverabruf, statt der gewollten Serverlösung, die falsche zu sehen. Der Fortschritt des Arbeitspaketes der Produktivumgebung war somit wieder um einiges geschrumpft und es musste schnellstmöglich eine Alternative gefunden werden, da das Umschreiben der Dockerfiles, beziehungsweise der Skripts, ein riesiger Aufwand wäre.
+Zu Beginn dachte das Diplomarbeitsteam, dass die Umsetzung des Django-Servers in eine Produktivumgebung nicht allzu kompliziert wäre, da von Ralph bereits Dockerfiles für den Produktivbetrieb vorlagen. Dadurch wurde zu Beginn der Arbeit versucht, dieses bereits existierende Dockersystem zu starten, jedoch war im Browser dann nicht der Diplomarbeitsserver, sondern die Basislösung des Vorgängers zu sehen. Nach einer ausführlichen Analyse der Docker-Dateien, stellte sich heraus, dass sie für die Zwecke der Diplomarbeit so tatsächlich nicht verwendet werden können. Ralph hat in Verbindung mit dem implementierten Dockersystem einige komplexe, aufeinander zugreifende Skripts, verwendet. Vorweg muss gesagt werden, dass die Vorgängerserverlösung als Service angeboten wird und in den vorliegenden Skripts ohne den Änderungen des Diplomarbeitsteam installiert wird. Daraufhin wird aus dem Webservice ein Docker-Container erstellt und anschließend mit den anderen Docker-Komponenten hochgefahren. Dadurch war im Webbrowser beim Serverabruf, statt der gewollten Serverlösung, die falsche zu sehen. Der Fortschritt des Arbeitspaketes der Produktivumgebung war somit wieder um einiges geschrumpft und es musste schnellstmöglich eine Alternative gefunden werden, da das Umschreiben der Dockerfiles, beziehungsweise der Skripts, ein riesiger Aufwand wäre.
 
 Nach kurzer Recherche stieß man schließlich auf zwei verwendbare Alternativen, die nachfolgend genannt und miteinander verglichen werden.
 
@@ -266,12 +266,6 @@ Es wurde bereits des öfteren erklärt, warum die Dockerlösung des Vorgängers 
  4. Das eigentliche Interface von uWSGi ist hier zu sehen. Diese Schnittstelle sorgt für die Kommunikation des oben genannten Websockets mit dem verwendeten Python-Framework.
  5. Django reagiert nun auf die Anfrage des Benutzers und überlässt diesem (falls dessen Zugriffsrechte darauf es erlauben) die gewünschten Daten.
  6. Die vom Benutzer gewünschten Daten werden in einer MySQL-Datenbank gespeichert. 
- 
- Grundsätzlich kann die Grafik auch mittels
-
-    the web client <-> the web server <-> the socket <-> uwsgi <-> Django
- 
- als normale ASCII-Zeichenkette dargestellt werden.
 
 #### Funktion von Docker
 
@@ -299,7 +293,7 @@ Weiters wurde NGINX mit einem sogenannten Self Signed Certificate ausgestattet, 
 \caption{Aufruf des Servers über HTTPS}
 \end{figure}
 
-Der Zertifikatsfehler, der am Bild deutlich zu sehen ist, bedeutet jedoch nichts anderes als dass das Zertifakt des Produktivservers der Diplomarbeit nicht von einer offiziellen Zertifizierungsstelle signiert wurde. Da der Server sowieso nur im Schulnetz der HTL 3 Rennweg beziehungsweise über einen VPN-Tunnel erreichbar ist, war es nicht nötig, sich an solch eine Zertifizierungsstelle zu wenden.
+Der Zertifikatsfehler, der am Bild deutlich zu sehen ist, bedeutet jedoch nichts anderes als dass das Zertifakt des Produktivservers der Diplomarbeit nicht von einer offiziellen Zertifizierungsstelle signiert wurde. Da der Server sowieso nur im Schulnetz der HTL 3 Rennweg beziehungsweise über einen VPN-Tunnel erreichbar ist, war es nicht nötig, sich an eine Zertifizierungsstelle zu wenden.
 
 ### Verwendung einer .ini-Datei
 

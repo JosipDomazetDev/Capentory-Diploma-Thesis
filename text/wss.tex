@@ -1,3 +1,53 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\date{}
+
+\begin{document}
+
 \chapter{Einführung in die Infrastruktur}
 \label{intro_infra}
 \renewcommand{\kapitelautor}{Autor: Hannes Weiss}
@@ -360,10 +410,10 @@ dem System installieren zu können wird jedoch noch ein weiteres
 \hypertarget{pip}{%
 \paragraph{pip}\label{pip}}
 
-Dieses Tool nennt sich Pip. Pip ist ein rekursives Akronym für
-\textbf{P}ip \textbf{I}nstalls \textbf{P}ython und ist, wie bereits
-erwähnt, das Standardverwaltungswerkzeug für Python-Module. Die Funktion
-sowie Syntax kann relativ gut mit der von apt verglichen werden.
+Pip ist ein rekursives Akronym für \textbf{P}ip \textbf{I}nstalls
+\textbf{P}ython und ist das Standardverwaltungswerkzeug für
+Python-Module. Die Funktion sowie Syntax kann relativ gut mit der von
+apt verglichen werden.
 
 \hypertarget{uwsgi}{%
 \paragraph{uWSGI}\label{uwsgi}}
@@ -419,7 +469,7 @@ Weiteres installieren zu müssen.
 
 Jedoch wurde diese Datei im Vorgängerprojekt in eine eigene spezifische
 Entwicklungsumgebung umimplementiert. Der Server startet nach der
-eigenen Installation (welche ab Seite 4 im Dokument "Serverdokumentation
+eigenen Installation (welche ab Seite 4 im Dokument (Serverdokumentation
 Schritt für Schritt erklärt wird) nicht mehr mittels:
 
 \begin{verbatim}
@@ -494,21 +544,20 @@ da von Ralph bereits Dockerfiles für den Produktivbetrieb vorlagen.
 Dadurch wurde zu Beginn der Arbeit versucht, dieses bereits existierende
 Dockersystem zu starten, jedoch war im Browser dann nicht der
 Diplomarbeitsserver, sondern die Basislösung des Vorgängers zu sehen.
-Der Infrastrukturverantwortliche analysierte anschließend die
-Docker-Dateien und musste feststellen, dass sie für die Zwecke der
-Diplomarbeit so tatsächlich nicht verwendet werden können. Ralph hat in
-Verbindung mit dem implementierten Dockersystem einige komplexe,
-aufeinander zugreifende Skripts, verwendet. Vorweg muss gesagt werden,
-dass die Vorgängerserverlösung als Service angeboten wird und in den
-vorliegenden Skripts ohne den Änderungen des Diplomarbeitsteam
-installiert wird. Daraufhin wird aus dem Webservice ein Docker-Container
-erstellt und anschließend mit den anderen Docker-Komponenten
-hochgefahren. Dadurch war im Webbrowser beim Serverabruf, statt der
-gewollten Serverlösung, die falsche zu sehen. Der Fortschritt des
-Arbeitspaketes der Produktivumgebung war somit wieder um einiges
-geschrumpft und es musste schnellstmöglich eine Alternative gefunden
-werden, da das Umschreiben der Dockerfiles, beziehungsweise der Skripts,
-ein riesiger Aufwand wäre.
+Nach einer ausführlichen Analyse der Docker-Dateien, stellte sich
+heraus, dass sie für die Zwecke der Diplomarbeit so tatsächlich nicht
+verwendet werden können. Ralph hat in Verbindung mit dem implementierten
+Dockersystem einige komplexe, aufeinander zugreifende Skripts,
+verwendet. Vorweg muss gesagt werden, dass die Vorgängerserverlösung als
+Service angeboten wird und in den vorliegenden Skripts ohne den
+Änderungen des Diplomarbeitsteam installiert wird. Daraufhin wird aus
+dem Webservice ein Docker-Container erstellt und anschließend mit den
+anderen Docker-Komponenten hochgefahren. Dadurch war im Webbrowser beim
+Serverabruf, statt der gewollten Serverlösung, die falsche zu sehen. Der
+Fortschritt des Arbeitspaketes der Produktivumgebung war somit wieder um
+einiges geschrumpft und es musste schnellstmöglich eine Alternative
+gefunden werden, da das Umschreiben der Dockerfiles, beziehungsweise der
+Skripts, ein riesiger Aufwand wäre.
 
 Nach kurzer Recherche stieß man schließlich auf zwei verwendbare
 Alternativen, die nachfolgend genannt und miteinander verglichen werden.
@@ -606,14 +655,6 @@ genauer dargestellt.
   gespeichert.
 \end{enumerate}
 
-Grundsätzlich kann die Grafik auch mittels
-
-\begin{verbatim}
-the web client <-> the web server <-> the socket <-> uwsgi <-> Django
-\end{verbatim}
-
-als normale ASCII-Zeichenkette dargestellt werden.
-
 \hypertarget{funktion-von-docker}{%
 \paragraph{Funktion von Docker}\label{funktion-von-docker}}
 
@@ -657,7 +698,7 @@ jedoch nichts anderes als dass das Zertifakt des Produktivservers der
 Diplomarbeit nicht von einer offiziellen Zertifizierungsstelle signiert
 wurde. Da der Server sowieso nur im Schulnetz der HTL 3 Rennweg
 beziehungsweise über einen VPN-Tunnel erreichbar ist, war es nicht
-nötig, sich an solch eine Zertifizierungsstelle zu wenden.
+nötig, sich an eine Zertifizierungsstelle zu wenden.
 
 \hypertarget{verwendung-einer-.ini-datei}{%
 \subsubsection{Verwendung einer
@@ -994,3 +1035,5 @@ dokumentieren. Somit kann nun jeder die vorliegende Inventurlösung
 verwenden und anhand der Serverdokumentation Schritt für Schritt
 selbständig aufsetzen. Die elf Seiten der Serverdokumentation sind
 jedoch nicht im Anhang beigelegt.
+
+\end{document}
