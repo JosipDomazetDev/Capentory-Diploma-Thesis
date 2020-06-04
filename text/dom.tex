@@ -623,10 +623,10 @@ Erläuterung.
 
 In Android ist es eine äußerst schlechte Idee, sämtliche Logik in einer
 Activity oder einem Fragment zu implementieren. Das softwaretechnische
-Prinzip \texttt{Separation\ of\ Concerns\ (SoC)} hat unter Android einen
-besonderen Stellenwert. Dieses Prinzip beschreibt im Wesentlichen, dass
-eine Klasse nur einer Aufgabe dienen sollte. Falls eine Klasse mehrere
-Aufgaben erfüllt, so muss diese auf mehrere logische Komponenten
+Prinzip ``\texttt{Separation\ of\ Concerns\ (SoC)}'' hat unter Android
+einen besonderen Stellenwert. Dieses Prinzip beschreibt im Wesentlichen,
+dass eine Klasse nur einer Aufgabe dienen sollte. Falls eine Klasse
+mehrere Aufgaben erfüllt, so muss diese auf mehrere logische Komponenten
 aufgeteilt werden. Beispiel: Eine Activity \bzw ein Fragment hat immer
 die Verantwortung, die Kommunikation zwischen UI und Benutzer
 abzuwickeln. Bad Practice wäre es, wenn eine Activity ebenfalls dafür
@@ -1516,10 +1516,10 @@ Ergebnis an die Tastatur geschickt, aber auch als \texttt{Broadcast} an
 das Betriebssystem \cite{broadcast}.
 
 Die App registriert sich beim Betriebssystem und hört auf den Broadcast,
-der den Barcode enthält und automatisch von DataWedge entsandt wird.
+der den Barcode enthält und automatisch von DataWedge gesendet wird.
 Broadcasts werden durch eine String-ID unterschieden, die über DataWedge
-konfiguriert wird. Derartige Ansätze werden als Publish--subscribe-Model
-bezeichnet \textbackslash cite\{publish--subscribe\}.
+konfiguriert wird. Derartige Ansätze werden als Publish-subscribe-Model
+bezeichnet \cite{Publish-subscribe}.
 
 Dies bietet folgende Vorteile:
 
