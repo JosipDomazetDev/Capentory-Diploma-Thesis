@@ -395,19 +395,19 @@ Bei Malware handelt es sich um Schadsoftware, zu dem unter anderem **Viren**, **
 
 #### Angriffe auf Passwörter
 
-Neben dem Raten und Ausspionieren von Passwörtern ist die Brute Force Attacke weit verbreitet. Bei dieser Attacke versuchen Hacker mithilfe einer Software, die in einer schnellen Abfolge verschiedene Zeichenkombinationen ausprobiert, das Passwort zu knacken. Je einfacher das Passwort gewählt ist, umso schneller kann dieses geknackt werden.
+Eine der gängisten Methoden zur Beschaffung von fremden Passwörten ist die Brute-Force-Methode. Hacker verwenden diverse Softwarepakete, mit denen schnell und bequem unzählige Zeichenketten ausprobiert werden. Wenn ein Unternehmen nun ein sehr simples Passwort verwendet, dauert es in der Regel nicht so lange es zu knacken, als ein komplexeres.
 
 Vorbeugung des Diplomarbeitsteams: Die festgelegten Passwörter sind komplex aufgebaut und sicher in den Köpfen der Mitarbeiter gespeichert.
 
 #### Man-in-the-middle Attacken
 
-Bei der „Man-in-the-Middle“-Attacke nistet sich ein Angreifer zwischen den miteinander kommunizierenden Rechnern ein. Diese Position ermöglicht es ihm, den ausgetauschten Datenverkehr zu  kontrollieren und zu manipulieren. Er kann \zB die ausgetauschten Informationen abfangen, lesen, die Weiterleitung kappen, usw.. Von all dem erfährt der Empfänger aber nichts.
+Auch "Man-in-the-Middle-Attacken" sind unter Hackern weit verbreitet. Dabei hängt sich ein Hacker zwischen den Datenaustausch von zwei Systemen und versucht die gewollten Informationen aus dem Verkehr zu filtern. Gelingt es einem Hacker sich zwischen zwei kommunizierenden Rechnern einzuhängen, kann dieser einen erheblichen Schaden anrichten, ohne dass die Beteiligten etwas davon mitbekommen.
 
 Vorbeugung des Diplomarbeitsteams: Der Datenaustausch verläuft über HTTPS und ist somit verschlüsselt.
 
 #### Sniffing
 
-Unter Sniffing (Schnüffeln) wird das unberechtigte Abhören des Datenverkehrs verstanden. Dabei werden oft Passwörter, die nicht oder nur sehr schwach verschlüsselt sind, abgefangen. Andere Angreifer bedienen sich dieser Methode, um herrausfinden zu können, welche Teilnehmer über welche Protokolle miteinander kommunizieren. Mit den so erlangten Informationen können die Angreifer dann den eigentlichen Angriff starten.
+Eine weitere Angriffsmethode wäre das Mithören eines Datenaustausches, auch "Sniffing" genannt. Sniffing wird in der Regel nur zur Vorbereitung von Angriffen verwendet, da durch das Schnüffeln nur nötige Informationen, wie Passwörter oder Teilnehmer einer Verbindung herausgefunden werden. Wenn ein Austausch nun unverschlüsselt verläuft, sind Sniffer keine Seltenheit.
 
 Vorbeugung des Diplomarbeitsteams: Der Datenaustausch verläuft über HTTPS und ist somit verschlüsselt.
 
